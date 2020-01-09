@@ -28,11 +28,11 @@ public class MemberController {
 	}
 	@RequestMapping("/findid.do") //아디찾기페이지로이동
 	public String findid() {
-		return "member/findid";
+		return "member/find_id_pw";
 	}
 	@RequestMapping("/findpw.do") //비번찾기페이지로이동
 	public String findpw() {
-		return "member/findpw";
+		return "member/find_id_pw";
 	}
 	@RequestMapping("/login.do") //로그인페이지로이동
 	public String login() {
@@ -155,27 +155,27 @@ public class MemberController {
 		return "";
 
 	}
-		@RequestMapping(value="/findidProc.do", produces="text/html; charset=UTF-8")
-		@ResponseBody
-		public String idfindProc(String name, String email, HttpServletRequest request) { //아디찾기
-
+	
+	@RequestMapping(value="/findidProc.do", produces="text/html; charset=UTF-8")
+	@ResponseBody
+	public String idfindProc(String name, String email, HttpServletRequest request) { //아디찾기
 			try {
-				MemberDTO dto =  service.idfind(name, email);
-				String id = dto.getId();
-				return id;
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				return "회원목록없음";
-			}
-
+			MemberDTO dto =  service.idfind(name, email);
+			String id = dto.getId();
+			return id;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "회원목록없음";
 		}
+	}
+
 	@RequestMapping("/Logout.do")
 	public String logout() { //로그아웃
 		session.removeAttribute("adminInfo");
 		session.removeAttribute("loginInfo");
 		return "home";
 	}
+	
 	@RequestMapping(value="/pwchange.do", produces="text/html; charset=UTF-8")
 	@ResponseBody 
 	public String pwchange(String id, String input, String email, HttpServletRequest request) { // 패스워드찾기
@@ -224,6 +224,7 @@ public class MemberController {
 		}
 		return "home";
 	}
+	
 	@RequestMapping("/manage.do")
 	public String manage(MemberDTO dto, HttpServletRequest request) { //회원관리(목록조회)
 		List<MemberDTO> list;
@@ -235,6 +236,7 @@ public class MemberController {
 		}
 		return "member/manage";
 	}
+	
 	@RequestMapping(value="/blackup.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String blackup(String id, HttpServletRequest request) { //블랙1업
@@ -251,6 +253,7 @@ public class MemberController {
 			return "서버";
 		}
 	}
+	
 	@RequestMapping(value="/blackdown.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String blackdown(String id, HttpServletRequest request) { //블랙1다운
@@ -267,6 +270,5 @@ public class MemberController {
 			return "서버";
 		}
 	}
-
 
 }
