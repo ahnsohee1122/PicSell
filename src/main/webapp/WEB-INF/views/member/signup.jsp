@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -135,34 +136,54 @@
         </div>
         <div class="basic_info">
             <span>이메일</span>
-            <input type="text" id="email" name="email" placeholder="이메일 입력 ">
-            <input type="button" id="mailc" value="메일인증">
+            <input type="text" id="email" name="email" placeholder="메일인증버튼을 눌러주세요 " readonly>
+            <button id=mailc data-toggle="modal" data-target="#Modal" type="button">메일인증</button>
              <p class="alert2" id="emailcheck"></p>
         </div>
-        <div class="basic_info">
-            <span>메일인증번호</span>
-            <input type="text" id="mailvalue" name="mvalue" placeholder="인증번호">
-             <p class="alert2" id="mailvaluecheck"></p>
-        </div>
-         <div class="basic_info">
-            <span>전화번호</span>
-            <input type="text" id="phone" name="phone" placeholder="전화번호 입력" maxlength="11">
-            <p class="alert2" id="alert_phone_form"></p>
-        </div>
-        <div class="basic_info">
-            <span>우편번호</span>
-            <input type="text" id="zipcode" name="zipcode" readonly>
-            <input type="button" id="zipcode_btn" value="우편번호 찾기" onclick="sample4_execDaumPostcode()">
-        </div>
-        <div class="basic_info">
-            <span>기본주소</span>
-            <input type="text" id="address" name="addr1" readonly>
-        </div>
-        <div class="basic_info">
-            <span>나머지주소</span>
-            <input type="text" id="addr2" name="addr2" placeholder="상세주소입력">
-            <p class="alert2" id="addr2check"></p>
-        </div>
+        <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">메일인증</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="form-group">
+
+            <input type="text" class="form-control" id="emailval" style="width:300px;float:left" placeholder="이메일주소를 입력해주세요">
+            <br><span id="mai"></span>
+            <input type="button" id="mailsend" value="메일인증" style="float:right;margin-top:5px;">
+            
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="mailvalue" style="width:300px;float:left" placeholder="인증번호를 입력해주세요">
+            <br><span id="mailvaluecheck"></span>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary" id="checkmail">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+        <script>
+                  $("#mailc").on("show.bs.modal", function(){
+                	  var button = $(event.relatedTarget) // Button that triggered the modal
+                	  var recipient = button.data('whatever') // Extract info from data-* attributes
+                	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                	  var modal = $(this)
+                	  modal.find('.modal-title').text("PicSell 이메일인증")
+                	  modal.find('.modal-body input').val(recipient)
+                     
+                  })
+               </script>
+
+        
         <div class="basic_info">
             <span>이메일 수신여부</span>
             <label><input type="radio" name="email_receive" value="Y" checked>수신동의</label>
@@ -172,7 +193,8 @@
     <hr>
         <div class="signup_title" style="width:100%;text-align:center">이용약관동의</div>
          <div>
-        <div tabindex="0" class="terms" style="font-size:12px;">	<h6> 제 1 조 (목적)</h6>
+        <div tabindex="0" class="terms" style="font-size:12px;">	
+        <h6> 제 1 조 (목적)</h6>
 												<ol>
 													<li>1. 본 약관은 기업마당 사이트가 제공하는 모든 서비스(이하 "서비스")의 이용조건 및 절차, 이용자와 기업마당 사이트의 권리, 의무, 책임사항과 기타 필요한 사항을 규정함을 목적으로 합니다.</li>
 												</ol>
@@ -350,19 +372,94 @@
 	var mailvalue = 0;
 	var agree1 = 0;
 	var agree2 = 0;
-  
-   	
-   	
-   	// 우편번호 찾기 실행 함수
-   		function sample4_execDaumPostcode() {
-   			new daum.Postcode({
-   				oncomplete : function(data) {
-   					var roadAddr = data.roadAddress;
-   					document.getElementById('zipcode').value = data.zonecode;
-   					document.getElementById('address').value = roadAddr;
-   				}
-   			}).open();
-   		}
+
+	//메일중복검사
+		$("#emailval").on("blur",function(){
+			var email = $("#emailval").val();
+			var regex = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+			var data = $("#emailval").val();
+			var result = regex.exec(data);
+			if(result != null){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/member/mailCheck.do",
+				type:"post",
+				data:{email:email}
+			}).done(function(res){
+				if(res == "사용 가능한 메일주소입니다."){
+					$("#mai").html("사용 가능한 메일주소입니다.").css("color","blue");
+					$("#mai").css("font-size","15px");
+					mailValid = 1;
+					console.log(mailValid);
+					   }
+				
+				else if(res == "중복된 메일주소입니다."){
+					$("#mai").html("중복된 메일주소입니다.").css("color","red");
+					$("#mai").css("font-size","15px");
+					$("#emailval").val("");
+					mailValid = 0;
+					$("#emailval").focus();
+				}
+			}).fail(function(res){
+				alert("서버문제입니다 관리자에게 문의하세요");
+			});}else{
+				$("#mai").html("이메일형식을 맞춰주세요").css("color","red");
+				$("#mai").css("font-size","15px");
+				$("#mai").val("");
+				$("#mai").focus();
+			}
+		})
+		 $("#mailsend").on("click",function(){
+			 var regex = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+	   			var data = $("#emailval").val();
+	   			var result = regex.exec(data);
+	   			
+	   			if(result != null){
+	  				$.ajax({
+	  					url:"../mail/signmail.do",
+	  					type:"post",
+	  					data:{email:data}
+	  				}).done(function(res){
+	  					alert("인증메일이 전송되었습니다");
+	  					emailc = 1;
+	  				}).fail(function(res){
+	  					alert("서버에러입니다 관리자에게 문의하세요");
+	  				});
+	   			}else{
+	   				emailc = 0;
+	   			}
+				   
+				   
+			   });
+		$("#checkmail").on("click",function(){
+			var email = $("#emailval").val();
+			var value = $("#mailvalue").val();
+			if(email==""){
+				alert("이메일을먼저 입력해주세요");
+			}else{
+			$.ajax({
+				url:"../mail/valuecheck.do",
+				type:"post",
+				data:{value:value}
+			}).done(function(res){
+				if(res=="ㅇㅋ"){
+					$("#mailvaluecheck").html("인증완료되었습니다").css("color","blue");
+					alert("인증완료되었습니다!");
+					$("#close").trigger("click");
+					$("#email").val(email);
+					$("#emailval").val("");
+					$("#mailvalue").val("");
+					mailvalue = 1;
+				}else if(res=="ㄴㄴ"){
+					$("#mailvaluecheck").html("인증번호를 다시확인해주세요").css("color","red");
+					$("#mailvaluecheck").css("font-size","15px");
+					$("#mailvalue").val("");
+					$("#mailvalue").focus();
+				}
+			}).fail(function(res){
+				alert("서버에러입니다 관리자에게 연락주세요");
+			});}
+		})
+
    	$("#nickname").on("blur",function(){
    		var nick = $("#nickname").val();
    		if(nick==""){
@@ -372,47 +469,44 @@
    			nicknamec = 1;
    		}
    	})
-   	$("#addr2").on("input",function(){
-   		var addr1 = $("#address").val();
-   		if(addr1==""){
-   		$("#addr2check").html("위 버튼을눌러서 우편번호와 도로명주소를 선택하세요").css("color","red");
-   		}else{
-   			$("#addr2check").html("");
-   			zipcodec = 1;
-   			addr1c = 1;
-   			addr2c = 1;
-   		}
-   	})
-   	// 아이디 중복검사
+  	// 아이디 정규식 검사
    		$("#id").on("blur",function(){
+   			var regex = /^[a-zA-Z0-9]{4,12}$/;
+   			var data = $("#id").val();
+   			var result = regex.exec(data);
    			
-   			var id = $("#id").val();
-   			if(id==""){
-   				$("#alert_id").html("");
+   			if(result != null){
+   				$("#alert_id_form").html("올바른 아이디 형식입니다.").css("color","blue");
+
+   				$.ajax({
+   	   				url:"${pageContext.request.contextPath}/member/idCheck.do",
+   	   				type:"post",
+   	   				data:{id:data}
+   	   			}).done(function(res){
+   	   				idValid=1;
+   	   				if(res == "사용 가능한 ID입니다"){
+   	   					$("#alert_id").html("사용 가능한 ID입니다.").css("color","blue");
+   	   					$("#password").focus();
+   	   					idValid = 1;
+   	   					console.log(idValid);
+   	   				}
+   	   				else if(res == "중복된 ID입니다."){
+   	   					$("#alert_id").html("중복된 ID입니다.").css("color","red");
+   	   					$("#id").val("");
+   	   					$("#id").focus();
+   	   				}
+   	   			}).fail(function(res){
+   	   				alert(res);
+   	   			});
+   				
    			}else{
-   			$.ajax({
-   				url:"${pageContext.request.contextPath}/member/idCheck.do",
-   				type:"post",
-   				data:{id:id}
-   			}).done(function(res){
-   				idValid=1;
-   				if(res == "사용 가능한 ID입니다"){
-   					$("#alert_id").html("사용 가능한 ID입니다.").css("color","blue");
-   					$("#password").focus();
-   					idValid = 1;
-   					console.log(idValid);
-   				}
-   				else if(res == "중복된 ID입니다."){
-   					$("#alert_id").html("중복된 ID입니다.").css("color","red");
-   					$("#id").val("");
-   					$("#id").focus();
-   				}
-   			}).fail(function(res){
-   				alert(res);
-   			});
-   			console.log(idValid);
-   			}
+   				$("#alert_id_form").html("잘못된 아이디 형식입니다.").css("color","red");
+   				idValid = 0;
+   			}			
    		})
+   		
+   	// 아이디 중복검사
+   		
    		//닉네임 중복검사
    		$("#nickname").on("blur",function(){
    			var nickname = $("#nickname").val();
@@ -437,72 +531,9 @@
    				$("#alert_nickname_form").html(res).css("color","red");
    			});
    		})
- 		$("#mailvalue").on("blur",function(){
- 			var value = $("#mailvalue").val();
- 			$.ajax({
- 				url:"../mail/valuecheck.do",
- 				type:"post",
- 				data:{value:value}
- 			}).done(function(res){
- 				if(res=="ㅇㅋ"){
- 					$("#mailvaluecheck").html("인증완료되었습니다").css("color","blue");
- 					mailvalue = 1;
- 				}else if(res=="ㄴㄴ"){
- 					$("#mailvaluecheck").html("인증번호를 다시확인해주세요").css("color","red");
- 					$("#mailvalue").val("");
- 					$("#mailvalue").focus();
- 				}
- 			}).fail(function(res){
- 				alert("서버에러입니다 관리자에게 연락주세요");
- 			})
- 		})
-   		//메일중복검사
-   		$("#email").on("blur",function(){
-   			var email = $("#email").val();
-   			var regex = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
-   			var data = $("#email").val();
-   			var result = regex.exec(data);
-   			if(result != null){
-   			$.ajax({
-   				url:"${pageContext.request.contextPath}/member/mailCheck.do",
-   				type:"post",
-   				data:{email:email}
-   			}).done(function(res){
-   				if(res == "사용 가능한 메일주소입니다."){
-   					$("#emailcheck").html("사용 가능한 메일주소입니다.").css("color","blue");
-   					$("#phone").focus();
-   					mailValid = 1;
-   					console.log(mailValid);
-   					   }
-   				
-   				else if(res == "중복된 메일주소입니다."){
-   					$("#emailcheck").html("중복된 메일주소입니다.").css("color","red");
-   					$("#email").val("");
-   					mailValid = 0;
-   					$("#email").focus();
-   				}
-   			}).fail(function(res){
-   				alert("서버문제입니다 관리자에게 문의하세요");
-   			});}else{
-   				$("#emailcheck").html("이메일형식을 맞춰주세요").css("color","red");
-   				$("#email").val("");
-					$("#email").focus();
-   			}
-   		})
-   		 //메일인증
-   				   $("#mailc").on("click",function(){
-   					   var email = $("#email").val();
- 		  				$.ajax({
- 		  					url:"../mail/signmail.do",
- 		  					type:"post",
- 		  					data:{email:email}
- 		  				}).done(function(res){
- 		  					alert("인증메일이 전송되었습니다");
- 		  				}).fail(function(res){
- 		  					alert("서버에러입니다 관리자에게 문의하세요");
- 		  				});
-   					   
-   				   })
+ 	
+   		
+   		
    			// 이메일 정규식 검사
    		$("#email").on("blur",function(){
    			var regex = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
@@ -517,21 +548,7 @@
    		})
    		
    	
-   	// 아이디 정규식 검사
-   		$("#id").on("blur",function(){
-   			var regex = /^[a-zA-Z0-9]{4,12}$/;
-   			var data = $("#id").val();
-   			var result = regex.exec(data);
-   			
-   			if(result != null){
-   				$("#alert_id_form").html("올바른 아이디 형식입니다.").css("color","blue");
-   				idValid = 1;
-   			}else{
-   				$("#alert_id_form").html("잘못된 아이디 형식입니다.").css("color","red");
-   				idValid = 0;
-   			}			
-   		})
-   		
+ 
    	// 비밀번호 정규식 검사
    		$("#pw").on("blur",function(){
    			var regex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{9,20}$/;
@@ -567,8 +584,10 @@
    			if(result != null){
    				$("#alert_name_form").html("올바른 이름 형식입니다.").css("color","blue");
    				namec = 1;
+   				$("#name").focus();
    			}else{
    				$("#alert_name_form").html("잘못된 이름 형식입니다.").css("color","red");
+   				$("#name").focus();
    				namec = 0;
    			}
    		})

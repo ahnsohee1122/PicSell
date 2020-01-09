@@ -24,7 +24,7 @@ height:1000px;
 </div>
 <c:choose>
 <c:when test = "${list.size() == 0}">
-없음
+ 없음
 </c:when>
 <c:otherwise>
 <table style="width:80%;">

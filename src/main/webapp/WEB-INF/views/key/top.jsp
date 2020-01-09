@@ -103,7 +103,7 @@
 	            					<path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#fff" />
         						</svg>
 						        <input type="text" placeholder="email@domain.com" name="loginId" id="loginId"><br>
-						        <input type="password" placeholder="Password" name="LoginPw" id="loginPw"><br>
+						        <input type="password" placeholder="Password" name="loginPw" id="loginPw"><br>
 						        <div id="info" style="font-size: 20px; display: none">잘못된 아이디 또는 잘못된 패스워드입니다.</div>
 						        <div class="form-group p-0 save" style="width: 300px;">
 									<div class="form-check p-0 m-0" style="width: 130px;">
@@ -131,12 +131,13 @@
             </ul>
         </div>
         </c:when>
+       
         <c:when test="${adminInfo != null }">
           <div class="col-7 col-md-6 col-lg-5 col-xl-4 p-0 h-100 float-right text-right">
             <ul class="h-100 float-right mx-3 my-0" style="list-style: none;">
                 <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/contest/contest.do" class="text-dark">공모전</a></li>
                 <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a></li>
-                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/member/login.do" class="text-dark">로그인</a></li>
+                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="#" class="text-dark explanation" data-toggle="modal" data-target="#Login">로그인</a></li>
             </ul>
         </div>
         </c:when>
@@ -152,10 +153,10 @@
 		    
 			$("#login").on("click",function(){
 				$.ajax({
-					url:"loginProc.do",
+					url:"member/loginProc.do",
 					type:"post",
-					data:{ id:$("#id").val(),
-						pw:$("#pw").val()
+					data:{ id:$("#loginId").val(),
+						pw:$("#loginPw").val()
 					}
 				}).done(function(res){
 					if(res == "로그인성공"){

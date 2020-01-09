@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <title>SignUp | PicSell</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
 <style>
 	strong {color: crimson;}
 </style>
@@ -21,7 +22,7 @@
 		</div>
 		<div class="container p-0 mx-auto my-5">
 			<div class="m-auto" style="max-width: 700px;">
-				<form class="mx-3 my-5 px-5 py-2" style="border: 1px solid darkgray; border-radius: 10px;">
+				<form class="mx-3 my-5 px-5 py-2" style="border: 1px solid darkgray; border-radius: 10px;" action="signupProc.do" method="post" id="frm">
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">아이디<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
@@ -34,7 +35,7 @@
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">비밀번호<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="password" class="form-control" id="pw" name="pw" placeholder="8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)" style="font-size: 15px;" required>
+		      				<input type="password" class="form-control" id="pw" name="pw" placeholder="8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)" style="font-size: 15px;color:black;" required>
 		      				<div id="alert_pw_form" class="alert2 invalid-feedback">잘못된 비밀번호 형식입니다.</div>
 						</div>
 					</div>
@@ -63,10 +64,53 @@
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">이메일<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
 		      				<input type="text" class="form-control" id="email" name="email" placeholder="예) picsell@gmail.com" style="font-size: 15px;" required>
-		      				<input type="button" id="mailc" value="메일인증" class="mt-2" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
+		      				<input type="button" data-toggle="modal" data-target="#Modal" id="mailc" value="메일인증" class="mt-2" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
 		      				<div id="emailcheck" class="alert6 invalid-feedback">잘못된 이메일 입니다.</div>
 						</div>
 					</div>
+					 <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">메일인증</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="form-group">
+
+            <input type="text" class="form-control" id="emailval" style="width:300px;float:left" placeholder="이메일주소를 입력해주세요">
+            <br><span id="mai"></span>
+            <input type="button" id="mailsend" value="메일인증" style="float:right;margin-top:5px;">
+            
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="mailvalue" style="width:300px;float:left" placeholder="인증번호를 입력해주세요">
+            <br><span id="mailvaluecheck"></span>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary" id="checkmail">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+        <script>
+                  $("#mailc").on("show.bs.modal", function(){
+                	  var button = $(event.relatedTarget) // Button that triggered the modal
+                	  var recipient = button.data('whatever') // Extract info from data-* attributes
+                	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                	  var modal = $(this)
+                	  modal.find('.modal-title').text("PicSell 이메일인증")
+                	  modal.find('.modal-body input').val(recipient)
+                     
+                  })
+               </script>
+					
 					<div class="row my-4">
 						<label class="col-form-label col-4 col-lg-3 pt-0">이메일<br>수신동의</label>
 						<div class="col-8 col-lg-9">
@@ -253,7 +297,7 @@
 						</div>
 					</div>
 					<div class="row mt-5 mb-3">
-				  		<button class="m-auto btn rounded-lg text-black" type="submit" style="width: 150px; border: 1px solid darkgray;">가입하기</button>
+				  		<button id="signup_join" class="m-auto btn rounded-lg text-black" type="submit" style="width: 150px; border: 1px solid darkgray;">가입하기</button>
 				  	</div>
 				</form>
 			</div>
@@ -268,7 +312,6 @@
 		var pwc = 0;
 		var namec = 0;
 		var nicknamec = 0;
-		var emailc = 0;
 		var mailvalue = 0;
 		var agree1 = 0;
 		var agree2 = 0;
@@ -279,46 +322,39 @@
    			var data = $("#id").val();
    			var result = regex.exec(data);
    			
-   			if(result == null){
-   				$("#alert_id3").css("display", "block");
-   				$("#alert_id1").css("display", "none");
-   				$("#alert_id2").css("display", "none");
-   				idValid = 0;
-   			}		
-   		})
-	   	
-   		// 아이디 중복검사
-   		$("#id").on("blur",function(){
-   			
-   			var id = $("#id").val();
-   			if(id==""){
-   				$("#alert_id").html("");
+   			if(result != null){
+   				$("#alert_id_form").html("올바른 아이디 형식입니다.").css("color","blue");
+
+   				$.ajax({
+   	   				url:"${pageContext.request.contextPath}/member/idCheck.do",
+   	   				type:"post",
+   	   				data:{id:data}
+   	   			}).done(function(res){
+   	   				idValid=1;
+   	   				if(res == "가능"){
+   	   					$("#alert_id1").css("display","block");
+   	   				$("#alert_id2").css("display","none");
+   	   			$("#alert_id3").css("display","none");
+   	   					idValid = 1;
+   	   					$("#pw").focus();
+   	   				}
+   	   				else if(res == "중복"){
+   	   				$("#alert_id2").css("display","block");
+   	   			$("#alert_id3").css("display","none");
+   	   					$("#id").val("");
+   	   					$("#id").focus();
+   	   					idValid = 0;
+   	   				}
+   	   			}).fail(function(res){
+   	   				alert(res);
+   	   			});
+   				
    			}else{
-   			$.ajax({
-   				url:"${pageContext.request.contextPath}/member/idCheck.do",
-   				type:"post",
-   				data:{id:id}
-   			}).done(function(res){
+   				$("#alert_id3").css("display","block");
    				idValid = 0;
-   				if(res == "사용 가능한 ID입니다"){
-   					$("#alert_id1").css("display", "block");
-   					$("#alert_id3").css("display", "none");
-   					$("#password").focus();
-   					idValid = 1;
-   					console.log(idValid);
-   				}
-   				else if(res == "중복된 ID입니다."){
-   					$("#alert_id2").css("display", "block");
-   					$("#alert_id3").css("display", "none");
-   					$("#id").val("");
-   					$("#id").focus();
-   				}
-   			}).fail(function(res){
-   				alert(res);
-   			});
-   			console.log(idValid);
-   			}
-   		})
+   				$("#id").focus();
+   			}			
+   		})	  
    		
    		// 이름 정규식 검사
    		$("#name").on("blur",function(){
@@ -332,56 +368,39 @@
    			}else{
    				$("#alert_name_form").css("display", "block");
    				namec = 0;
+   				$("#name").val("");
    			}
    		})
    		
-	   	$("#nickname").on("blur",function(){
-	   		var nick = $("#nickname").val();
-	   		if(nick==""){
-	   			$("#alert_nickname").html("별명을 입력해주세요").css("color","red");
-	   			$("#nickname").focus();
-	   		}else{   			
-	   			nicknamec = 1;
-	   		}
-	   	})
-	   	
-	   	$("#addr2").on("input",function(){
-	   		var addr1 = $("#address").val();
-	   		if(addr1==""){
-	   		$("#addr2check").html("위 버튼을눌러서 우편번호와 도로명주소를 선택하세요").css("color","red");
-	   		}else{
-	   			$("#addr2check").html("");
-	   			zipcodec = 1;
-	   			addr1c = 1;
-	   			addr2c = 1;
-	   		}
-	   	})
-	   	
+
+
 	   	
    		
    		//닉네임 중복검사
    		$("#nickname").on("blur",function(){
    			var nickname = $("#nickname").val();
+   			if(nickname==""){
+   				alert("별명을 입력해주세요");
+   				nicknamec=0;
+   			}else{
    			$.ajax({
    				url:"${pageContext.request.contextPath}/member/nickCheck.do",
    				type:"post",
    				data:{nickname:nickname}
    			}).done(function(res){
    				if(res == "사용가능한 별명입니다."){
-   					$("#alert_nickname").html("사용가능한 별명입니다").css("color","blue");
-   					$("#email").focus();
-   					nickValid = 1;
-   					console.log(nickValid);
+   					$("#alert_nickname").css("display","none");
+   					nicknamec = 1;
    				}
    				else if(res == "중복된 별명입니다."){
-   					$("#alert_nickname").html("중복된 별명입니다").css("color","red");
+   					$("#alert_nickname").css("display","block");
    					$("#nickname").val("");
-   					$("#nickname").focus();
    				}
 
    			}).fail(function(res){
-   				$("#alert_nickname_form").html(res).css("color","red");
+   				$("#alert_nickname_form").css("display", "none");
    			});
+   			}
    		})
    		
  		$("#mailvalue").on("blur",function(){
@@ -397,74 +416,94 @@
  				}else if(res=="ㄴㄴ"){
  					$("#mailvaluecheck").html("인증번호를 다시확인해주세요").css("color","red");
  					$("#mailvalue").val("");
- 					$("#mailvalue").focus();
  				}
  			}).fail(function(res){
  				alert("서버에러입니다 관리자에게 연락주세요");
  			})
  		})
  		
-   		//메일중복검사
-   		$("#email").on("blur",function(){
-   			var email = $("#email").val();
-   			var regex = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
-   			var data = $("#email").val();
-   			var result = regex.exec(data);
-   			if(result != null){
-   			$.ajax({
-   				url:"${pageContext.request.contextPath}/member/mailCheck.do",
-   				type:"post",
-   				data:{email:email}
-   			}).done(function(res){
-   				if(res == "사용 가능한 메일주소입니다."){
-   					$("#emailcheck").html("사용 가능한 메일주소입니다.").css("color","blue");
-   					$("#phone").focus();
-   					mailValid = 1;
-   					console.log(mailValid);
-   					   }
-   				
-   				else if(res == "중복된 메일주소입니다."){
-   					$("#emailcheck").html("중복된 메일주소입니다.").css("color","red");
-   					$("#email").val("");
-   					mailValid = 0;
-   					$("#email").focus();
-   				}
-   			}).fail(function(res){
-   				alert("서버문제입니다 관리자에게 문의하세요");
-   			});}else{
-   				$("#emailcheck").html("이메일형식을 맞춰주세요").css("color","red");
-   				$("#email").val("");
-					$("#email").focus();
-   			}
-   		})
-   		
-   		 //메일인증
-   		 $("#mailc").on("click",function(){
-   		 	var email = $("#email").val();
- 		  	$.ajax({
- 		  		url:"../mail/signmail.do",
- 		  		type:"post",
- 		  		data:{email:email}
- 		  	}).done(function(res){
- 		  		alert("인증메일이 전송되었습니다");
- 		  	}).fail(function(res){
- 		  		alert("서버에러입니다 관리자에게 문의하세요");
- 		  	});
-   					   
-   		})
-   		
-   		// 이메일 정규식 검사
-   		$("#email").on("blur",function(){
-   			var regex = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
-   			var data = $("#email").val();
-   			var result = regex.exec(data);
-   			
-   			if(result != null){
-   				emailc = 1;
-   			}else{
-   				emailc = 0;
-   			}
-   		})
+   		$("#emailval").on("blur",function(){
+			var email = $("#emailval").val();
+			var regex = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+			var data = $("#emailval").val();
+			var result = regex.exec(data);
+			if(result != null){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/member/mailCheck.do",
+				type:"post",
+				data:{email:email}
+			}).done(function(res){
+				if(res == "사용 가능한 메일주소입니다."){
+					$("#mai").html("사용 가능한 메일주소입니다.").css("color","blue");
+					$("#mai").css("font-size","15px");
+					mailValid = 1;
+					
+					   }
+				
+				else if(res == "중복된 메일주소입니다."){
+					$("#mai").html("중복된 메일주소입니다.").css("color","red");
+					$("#mai").css("font-size","15px");
+					$("#emailval").val("");
+					mailValid = 0;
+				}
+			}).fail(function(res){
+				alert("서버문제입니다 관리자에게 문의하세요");
+			});}else{
+				$("#mai").html("이메일형식을 맞춰주세요").css("color","red");
+				$("#mai").css("font-size","15px");
+				$("#mai").val("");
+			}
+		})
+		 $("#mailsend").on("click",function(){
+			 var regex = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+	   			var data = $("#emailval").val();
+	   			var result = regex.exec(data);
+	   			
+	   			if(result != null){
+	  				$.ajax({
+	  					url:"../mail/signmail.do",
+	  					type:"post",
+	  					data:{email:data}
+	  				}).done(function(res){
+	  					alert("인증메일이 전송되었습니다");
+	  					emailc = 1;
+	  				}).fail(function(res){
+	  					alert("서버에러입니다 관리자에게 문의하세요");
+	  				});
+	   			}else{
+	   				emailc = 0;
+	   			}
+				   
+				   
+			   });
+		$("#checkmail").on("click",function(){
+			var email = $("#emailval").val();
+			var value = $("#mailvalue").val();
+			if(email==""){
+				alert("이메일을먼저 입력해주세요");
+			}else{
+			$.ajax({
+				url:"../mail/valuecheck.do",
+				type:"post",
+				data:{value:value}
+			}).done(function(res){
+				if(res=="ㅇㅋ"){
+					$("#mailvaluecheck").html("인증완료되었습니다").css("color","blue");
+					alert("인증완료되었습니다!");
+					$("#close").trigger("click");
+					$("#email").val(email);
+					$("#emailval").val("");
+					$("#mailvalue").val("");
+					mailvalue = 1;
+				}else if(res=="ㄴㄴ"){
+					$("#mailvaluecheck").html("인증번호를 다시확인해주세요").css("color","red");
+					$("#mailvaluecheck").css("font-size","15px");
+					$("#mailvalue").val("");
+				}
+			}).fail(function(res){
+				alert("서버에러입니다 관리자에게 연락주세요");
+			});}
+		})
    		
    		
    		// 비밀번호 정규식 검사
@@ -474,21 +513,22 @@
    			var result = regex.exec(data);
    			
    			if(result != null){
-   				$("#alert_pw_form").html("올바른 비밀번호 형식입니다.").css("color","blue");
    				pwc = 1;
-   			}else{
-   				$("#alert_pw_form").html("잘못된 비밀번호 형식입니다.").css("color","red");
+   				$("#alert_pw_form").css("display","none");
+   			}else{   				
+   				$("#alert_pw_form").css("display","block");
    				pwc = 0;
+   				$("#pw").val("");
    			}
    		})
    		
    		// 비밀번호-비밀번호체크 일치 여부
-	   	$("#pw_check").on("input",function(){
+	   	$("#pw_check").on("blur",function(){
 	   		if($("#pw").val() == $("#pw_check").val()){
-	   			$("#alert_pw").html("비밀번호가 일치합니다.").css("color","blue");
 	   			pwcheckValid = 1;
 	   		}else{
-	   			$("#alert_pw").html("비밀번호가 일치하지 않습니다.").css("color","red");
+	   			$("#alert_pw").css("display","block");
+	   			$("#pw_check").val("");
 	   			pwcheckValid = 0;
 	   		}
 	   	})
@@ -504,6 +544,7 @@
    		})
    		
    			$("#agreement2").on("change",function(){
+
    			var agr2 = $("#agreement2").prop("checked");
    			if(agr2 == true){
    				agree2 = 1;
@@ -511,14 +552,20 @@
    				agree2 = 0;
    			}
    		})
-   
-  
+
+	
+
    		// 각 칸이 비어있으면 alert 창 띄우고 return 시키기!
    		$("#signup_join").on("click",function(){
+   		  var radiovalue = $(":input:radio[name=email_receive]:checked").val();
 
-   	    if(idValid==0||nickValid==0||mailValid==0){
-   			alert("중복검사를 해주세요");
-   		   	return;
+		if(radiovalue==""){
+  	 		 radiovalue=="N";
+		}
+  		
+		else if(idValid==0){
+   	    	alert("아이디를 입력해주세요");
+   	    	return;
    	    }else if(pwc==0){
    			alert("비밀번호를 입력해주세요");
    			return;
@@ -531,18 +578,10 @@
    	   	}else if(nicknamec==0){
    		   	alert("별명을 입력해주세요");
    		   	return;
-   	   	}else if(mailvalue==0){
+   	   	}
+		else if(mailvalue==0){
    		   	alert("메일인증을 완료해주세요");
    		   	return;
-   	   	}else if(phonec==0){
-   		   alert("휴대폰번호를 입력해주세요");
-   		   return;
-   	   	}else if(emailc==0){
-   		   alert("이메일을 입력해주세요");
-   		   return;
-   	   	}else if(zipcodec==0||addr1c==0||addr2c==0){
-   		   alert("주소를 입력해주세요");
-   		   return;
    	   	}else if(agree1==0){
 			alert("이용약관에 동의하지 않으면 회원가입이 불가능합니다.");
 			return;
@@ -550,8 +589,26 @@
 			alert("개인정보처리방침에 동의하지 않으면 회원가입이 불가능합니다.");
 			return;
 		}
-   	    
-   	    $("#frm").submit();
+   	    $.ajax({
+   	    	url:"signupProc.do",
+   	    	type:"post",
+   	    	data:{id:$("#id").val(),
+   	    		pw:$("#pw").val(),
+   	    		name:$("#name").val(),
+   	    		nickname:$("#nickname").val(),
+   	    		email:$("#email").val(),
+   	    		email_receive:radiovalue}
+   	    }).done(function(res){
+   	    	if(res=="ㅇㅋ"){
+   	    		alert("회원가입이 완료되었습니다. 환영합니다!");
+   	    		location.href="${pageContext.request.contextPath}/home";
+   	    	}else if(res=="ㄴㄴ"){
+   	    		alert("회원가입에 실패했습니다")
+   	    	}
+   	    }).fail(function(res){
+   	    	alert("서버에러입니다 관리자에게 문의바랍니다");
+   	    });
+
    			
    		})
 	</script>

@@ -39,20 +39,21 @@ public class MemberController {
 
 		return "member/login";
 	}
-	@RequestMapping("/signupProc.do") //회원가입
+	@RequestMapping(value="/signupProc.do", produces="text/html; charset=UTF-8") //회원가입
+	@ResponseBody
 	public String signupProc(MemberDTO dto) {
 
 		try {
 			int result = service.insert(dto);
 			if(result>0) {
-				System.out.println("ㅇㅋ");
+				return"ㅇㅋ";
 			}else {
-				System.out.println("no");
+				return"ㄴㄴ";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "서버에러";
 		}
-		return "home";
 	}
 
 	@RequestMapping(value="/idCheck.do", produces="text/html; charset=UTF-8")
@@ -64,8 +65,8 @@ public class MemberController {
 			System.out.println(id);
 			int result = service.idCheck(id);
 			System.out.println(result);
-			if(result >0) {return"중복된 ID입니다."; }
-			else {return"사용 가능한 ID입니다";}
+			if(result >0) {return"중복"; }
+			else {return"가능";}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -107,7 +108,7 @@ public class MemberController {
 	@RequestMapping(value="/loginProc.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String loginProc(String id, String pw, HttpServletRequest request) { //로그인
-
+		System.out.println(id+" : "+pw);
 		try {
 			MemberDTO dto = service.getnick(id);			 
 			String nickname = dto.getNickname();
