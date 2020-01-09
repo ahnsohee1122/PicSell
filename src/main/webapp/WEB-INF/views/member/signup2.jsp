@@ -8,6 +8,7 @@
 
 <style>
 	strong {color: crimson;}
+	input:read-only {background-color: white;}
 </style>
 </head>
 <body>
@@ -36,80 +37,84 @@
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">비밀번호<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
 		      				<input type="password" class="form-control" id="pw" name="pw" placeholder="8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)" style="font-size: 15px;color:black;" required>
-		      				<div id="alert_pw_form" class="alert2 invalid-feedback">잘못된 비밀번호 형식입니다.</div>
+		      				<div id="alert_pw_form" class="px-1 alert2 invalid-feedback">잘못된 비밀번호 형식입니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">비밀번호 확인<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
 		      				<input type="password" class="form-control" id="pw_check" name="pw_check" placeholder="비밀번호를 한번 더 입력해 주세요." style="font-size: 15px;" required>
-		      				<div id="alert_pw" class="alert3 invalid-feedback">비밀번호를 다시 확인해주시기 바랍니다.</div>
+		      				<div id="alert_pw" class="px-1 alert3 invalid-feedback">비밀번호를 다시 확인해주시기 바랍니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">이름<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
 		      				<input type="text" class="form-control" id="name" name="name" placeholder="예) 홍길동 or (주)픽셀 (실명 or 회사명)" style="font-size: 15px;" required>
-		      				<div id="alert_name_form" class="alert4 invalid-feedback">잘못된 이름 형식입니다.</div>
+		      				<div id="alert_name_form" class="px-1 alert4 invalid-feedback">잘못된 이름 형식입니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">닉네임<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
 		      				<input type="text" class="form-control" id="nickname" name="nickname" placeholder="예) (주)픽셀 (픽셀에서 활동하실 닉네임)" style="font-size: 15px;" required>
-		      				<div id="alert_nickname" class="alert5 invalid-feedback">닉네임을 확인해 주시기 바랍니다.</div>
+		      				<div id="alert_nickname" class="px-1 alert5 invalid-feedback">닉네임을 확인해 주시기 바랍니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">이메일<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="text" class="form-control" id="email" name="email" placeholder="예) picsell@gmail.com" style="font-size: 15px;" required>
+		      				<input type="text" class="form-control" id="email" name="email" placeholder="이메일 인증을 해주시기 바랍니다." style="background-color: white; font-size: 15px;" required readonly>
 		      				<input type="button" data-toggle="modal" data-target="#Modal" id="mailc" value="메일인증" class="mt-2" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
-		      				<div id="emailcheck" class="alert6 invalid-feedback">잘못된 이메일 입니다.</div>
+		      				<div id="emailcheck" class="px-1 alert6 invalid-feedback">잘못된 이메일 입니다.</div>
 						</div>
 					</div>
-					 <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">메일인증</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        
-          <div class="form-group">
-
-            <input type="text" class="form-control" id="emailval" style="width:300px;float:left" placeholder="이메일주소를 입력해주세요">
-            <br><span id="mai"></span>
-            <input type="button" id="mailsend" value="메일인증" style="float:right;margin-top:5px;">
-            
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" id="mailvalue" style="width:300px;float:left" placeholder="인증번호를 입력해주세요">
-            <br><span id="mailvaluecheck"></span>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-        <button type="button" class="btn btn-primary" id="checkmail">확인</button>
-      </div>
-    </div>
-  </div>
-</div>
-        <script>
-                  $("#mailc").on("show.bs.modal", function(){
-                	  var button = $(event.relatedTarget) // Button that triggered the modal
-                	  var recipient = button.data('whatever') // Extract info from data-* attributes
-                	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                	  var modal = $(this)
-                	  modal.find('.modal-title').text("PicSell 이메일인증")
-                	  modal.find('.modal-body input').val(recipient)
-                     
-                  })
-               </script>
+					<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="top: 250px;">
+  						<div class="modal-dialog" role="document">
+    						<div class="modal-content m-auto" style="width: 450px;">
+      							<div class="modal-header">
+        							<h5 class="modal-title" id="exampleModalLabel">이메일 인증 서비스</h5>
+        							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         	 							<span aria-hidden="true">&times;</span>
+        							</button>
+      							</div>
+      							<div class="modal-body">
+	          						<div class="form-group">
+		          						<label class="col-form-label pt-0">이메일</label>
+							            <div>
+								            <input type="text" class="form-control" id="emailval" style="width: 300px; float: left;" placeholder="예) picsell@gmail.com">
+								            <input type="button" id="mailsend" value="메일인증" class="mx-2" style="width: 100px; height: 38px; border: 1px solid darkgray; background-color: white; border-radius: 10px;">
+								            <div id="mai1" class="px-1 alert7 invalid-feedback">사용가능한 이메일입니다.</div>
+								            <div id="mai2" class="px-1 alert8 invalid-feedback">이미사용중인 이메일입니다.</div>
+								            <div id="mai3" class="px-1 alert9 invalid-feedback">이메일 주소를 입력해주세요.</div>
+							            </div>
+ 							        </div>
+							        <div class="form-group">
+							        	<label class="col-form-label pt-0">인증번호</label>
+							        	<div>
+							        		<input type="text" class="form-control" id="mailvalue" placeholder="예) rQQPrsS4wK">
+							        		<div id="mailvaluecheck1" class="px-1 alert10 invalid-feedback">인증 완료되었습니다.</div>
+								        	<div id="mailvaluecheck2" class="px-1 alert11 invalid-feedback">인증번호를 다시 확인하여 입력해주세요.</div>
+							        	</div>
+							        </div>
+      							</div>
+							    <div class="modal-footer">
+							    	<div class="m-auto"><button type="button" id="close" class="btn border border-secondary text-black" style="background-color: white;" data-dismiss="modal">취소</button></div>
+							    	<div class="m-auto"><button type="button" class="btn border-secondary text-black" id="checkmail">확인</button></div>
+							   	</div>
+						    </div>
+						</div>
+					</div>
+					
+        			<script>
+		                  $("#mailc").on("show.bs.modal", function(){
+		                	  var button = $(event.relatedTarget)
+		                	  var recipient = button.data('whatever')
+		                	  var modal = $(this)
+		                	  modal.find('.modal-title').text("PicSell 이메일인증")
+		                	  modal.find('.modal-body input').val(recipient)
+		                  })
+               		</script>
 					
 					<div class="row my-4">
 						<label class="col-form-label col-4 col-lg-3 pt-0">이메일<br>수신동의</label>
@@ -323,8 +328,6 @@
    			var result = regex.exec(data);
    			
    			if(result != null){
-   				$("#alert_id_form").html("올바른 아이디 형식입니다.").css("color","blue");
-
    				$.ajax({
    	   				url:"${pageContext.request.contextPath}/member/idCheck.do",
    	   				type:"post",
@@ -333,16 +336,14 @@
    	   				idValid=1;
    	   				if(res == "가능"){
    	   					$("#alert_id1").css("display","block");
-   	   				$("#alert_id2").css("display","none");
-   	   			$("#alert_id3").css("display","none");
+   	   					$("#alert_id2").css("display","none");
+   	   					$("#alert_id3").css("display","none");
    	   					idValid = 1;
-   	   					$("#pw").focus();
    	   				}
    	   				else if(res == "중복"){
    	   				$("#alert_id2").css("display","block");
-   	   			$("#alert_id3").css("display","none");
+   	   				$("#alert_id3").css("display","none");
    	   					$("#id").val("");
-   	   					$("#id").focus();
    	   					idValid = 0;
    	   				}
    	   			}).fail(function(res){
@@ -352,7 +353,6 @@
    			}else{
    				$("#alert_id3").css("display","block");
    				idValid = 0;
-   				$("#id").focus();
    			}			
    		})	  
    		
@@ -372,15 +372,10 @@
    			}
    		})
    		
-
-
-	   	
-   		
    		//닉네임 중복검사
    		$("#nickname").on("blur",function(){
    			var nickname = $("#nickname").val();
    			if(nickname==""){
-   				alert("별명을 입력해주세요");
    				nicknamec=0;
    			}else{
    			$.ajax({
@@ -411,10 +406,13 @@
  				data:{value:value}
  			}).done(function(res){
  				if(res=="ㅇㅋ"){
- 					$("#mailvaluecheck").html("인증완료되었습니다").css("color","blue");
- 					mailvalue = 1;
+ 					$("#mailvaluecheck1").css("display", "block");
+ 					$("#mailvaluecheck2").css("display", "none");
+ 					$("#mailvaluecheck1").css("font-size", "15px");
  				}else if(res=="ㄴㄴ"){
- 					$("#mailvaluecheck").html("인증번호를 다시확인해주세요").css("color","red");
+ 					$("#mailvaluecheck2").css("display", "block");
+ 					$("#mailvaluecheck1").css("display", "none");
+ 					$("#mailvaluecheck2").css("font-size", "15px");
  					$("#mailvalue").val("");
  				}
  			}).fail(function(res){
@@ -434,23 +432,27 @@
 				data:{email:email}
 			}).done(function(res){
 				if(res == "사용 가능한 메일주소입니다."){
-					$("#mai").html("사용 가능한 메일주소입니다.").css("color","blue");
-					$("#mai").css("font-size","15px");
+					$("#mai1").css("display", "block");
+					$("#mai3").css("display", "none");
+					$("#mai1").css("font-size","15px");
 					mailValid = 1;
 					
 					   }
 				
 				else if(res == "중복된 메일주소입니다."){
-					$("#mai").html("중복된 메일주소입니다.").css("color","red");
-					$("#mai").css("font-size","15px");
+					$("#mai2").css("display", "block");
+					$("#mai3").css("display", "none");
+					$("#mai2").css("font-size","15px");
 					$("#emailval").val("");
 					mailValid = 0;
 				}
 			}).fail(function(res){
 				alert("서버문제입니다 관리자에게 문의하세요");
 			});}else{
-				$("#mai").html("이메일형식을 맞춰주세요").css("color","red");
-				$("#mai").css("font-size","15px");
+				$("#mai3").css("display", "block");
+				$("#mai1").css("display", "none");
+				$("#mai2").css("display", "none");
+				$("#mai3").css("font-size","15px");
 				$("#mai").val("");
 			}
 		})
@@ -488,7 +490,9 @@
 				data:{value:value}
 			}).done(function(res){
 				if(res=="ㅇㅋ"){
-					$("#mailvaluecheck").html("인증완료되었습니다").css("color","blue");
+					$("#mailvaluecheck1").css("display", "block");
+					$("#mailvaluecheck2").css("display", "none");
+					$("#mailvaluecheck1").css("font-size", "15px");
 					alert("인증완료되었습니다!");
 					$("#close").trigger("click");
 					$("#email").val(email);
@@ -496,8 +500,9 @@
 					$("#mailvalue").val("");
 					mailvalue = 1;
 				}else if(res=="ㄴㄴ"){
-					$("#mailvaluecheck").html("인증번호를 다시확인해주세요").css("color","red");
-					$("#mailvaluecheck").css("font-size","15px");
+					$("#mailvaluecheck2").css("display", "block");
+					$("#mailvaluecheck1").css("display", "none");
+					$("#mailvaluecheck2").css("font-size","15px");
 					$("#mailvalue").val("");
 				}
 			}).fail(function(res){
@@ -525,6 +530,7 @@
    		// 비밀번호-비밀번호체크 일치 여부
 	   	$("#pw_check").on("blur",function(){
 	   		if($("#pw").val() == $("#pw_check").val()){
+	   			$("#alert_pw").css("display","none");
 	   			pwcheckValid = 1;
 	   		}else{
 	   			$("#alert_pw").css("display","block");
@@ -543,8 +549,7 @@
    			}
    		})
    		
-   			$("#agreement2").on("change",function(){
-
+   		$("#agreement2").on("change",function(){
    			var agr2 = $("#agreement2").prop("checked");
    			if(agr2 == true){
    				agree2 = 1;
@@ -552,8 +557,6 @@
    				agree2 = 0;
    			}
    		})
-
-	
 
    		// 각 칸이 비어있으면 alert 창 띄우고 return 시키기!
    		$("#signup_join").on("click",function(){
@@ -578,17 +581,10 @@
    	   	}else if(nicknamec==0){
    		   	alert("별명을 입력해주세요");
    		   	return;
-   	   	}
-		else if(mailvalue==0){
+   	   	}else if(mailvalue==0){
    		   	alert("메일인증을 완료해주세요");
    		   	return;
-   	   	}else if(agree1==0){
-			alert("이용약관에 동의하지 않으면 회원가입이 불가능합니다.");
-			return;
-		}else if(agree2==0){
-			alert("개인정보처리방침에 동의하지 않으면 회원가입이 불가능합니다.");
-			return;
-		}
+   	   	}
    	    $.ajax({
    	    	url:"signupProc.do",
    	    	type:"post",
