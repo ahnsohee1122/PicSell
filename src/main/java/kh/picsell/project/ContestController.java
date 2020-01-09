@@ -24,7 +24,14 @@ public class ContestController {
 	private ContestService service;
 	// 공모전 페이지
 	@RequestMapping("/contest.do")
-	public String contest() {
+	public String contest(HttpServletRequest request) {
+		List<ContestDTO> list;
+		try {
+			list = service.acceptList();
+			request.setAttribute("list", list);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println("Contest Page");
 		return "contest/contest";
 	}
@@ -88,4 +95,5 @@ public class ContestController {
 			return "서버";
 		}
 	}
+
 }

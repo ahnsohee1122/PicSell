@@ -20,5 +20,7 @@ public List<ContestDTO> notyetList() throws Exception{
 	return dao.accept(contest_seq);
 }public int noaccept(int contest_seq) throws Exception {
 	return dao.acceptno(contest_seq);
+}public List<ContestDTO> acceptList() throws Exception{
+	return dao.acceptList();
 }
 }

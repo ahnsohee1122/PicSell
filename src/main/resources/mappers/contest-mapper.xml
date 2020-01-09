@@ -18,4 +18,7 @@
 	<update id="acceptno" parameterType="kh.picsell.dto.ContestDTO">
 	update contest set checking = 'Y' where contest_seq = #{contest_seq}
 </update>
+<select id="acceptlist" resultType="kh.picsell.dto.ContestDTO">
+	select * from contest where accept='Y'
+</select>
 </mapper>

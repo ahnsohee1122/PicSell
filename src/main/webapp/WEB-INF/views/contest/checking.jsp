@@ -31,7 +31,7 @@
 
 </div>
 <div id="manage">
-<h1>회원관리</h1>
+<h1>공모전승인</h1>
 <c:choose>
 <c:when test = "${list.size() ==0 }">
 <h3 style="text-align:center">신청된 공모전없음</h3>
