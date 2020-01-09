@@ -5,7 +5,6 @@
 <meta charset="UTF-8">
 <title>SignUp | PicSell</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
 <style>
 	strong {color: crimson;}
 	input:read-only {background-color: white;}
@@ -21,11 +20,11 @@
 			<h6 class="mx-3 py-2 px-4 text-center">저희 사이트에 가입을 하시면,<br>더욱 다양한 혜택을 받으실 수 있습니다!</h6>
 			<h6 class="mx-3 py-2 px-4 text-center">아래의 정보들을 입력하신 후,<br>＇가입하기＇를 누르시면 회원가입이 완료됩니다!</h6>
 		</div>
-		<div class="container p-0 mx-auto my-5">
+		<div class="container p-0 mx-auto my-5" style="font-family: 'Dovemayo-Medium';">
 			<div class="m-auto" style="max-width: 700px;">
 				<form class="mx-3 my-5 px-5 py-2" style="border: 1px solid darkgray; border-radius: 10px;" action="signupProc.do" method="post" id="frm">
 					<div class="row my-4">
-	     				<label class="col-form-label col-4 col-lg-3 pt-0">아이디<strong> * </strong></label>
+	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">아이디<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
 		      				<input type="text" class="form-control" id="id" name="id" placeholder="4 ~ 12자 이내 영문(대소문자 구분), 숫자" style="font-size: 15px;">
 		      				<div id="alert_id1" class="px-1 alert1 invalid-feedback">사용가능한 ID입니다.</div>
@@ -34,38 +33,38 @@
 						</div>
 					</div>
 					<div class="row my-4">
-	     				<label class="col-form-label col-4 col-lg-3 pt-0">비밀번호<strong> * </strong></label>
+	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">비밀번호<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="password" class="form-control" id="pw" name="pw" placeholder="8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)" style="font-size: 15px;color:black;">
+		      				<input type="password" class="form-control" id="pw" name="pw" placeholder="8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)" style="font-size: 15px; color:black;">
 		      				<div id="alert_pw_form" class="px-1 alert2 invalid-feedback">잘못된 비밀번호 형식입니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
-	     				<label class="col-form-label col-4 col-lg-3 pt-0">비밀번호 확인<strong> * </strong></label>
+	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">비밀번호 확인<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
 		      				<input type="password" class="form-control" id="pw_check" name="pw_check" placeholder="비밀번호를 한번 더 입력해 주세요." style="font-size: 15px;">
 		      				<div id="alert_pw" class="px-1 alert3 invalid-feedback">비밀번호를 다시 확인해주시기 바랍니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
-	     				<label class="col-form-label col-4 col-lg-3 pt-0">이름<strong> * </strong></label>
+	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">이름<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
 		      				<input type="text" class="form-control" id="name" name="name" placeholder="예) 홍길동 or (주)픽셀 (실명 or 회사명)" style="font-size: 15px;">
 		      				<div id="alert_name_form" class="px-1 alert4 invalid-feedback">잘못된 이름 형식입니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
-	     				<label class="col-form-label col-4 col-lg-3 pt-0">닉네임<strong> * </strong></label>
+	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">닉네임<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
 		      				<input type="text" class="form-control" id="nickname" name="nickname" placeholder="예) (주)픽셀 (픽셀에서 활동하실 닉네임)" style="font-size: 15px;">
-		      				<div id="alert_nickname" class="px-1 alert5 invalid-feedback">닉네임을 확인해 주시기 바랍니다.</div>
+		      				<div id="alert_nickname" class="px-1 alert5 invalid-feedback">이미사용중인 닉네임입니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
-	     				<label class="col-form-label col-4 col-lg-3 pt-0">이메일<strong> * </strong></label>
+	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">이메일<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="text" class="form-control" id="email" name="email" placeholder="이메일 인증을 해주시기 바랍니다." style="background-color: white; font-size: 15px;" readonly>
-		      				<input type="button" data-toggle="modal" data-target="#Modal" id="mailc" value="메일인증" class="mt-2" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
+		      				<input type="text" class="form-control" id="email" name="email" placeholder="'메일 인증'을 클릭하여 이메일 인증을 해주시기 바랍니다." style="background-color: white; font-size: 15px;" readonly>
+		      				<input type="button" data-toggle="modal" data-target="#Modal" id="mailc" value="메일인증" class="mt-2" style="font-family: 'Cafe24Oneprettynight'; width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
 		      				<div id="emailcheck" class="px-1 alert6 invalid-feedback">잘못된 이메일 입니다.</div>
 						</div>
 					</div>
@@ -80,7 +79,7 @@
       							</div>
       							<div class="modal-body">
 	          						<div class="form-group">
-		          						<label class="col-form-label pt-0">이메일</label>
+		          						<label class="col-form-label pt-0" style="font-family: 'Cafe24Oneprettynight';">이메일</label>
 							            <div>
 								            <input type="text" class="form-control" id="emailval" style="width: 300px; float: left;" placeholder="예) picsell@gmail.com">
 								            <input type="button" id="mailsend" value="메일인증" class="mx-2" style="width: 100px; height: 38px; border: 1px solid darkgray; background-color: white; border-radius: 10px;">
@@ -90,7 +89,7 @@
 							            </div>
  							        </div>
 							        <div class="form-group">
-							        	<label class="col-form-label pt-0">인증번호</label>
+							        	<label class="col-form-label pt-0" style="font-family: 'Cafe24Oneprettynight';">인증번호</label>
 							        	<div>
 							        		<input type="text" class="form-control" id="mailvalue" placeholder="예) rQQPrsS4wK">
 							        		<div id="mailvaluecheck1" class="px-1 alert10 invalid-feedback">인증 완료되었습니다.</div>
@@ -117,8 +116,8 @@
                		</script>
 					
 					<div class="row my-4">
-						<label class="col-form-label col-4 col-lg-3 pt-0">이메일<br>수신동의</label>
-						<div class="col-8 col-lg-9">
+						<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">이메일<br>수신동의</label>
+						<div class="col-8 col-lg-9" style="font-family: 'Cafe24Oneprettynight';">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" name="email_receive" id="email_Y" value="Y" checked="checked">
 							  	<label class="form-check-label" for="email_Y">수신동의</label>
@@ -131,9 +130,9 @@
 						</div>
 					</div>
 					<div class="row my-4">
-	     				<label class="col-form-label col-4 col-lg-3 pt-0">이용약관<strong> * </strong></label>
+	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">이용약관<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<div class="form-control" style="min-height: 150px; font-size: 13px; color: black; overflow: auto">
+		      				<div class="form-control" style="min-height: 150px; font-size: 13px; color: gray; overflow: auto">
 		      					<p>
 		      						제 1조 (목적)<br><br>
 		      						본 이용약관은 주식회사 픽셀(PicSell)이 제공하는 픽셀(PicSell) 웹사이트 서비스의 이용과 관련하여 회사와 회원간의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.<br><br>
@@ -174,9 +173,9 @@
 						</div>
 					</div>
 					<div class="row my-4">
-	     				<label class="col-form-label col-4 col-lg-3 pt-0">개인정보<strong> * </strong><br>처리방침</label>
+	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">개인정보<strong> * </strong><br>처리방침</label>
 		      			<div class="col-8 col-lg-9">
-		      				<div class="form-control" style="min-height: 150px; font-size: 13px; color: black; overflow: auto">
+		      				<div class="form-control" style="min-height: 150px; font-size: 13px; color: gray; overflow: auto">
 		      					<p>
 		      						제1조 (회원 정보의 변경)<br><br>
 									1. 회원은 서비스 내 회원 메뉴를 통하여 언제든지 본인의 개인정보를 열람하고 수정할 수 있습니다. 단, 서비스 관리를 위해 필요한 아이디 및 이메일 주소 등은 수정할 수 없습니다.<br>
@@ -229,9 +228,9 @@
 						</div>
 					</div>
 					<div class="row my-4">
-	     				<label class="col-form-label col-4 col-lg-3 pt-0">마케팅/홍보<br>이용 동의</label>
+	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">마케팅/홍보<br>이용 동의</label>
 		      			<div class="col-8 col-lg-9">
-		      				<div class="form-control" style="min-height: 150px; font-size: 13px; color: black; overflow: auto">
+		      				<div class="form-control" style="min-height: 150px; font-size: 13px; color: gray; overflow: auto">
 		      					<p>
 		      						제1조 (콘텐츠의 관리)<br><br>
 									1. 회사에서 제공하는 콘텐츠는 회사의 독자적 판단에 따라 임의로 삭제 및 변경할 수 있습니다.<br>
@@ -566,14 +565,7 @@
    		$("#signup_join").on("click",function(){
    		  var radiovalue = $(":input:radio[name=email_receive]:checked").val();
 
-   		if(agree1==0){
-			alert("이용약관에 동의하지 않으면 회원가입이 불가능합니다.");
-			return false;
-		}else if(agree2==0){
-			alert("개인정보처리방침에 동의하지 않으면 회원가입이 불가능합니다.");
-			return false;
-		}
-		else if(idValid==0){
+		if(idValid==0){
    	    	alert("아이디를 입력해주세요");
    	    	return false;
    	    }else if(pwc==0){
@@ -591,7 +583,14 @@
    	   	}else if(mailvalue==0){
    		   	alert("메일인증을 완료해주세요");
    		   	return false;
-   	   	}else{
+   	   	}if(agree1==0){
+			alert("이용약관에 동의해주시기 바랍니다.");
+			return false;
+		}else if(agree2==0){
+			alert("개인정보처리방침에 동의해주시기 바랍니다.");
+			return false;
+		}
+   	   	else{
    	    $.ajax({
    	    	url:"signupProc.do",
    	    	type:"post",
