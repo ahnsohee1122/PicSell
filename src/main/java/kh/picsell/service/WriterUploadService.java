@@ -28,6 +28,8 @@ public class WriterUploadService {
 	
 	
 	public void upload(MultipartFile[] file, HttpServletRequest request, WriterImageUpDTO dto) {
+		
+		
 		String path = session.getServletContext().getRealPath("writeruploadfiles");
 		
 		File filepath = new File(path);
@@ -52,15 +54,21 @@ public class WriterUploadService {
 		}
 		
 		ArrayList<String> commerciallist = new ArrayList<>();
+		ArrayList<String> urlList = new ArrayList<>();
 		
 		String usage="";
 		String[] taglist = new String[] {};
 		String a = dto.getCopyright();
 		
 		for(int i = 0; i<file.length; i++) {
+			
+			urlList.add(request.getParameter("watermark"+i));
+			
+			
+			
 			//파일이름저장
-			dto.setOriName(oriNamelist.get(i));
-			dto.setSysName(sysNamelist.get(i));
+			dto.setOriname(oriNamelist.get(i));
+			dto.setSysname(sysNamelist.get(i));
 	
 			//확장자저장
 			Pattern p = Pattern.compile("\\..{3,4}$");
@@ -88,6 +96,12 @@ public class WriterUploadService {
 			String[] copyright = a.split(",");
 			dto.setCopyright(copyright[i]);
 			
+			if(dto.getModel()==null || dto.getMake() == null || dto.getxDimension() == null || dto.getyDimension() == null) {
+				dto.setModel(null);
+				dto.setMake(null);
+				dto.setxDimension("0");
+				dto.setyDimension("0");
+			}
 			System.out.println(dao.insert(dto));
 		}
 		

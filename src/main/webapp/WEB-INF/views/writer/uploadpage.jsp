@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
 <script src="http://malsup.github.com/jquery.form.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 
 
 <style>
@@ -35,17 +36,20 @@
             li{
                 list-style-type: none;
             }
-            .img{
+            .canvas{
             padding: 10px;
             width:250px;
             margin:auto;
             }
-            .img>img{
+            .canvas>img{
             width:100%;
             height:100%;
             }
             .left>input{
             width:100%;
+            }
+            canvas{
+            display:none;
             }
             .tag-item {
                 display:inline-block;
@@ -84,45 +88,105 @@
             <form id="uploadform" action="${pageContext.request.contextPath}/writer/upload" method="post" enctype="multipart/form-data">
                 <button type="button" class="add-item">ADD</button>
                 <input type="hidden" value="" name="tag" id="rdTag" />
+                <input type="hidden" value="" name="img_size" id="size">
+                <input type="hidden" value="" name="make" id="make">
+                <input type="hidden" value="" name="model" id="model">
+                <input type="hidden" value="" name="XDimension" id="XDimension">
+                <input type="hidden" value="" name="YDimension" id="YDimension">
                 <ul class="upload-list">
                 </ul>
                 <button type="submit">upload</button>
             </form>
         </div>
         <script>
+        
+        
 
+	        function getExif(img) {
+	            	EXIF.getData(img, function() {	
+	            		document.getElementById('size').value = img.size
+	            		document.getElementById('make').value = EXIF.getTag(this, "Make")
+	                    document.getElementById('model').value = EXIF.getTag(this, "Model")
+	                    document.getElementById('XDimension').value = EXIF.getTag(this, "PixelXDimension")
+	                    document.getElementById('YDimension').value = EXIF.getTag(this, "PixelXDimension")
+	              
+	                 });
+	        	
+	        }
+        
             var addButton = document.getElementsByClassName('add-item')[0]
             var list = document.getElementsByClassName('upload-list')[0]
             var count = 0
-
+			
+            
             function readImage(files, cnt, thumb) {
                 var reader = new FileReader()
                 
                 reader.onload = function(e) {
-                	
+            	
                     var data = e.target.result
                     var img = new Image()
-                    //img.width = 100%;
+                    //img.width = 100%
+                    //img.crossOrigin='anonymous';
                     img.src = data
                     thumb.innerHTML = ''
-                    thumb.appendChild(img)
+                    thumb.appendChild(img)  
+                    img.onload=function(){
+                        var dataURL=watermarkedDataURL(img,"PicSell\n무단배포금지",cnt,thumb);
+                    };
                 };
+                
                 if (files && files[0]) reader.readAsDataURL(files[0])
+                    getExif(files[0]);
+                
             };
-
+           
+            
+            function watermarkedDataURL(img,text,cnt,thumb){
+            	console.log(img)
+                var tempCanvas=document.createElement('canvas');
+            	tempCanvas.classList.add("watermark")
+                var tempCtx=tempCanvas.getContext('2d');
+                var hidden = document.createElement('input')
+                hidden.setAttribute('type', 'hidden')
+                hidden.classList.add("watermark"+cnt)
+                hidden.setAttribute('name', "watermark"+cnt)
+                var cw,ch;
+                cw=tempCanvas.width=img.naturalWidth;
+                ch=tempCanvas.height=img.naturalHeight;
+                tempCtx.drawImage(img,10,10);
+                tempCtx.font="70px verdana";
+                var textWidth=tempCtx.measureText(text).width;
+                tempCtx.globalAlpha=.50;
+                tempCtx.fillStyle='white'
+                tempCtx.textAlign = 'center'
+                tempCtx.textBaseline = 'middle';
+                tempCtx.fillText(text,cw/2,ch/2);
+                // just testing by adding tempCanvas to document
+                thumb.appendChild(tempCanvas);
+                thumb.appendChild(hidden)
+                console.log(document.getElementsByClassName("watermark"+cnt)[0].value = tempCanvas.toDataURL())
+                return(tempCanvas.toDataURL());
+            }
+            
+            
+				
             function leftTemplate(cnt) {
                 var left = document.createElement('div')
                 var input = document.createElement('input')
                 var thumb = document.createElement('div')
-                thumb.classList.add("img")
+                thumb.classList.add("canvas")
                 left.classList.add('left')
                 input.setAttribute('type', 'file')
                 input.setAttribute('name', 'file')
                 input.onchange = function(e) {
                     readImage(e.target.files, cnt, thumb)
+                    
+                    
                 }
                 left.appendChild(input)
                 left.appendChild(thumb)
+                
                 return left
             }
 
@@ -173,6 +237,8 @@
                 remove.classList.add('rm'+count)
                 remove.onclick = function() {
                     list.removeChild(item)
+                 
+                    
                 }
 
                 item.appendChild(remove)
@@ -225,26 +291,7 @@
                 e.target.value='';
 			}
 		}
-           
-            function getExif(file) {
-            	  const reader = new FileReader()
-            	  const imageViewer = document.getElementByTagName(img)
-            	  const image = file.files[0]
-
-            	  reader.onload = e => {
-            	    EXIF.getData(image, () => {
-            	      const tags = EXIF.getAllTags(image)
-
-            	      // metadata 출력
-            	      console.log(tags)
-
-            	      // 이미지 미리보기
-            	      imageViewer.style.backgroundImage = `url(${e.target.result})`
-            	    })
-            	  }
-
-            	  reader.readAsDataURL(image)
-            	}   
+            
 
         </script>
 
