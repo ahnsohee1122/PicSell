@@ -1,113 +1,190 @@
 package kh.picsell.dto;
 
+import java.sql.Timestamp;
+
 public class WriterImageUpDTO {
 	private int img_seq;
-	private String nickName, usage, copyright, tag, file_extension, oriName, sysName;
-	private int img_like, viewCount, downCount,price;
+	private String nickname, usage, copyright, tag, file_extension, oriname,sysname;
+	private int img_like,viewcount,downcount;
+	private String img_size,make,model;
+	private String xDimension,yDimension;
+	private String sysname_watermark;
+	private Timestamp img_sysdate;
 	
 	public WriterImageUpDTO() {}
-	
-	//이미지등록할때.
-	public WriterImageUpDTO(int img_seq, String nickName, String usage, String copyright, String tag, String file_extension,
-			String oriName, String sysName) {
+
+	public WriterImageUpDTO(int img_seq, String nickname, String usage, String copyright, String tag,
+			String file_extension, String oriname, String sysname, int img_like, int viewcount, int downcount,
+			String img_size, String make, String model, String xDimension, String yDimension, String sysname_watermark,
+			Timestamp img_sysdate) {
 		super();
 		this.img_seq = img_seq;
-		this.nickName = nickName;
+		this.nickname = nickname;
 		this.usage = usage;
 		this.copyright = copyright;
 		this.tag = tag;
 		this.file_extension = file_extension;
-		this.oriName = oriName;
-		this.sysName = sysName;
-	}
-	public WriterImageUpDTO(int img_seq, String nickName, String usage, String copyright, String tag, String file_extension,
-			String oriName, String sysName, int img_like, int viewCount, int downCount, int price) {
-		super();
-		this.img_seq = img_seq;
-		this.nickName = nickName;
-		this.usage = usage;
-		this.copyright = copyright;
-		this.tag = tag;
-		this.file_extension = file_extension;
-		this.oriName = oriName;
-		this.sysName = sysName;
+		this.oriname = oriname;
+		this.sysname = sysname;
 		this.img_like = img_like;
-		this.viewCount = viewCount;
-		this.downCount = downCount;
-		this.price = price;
+		this.viewcount = viewcount;
+		this.downcount = downcount;
+		this.img_size = img_size;
+		this.make = make;
+		this.model = model;
+		this.xDimension = xDimension;
+		this.yDimension = yDimension;
+		this.sysname_watermark = sysname_watermark;
+		this.img_sysdate = img_sysdate;
 	}
+
 	public int getImg_seq() {
 		return img_seq;
 	}
+
 	public void setImg_seq(int img_seq) {
 		this.img_seq = img_seq;
 	}
-	public String getNickName() {
-		return nickName;
+
+	public String getNickname() {
+		return nickname;
 	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
+
 	public String getUsage() {
 		return usage;
 	}
+
 	public void setUsage(String usage) {
 		this.usage = usage;
 	}
+
 	public String getCopyright() {
 		return copyright;
 	}
+
 	public void setCopyright(String copyright) {
 		this.copyright = copyright;
 	}
+
 	public String getTag() {
 		return tag;
 	}
+
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+
 	public String getFile_extension() {
 		return file_extension;
 	}
+
 	public void setFile_extension(String file_extension) {
 		this.file_extension = file_extension;
 	}
-	public String getOriName() {
-		return oriName;
+
+	public String getOriname() {
+		return oriname;
 	}
-	public void setOriName(String oriName) {
-		this.oriName = oriName;
+
+	public void setOriname(String oriname) {
+		this.oriname = oriname;
 	}
-	public String getSysName() {
-		return sysName;
+
+	public String getSysname() {
+		return sysname;
 	}
-	public void setSysName(String sysName) {
-		this.sysName = sysName;
+
+	public void setSysname(String sysname) {
+		this.sysname = sysname;
 	}
+
 	public int getImg_like() {
 		return img_like;
 	}
+
 	public void setImg_like(int img_like) {
 		this.img_like = img_like;
 	}
-	public int getViewCount() {
-		return viewCount;
+
+	public int getViewcount() {
+		return viewcount;
 	}
-	public void setViewCount(int viewCount) {
-		this.viewCount = viewCount;
+
+	public void setViewcount(int viewcount) {
+		this.viewcount = viewcount;
 	}
-	public int getDownCount() {
-		return downCount;
+
+	public int getDowncount() {
+		return downcount;
 	}
-	public void setDownCount(int downCount) {
-		this.downCount = downCount;
+
+	public void setDowncount(int downcount) {
+		this.downcount = downcount;
 	}
-	public int getPrice() {
-		return price;
+
+	public String getImg_size() {
+		return img_size;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+
+	public void setImg_size(String img_size) {
+		this.img_size = img_size;
 	}
+
+	public String getMake() {
+		return make;
+	}
+
+	public void setMake(String make) {
+		this.make = make;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getxDimension() {
+		return xDimension;
+	}
+
+	public void setxDimension(String xDimension) {
+		this.xDimension = xDimension;
+	}
+
+	public String getyDimension() {
+		return yDimension;
+	}
+
+	public void setyDimension(String yDimension) {
+		this.yDimension = yDimension;
+	}
+
+	public String getSysname_watermark() {
+		return sysname_watermark;
+	}
+
+	public void setSysname_watermark(String sysname_watermark) {
+		this.sysname_watermark = sysname_watermark;
+	}
+
+	public Timestamp getImg_sysdate() {
+		return img_sysdate;
+	}
+
+	public void setImg_sysdate(Timestamp img_sysdate) {
+		this.img_sysdate = img_sysdate;
+	}
+
+	
+
 	
 	
+
 }

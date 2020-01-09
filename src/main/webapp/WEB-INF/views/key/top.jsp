@@ -13,6 +13,8 @@
 <style>
 /*    기본 글씨체 */
 	@font-face {font-family: 'Cafe24Oneprettynight'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff'); font-weight: normal; font-style: normal; }
+	@font-face { font-family: 'NanumBarunpen'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumBarunpen.woff') format('woff'); font-weight: normal; font-style: normal; }
+	@font-face {font-family: 'Dovemayo-Medium'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Dovemayo-Medium.woff') format('woff'); font-weight: normal; font-style: normal; }
 
 /*    로그인 */
 	#LoginFrm {width: 320px; margin: auto; opacity: 1; display: flex; flex-direction: column; text-align: center;}
@@ -102,8 +104,8 @@
 						            </g>
 	            					<path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#fff" />
         						</svg>
-						        <input type="text" placeholder="email@domain.com" name="loginId" id="loginId"><br>
-						        <input type="password" placeholder="Password" name="loginPw" id="loginPw"><br>
+						        <input type="text" placeholder="Input Your ID" name="loginId" id="loginId" style="font-family: 'Dovemayo-Medium';"><br>
+						        <input type="password" placeholder="Input Your PW" name="loginPw" id="loginPw" style="font-family: 'Dovemayo-Medium';"><br>
 						        <div id="info" style="font-size: 20px; display: none">잘못된 아이디 또는 잘못된 패스워드입니다.</div>
 						        <div class="form-group p-0 save" style="width: 300px;">
 									<div class="form-check p-0 m-0" style="width: 130px;">
@@ -131,19 +133,44 @@
             </ul>
         </div>
         </c:when>
-       
         <c:when test="${adminInfo != null }">
-          <div class="col-7 col-md-6 col-lg-5 col-xl-4 p-0 h-100 float-right text-right">
-            <ul class="h-100 float-right mx-3 my-0" style="list-style: none;">
-                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/contest/contest.do" class="text-dark">공모전</a></li>
-                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a></li>
-                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="#" class="text-dark explanation" data-toggle="modal" data-target="#Login">로그인</a></li>
-            </ul>
-        </div>
+          	<div class="col-7 col-md-6 col-lg-5 col-xl-4 p-0 h-100 float-right text-right">
+	            <ul class="h-100 float-right mx-3 my-0" style="list-style: none;">
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/contest/contest.do" class="text-dark">공모전</a></li>
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a></li>
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="#" class="text-dark explanation">내 정보</a></li>
+	            </ul>
+        	</div>
         </c:when>
+        <c:otherwise>
+        	<div class="col-7 col-md-6 col-lg-5 col-xl-4 p-0 h-100 float-right text-right">
+	            <ul class="h-100 float-right mx-3 my-0" style="list-style: none;">
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/contest/contest.do" class="text-dark">공모전</a></li>
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a></li>
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="#" class="text-dark explanation" onclick="open()">내 정보</a></li>
+	            </ul>
+        	</div>
+			<div class="w3-sidebar w3-bar-block w3-animate-right" style="display:none; right: 0; z-index:5" id="mySidebar">
+			  <button class="w3-bar-item w3-button w3-large w3-right" onclick="close()">Close</button>
+			  <a href="#" class="w3-bar-item w3-button">Link 1</a>
+			  <a href="#" class="w3-bar-item w3-button">Link 2</a>
+			  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+			</div>
+			<div class="w3-overlay w3-animate-opacity" onclick="w3_close()" id="myOverlay"></div>
+        </c:otherwise>
         </c:choose>
     </div>
     <script>
+    function open() {
+      document.getElementById("mySidebar").style.display = "block";
+      document.getElementById("myOverlay").style.display = "block";
+    }
+
+    function close() {
+   	  document.getElementById("mySidebar").style.display = "none";
+   	  document.getElementById("myOverlay").style.display = "none";
+   	}
+    	
 		(function(){
 			$("#id").on("focus",function(){
 		    	$(".ears").css("transform", "rotate3d(-1, -0.648763, -0.324382, 0.31546rad)");
