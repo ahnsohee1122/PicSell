@@ -27,7 +27,7 @@
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">아이디<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="text" class="form-control" id="id" name="id" placeholder="4 ~ 12자 이내 영문(대소문자 구분), 숫자" style="font-size: 15px;" required>
+		      				<input type="text" class="form-control" id="id" name="id" placeholder="4 ~ 12자 이내 영문(대소문자 구분), 숫자" style="font-size: 15px;">
 		      				<div id="alert_id1" class="px-1 alert1 invalid-feedback">사용가능한 ID입니다.</div>
 		      				<div id="alert_id2" class="px-1 alert1 invalid-feedback">이미사용중인 ID입니다.</div>
 		      				<div id="alert_id3" class="px-1 alert1 invalid-feedback">잘못된 아이디 형식입니다.</div>
@@ -36,35 +36,35 @@
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">비밀번호<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="password" class="form-control" id="pw" name="pw" placeholder="8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)" style="font-size: 15px;color:black;" required>
+		      				<input type="password" class="form-control" id="pw" name="pw" placeholder="8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)" style="font-size: 15px;color:black;">
 		      				<div id="alert_pw_form" class="px-1 alert2 invalid-feedback">잘못된 비밀번호 형식입니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">비밀번호 확인<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="password" class="form-control" id="pw_check" name="pw_check" placeholder="비밀번호를 한번 더 입력해 주세요." style="font-size: 15px;" required>
+		      				<input type="password" class="form-control" id="pw_check" name="pw_check" placeholder="비밀번호를 한번 더 입력해 주세요." style="font-size: 15px;">
 		      				<div id="alert_pw" class="px-1 alert3 invalid-feedback">비밀번호를 다시 확인해주시기 바랍니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">이름<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="text" class="form-control" id="name" name="name" placeholder="예) 홍길동 or (주)픽셀 (실명 or 회사명)" style="font-size: 15px;" required>
+		      				<input type="text" class="form-control" id="name" name="name" placeholder="예) 홍길동 or (주)픽셀 (실명 or 회사명)" style="font-size: 15px;">
 		      				<div id="alert_name_form" class="px-1 alert4 invalid-feedback">잘못된 이름 형식입니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">닉네임<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="text" class="form-control" id="nickname" name="nickname" placeholder="예) (주)픽셀 (픽셀에서 활동하실 닉네임)" style="font-size: 15px;" required>
+		      				<input type="text" class="form-control" id="nickname" name="nickname" placeholder="예) (주)픽셀 (픽셀에서 활동하실 닉네임)" style="font-size: 15px;">
 		      				<div id="alert_nickname" class="px-1 alert5 invalid-feedback">닉네임을 확인해 주시기 바랍니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0">이메일<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="text" class="form-control" id="email" name="email" placeholder="이메일 인증을 해주시기 바랍니다." style="background-color: white; font-size: 15px;" required readonly>
+		      				<input type="text" class="form-control" id="email" name="email" placeholder="이메일 인증을 해주시기 바랍니다." style="background-color: white; font-size: 15px;" readonly>
 		      				<input type="button" data-toggle="modal" data-target="#Modal" id="mailc" value="메일인증" class="mt-2" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
 		      				<div id="emailcheck" class="px-1 alert6 invalid-feedback">잘못된 이메일 입니다.</div>
 						</div>
@@ -120,7 +120,7 @@
 						<label class="col-form-label col-4 col-lg-3 pt-0">이메일<br>수신동의</label>
 						<div class="col-8 col-lg-9">
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="email_receive" id="email_Y" value="Y">
+								<input class="form-check-input" type="radio" name="email_receive" id="email_Y" value="Y" checked="checked">
 							  	<label class="form-check-label" for="email_Y">수신동의</label>
 							</div>
 							<div class="form-check form-check-inline">
@@ -302,7 +302,7 @@
 						</div>
 					</div>
 					<div class="row mt-5 mb-3">
-				  		<button id="signup_join" class="m-auto btn rounded-lg text-black" type="submit" style="width: 150px; border: 1px solid darkgray;">가입하기</button>
+				  		<button id="signup_join" class="m-auto btn rounded-lg text-black" type="button" style="width: 150px; border: 1px solid darkgray;">가입하기</button>
 				  	</div>
 				</form>
 			</div>
@@ -425,6 +425,7 @@
 			var regex = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
 			var data = $("#emailval").val();
 			var result = regex.exec(data);
+			
 			if(result != null){
 			$.ajax({
 				url:"${pageContext.request.contextPath}/member/mailCheck.do",
@@ -460,7 +461,9 @@
 			 var regex = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
 	   			var data = $("#emailval").val();
 	   			var result = regex.exec(data);
-	   			
+	   			if(data==""){
+					alert("이메일을 입력해주세요");
+				}
 	   			if(result != null){
 	  				$.ajax({
 	  					url:"../mail/signmail.do",
@@ -483,7 +486,8 @@
 			var value = $("#mailvalue").val();
 			if(email==""){
 				alert("이메일을먼저 입력해주세요");
-			}else{
+			}else if(value==""){alert("인증번호를 입력해주세요")}
+			else{
 			$.ajax({
 				url:"../mail/valuecheck.do",
 				type:"post",
@@ -562,29 +566,32 @@
    		$("#signup_join").on("click",function(){
    		  var radiovalue = $(":input:radio[name=email_receive]:checked").val();
 
-		if(radiovalue==""){
-  	 		 radiovalue=="N";
+   		if(agree1==0){
+			alert("이용약관에 동의하지 않으면 회원가입이 불가능합니다.");
+			return false;
+		}else if(agree2==0){
+			alert("개인정보처리방침에 동의하지 않으면 회원가입이 불가능합니다.");
+			return false;
 		}
-  		
 		else if(idValid==0){
    	    	alert("아이디를 입력해주세요");
-   	    	return;
+   	    	return false;
    	    }else if(pwc==0){
    			alert("비밀번호를 입력해주세요");
-   			return;
+   			return false;
    	    }else if(pwcheckValid==0){
    			alert("비밀번호와 비밀번호확인은 같은값이어야합니다");
-   		    return;
+   		    return false;
    	   	}else if(namec==0){
    			alert("이름을 입력해주세요");
-   		   	return;
+   		   	return false;
    	   	}else if(nicknamec==0){
    		   	alert("별명을 입력해주세요");
-   		   	return;
+   		   	return false;
    	   	}else if(mailvalue==0){
    		   	alert("메일인증을 완료해주세요");
-   		   	return;
-   	   	}
+   		   	return false;
+   	   	}else{
    	    $.ajax({
    	    	url:"signupProc.do",
    	    	type:"post",
@@ -605,7 +612,7 @@
    	    	alert("서버에러입니다 관리자에게 문의바랍니다");
    	    });
 
-   			
+   	   	}
    		})
 	</script>
 	
