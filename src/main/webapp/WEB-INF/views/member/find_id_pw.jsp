@@ -43,6 +43,7 @@
 						<label class="col-form-label col-3 col-lg-3 pt-0 my-3">이메일</label>
 				      	<div class="col-9 col-lg-9 my-3">
 					      	<input type="text" class="form-control" id="PWfindEmail" name="PWfindEmail" placeholder="예) picsell@gmail.com" style="max-width: 300px; font-size: 15px;">
+				      	<button id="sendmail" class="m-auto rounded-lg text-black" type="button" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5;">메일전송</button>
 				      	</div>
 				      	<label class="col-form-label col-3 col-lg-3 pt-0 my-3">인증번호</label>
 				      	<div class="col-9 col-lg-9 mt-3">
@@ -62,7 +63,8 @@
 		$("#IDfind").on("click",function(){
 			var name = $("#IDfindId").val();
 			var email = $("#IDfindEmail").val();
-			if(name!=null && email!=null){
+			console.log(name+":"+email);
+			if(name!="" && email!=""){
 				$.ajax({
 						url:"${pageContext.request.contextPath}/member/findidProc.do",
 						type:"post",
@@ -70,11 +72,13 @@
 					}).done(function(res){
 						if(res == "회원목록없음"){
 							$("#IDfindval1").css("display", "block");
+							$("#IDfindval2").css("display","none");
 						}
 						else {
 							$("#IDfindval2").html("회원님의 ID는 [ "+res+" ]입니다.");
+							$("#IDfindval2").css("display","block");
+							$("#IDfindval1").css("display", "none");
 						}
-						nickvalid = 1;
 					}).fail(function(res){
 						$("#alert_nickname_form").html(res).css("color","red");
 					});
@@ -111,8 +115,7 @@
 			var input = $("#PWfindValue").val();
 			//var email_key = "${AuthenticationKey}"; //이걸 컨트롤러로 보내서처리
 			var id = $("#PWfindId").val();
-			var email = $("#PWfindEmaill").val();
-
+			var email = $("#PWfindEmail").val();
 			if(id!=null && email!=null && input!=null){
 				$.ajax({
 						url:"${pageContext.request.contextPath}/member/pwchange.do",
