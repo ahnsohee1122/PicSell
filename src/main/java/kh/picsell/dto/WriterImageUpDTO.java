@@ -4,19 +4,19 @@ import java.sql.Timestamp;
 
 public class WriterImageUpDTO {
 	private int img_seq;
-	private String nickname, usage, copyright, tag, file_extension, oriname,sysname;
-	private int img_like,viewcount,downcount;
-	private String img_size,make,model;
-	private String xDimension,yDimension;
-	private String sysname_watermark;
+	private String nickname, usage, copyright, tag, file_extension,oriname,sysname;
+	private int img_size;
+	private String make,model,xDimension,yDimension,sysname_watermark;
+	private int img_like, viewcount, downcount;
+	private String accept;
 	private Timestamp img_sysdate;
 	
 	public WriterImageUpDTO() {}
 
 	public WriterImageUpDTO(int img_seq, String nickname, String usage, String copyright, String tag,
-			String file_extension, String oriname, String sysname, int img_like, int viewcount, int downcount,
-			String img_size, String make, String model, String xDimension, String yDimension, String sysname_watermark,
-			Timestamp img_sysdate) {
+			String file_extension, String oriname, String sysname, int img_size, String make, String model,
+			String xDimension, String yDimension, String sysname_watermark, int img_like, int viewcount, int downcount,
+			String accept, Timestamp img_sysdate) {
 		super();
 		this.img_seq = img_seq;
 		this.nickname = nickname;
@@ -26,15 +26,16 @@ public class WriterImageUpDTO {
 		this.file_extension = file_extension;
 		this.oriname = oriname;
 		this.sysname = sysname;
-		this.img_like = img_like;
-		this.viewcount = viewcount;
-		this.downcount = downcount;
 		this.img_size = img_size;
 		this.make = make;
 		this.model = model;
 		this.xDimension = xDimension;
 		this.yDimension = yDimension;
 		this.sysname_watermark = sysname_watermark;
+		this.img_like = img_like;
+		this.viewcount = viewcount;
+		this.downcount = downcount;
+		this.accept = accept;
 		this.img_sysdate = img_sysdate;
 	}
 
@@ -102,35 +103,11 @@ public class WriterImageUpDTO {
 		this.sysname = sysname;
 	}
 
-	public int getImg_like() {
-		return img_like;
-	}
-
-	public void setImg_like(int img_like) {
-		this.img_like = img_like;
-	}
-
-	public int getViewcount() {
-		return viewcount;
-	}
-
-	public void setViewcount(int viewcount) {
-		this.viewcount = viewcount;
-	}
-
-	public int getDowncount() {
-		return downcount;
-	}
-
-	public void setDowncount(int downcount) {
-		this.downcount = downcount;
-	}
-
-	public String getImg_size() {
+	public int getImg_size() {
 		return img_size;
 	}
 
-	public void setImg_size(String img_size) {
+	public void setImg_size(int img_size) {
 		this.img_size = img_size;
 	}
 
@@ -172,6 +149,38 @@ public class WriterImageUpDTO {
 
 	public void setSysname_watermark(String sysname_watermark) {
 		this.sysname_watermark = sysname_watermark;
+	}
+
+	public int getImg_like() {
+		return img_like;
+	}
+
+	public void setImg_like(int img_like) {
+		this.img_like = img_like;
+	}
+
+	public int getViewcount() {
+		return viewcount;
+	}
+
+	public void setViewcount(int viewcount) {
+		this.viewcount = viewcount;
+	}
+
+	public int getDowncount() {
+		return downcount;
+	}
+
+	public void setDowncount(int downcount) {
+		this.downcount = downcount;
+	}
+
+	public String getAccept() {
+		return accept;
+	}
+
+	public void setAccept(String accept) {
+		this.accept = accept;
 	}
 
 	public Timestamp getImg_sysdate() {
