@@ -69,6 +69,7 @@
 	<script>
 
 	function uploadedFileDelete(seq){
+		alert(seq);
 		var removeFileSeq = $(this).closest("div").find("input").val();
 		var inputTag = $("<input type=hidden>");
 		$(inputTag).val(removeFileSeq);

@@ -24,7 +24,7 @@ public class MyInfoController {
 		String nickName = "오리에";
 		MemberDTO memberDto = myInfoService.myInfo(nickName);
 		session.setAttribute("memberDto", memberDto);
-		return "myPage/myInfo";
+		return "myPage/myPage";
 	}
 	
 	@RequestMapping("/infoModify.do")

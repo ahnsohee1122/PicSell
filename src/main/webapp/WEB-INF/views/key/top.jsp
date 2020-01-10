@@ -419,6 +419,7 @@ rotate3d
 						</div>
 					</ul>
 				</div>
+<<<<<<< HEAD
 			</c:when>
 			<c:when test="${adminInfo != null }">
 				<div
@@ -652,6 +653,128 @@ rotate3d
 		</c:choose>
 	</div>
 	<script>
+=======
+            </ul>
+        </div>
+        </c:when>
+        <c:when test="${adminInfo != null }">
+          	<div class="col-7 col-md-6 col-lg-5 col-xl-4 p-0 h-100 float-right text-right">
+	            <ul class="h-100 float-right mx-3 my-0" style="list-style: none;">
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/contest/contest.do" class="text-dark">공모전</a></li>
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a></li>
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="#" class="text-dark explanation"  data-toggle="modal" data-target="#AdminInfo">내 정보</a></li>
+	                <div class="modal fade" id="AdminInfo" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-slideout" role="document" style="max-width: 350px; left: 17px;">
+					    	<div class="modal-content px-2">
+						      	<div class="modal-body m-0">
+						      		<div class="w-100" style="height: 50px;">
+							      		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          		<span aria-hidden="true">×</span>
+							        	</button>
+						      		</div>
+						        	<div class="w-100 text-left" style="font-family: 'Cafe24Oneprettynight';">
+							        	<h5 class="text-center" style="font-size: 22px;">${adminInfo }님<br>환영합니다</h5>
+							        	<hr>
+							        	<div class="row my-2" style="font-size: 20px;">
+							        		<div class="col-12 mb-2"><a href="#" style="color: black; text-decoration: none;">관리자 페이지</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">관리자 정보 조회</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">이미지 심사/업로드 </a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/업로드 </a></div>
+							        	</div>
+							        	<hr>
+							        	<div class="row my-2" style="font-size: 20px;">
+							        		<div class="col-12 mb-2"><a href="#" style="color: black; text-decoration: none;">커뮤니티</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">공지사항</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">편집의뢰게시판</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">작품의뢰게시판</a></div>
+							        	</div>
+							        	<hr>
+							        	<div class="row my-2" style="font-size: 20px;">
+							        		<div class="col-12"><a href="#" style="color: black; text-decoration: none;">출석체크</a></div>
+							        	</div>
+							        	<hr>
+							        	<div class="row my-4 text-center" style="font-size: 20px;">
+							        		<div class="col-12"><a href="#" class="btn" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a></div>
+							        	</div>
+						        	</div>
+						      	</div>
+					      	</div>
+					    </div>
+					</div>
+	            </ul>
+        	</div>
+        </c:when>
+        <c:otherwise>
+        	<div class="col-7 col-md-6 col-lg-5 col-xl-4 p-0 h-100 float-right text-right">
+	            <ul class="h-100 float-right mx-3 my-0" style="list-style: none;">
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/contest/contest.do" class="text-dark">공모전</a></li>
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a></li>
+	                <li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;"><a href="#" class="text-dark explanation"  data-toggle="modal" data-target="#MyInfo">내 정보</a></li>
+	                <div class="modal fade" id="MyInfo" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-slideout" role="document" style="max-width: 350px; left: 17px;">
+					    	<div class="modal-content px-2">
+						      	<div class="modal-body m-0">
+						      		<div class="w-100" style="height: 50px;">
+							      		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          		<span aria-hidden="true">×</span>
+							        	</button>
+						      		</div>
+						        	<div class="w-100 text-left" style="font-family: 'Cafe24Oneprettynight';">
+							        	<h5 class="text-center" style="font-size: 22px;">${loginInfo }님<br>환영합니다</h5>
+							        	<hr>
+							        	<div class="row my-2" style="font-size: 18px;">
+							        		<div class="col-6">내 포인트</div>
+							        		<div class="col-6">4,000원</div>
+							        	</div>
+							        	<div class="row my-2" style="font-size: 18px;">
+							        		<div class="col-6">작가 수익금</div>
+							        		<div class="col-6">3,000원</div>
+							        	</div>
+							        	<div class="row my-3 text-center" style="font-size: 20px;">
+							        		<div class="col-12"><a href="#" class="btn py-0" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">충전/환급하기</a></div>
+							        	</div>
+							        	<hr>
+							        	<div class="row my-2" style="font-size: 20px;">
+							        		<div class="col-12 mb-2"><a href="${pageContext.request.contextPath}/myInfo/myInfo.do" style="color: black; text-decoration: none;">마이 페이지</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 수정</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 탈퇴</a></div>
+							        	</div>
+							        	<hr>
+							        	<div class="row my-2" style="font-size: 20px;">
+							        		<div class="col-12 mb-2"><a href="#" style="color: black; text-decoration: none;">나의 작가 페이지</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">이미지 심사/승인 내역</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">수익금 내역 조회</a></div>
+							        	</div>
+							        	<hr>
+							        	<div class="row my-2" style="font-size: 20px;">
+							        		<div class="col-12 mb-2"><a href="#" style="color: black; text-decoration: none;">커뮤니티</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">공지사항</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">편집의뢰게시판</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">작품의뢰게시판</a></div>
+							        	</div>
+							        	<hr>
+							        	<div class="row my-2" style="font-size: 20px;">
+							        		<div class="col-12"><a href="#" style="color: black; text-decoration: none;">출석체크</a></div>
+							        	</div>
+							        	<hr>
+							        	<div class="row my-4 text-center" style="font-size: 20px;">
+							        		<div id="logout" class="col-12"><a href="#" class="btn" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a></div>
+							        	</div>
+						        	</div>
+						      	</div>
+					      	</div>
+					    </div>
+					</div>
+				</ul>
+			</div>
+        </c:otherwise>
+        </c:choose>
+    </div>
+    <script>
+>>>>>>> e3e1c2520ca463bdaf67e8625c8dc3d3eb908a24
    
 		(function(){
 			$("#id").on("focus",function(){
