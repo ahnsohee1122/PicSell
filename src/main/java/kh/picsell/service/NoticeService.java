@@ -3,6 +3,7 @@ package kh.picsell.service;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kh.picsell.dao.NoticeDAO;
 import kh.picsell.dao.NoticeFileDAO;
+import kh.picsell.dao.SummernoteDAO;
 import kh.picsell.dto.NoticeDTO;
 import kh.picsell.dto.NoticeFileDTO;
 
@@ -24,15 +26,18 @@ import kh.picsell.dto.NoticeFileDTO;
 public class NoticeService {
 	@Autowired
 	private NoticeDAO dao;
-	
+
 	@Autowired
 	private NoticeFileDAO fileDao;
 	
+	@Autowired
+	private SummernoteDAO summernoteDao;
+
 	public List<NoticeDTO> noticeList() {
 		List<NoticeDTO> noticeList = dao.selectAll();
 		return noticeList;
 	}
-	
+
 	@Transactional("txManager")
 	public Map detail(int notice_seq) {
 		dao.viewCountUp(notice_seq);
@@ -40,7 +45,7 @@ public class NoticeService {
 		NoticeDTO beforeNotice = dao.detail(notice_seq-1);
 		NoticeDTO afterNotice = dao.detail(notice_seq+1);
 		List<NoticeFileDTO> fileDto = fileDao.selectAll(notice_seq);
-		
+
 		Map map = new HashMap();
 		map.put("notice", notice);
 		map.put("beforeNotice", beforeNotice);
@@ -48,24 +53,26 @@ public class NoticeService {
 		map.put("fileDto", fileDto);
 		return map;
 	}
-	
+
 	public void write(NoticeDTO noticeDto, NoticeFileDTO fileDto, String file_path, String summernote_filePath) {
-		
+
 		File summernote_path = new File(summernote_filePath);  
-		
+
 		if(!summernote_path.exists()) {
 			summernote_path.mkdir();
 		} 
-		
+
 		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
 		Matcher m = p.matcher(noticeDto.getNotice_contents());
-	
+		List<String> summernoteFileList = new ArrayList<>();
+
 		try {
 			while(m.find()) {
 				String oriName = m.group(2);
 				String sysName = System.currentTimeMillis() + "_" + oriName;
-				String imageString = m.group(1).split(",")[1];
 				
+				String imageString = m.group(1).split(",")[1];
+
 				byte[] imgBytes = Base64Utils.decodeFromString(imageString);
 				FileOutputStream fis = new FileOutputStream(summernote_path + "/" + sysName);
 				DataOutputStream dos = new DataOutputStream(fis);
@@ -73,24 +80,31 @@ public class NoticeService {
 				dos.flush();
 				dos.close();
 				noticeDto.setNotice_contents(noticeDto.getNotice_contents().replaceFirst(Pattern.quote(m.group(1)), "/notice_summernote_files/" + sysName));				
+				summernoteFileList.add(sysName);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		dao.write(noticeDto);
+		
+		
 		int noticeFile_parentSeq = dao.getParentSeq(noticeDto.getNotice_writer());
+
+		for(String summernote_sysName : summernoteFileList) {
+			summernoteDao.summernoteFile(noticeFile_parentSeq, summernote_sysName);
+		}
 		
 		File filePath = new File(file_path);
-		
+
 		if(!filePath.exists()) {
 			filePath.mkdir();
 		}
-		
+
 		for(MultipartFile tmp : fileDto.getNoticeFile_file()) {
 			if(!tmp.isEmpty()) {
 				String noticeFile_oriName = tmp.getOriginalFilename();
 				String noticeFile_sysName = System.currentTimeMillis() + "_" + noticeFile_oriName;
-				
+
 				fileDto.setNoticeFile_parentSeq(noticeFile_parentSeq);
 				fileDto.setNoticeFile_oriName(noticeFile_oriName);
 				fileDto.setNoticeFile_sysName(noticeFile_sysName);
@@ -103,4 +117,29 @@ public class NoticeService {
 			}
 		}
 	}
+
+	@Transactional("txManager")
+	public void delete(int notice_seq, String file_path, String summernote_filePath) {
+		List<String> file_sysName = fileDao.getFileSysName(notice_seq);
+		for(String sysName : file_sysName) {
+			String filePath = file_path + "/" + sysName;
+			File file = new File(filePath);
+			while(file.exists()) {
+				file.delete();
+			}
+		}
+		
+		List<String> summernoteFile_sysName = summernoteDao.getFileSysName(notice_seq);
+		for(String sysName : summernoteFile_sysName) {
+			String summernoteFilePath = summernote_filePath + "/" + sysName;
+			File file = new File(summernoteFilePath);
+			while(file.exists()) {
+				file.delete();
+			}
+		}
+		fileDao.delete(notice_seq);
+		summernoteDao.delete(notice_seq);
+		dao.delete(notice_seq);
+	}
+
 }

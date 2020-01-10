@@ -27,4 +27,8 @@
 		notice_view_count = notice_view_count + 1 where notice_seq =
 		#{notice_seq}
 	</update>
+	
+	<delete id="delete">
+		delete from notice where notice_seq = #{notice_seq}
+	</delete>
 </mapper>

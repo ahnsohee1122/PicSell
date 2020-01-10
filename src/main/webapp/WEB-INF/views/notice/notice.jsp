@@ -63,9 +63,11 @@ td {
 			</c:forEach>
 		</tbody>
 	</table>
+<%-- 	<c:if test="${adminInfo !=null }"> --%>
 	<div>
 		<input type="button" id="writeBtn" value="글쓰기">
 	</div>
+<%-- 	</c:if> --%>
 	<script>
 		$(document).ready(function() {
 			$('#example').DataTable();

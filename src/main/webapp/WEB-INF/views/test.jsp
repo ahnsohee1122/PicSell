@@ -9,10 +9,19 @@
 </head>
 <body>
 <input type="button" id="notice" value="notice">
-<p>a123<img src="/notice_summernote_files/1578362623368_훈현참여지원수당.jpg"></p>
+<input type="button" id="myInfo" value="myInfo">
+<input type="button" id="infoModify" value="infoModify">
 	<script>
 		$("#notice").on("click",function(){
 			location.href="${pageContext.request.contextPath}/notice/notice.do"
+		})
+		
+		$("#myInfo").on("click", function(){
+			location.href="${pageContext.request.contextPath}/myInfo/myInfo.do"
+		})
+		
+		$("#infoModify").on("click",function(){
+			location.href="${pageContext.request.contextPath}/myInfo/infoModify.do"
 		})
 	</script>
 </body>

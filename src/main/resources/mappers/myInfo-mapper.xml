@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyInfo">
+	<select id="myInfo" parameterType="String" resultType="kh.picsell.dto.MemberDTO">
+		select * from member where nickname=#{nickName}
+	</select>
+	
+	<update id="infoModify" parameterType="kh.picsell.dto.MemberDTO">
+		update member set name=#{name}, nickname=#{nickname}, email_receive=#{email_receive}
+		where id=#{id}
+	</update>
+</mapper>
