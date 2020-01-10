@@ -1,7 +1,10 @@
 package kh.picsell.service;
 
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.picsell.dao.WriterImageUpDAO;
@@ -26,17 +30,31 @@ public class WriterUploadService {
 	@Autowired
 	private WriterImageUpDAO dao;
 	
+	private static final String BASE_64_PREFIX = "data:image/png;base64,";
+
+	//jsp로 부터 받은 이미지 디코딩. - 앞에 data:image/png;base64, 을 제외하고 사용해야함.
+    public static byte[] decodeBase64ToBytes(String imageString) {
+        if (imageString.startsWith(BASE_64_PREFIX))
+            return Base64.getDecoder().decode(imageString.substring(BASE_64_PREFIX.length()));
+        else
+            throw new IllegalStateException("it is not base 64 string");
+    }
 	
+    @Transactional("txManager")
 	public void upload(MultipartFile[] file, HttpServletRequest request, WriterImageUpDTO dto) {
-		
-		
 		String path = session.getServletContext().getRealPath("writeruploadfiles");
+		String watermarkpath = session.getServletContext().getRealPath("watermarkfiles");
 		
 		File filepath = new File(path);
+		File watermarkfilepath = new File(watermarkpath);
 		
 		if(!filepath.exists()) {
 			filepath.mkdir();
 		}
+		if(!watermarkfilepath.exists()) {
+			watermarkfilepath.mkdir();
+		}
+		//업로드한 이미지 가져와서 리스트에 차곡차곡 저장.
 		String oriName = "";
 		String sysName = "";
 		ArrayList<String> oriNamelist = new ArrayList<>();
@@ -54,18 +72,27 @@ public class WriterUploadService {
 		}
 		
 		ArrayList<String> commerciallist = new ArrayList<>();
-		ArrayList<String> urlList = new ArrayList<>();
 		
 		String usage="";
 		String[] taglist = new String[] {};
 		String a = dto.getCopyright();
 		
+		//파일개수만큼 반복문 돌려서 각 이미지마다 딸려있는 데이터를 db에 저장.
+		try {
 		for(int i = 0; i<file.length; i++) {
 			
-			urlList.add(request.getParameter("watermark"+i));
-			
-			
-			
+			//워터마크 처리한 이미지 저장.
+			//디코딩한 파일 byte배열로 가져와서 이름앞에 marked_ 붙혀서 watermarkfilepath에 저장. 
+			byte[] imgBytes = decodeBase64ToBytes(request.getParameter("watermark"+i));
+			String sysName_watermark = "marked_" + sysNamelist.get(i);
+			FileOutputStream fis = new FileOutputStream(watermarkfilepath + "/" + sysName_watermark);
+			DataOutputStream dos = new DataOutputStream(fis);
+            dos.write(imgBytes);
+            dos.flush();
+            dos.close();
+            dto.setSysname_watermark(sysName_watermark);
+
+            
 			//파일이름저장
 			dto.setOriname(oriNamelist.get(i));
 			dto.setSysname(sysNamelist.get(i));
@@ -105,10 +132,13 @@ public class WriterUploadService {
 			System.out.println(dao.insert(dto));
 		}
 		
-
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}
 		
 	}
-	
+
 	public List<WriterImageUpDTO> writerview (Map<String,Object> param) {
 		return dao.view(param);
 	}
