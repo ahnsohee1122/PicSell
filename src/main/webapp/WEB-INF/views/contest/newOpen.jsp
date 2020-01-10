@@ -30,7 +30,7 @@ li{text-decoration:none; list-style-type : none }
             /* Search */
             .searchBox{border:none}
             .searchBox tbody th{padding:20px 10px 20px 35px;font-size:14px;font-weight:bold;text-align:left;vertical-align:top;border:none;background:#e6e6e6 }
-            .searchBox tbody td{padding:12px 10px 12px 25px;border:none;background-color:#dedede}
+            .searchBox tbody td{padding:12px 10px 12px 25px;border:none;background-color:#e6e6e6;}
         
             .searchDate{overflow:hidden;margin-bottom:10px;*zoom:1}
             .searchDate:after{display:block;clear:both;content:''}
@@ -56,7 +56,15 @@ li{text-decoration:none; list-style-type : none }
 
             //datepicker 한국어로 사용하기 위한 언어설정
             $.datepicker.setDefaults($.datepicker.regional['ko']);     
-        
+            $( "#datepicker" ).datepicker({ minDate: 0});
+        	
+            $(function() {
+            	  $( "#datepicker" ).datepicker( { 
+            	      onSelect: function(date, picker){
+            	          console.log(date); }
+            	    
+            	  } );
+            	} );
             // Datepicker            
             $(".datepicker").datepicker({
                 showButtonPanel: true,
@@ -78,25 +86,10 @@ li{text-decoration:none; list-style-type : none }
                     $(".searchDate").find(".chkbox2").removeClass("on"); 
                 }
             }); 
-
-            //시작일.
-            /*$('#searchStartDate').datepicker("option","onClose", function( selectedDate ) {    
-                // 시작일 datepicker가 닫힐때
-                // 종료일의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-                $("#searchEndDate").datepicker( "option", "minDate", selectedDate );
-                $(".searchDate").find(".chkbox2").removeClass("on");
-            });
-            */
-
-            //종료일.
-            /*$('#searchEndDate').datepicker("option","onClose", function( selectedDate ) {    
-                // 종료일 datepicker가 닫힐때
-                // 시작일의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
-                $("#searchStartDate").datepicker( "option", "maxDate", selectedDate );
-                $(".searchDate").find(".chkbox2").removeClass("on");
-            });
-            */
-
+            $(function() {
+            	$( "#searchEndDate" ).datepicker({ minDate: 0});
+            	});
+         
             $(".dateclick").dateclick();    // DateClick
             $(".searchDate").schDate();        // searchDate
             
@@ -119,7 +112,7 @@ li{text-decoration:none; list-style-type : none }
                 $(this).parent().find("input").focus();
             });
         }    
-
+       
         
         function setSearchDate(start){
 
@@ -132,6 +125,9 @@ li{text-decoration:none; list-style-type : none }
             //var month = today.getMonth() + 1;
             //var day = today.getDate();
             
+            
+            
+            
             var endDate = $.datepicker.formatDate('yy-mm-dd', today);
             $('#searchEndDate').val(endDate);
             
@@ -143,13 +139,13 @@ li{text-decoration:none; list-style-type : none }
                 today.setMonth(today.getMonth() - num);
                 today.setDate(today.getDate() + 1);
             }
-
+            $('#sechStartDate').val($.datepicker.formatDate('yymmdd', new Date()));
             var startDate = $.datepicker.formatDate('yy-mm-dd', today);
             $('#searchStartDate').val(startDate);
-                    
+             
             // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
             $("#searchEndDate").datepicker( "option", "minDate", startDate );
-            
+      
             // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
             $("#searchStartDate").datepicker( "option", "maxDate", endDate );
 
@@ -241,14 +237,11 @@ li{text-decoration:none; list-style-type : none }
                         
                         <div class="clearfix">
                             <!-- 시작일 -->
-                            <span class="dset">시작일 : 
-                                <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" readonly >
-                                
-                            </span>
-                            <span class="demi">~ 종료일 : </span>
+                            
+                            <span class="demi">종료일 : </span>
                             <!-- 종료일 -->
                             <span class="dset">
-                                <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" readonly >
+                                <input type="text" class="datepicker inpType" name="searchEndDate" id="datepicker" readonly >
                                
                             </span>
                         </div>    
@@ -258,12 +251,13 @@ li{text-decoration:none; list-style-type : none }
             <tbody>
         </table>
 						</div>
+                            <div class="invalid-feedback">심사 및 등록까지 최대 1주일이 걸릴수 있습니다.</div>
 				    </div>
 				    <hr>
 				    <div class="row my-4 was-validated">
      					<label class="col-form-label col-3 col-md-2 pt-0">상금<strong> * </strong></label>
 	      				<div class="col-9 col-md-10">
-	      					<input type="text" class="form-control" name="price" id="validation02" placeholder="예) 1,000,000원" style="font-size: 15px;" required>
+	      					<input type="number" class="form-control" name="price" id="validation02" placeholder="예) 1,000,000원" style="font-size: 15px;" required>
 	      					<div class="invalid-feedback">주최하실 공모전의 상금을 걸어주세요! (장난으로 작성하실 경우 심사에서 거절 처리 됩니다.)</div>
 						</div>
 				    </div>

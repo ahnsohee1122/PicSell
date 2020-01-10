@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Contest">
+<insert id="insert" parameterType="kh.picsell.dto.ContestDTO">
+		insert into contest values(contest_seq.nextval, #{reason} , #{title} , #{detail}, #{terms}, #{term_time},#{price},#{hosttype},#{host},N,N)
+	</insert>
+<select id="getNoList" resultType="kh.picsell.dto.ContestDTO">
+		select * from contest where accept = 'N' and checking ='N'
+	</select>
+<update id="accept" parameterType="kh.picsell.dto.ContestDTO">
+	update contest set accept = 'Y', checking = 'Y' where contest_seq = #{contest_seq}
+</update>
+<select id="detailcheck" resultType="kh.picsell.dto.ContestDTO">
+		select * from contest where contest_seq = #{contest_seq}
+	</select>
+	<update id="acceptno" parameterType="kh.picsell.dto.ContestDTO">
+	update contest set checking = 'Y' where contest_seq = #{contest_seq}
+</update>
+<select id="acceptlist" resultType="kh.picsell.dto.ContestDTO">
+	select * from contest where accept='Y'
+</select>
+</mapper>
