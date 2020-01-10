@@ -222,7 +222,7 @@
 							        	</div>
 							        	<hr>
 							        	<div class="row my-2" style="font-size: 20px;">
-							        		<div class="col-12 mb-2"><a href="#" style="color: black; text-decoration: none;">마이 페이지</a></div>
+							        		<div class="col-12 mb-2"><a href="${pageContext.request.contextPath}/myPage/myPage.do" style="color: black; text-decoration: none;">마이 페이지</a></div>
 							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a></div>
 							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 수정</a></div>
 							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 탈퇴</a></div>
@@ -247,7 +247,7 @@
 							        	</div>
 							        	<hr>
 							        	<div class="row my-4 text-center" style="font-size: 20px;">
-							        		<div class="col-12"><a href="#" class="btn" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a></div>
+							        		<div id="logout" class="col-12"><a href="#" class="btn" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a></div>
 							        	</div>
 						        	</div>
 						      	</div>
@@ -260,14 +260,21 @@
         </c:choose>
     </div>
     <script>
-    	
+   
 		(function(){
 			$("#id").on("focus",function(){
 		    	$(".ears").css("transform", "rotate3d(-1, -0.648763, -0.324382, 0.31546rad)");
 		 	    $(".eyes").css("transform", "rotate3d(-1, -0.648763, -0.324382, 0.31546rad)");
 		 		$(".muzzle").css("transform", "rotate3d(-1, -0.648763, -0.324382, 0.31546rad)");
 		    })
-		    
+		     $("#logout").on("click",function(){
+    	var result = confirm("로그아웃 하시겠습니까?");
+    	if(result){
+    		location.href="/member/Logout.do";
+    		
+    	}
+    })
+    	
 			$("#login").on("click",function(){
 				$.ajax({
 					url:"member/loginProc.do",
