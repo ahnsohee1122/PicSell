@@ -21,7 +21,7 @@ public class NoticeDAO {
 	}
 
 	public NoticeDTO detail(int notice_seq) {
-		Map<String, Integer> param = new HashMap<>();
+		Map<String, Integer> param = new HashMap<String, Integer>();
 		param.put("notice_seq", notice_seq);
 		return jdbc.selectOne("Notice.detail", param);
 	}

@@ -10,10 +10,10 @@
 		select count(*) from member where id = #{id} and pw = #{pw} and admin='Y'
 	</select>
 	<delete id="leave">
-		delete from member where id = #{nickname}
+		delete from member where nickname = #{nickname}
 	</delete>
 	<insert id="insert" parameterType="kh.picsell.dto.MemberDTO">
-		insert into member values(#{id}, #{pw} , #{name} , #{nickname}, #{email}, #{email_receive}, #{phone},#{zipcode},#{addr1},#{addr2},0,'N',0)
+		insert into member values(#{id}, #{pw} , #{name} , #{nickname}, #{email}, #{email_receive},0,'N',0)
 	</insert>
 	<select id="idCheck" resultType="integer">
 		select count(*) from member where id = #{id}
@@ -48,4 +48,5 @@
 	<update id="blackdown" parameterType="kh.picsell.dto.MemberDTO">
 	update member set black=black-1 where id= #{id}
 	</update>
+
 	</mapper>

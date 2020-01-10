@@ -19,7 +19,9 @@
 	<mvc:resources mapping="/img/**" location="/resources/img/" />
 	<mvc:resources mapping="/notice_summernote_files/**" location="/notice_summernote_files/" />
 	<mvc:resources mapping="/notice_files/**" location="/notice_files/" />
-	
+	<mvc:resources mapping="/writeruploadfiles/**" location="/writeruploadfiles/" />
+	<mvc:resources mapping="/css/**" location="/resources/css/" />
+	<mvc:resources mapping="/js/**" location="/resources/js/" />
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -57,7 +59,7 @@
 	
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="20000000"/>
+		<beans:property name="maxUploadSize" value="1048576000"/>
 		<beans:property name="defaultEncoding" value="utf-8"/>
 	</beans:bean>
 </beans:beans>

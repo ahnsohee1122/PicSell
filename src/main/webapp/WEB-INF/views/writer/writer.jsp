@@ -10,7 +10,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style>
 /*    작가페이지 Main */
-	.writer {width: 100%; min-height: 250px; background-image: url('/img/write_banner.png'); background-repeat: no-repeat;}
+	.writer {width: 100%; min-height: 250px; background-image: url('${pageContext.request.contextPath}/img/write_banner.png'); background-repeat: no-repeat;}
 	.explanation {margin-top: 5px; padding: 0px; background: none; border: 0; color: white; border-bottom: 1px solid white;}
 	
 	.modal-open {padding: 0;}
@@ -61,7 +61,7 @@
     			<h4 class="mt-5 mb-4">이미지 업로드 하기</h4>
     			<h6>업로드 해 주신 이미지는 내부 심사를 거쳐 픽셀 사이트에 노출되며,</h6>
     			<h6>최대 7일 이내에 모든 심사가 완료됩니다.</h6>
-    			<a href="#" class="p-0 my-5 btn text-secondary border border-secondary" style="width: 50px; height: 50px; font-size: 35px;">+</a>
+    			<a href="/writer/doupload" class="p-0 my-5 btn text-secondary border border-secondary" style="width: 50px; height: 50px; font-size: 35px;">+</a>
     		</div>
     	</div>
     	<div class="container py-5 px-2">
@@ -149,7 +149,7 @@
     	</div>
     </div>
       
-    <div class="container-fluid py-4 m-0" style="font-family: 'Cafe24Oneprettynight';">
+    <div class="container-fluid py-4 py-lg-5 m-0" style="font-family: 'Cafe24Oneprettynight';">
         <div class="container px-0 pb-2">
     		<div class="m-auto text-center">
     			<h3 style="font-size: 25px;">픽셀에 이미지 업로드 할 준비 되셨나요?</h3>

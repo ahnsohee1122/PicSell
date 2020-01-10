@@ -7,17 +7,12 @@ private String name;
 private String nickname;
 private String email;
 private String email_receive;
-private String phone;
-private String zipcode;
-private String addr1;
-private String addr2;
 private int black;
 private int likepoint;
 public MemberDTO() {
 	super();
 }
-public MemberDTO(String id, String pw, String name, String nickname, String email, String email_receive, String phone,
-		String zipcode, String addr1, String addr2, int black, int likepoint) {
+public MemberDTO(String id, String pw, String name, String nickname, String email, String email_receive, int black, int likepoint) {
 	super();
 	this.id = id;
 	this.pw = pw;
@@ -25,10 +20,6 @@ public MemberDTO(String id, String pw, String name, String nickname, String emai
 	this.nickname = nickname;
 	this.email = email;
 	this.email_receive = email_receive;
-	this.phone = phone;
-	this.zipcode = zipcode;
-	this.addr1 = addr1;
-	this.addr2 = addr2;
 	this.black = black;
 	this.likepoint = likepoint;
 }
@@ -67,30 +58,6 @@ public String getEmail_receive() {
 }
 public void setEmail_receive(String email_receive) {
 	this.email_receive = email_receive;
-}
-public String getPhone() {
-	return phone;
-}
-public void setPhone(String phone) {
-	this.phone = phone;
-}
-public String getZipcode() {
-	return zipcode;
-}
-public void setZipcode(String zipcode) {
-	this.zipcode = zipcode;
-}
-public String getAddr1() {
-	return addr1;
-}
-public void setAddr1(String addr1) {
-	this.addr1 = addr1;
-}
-public String getAddr2() {
-	return addr2;
-}
-public void setAddr2(String addr2) {
-	this.addr2 = addr2;
 }
 public int getBlack() {
 	return black;

@@ -12,7 +12,7 @@
 	@font-face {font-family: 'Cafe24Oneprettynight'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff'); font-weight: normal; font-style: normal; }
 	
 /*    메인 이미지 css */
-    .main {width: 100%; height: 600px; background-image: url('img/main_banner.jpg'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;}
+    .main {width: 100%; height: 600px; background-image: url('${pageContext.request.contextPath}/img/main_banner.jpg'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;}
     
 /*    검색기능 css */
     .searchbar{margin-bottom: auto; margin-top: auto; height: 50px; background-color: white; border-radius: 30px; padding: 10px;}
@@ -195,7 +195,7 @@
     <div class="container-fluid" style="background-color: white;">
         <div class="container px-0 py-5">
             <div class="row">
-                <p class="contest01"><img src="img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="img/crown.png" style="width: 50px; height: 50px;"></p>
+                <p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>
             </div>
             <div class="row">
                 <div class="col-12 col-xl-3">
@@ -212,13 +212,13 @@
                     <div id="carousel" class="carousel slide" data-ride="carousel">
                       <div class="carousel-inner">
                         <div class="carousel-item active" style="height: 370px;">
-                          <img src="img/pic01.jpg" class="d-block m-auto h-100">
+                          <img src="${pageContext.request.contextPath}/img/pic01.jpg" class="d-block m-auto h-100">
                         </div>
                         <div class="carousel-item" style="height: 370px;">
-                          <img src="img/pic02.jpg" class="d-block m-auto h-100">
+                          <img src="${pageContext.request.contextPath}/img/pic02.jpg" class="d-block m-auto h-100">
                         </div>
                         <div class="carousel-item" style="height: 370px;">
-                          <img src="img/pic03.jpg" class="d-block m-auto h-100">
+                          <img src="${pageContext.request.contextPath}/img/pic03.jpg" class="d-block m-auto h-100">
                         </div>
                       </div>
                       <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
@@ -246,7 +246,7 @@
                     <div class="MultiCarousel-inner">
                         <div class="item">
                             <div class="pad15">
-                                <p><img src="img/contest.jpg" style="width: 250px; height: 170px;"></p>
+                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
                                 <p class="lead">웨딩사진 공모전</p>
                                 <p class="text-danger">모집중</p>
                                 <p>~ 20/01/30</p>
@@ -255,7 +255,7 @@
                         </div>
                         <div class="item">
                             <div class="pad15">
-                                <p><img src="img/contest.jpg" style="width: 250px; height: 170px;"></p>
+                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
                                 <p class="lead">웨딩사진 공모전</p>
                                 <p class="text-danger">집계중</p>
                                 <p>19/12/30 ~ 20/01/30</p>
@@ -264,7 +264,7 @@
                         </div>
                         <div class="item">
                             <div class="pad15">
-                                <p><img src="img/contest.jpg" style="width: 250px; height: 170px;"></p>
+                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
                                 <p class="lead">웨딩사진 공모전</p>
                                 <p class="text-danger">집계중</p>
                                 <p>19/12/30 ~ 20/01/30</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="item">
                             <div class="pad15">
-                                <p><img src="img/contest.jpg" style="width: 250px; height: 170px;"></p>
+                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
                                 <p class="lead">웨딩사진 공모전</p>
                                 <p class="text-danger">집계중</p>
                                 <p>19/12/30 ~ 20/01/30</p>
@@ -282,7 +282,7 @@
                         </div>
                         <div class="item">
                             <div class="pad15">
-                                <p><img src="img/contest.jpg" style="width: 250px; height: 170px;"></p>
+                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
                                 <p class="lead">웨딩사진 공모전</p>
                                 <p class="text-danger">집계중</p>
                                 <p>19/12/30 ~ 20/01/30</p>
@@ -290,8 +290,8 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn border-0 leftLst"><img src="img/previous01.png" style="width: 17px; height: 17px;"></button>
-                    <button class="btn border-0 rightLst"><img src="img/next01.png" style="width: 17px; height: 17px;"></button>
+                    <button class="btn border-0 leftLst"><img src="${pageContext.request.contextPath}/img/previous01.png" style="width: 17px; height: 17px;"></button>
+                    <button class="btn border-0 rightLst"><img src="${pageContext.request.contextPath}/img/next01.png" style="width: 17px; height: 17px;"></button>
                 </div>
             </div>
         </div>

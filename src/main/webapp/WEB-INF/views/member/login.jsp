@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
- <link rel="stylesheet" href="style.css">
-     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <style>
     body {
@@ -138,7 +136,7 @@ input {
     </style>
 </head>
 <body>
- <form action="loginProc.do" method="post" id="frm">
+ <form 	oc.do" method="post" id="frm">
         <div id="info" style="position: absolute;left: 42%;top:350px;font-size: 20px;display: none">로그인에 실패했슴다</div>
         <svg id="ryan" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,150 C0,65 120,65 120,150" fill="#e0a243" stroke="#000" stroke-width="2.5" />

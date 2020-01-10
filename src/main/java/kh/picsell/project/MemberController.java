@@ -15,7 +15,6 @@ import kh.picsell.service.MemberService;
 
 @Controller
 @RequestMapping("/member")
-
 public class MemberController {
 	@Autowired
 	private HttpSession session;
@@ -29,31 +28,32 @@ public class MemberController {
 	}
 	@RequestMapping("/findid.do") //아디찾기페이지로이동
 	public String findid() {
-		return "member/findid";
+		return "member/find_id_pw";
 	}
 	@RequestMapping("/findpw.do") //비번찾기페이지로이동
 	public String findpw() {
-		return "member/findpw";
+		return "member/find_id_pw";
 	}
 	@RequestMapping("/login.do") //로그인페이지로이동
 	public String login() {
 
 		return "member/login";
 	}
-	@RequestMapping("/signupProc.do") //회원가입
+	@RequestMapping(value="/signupProc.do", produces="text/html; charset=UTF-8") //회원가입
+	@ResponseBody
 	public String signupProc(MemberDTO dto) {
 
 		try {
 			int result = service.insert(dto);
 			if(result>0) {
-				System.out.println("ㅇㅋ");
+				return"ㅇㅋ";
 			}else {
-				System.out.println("no");
+				return"ㄴㄴ";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "서버에러";
 		}
-		return "home";
 	}
 
 	@RequestMapping(value="/idCheck.do", produces="text/html; charset=UTF-8")
@@ -65,8 +65,8 @@ public class MemberController {
 			System.out.println(id);
 			int result = service.idCheck(id);
 			System.out.println(result);
-			if(result >0) {return"중복된 ID입니다."; }
-			else {return"사용 가능한 ID입니다";}
+			if(result >0) {return"중복"; }
+			else {return"가능";}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -108,7 +108,7 @@ public class MemberController {
 	@RequestMapping(value="/loginProc.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String loginProc(String id, String pw, HttpServletRequest request) { //로그인
-
+		System.out.println(id+" : "+pw);
 		try {
 			MemberDTO dto = service.getnick(id);			 
 			String nickname = dto.getNickname();
@@ -155,27 +155,27 @@ public class MemberController {
 		return "";
 
 	}
-		@RequestMapping(value="/findidProc.do", produces="text/html; charset=UTF-8")
-		@ResponseBody
-		public String idfindProc(String name, String email, HttpServletRequest request) { //아디찾기
-
+	
+	@RequestMapping(value="/findidProc.do", produces="text/html; charset=UTF-8")
+	@ResponseBody
+	public String idfindProc(String name, String email, HttpServletRequest request) { //아디찾기
 			try {
-				MemberDTO dto =  service.idfind(name, email);
-				String id = dto.getId();
-				return id;
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				return "회원목록없음";
-			}
-
+			MemberDTO dto =  service.idfind(name, email);
+			String id = dto.getId();
+			return id;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "회원목록없음";
 		}
+	}
+
 	@RequestMapping("/Logout.do")
 	public String logout() { //로그아웃
 		session.removeAttribute("adminInfo");
 		session.removeAttribute("loginInfo");
 		return "home";
 	}
+	
 	@RequestMapping(value="/pwchange.do", produces="text/html; charset=UTF-8")
 	@ResponseBody 
 	public String pwchange(String id, String input, String email, HttpServletRequest request) { // 패스워드찾기
@@ -224,6 +224,7 @@ public class MemberController {
 		}
 		return "home";
 	}
+	
 	@RequestMapping("/manage.do")
 	public String manage(MemberDTO dto, HttpServletRequest request) { //회원관리(목록조회)
 		List<MemberDTO> list;
@@ -235,6 +236,7 @@ public class MemberController {
 		}
 		return "member/manage";
 	}
+	
 	@RequestMapping(value="/blackup.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String blackup(String id, HttpServletRequest request) { //블랙1업
@@ -251,6 +253,7 @@ public class MemberController {
 			return "서버";
 		}
 	}
+	
 	@RequestMapping(value="/blackdown.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String blackdown(String id, HttpServletRequest request) { //블랙1다운
@@ -267,6 +270,5 @@ public class MemberController {
 			return "서버";
 		}
 	}
-
 
 }

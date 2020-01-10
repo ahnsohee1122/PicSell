@@ -16,6 +16,7 @@ private String accept;
 public img_upDTO() {
 	super();
 }
+
 public img_upDTO(int img_seq, String nickname, String usage, String tag, String file_extension, String oriName,
 		String sysName, int likepoint, int viewCount, int downCount, int price, String accept) {
 	super();
