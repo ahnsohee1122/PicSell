@@ -59,5 +59,18 @@ div {
 			</c:if>
 		</div>
 	</div>
+	<%-- <c:if test="${adminInfo !=null }"> --%>
+		<input type="button" id="delete" value="삭제">
+		<input type="button" id="modify" value="수정">
+	<%-- </c:if> --%>
+	<script>
+		$("#delete").on("click", function(){
+			location.href="${pageContext.request.contextPath}/notice/delete.do?seq=${map.notice.notice_seq}";
+		})
+		
+		$("#modify").on("click", function(){
+			location.href="${pageContext.request.contextPath}/notice/modify.do?seq=${map.notice.notice_seq}";
+		})
+	</script>
 </body>
 </html>

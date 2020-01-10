@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Summernote">
+	<insert id="summernoteFile">
+		insert into summernoteFile
+		values(#{notice_seq},
+		#{notice_sysName})
+	</insert>
+
+	<select id="getFileSysName" resultType="String">
+		select notice_sysName
+		from summernoteFile where notice_seq = #{notice_seq}
+	</select>
+	
+	<delete id="delete">
+		delete from summernoteFile where notice_seq = #{notice_seq}
+	</delete>
+</mapper>

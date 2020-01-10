@@ -6,11 +6,9 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import kh.picsell.dto.NoticeDTO;
-import kh.picsell.dto.NoticeFileDTO;
 
 @Repository
 public class NoticeDAO {
@@ -37,8 +35,12 @@ public class NoticeDAO {
 		return result;
 	}
 	
-	
 	public void viewCountUp(int notice_seq) {
 		jdbc.update("Notice.viewCountUp", notice_seq);
 	}
+	
+	public void delete(int notice_seq) {
+		jdbc.delete("Notice.delete", notice_seq);
+	}
+	
 }
