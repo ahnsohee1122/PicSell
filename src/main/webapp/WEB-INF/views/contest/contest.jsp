@@ -92,12 +92,14 @@
     				</div>
     			</div>
     			<div class="col-12 col-md-6 col-xl-4 mt-2 mb-4">
+    			
     				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
     					<p><img src="${pageContext.request.contextPath}/img/contest01.jpg" style="width: 300px; height: 170px;"></p>
     					<p class="px-2 pb-2" style="font-size: 20px;"><a href="#" style="color: black;">웨딩사진 공모전</a></p>
     					<p class="px-2 py-0" style="font-size: 17px;">상금  1,000,000원</p>
     					<p class="px-2 py-0" style="font-size: 17px;">기간  ~ 2020/01/30</p>
-    				</div>
+    				
+    			</div>
     			</div>
     			<div class="col-12 col-md-6 col-xl-4 mt-2 mb-4">
     				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
@@ -114,22 +116,41 @@
 </c:when>
 <c:otherwise>
 <c:forEach items="${list}" var="dto">
+
 <div class="col-12 col-md-6 col-xl-4 mt-2 mb-4" id="contest${dto.contest_seq}">
     				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
     					<p><img src="${pageContext.request.contextPath}/img/contest01.jpg" style="width: 300px; height: 170px;"></p>
     					<p class="px-2 pb-2" style="font-size: 20px;"><a href="#" style="color: black;">${dto.title }</a></p>
-    					<p class="px-2 py-0" style="font-size: 17px;">상금 ${dto.price}원</p>
+    					<p class="px-2 py-0" style="font-size: 17px;" id="price${dto.contest_seq}"></p>
     					<p class="px-2 py-0" style="font-size: 17px;" id="date${dto.term_time }">기간  ${dto.term_time}</p>
+    					<p class="px-2 py-0" style="font-size: 17px; color:red; display:none;" id="time${dto.contest_seq }">기간  지남</p>
     				</div>
-    			</div>
+    				</div>
+    			<input type="hidden" id="hid${dto.contest_seq}" value="${dto.price}">
     			<script>
-    			var a = "${dto.term_time}";
-    			var inputtime = a.substr(11,10); //게시끝나는날
-    			var inputyear = a.substr(11,4); //게시끝나는년도
-    			var inputmonth = a.substr(16,2); //끝나는월
-    			var inputdate = a.substr(19,2); //끝나는일
+    			var num = $("#hid${dto.contest_seq}").val();
+    			console.log(num);
+    			function addComma(num) {
+    				  var regexp = /\B(?=(\d{3})+(?!\d))/g;
+    				  return num.toString().replace(regexp, ',');
+    				}
+  			$("#price${dto.contest_seq}").html("상금 : "+(addComma(num))+"원");
+  			
     			
-    			console.log(inputtime);
+    			
+    			var a = "${dto.term_time}";
+    
+    			var inputyear = a.substr(0,4); //게시끝나는년도
+    			var inputmonth = a.substr(5,2); //끝나는월
+    			var inputdate = a.substr(8,2); //끝나는일
+    			
+    			var startyear = a.substr(0,4);
+    			var startmonth = a.substr(5,2);
+    			var startdate = a.substr(8,2);
+    			var startday = (startyear+""+startmonth+""+startdate); //시작일
+    			
+    			console.log(startday); //
+    			
     			
     			var now = new Date();
     			var year = now.getFullYear();
@@ -146,22 +167,30 @@
     			var outputmonth = sysdate.substr(5,2);
     			var outputdate = sysdate.substr(8,2);
     			
-    			var resultyear = inputyear-outputyear;
-    			var resultmonth = inputmonth-outputmonth;
-    			var resultdate = inputdate-outputmonth;
-    			console.log(resultyear +" : "+resultmonth+" : "+resultdate);
-    			if((resultyear+"").length<2){
-    				resultyear="0"+resultyear;
-    			}
-    			if((resultmonth+"").length <2){
-    				resultmonth = "0"+resultmonth;
-    			}
-    			if((resultdate+"").length <2){
-    				resultdate = "0"+resultdate;
-    			}
-    			var result = (resultyear+""+resultmonth+""+resultdate);
-    			console.log(result);
-    			console.log(1-8);
+    			if(inputyear>outputyear){ //년도확인
+    				console.log("기간안지남")
+
+    			}else if(inputyear==outputyear){ //년도 같을때
+    				if(inputmonth>outputmonth){
+    					console.log("기간안지남");
+    				}
+    				else if(inputmonth=outputmonth){    					
+    					if(inputdate>=outputdate){
+    						console.log("기간안지남");
+    					}else{
+    						console.log("기간지남");
+    						$("#time${dto.contest_seq}").css("display","block");
+    					}
+    				}else{
+    				console.log("기간지남");
+    				$("#time${dto.contest_seq}").css("display","block");
+    				}	
+
+        			}else{
+        				console.log("기간지남");
+        				$("#time${dto.contest_seq}").css("display","block");
+        			}
+    			
     			</script>
 </c:forEach>
 </c:otherwise>
