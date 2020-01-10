@@ -38,7 +38,7 @@ public class WriterController {
 			return "writer/writer";
 		}
 		
-		//업로드 + 버튼 누름
+		//업로드 (+)버튼 누름
 		@RequestMapping("doupload")
 		public String upload() {
 			return "writer/uploadpage";
