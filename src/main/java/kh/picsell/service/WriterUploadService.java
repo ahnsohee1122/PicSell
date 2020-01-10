@@ -41,10 +41,8 @@ public class WriterUploadService {
     }
 	
     @Transactional("txManager")
-	public void upload(MultipartFile[] file, HttpServletRequest request, WriterImageUpDTO dto) {
-		String path = session.getServletContext().getRealPath("writeruploadfiles");
-		String watermarkpath = session.getServletContext().getRealPath("watermarkfiles");
-		
+	public void upload(MultipartFile[] file, HttpServletRequest request, WriterImageUpDTO dto, String path, String watermarkpath,String nickname) {
+		dto.setNickname("@"+nickname);
 		File filepath = new File(path);
 		File watermarkfilepath = new File(watermarkpath);
 		
@@ -139,7 +137,5 @@ public class WriterUploadService {
 		
 	}
 
-	public List<WriterImageUpDTO> writerview (Map<String,Object> param) {
-		return dao.view(param);
-	}
+	
 }

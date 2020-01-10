@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="imageup">
+	<insert id="insert" parameterType="kh.picsell.dto.WriterImageUpDTO">
+		insert into writer_image_Up values(img_seq.nextval,#{nickname},#{usage},#{copyright},#{tag},#{file_extension}, #{oriname}, #{sysname},#{img_size},#{make},#{model},#{xDimension},#{yDimension},#{sysname_watermark},0,0,0,'N',sysdate)
+	</insert>
+	
+		<select id="select" parameterType="String" resultType="kh.picsell.dto.WriterImageUpDTO">
+		select * from writer_image_Up where nickname = 'nickname'
+		</select>
+		
+		<select id="selectSysName" parameterType="java.util.Map" resultType="kh.picsell.dto.WriterImageUpDTO">
+			select * from (select writer_image_Up.*, row_number() over(order by img_seq ) as rown from writer_image_Up) where rown between #{start} and #{end} and  nickname = #{nickname}
+		</select>
+		
+		<select id="writerInfo" parameterType="String" resultType="kh.picsell.dto.MemberDTO">
+			select * from member where nickname = #{nickname}
+		</select>
+	
+		<!-- 이미지수 -->
+		<select id="imgcount" resultType="Integer">
+			select count(*) from writer_image_Up where nickname = #{nickname}
+		</select>
+		<!-- 다운로드 수 -->
+		<select id="downcount" resultType="Integer">
+			select sum(downcount) from writer_image_Up where nickname = #{nickname}
+		</select>
+		<!-- 조회수 -->
+		<select id="viewcount" resultType="Integer">
+			select sum(viewcount) from writer_image_Up where nickname = #{nickname}
+		</select>
+		<!-- 이미지 좋아요 -->
+		<select id="imglike" resultType="Integer">
+			select sum(img_like) from writer_image_Up where nickname = #{nickname}
+		</select>
+		
+		<select id="likepoint"  resultType="Integer">
+			select sum(likepoint) from member where nickname = #{nickname}
+		</select>
+</mapper>
