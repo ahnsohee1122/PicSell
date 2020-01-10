@@ -185,6 +185,7 @@
 							        	<div class="row my-2" style="font-size: 20px;">
 							        		<div class="col-12 mb-2"><a href="#" style="color: black; text-decoration: none;">마이페이지</a></div>
 							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a></div>
+							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a></div>
 							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 수정</a></div>
 							        		<div class="col-12 sideMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 탈퇴</a></div>
 							        	</div>
