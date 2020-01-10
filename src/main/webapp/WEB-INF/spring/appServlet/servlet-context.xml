@@ -38,8 +38,8 @@
 			value="oracle.jdbc.driver.OracleDriver"/>
 		<beans:property name="url"
 			value="jdbc:oracle:thin:@localhost:1521:xe"/>
-		<beans:property name="username" value="picsell"/>
-		<beans:property name="password" value="picsell"/>
+		<beans:property name="username" value="px"/>
+		<beans:property name="password" value="px"/>
 		<beans:property name="initialSize" value="30"/>
 	</beans:bean>
    
