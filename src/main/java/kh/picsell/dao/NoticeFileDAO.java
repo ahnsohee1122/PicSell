@@ -23,4 +23,12 @@ public class NoticeFileDAO {
 	public List<NoticeFileDTO> selectAll(int noticeFile_parentSeq ){
 		return jdbc.selectList("NoticeFile.selectAll", noticeFile_parentSeq);
 	} 
+	
+	public List<String> getFileSysName(int noticeFile_parentSeq){
+		return jdbc.selectList("NoticeFile.getFileSysName", noticeFile_parentSeq);
+	}
+	
+	public void delete(int noticeFile_parentSeq) {
+		jdbc.delete("NoticeFile.delete", noticeFile_parentSeq);
+	}
 }

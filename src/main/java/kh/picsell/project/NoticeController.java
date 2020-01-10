@@ -24,7 +24,7 @@ import kh.picsell.service.NoticeService;
 public class NoticeController {
 
 	@Autowired
-	private NoticeService NoticeService;
+	private NoticeService noticeService;
 
 	@Autowired
 	private HttpSession session;
@@ -34,7 +34,7 @@ public class NoticeController {
 	@RequestMapping("/notice.do")
 	public ModelAndView notice() {
 		try {
-			List<NoticeDTO> noticeList = NoticeService.noticeList();
+			List<NoticeDTO> noticeList = noticeService.noticeList();
 			mav.addObject("noticeList", noticeList);
 			mav.setViewName("notice/notice");
 		}catch(Exception e) {
@@ -49,7 +49,7 @@ public class NoticeController {
 
 		System.out.println(notice_seq);
 		try {
-			Map map = NoticeService.detail(notice_seq);
+			Map map = noticeService.detail(notice_seq);
 			System.out.println(map.get("fileDto").toString());
 			mav.addObject("map", map);
 			mav.setViewName("notice/noticeView");
@@ -75,11 +75,10 @@ public class NoticeController {
 		String nickName = "a123";
 		noticeDto.setNotice_writer(nickName);
 		String file_path = session.getServletContext().getRealPath("/notice_files");
-		System.out.println(file_path);
 		String summernote_filePath = session.getServletContext().getRealPath("notice_summernote_files") ;
 
 		try {
-			NoticeService.write(noticeDto, noticeFileDto, file_path, summernote_filePath);
+			noticeService.write(noticeDto, noticeFileDto, file_path, summernote_filePath);
 			return "redirect:/notice/notice.do";
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -89,7 +88,6 @@ public class NoticeController {
 	@RequestMapping("/fileDownLoad.do")
 	public void fileDownLoad(String oriName, String sysName, HttpServletResponse response) {
 		String path = session.getServletContext().getRealPath("/notice_files");
-		System.out.println(path);
 		String fullPath = path + "/" + sysName;
 		File file = new File(fullPath);
 
@@ -113,5 +111,34 @@ public class NoticeController {
 		}
 	}
 
+	@RequestMapping("/delete.do")
+	public String delete(int seq) {
+		String file_path = session.getServletContext().getRealPath("/notice_files");
+		String summernote_filePath = session.getServletContext().getRealPath("notice_summernote_files") ;
+		noticeService.delete(seq, file_path, summernote_filePath);
+		return "redirect:/notice/notice.do";
+	}
+	
+	@RequestMapping("/modify.do")
+	public String modify(int seq) {
+		
+		try {
+			Map map = noticeService.detail(seq);
+			System.out.println(map.get("fileDto").toString());
+			session.setAttribute("map", map);
+			return "notice/modify";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+	
+	@RequestMapping("/modifyProc.do")
+	public void modifyProc(String[] removeFileSeq) {
+		for(String s : removeFileSeq) {
+			System.out.println(s);
+		}
+	}
+	
 
 }
