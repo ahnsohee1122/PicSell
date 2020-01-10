@@ -134,8 +134,8 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("/modifyProc.do")
-	public void modifyProc(int[] removeFileSeq) {
-		for(int s : removeFileSeq) {
+	public void modifyProc(String[] removeFileSeq) {
+		for(String s : removeFileSeq) {
 			System.out.println(s);
 		}
 	}

@@ -35,10 +35,9 @@
 				<td>
 					<div>
 						<input type="file" name="noticeFile_file0" multiple="multiple">
-						<a href="#this" id="delete">삭제</a> <a href="#this" id="addFile">파일
-							추가</a>
+						<button class="removeFile" type="button">삭제</button>
+					</div>
 				</td>
-				</div>
 
 			</tr>
 			<tr>
@@ -50,6 +49,7 @@
 							${fileDto.noticeFile_oriName } <input type="button" value="x"
 								id="a${fileDto.noticeFile_seq }" class="test"
 								onclick="uploadedFileDelete(${fileDto.noticeFile_seq})">
+								<input type=hidden value='${fileDto.noticeFile_seq }'>
 						</div>
 					</c:forEach></td>
 			</tr>
@@ -63,18 +63,20 @@
 			<tr>
 				<td><input type="button" id="writeBtn" value="수정"></td>
 			</tr>
-			<input type=hidden value=removeFileSeq>
 		</table>
 	</form>
 
 	<script>
-	
-	var removeFileSeq = new Array();
-	
+
 	function uploadedFileDelete(seq){
+		var removeFileSeq = $(this).closest("div").find("input").val();
+		var inputTag = $("<input type=hidden>");
+		$(inputTag).val(removeFileSeq);
+		$(inputTag).attr("name","removeFileSeq");
+		$("#frm").append($(inputTag));
 		$("#a" + seq).parent("div").remove();
-		removeFileSeq.push(seq);
-	}
+		
+	};
 
 	$("#summernote").summernote({
 		height : 600,
@@ -83,7 +85,10 @@
 		
 	$("#writeBtn").on("click",function(){
 		$("#frm").submit();
-	})
+	});
+
+	
+	
 	</script>
 </body>
 </html>
