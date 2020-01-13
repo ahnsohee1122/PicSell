@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>     
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Play&display=swap" rel="stylesheet"><!-- 로고 글씨체 -->
 <style>
 /*    기본 글씨체 */
@@ -76,8 +78,7 @@
 		</div>
 		<c:choose>
 			<c:when test="${loginInfo == null and adminInfo == null }">
-				<div
-					class="col-7 col-md-6 col-lg-5 col-xl-4 p-0 h-100 float-right text-right">
+				<div class="col-7 col-md-6 col-lg-5 col-xl-4 p-0 h-100 float-right text-right">
 					<ul class="h-100 float-right mx-3 my-0" style="list-style: none;">
 						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
 							<a href="${pageContext.request.contextPath}/contest/contest.do" class="text-dark">공모전</a>
@@ -292,10 +293,10 @@
 											<hr>
 											<div class="row my-2" style="font-size: 20px;">
 												<div class="col-12 mb-2">
-													<a href="#" style="color: black; text-decoration: none;">커뮤니티</a>
+													<a href="${pageContext.request.contextPath}/notice/notice.do" style="color: black; text-decoration: none;">커뮤니티</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">공지사항</a>
+													<a href="${pageContext.request.contextPath}/notice/notice.do" style="color: black; font-size: 16px; text-decoration: none;">공지사항</a>
 												</div>
 												<div class="col-12 sideMenu">
 													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">편집의뢰게시판</a>
