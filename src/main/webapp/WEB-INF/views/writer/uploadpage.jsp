@@ -56,7 +56,11 @@ li {
 canvas {
 	display: none;
 }
-
+.canvas{
+border:1px solid black;
+width:280px;
+height:280px;
+}
 .tag-item {
 	display: inline-block;
 	color: #000;
@@ -113,7 +117,6 @@ input[type=radio]:checked+label {
 		var addButton = document.getElementsByClassName('add-item')[0]
 		var list = document.getElementsByClassName('upload-list')[0]
 		var count = 0
-		
 	
 		
 		//사진 메타데이터 정보 가져오기.
@@ -128,14 +131,13 @@ input[type=radio]:checked+label {
 						"PixelXDimension")
 				document.getElementById('YDimension').value = EXIF.getTag(this,
 						"PixelXDimension")
-
 			});
-
 		}
 
 			var fileList = []
 		//이미지를 불러와서 미리보기.
 		function readImage(files, cnt, thumb) {
+				console.log(files)
 			var reader = new FileReader()
 			reader.onload = function(e) {
 				var data = e.target.result
@@ -194,15 +196,38 @@ input[type=radio]:checked+label {
 			left.classList.add('left')
 			input.setAttribute('type', 'file')
 			input.setAttribute('name', 'file')
+			input.setAttribute('accept','.jpg,.png,.jpeg')
+			$(document).on("dragenter",function(e){
+				e.stopPropagation();
+		          e.preventDefault();
+		          $(this).css('border', '2px solid #5272A0');
+
+			}).on('dragleave',function(e){
+				e.stopPropagation();
+		          e.preventDefault();
+		          $(this).css('border', '2px dotted #8296C2');
+
+			}).on('dragover',function(e){
+				e.stopPropagation();
+				e.preventDefault();
+			}).on('drop',function(e){
+				e.stopPropagation();
+				e.preventDefault();
+				$(this).css('border', '2px dotted #8296C2')
+				var files = e.originalEvent.dataTransfer.files
+				$("input[type='file']")
+		        .prop("files", files)  // put files into element
+		        .closest("form")
+				readImage(files, cnt, thumb)
+		        
+			})
 			input.onchange = function(e) {
 				//첨부파일 추가시 이미지 미리보기 function실행.
 				readImage(e.target.files, cnt, thumb)
 			}
 			left.appendChild(input)
 			left.appendChild(thumb)
-			
-			
-
+	
 			return left
 		}
 		
@@ -307,7 +332,7 @@ input[type=radio]:checked+label {
 
 		addButton.addEventListener('click', setItem)
 		setItem()
-
+	
 		//태그추가. 	
 		function addTags(e, cnt, view, list) {
 			if (e.key === 'Enter') {

@@ -104,7 +104,9 @@ public class ContestController {
 	@RequestMapping("newcontestform")
 	public String newContestform(MultipartFile[] files, ContestDTO dto) {
 		String path = session.getServletContext().getRealPath("contestfiles");
-		service.newcontest(files, dto, path);
+		//String nickname = (String)session.getAttribute("loginInfo");
+		String nickname = "hello";
+		service.newcontest(files, dto, path, nickname);
 		return "redirect:contest.do";
 	}
 	
