@@ -55,7 +55,7 @@ public class ContestController {
 		}
 		return "contest/checking";
 		
-	}@RequestMapping("/detailcheck")
+	}@RequestMapping("/detailcheck.do")
 	public String detailcheck(int contest_seq, HttpServletRequest request) {
 		ContestDTO dto = null;
 		try {
@@ -71,9 +71,9 @@ public class ContestController {
 	}
 	@RequestMapping(value="/accept.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
-	public String accept(int contest_seq, HttpServletRequest request) {
+	public String accept(String accept_date, int contest_seq, HttpServletRequest request) {
 		try{
-			int result = service.accept(contest_seq);
+			int result = service.accept(accept_date, contest_seq);
 			if(result>0) {
 				return "승인";
 			}else {
@@ -86,9 +86,9 @@ public class ContestController {
 	}
 	@RequestMapping(value="/acceptno.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
-	public String acceptno(int contest_seq, HttpServletRequest request) {
+	public String acceptno(String rejection, int contest_seq, HttpServletRequest request) {
 		try{
-			int result = service.noaccept(contest_seq);
+			int result = service.noaccept(rejection, contest_seq);
 			if(result>0) {
 				return "거절";
 			}else {
@@ -104,8 +104,17 @@ public class ContestController {
 		
 		String host1 = (String)session.getAttribute("loginInfo");
 		host=host1;
+		int ok = 0;
+		int no = 0;
+		int notyet = 0;
 		List<ContestDTO> list;
 		try {
+			ok = service.showok(host);
+			no = service.showno(host);
+			notyet = service.notyet(host);
+			session.setAttribute("ok", ok);
+			session.setAttribute("no", no);
+			session.setAttribute("notyet", notyet);
 			list = service.contestchecking(host);
 			request.setAttribute("list", list);
 			return "myPage/contestaccpet";
