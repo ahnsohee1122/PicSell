@@ -78,10 +78,10 @@ public String accept(int img_seq) { //사진심사 승인
 }
 @RequestMapping(value="/delete.do", produces="text/html; charset=UTF-8")
 @ResponseBody
-public String delete(int img_seq) { //승인거절
+public String delete(String rejection, int img_seq) { //승인거절
 	int result;
 	try {
-		result = service.noaccept(img_seq);
+		result = service.noaccept(rejection, img_seq);
 		if(result>0) {
 			return"성공";
 		}else {
@@ -108,4 +108,5 @@ public String del(int img_seq) { //사진심사 승인
 		return "서버";
 	}
 }
+
 }

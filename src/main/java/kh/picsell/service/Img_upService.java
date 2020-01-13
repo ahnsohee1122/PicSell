@@ -24,10 +24,10 @@ public class Img_upService {
 	public int accept(int img_seq) throws Exception{ //승인
 		return dao.accept(img_seq);
 	}
-	public int noaccept(int img_seq) throws Exception{ //삭제
-		return dao.noaccept(img_seq);
+	public int noaccept(String rejection, int img_seq) throws Exception{ //삭제
+		return dao.noaccept(rejection, img_seq);
 	}
-	public List<img_upDTO> acceptpage(String nickname) throws Exception{
+	public List<img_upDTO> acceptpage(String nickname) throws Exception{ //마이페이지에서 조회
 		return dao.acceptpage(nickname);
 	}
 	public int delete(int img_seq) throws Exception{
@@ -42,4 +42,5 @@ public class Img_upService {
 	public int notyet(String nickname) throws Exception{
 		return dao.notyet(nickname);
 	}
+	
 }

@@ -1,6 +1,8 @@
 package kh.picsell.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,11 @@ public class img_upDAO {
 	public int accept(int img_seq) throws Exception{ //승인하기
 		return jdbc.update("Img.accept", img_seq);
 	}
-	public int noaccept(int img_seq) throws Exception{
-		return jdbc.update("Img.noaccept", img_seq);
+	public int noaccept(String rejection, int img_seq) throws Exception{
+		img_upDTO dto = new img_upDTO();
+		dto.setRejection(rejection);
+		dto.setImg_seq(img_seq);
+		return jdbc.update("Img.noaccept", dto);
 	}public List<img_upDTO> acceptpage(String nickname){
 		return jdbc.selectList("Img.acceptpage",nickname);
 	}
@@ -38,4 +43,5 @@ public class img_upDAO {
 	public int notyet(String nickname) throws Exception{
 		return jdbc.selectOne("Img.notyet",nickname);
 	}
+
 }

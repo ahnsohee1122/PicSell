@@ -50,6 +50,7 @@ height:1000px;
 <td colspan=2><input type="button" id="ok${dto.img_seq}" value="승인">
 <input type="button" id="delete${dto.img_seq}" value="거절">
 <input type="button" id="hide${dto.img_seq}" value="닫기"></td></tr>
+<input type="hidden" id="why${dto.img_seq}">
 <script>
 $("#hide${dto.img_seq}").on("click",function(){
 	$("#img${dto.img_seq}").css("display","none");
@@ -76,21 +77,26 @@ $("#ok${dto.img_seq}").on("click",function(){
 			});
 })
 			$("#delete${dto.img_seq}").on("click",function(){
-				var result = confirm("거절하시겠습니까?");
-				if(result){
+				var msg = prompt("승인거절 이유를 작성해주세요.");
+				if(msg!=""){
+				$("#why${dto.img_seq}").val(msg);
 				$.ajax({
 					url:"delete.do",
 					type:"post",
-					data:{img_seq:${dto.img_seq}}
+					data:{img_seq:${dto.img_seq},rejection:msg}
 				}).done(function(res){
-					if(res="성공"){alert("승인거절에 성공했습니다.");
+							$("#why${dto.img_seq}").val(msg);
+							
+					if(res="성공"){
+						alert("승인거절에 성공했습니다.");
 					location.href="NoList"}
 					else if(res="실패"){alert("승인거절에 실패했습니다.")}
 				}).fail(function(res){
 					alert("서버에러입니다.")
 				});
+				
 				}else{
-					alert("취소했습니다");
+					alert("거절 사유를 작성해주세요");
 				}
 			})
 </script>

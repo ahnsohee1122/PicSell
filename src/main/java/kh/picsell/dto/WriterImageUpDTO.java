@@ -8,7 +8,7 @@ public class WriterImageUpDTO {
 	private int img_size;
 	private String make,model,xDimension,yDimension,sysname_watermark;
 	private int img_like, viewcount, downcount;
-	private String accept;
+	private String accept,checking;
 	private Timestamp img_sysdate;
 	
 	public WriterImageUpDTO() {}
@@ -16,7 +16,7 @@ public class WriterImageUpDTO {
 	public WriterImageUpDTO(int img_seq, String nickname, String usage, String copyright, String tag,
 			String file_extension, String oriname, String sysname, int img_size, String make, String model,
 			String xDimension, String yDimension, String sysname_watermark, int img_like, int viewcount, int downcount,
-			String accept, Timestamp img_sysdate) {
+			String accept, String checking, Timestamp img_sysdate) {
 		super();
 		this.img_seq = img_seq;
 		this.nickname = nickname;
@@ -36,6 +36,7 @@ public class WriterImageUpDTO {
 		this.viewcount = viewcount;
 		this.downcount = downcount;
 		this.accept = accept;
+		this.checking = checking;
 		this.img_sysdate = img_sysdate;
 	}
 
@@ -183,6 +184,14 @@ public class WriterImageUpDTO {
 		this.accept = accept;
 	}
 
+	public String getChecking() {
+		return checking;
+	}
+
+	public void setChecking(String checking) {
+		this.checking = checking;
+	}
+
 	public Timestamp getImg_sysdate() {
 		return img_sysdate;
 	}
@@ -190,8 +199,6 @@ public class WriterImageUpDTO {
 	public void setImg_sysdate(Timestamp img_sysdate) {
 		this.img_sysdate = img_sysdate;
 	}
-
-	
 
 	
 	

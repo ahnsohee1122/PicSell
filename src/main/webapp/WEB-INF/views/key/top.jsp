@@ -569,7 +569,7 @@ rotate3d
 											<div class="row my-2" style="font-size: 20px;">
 												<div class="col-12 mb-2">
 													<a
-														href="${pageContext.request.contextPath}/myPage/myPage.do"
+														href="${pageContext.request.contextPath}/myInfo/myPage.do"
 														style="color: black; text-decoration: none;">마이 페이지</a>
 												</div>
 												<div class="col-12 sideMenu">
@@ -578,7 +578,7 @@ rotate3d
 														정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#"
+													<a href="${pageContext.request.contextPath}/myInfo/modiPage.do"
 														style="color: black; font-size: 16px; text-decoration: none;">회원
 														정보 수정</a>
 												</div>

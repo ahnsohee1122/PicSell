@@ -64,6 +64,7 @@ ${loginInfo} 님이 등록신청한 이미지가 없습니다.
 <td><input type="button" id="delete${dto.img_seq}" value="삭제"></td>
 </tr>
 <script>
+var why = "${dto.rejection}";
 var checking = "${dto.checking}";
 var accept = "${dto.accept}";
 var date = "${dto.img_sysdate}";
@@ -73,7 +74,7 @@ if(checking=="N"){
 }else if(checking=="Y"){
 	$("#checking${dto.img_seq}").html("심사완료");
 if(accept=="N"){
-	$("#accept${dto.img_seq}").html("등록거절");
+	$("#accept${dto.img_seq}").html("등록거절 (사유 : ${dto.rejection})");
 }else if(accept="Y"){
 	$("#accept${dto.img_seq}").html("등록승인");
 }

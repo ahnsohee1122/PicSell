@@ -16,7 +16,7 @@
 	update writer_image_up set accept = 'Y', checking ='Y' where img_seq = #{img_seq}
 	</update>
 	<update id="noaccept" parameterType="kh.picsell.dto.img_upDTO">
-	update writer_image_up set checking = 'Y' where img_seq = #{img_seq}
+	update writer_image_up set checking = 'Y', rejection=#{rejection} where img_seq = #{img_seq}
 	</update>
 	<delete id="delete">
 		delete from writer_image_up where img_seq = #{img_seq}
@@ -30,4 +30,5 @@
 	<select id="notyet" resultType="integer">
 		select count(*) from writer_image_up where checking='N' and nickname=#{nickname}
 	</select>
+
 </mapper>
