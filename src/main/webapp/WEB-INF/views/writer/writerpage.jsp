@@ -6,17 +6,41 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="/js/jquery.justifiedGallery.js"></script>
+
+
 <link rel="stylesheet" href="/css/justifiedGallery.css" />
 <style>
-
+	.writer {width: 100%; min-height: 250px; background-image: url('${pageContext.request.contextPath}/img/write_banner.png'); background-repeat: no-repeat;}
+	.explanation {margin-top: 5px; padding: 0px; background: none; border: 0; color: white; border-bottom: 1px solid white;}
+	
+	
 </style>
 </head>
 
 <body>
-	<div id="gallery"></div>
+<jsp:include page="../key/top.jsp" flush="false"/>
+<script src="/js/jquery.justifiedGallery.js"></script>
 	
+	
+	  <div class="container-fluid m-0 p-0">
+        <div class="writer row m-0 p-0">
+        <div class="m-auto" style="text-align: center;">
+            <div class="text-white" style="font-size: 32px; font-family: 'Cafe24Oneprettynight';">@${writerdto.nickname }</div>
+            <div class="text-white" style="font-size: 30px; font-family: 'Cafe24Oneprettynight';">${imginfo.imgcount }</div>
+            <div class="text-white" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">${imginfo.downcount }</div>
+            <div class="text-white" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">${imginfo.viewcount }</div>
+            <div class="text-white" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">${imginfo.imglike }</div>
+      		 <div class="text-white" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">${imginfo.likepoint }</div>
+			    </div>
+			  </div>
+			</div>
+   
+    
+    
+    		<div id="gallery"></div>
+    
+  
+
 	<script>
 
 	let isEnd = false;
@@ -56,26 +80,27 @@
 				isEnd = true;
 			}
 			for(i=0; i<resp.length;i++){
-				renderList(resp[i].sysName, resp[i].tag)
+				renderList(resp[i].sysname, resp[i].tag)
 			}
 		
 		}
 	})
 	}
 
-	let renderList = function(sysName,tag){
+	let renderList = function(sysname,tag){
 		tags = tag.replace(/{/gi,"#").replace(/}/gi,"")
 		console.log("result : " + tags)
 		
-		var html = "<div class=image><a><img src=/writeruploadfiles/"+sysName+" alt="+tags+"></a></div>"
+		var html = "<div class=image><a><img src=/writeruploadfiles/"+sysname+" alt="+tags+"></a></div>"
 		$("#gallery").append(html)
 		$("#gallery").justifiedGallery({
-			rowHeight : 200,
+			rowHeight : 100,
 		    lastRow : 'nojustify',
 		    margins : 10
 		}); 
 	}
 
 </script>
+<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
 </html>

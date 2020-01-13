@@ -40,4 +40,12 @@ public class MyInfoController {
 		memberDto.setId(id);
 		myInfoService.infoModifyProc(memberDto);
 	}
+	
+	@RequestMapping("/modiPage.do")
+	public String modiPage() {
+		String nickName = "오리에";
+		MemberDTO memberDto = myInfoService.myInfo(nickName);
+		session.setAttribute("memberDto", memberDto);
+		return "myPage/modiPage";
+	}
 }
