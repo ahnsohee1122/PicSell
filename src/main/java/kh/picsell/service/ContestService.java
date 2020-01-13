@@ -36,6 +36,8 @@ public int noaccept(int contest_seq) throws Exception {
 
 public List<ContestDTO> acceptList() throws Exception{
 	return dao.acceptList();
+}public List<ContestDTO> contestchecking(String host) throws Exception{
+	return dao.contestchecking(host);
 }
 
 public List<ContestDTO> exampleimg(int contest_seq) throws Exception {

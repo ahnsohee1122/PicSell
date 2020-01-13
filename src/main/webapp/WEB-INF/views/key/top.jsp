@@ -469,12 +469,12 @@ rotate3d
 														정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="img_up/NoList"
+													<a href="${pageContext.request.contextPath}/img_up/NoList"
 														style="color: black; font-size: 16px; text-decoration: none;">이미지
 														심사/업로드 </a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#"
+													<a href="${pageContext.request.contextPath}/contest/check.do"
 														style="color: black; font-size: 16px; text-decoration: none;">공모전
 														심사/업로드 </a>
 												</div>
@@ -569,7 +569,7 @@ rotate3d
 											<div class="row my-2" style="font-size: 20px;">
 												<div class="col-12 mb-2">
 													<a
-														href="${pageContext.request.contextPath}/myPage/myPage.do"
+														href="${pageContext.request.contextPath}/myInfo/myPage.do"
 														style="color: black; text-decoration: none;">마이 페이지</a>
 												</div>
 												<div class="col-12 sideMenu">
@@ -578,14 +578,9 @@ rotate3d
 														정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#"
+													<a href="${pageContext.request.contextPath}/myInfo/modiPage.do"
 														style="color: black; font-size: 16px; text-decoration: none;">회원
 														정보 수정</a>
-												</div>
-												<div class="col-12 sideMenu">
-													<a href="#"
-														style="color: black; font-size: 16px; text-decoration: none;">회원
-														정보 탈퇴</a>
 												</div>
 											</div>
 											<hr>
@@ -600,8 +595,13 @@ rotate3d
 														정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#"
+													<a href="${pageContext.request.contextPath}/img_up/acceptpage.do"
 														style="color: black; font-size: 16px; text-decoration: none;">이미지
+														심사/승인 내역</a>
+												</div>
+												<div class="col-12 sideMenu">
+													<a href="${pageContext.request.contextPath}/contest/contestchecking.do"
+														style="color: black; font-size: 16px; text-decoration: none;">공모전
 														심사/승인 내역</a>
 												</div>
 												<div class="col-12 sideMenu">

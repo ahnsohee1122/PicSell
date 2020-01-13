@@ -30,4 +30,7 @@
 <select id="exampleimg" resultType="kh.picsell.dto.ContestDTO">
 	select * from contestfiles where contest_seq = #{contest_seq}
 </select>
+<select id="contestchecking" resultType="kh.picsell.dto.ContestDTO">
+	select * from contest where host=#{host}
+</select>
 </mapper>
