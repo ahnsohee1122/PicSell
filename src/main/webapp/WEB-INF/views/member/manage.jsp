@@ -37,7 +37,7 @@
 <h3 style="text-align:center">회원없음</h3>
 </c:when>
 <c:otherwise>
-<table id="example" class="display" style="width:100%">
+<table id="example" class="display" style="width:90%">
                     <thead>
                         <tr>
                             <th>아이디</th>
