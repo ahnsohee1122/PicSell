@@ -18,12 +18,34 @@
 	rel="stylesheet">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+	<script>
+	$(function() {
+		$("#writeBtn").on("click", function() {
+			$("#notice_contents").val($(".note-editable").html());
 
+			if ($("#title").val() == "") {
+				alert("제목을 입력해주세요.");
+				return;
+			}
+
+			if ($("#notice_contents").val() == "<p><br></p>") {
+				alert("본문 내용을 입력해주세요.");
+				return;
+			}
+
+			$("#frm").submit();
+		})
+	})
+</script>
 </head>
 <body>
 	<form action="${pageContext.request.contextPath}/notice/modifyProc.do"
 		enctype="multipart/form-data" method="post" id="frm">
 		<table>
+			<tr>
+				<td>글번호</td>
+				<td><input type="text" name="notice_seq" value='${map.notice.notice_seq }'></td>
+			</tr>
 			<tr>
 				<td>제목</td>
 				<td><input type="text" name="notice_title"
@@ -34,15 +56,13 @@
 
 				<td>
 					<div>
-						<input type="file" name="noticeFile_file0" multiple="multiple">
+						<input type="file" name="noticeFile_file" multiple="multiple">
 						<button class="removeFile" type="button">삭제</button>
 					</div>
 				</td>
 
 			</tr>
 			<tr>
-
-
 				<td>기존파일</td>
 				<td><c:forEach var="fileDto" items="${map.fileDto }">
 						<div>
@@ -67,16 +87,14 @@
 	</form>
 
 	<script>
-
+	var removeFileSeq = null;
 	function uploadedFileDelete(seq){
-		alert(seq);
-		var removeFileSeq = $(this).closest("div").find("input").val();
+		removeFileSeq = seq;
 		var inputTag = $("<input type=hidden>");
 		$(inputTag).val(removeFileSeq);
 		$(inputTag).attr("name","removeFileSeq");
 		$("#frm").append($(inputTag));
-		$("#a" + seq).parent("div").remove();
-		
+		$("#a" + seq).parent("div").remove();	
 	};
 
 	$("#summernote").summernote({

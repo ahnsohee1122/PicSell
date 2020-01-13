@@ -31,4 +31,8 @@ public class NoticeFileDAO {
 	public void delete(int noticeFile_parentSeq) {
 		jdbc.delete("NoticeFile.delete", noticeFile_parentSeq);
 	}
+	
+	public void deleteFile(int noticeFile_seq) {
+		jdbc.delete("NoticeFile.deleteFile", noticeFile_seq);
+	}
 }
