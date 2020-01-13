@@ -41,14 +41,14 @@ public int acceptno(int contest_seq) throws Exception{
 public List<ContestDTO> acceptList() throws Exception{ //승인된 공모전
 	return jdbc.selectList("Contest.acceptlist");
 }
-<<<<<<< HEAD
+
 public List<ContestDTO> contestchecking(String host) throws Exception{
 	return jdbc.selectList("Contest.contestchecking",host);
 }
-=======
+
 
 public List<ContestDTO> exampleimg(int contest_seq){
 	return jdbc.selectList("Contest.exampleimg",contest_seq);
->>>>>>> 389c6932985e9345da23da7ed95074e01c6ea328
+
 }
 }
