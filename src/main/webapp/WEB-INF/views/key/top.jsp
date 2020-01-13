@@ -67,10 +67,10 @@
 			<ul class="h-100 float-left m-0 p-0" style="list-style: none;">
 				<a href="${pageContext.request.contextPath}/home" class="h-100">
 					<li class="h-100 float-left" style="line-height: 3.0;">
-						<img src="${pageContext.request.contextPath}/img/logo.png" style="width: 30px; height: 30px;">
+						<img src="${pageContext.request.contextPath}/img/logo-img.png" style="width: 30px; height: 30px;">
 					</li>
 					<li class="h-100 float-left mx-2">
-						<span style="font-size: 35px; font-family: 'Cafe24Oneprettynight'; color: #3D516B;">PIC	SELL</span></li>
+						<span style="font-size: 35px; font-family: 'Cafe24Oneprettynight'; color: #4C4C4C;">PIC	SELL</span></li>
 				</a>
 			</ul>
 		</div>
@@ -119,7 +119,7 @@
 											<br>
 											<input type="password" placeholder="Input Your PW" name="loginPw" id="loginPw" style="font-family: 'Dovemayo-Medium';">
 											<br>
-											<div id="info" style="font-size: 20px; display: none">잘못된 아이디 또는 잘못된 패스워드입니다.</div>
+											<div id="info" class="pt-2" style="font-size: 16px; display: none">잘못된 아이디 또는 잘못된 패스워드입니다.</div>
 											<div class="form-group p-0 save" style="width: 300px;">
 												<div class="form-check p-0 m-0" style="width: 130px;">
 													<input class="form-check-input" type="checkbox" value="" id="saveId" style="cursor: pointer;" required>
