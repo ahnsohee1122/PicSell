@@ -160,7 +160,7 @@ li{text-decoration:none; list-style-type : none }
 			<h6 class="mx-3 py-2 px-4">어떤 공모전을 열고 싶으세요?</h6>
 			<h6 class="mx-3 py-2 px-4">픽셀 ＇공모전＇을 통해<br>특정 주제의 이미지를 빠르고 효율적으로 공모할 수 있습니다.</h6>
 			<h6 class="mx-3 py-2 px-4">아래의 신청 양식을 작성해주시면,<br>확인 후 회원님의 전화번호 또는 메일로 연락 드리겠습니다!</h6>
-			<form class="mx-3 my-5 px-4 py-3" style="font-size: 15px; font-family: 'NanumBarunpen'; border: 1px solid darkgray; border-radius: 10px;">
+			<form method="post" action="newcontestform" enctype="multipart/form-data"class="mx-3 my-5 px-4 py-3" style="font-size: 15px; font-family: 'NanumBarunpen'; border: 1px solid darkgray; border-radius: 10px;">
 				<fieldset class="form-group">
 					<div class="row my-4">
 				    	<label class="col-form-label col-3 col-md-2 pt-0">주최이유<strong> * </strong></label>
@@ -215,7 +215,7 @@ li{text-decoration:none; list-style-type : none }
 				    <div class="row my-4 was-validated">
      					<label class="col-form-label col-3 col-md-2 pt-0">파일첨부<strong> * </strong></label>
 	      				<div class="col-9 col-md-10">
-	      					<input type="file" class="form-control p-1" id="validationFile" required>
+	      					<input type="file" class="form-control p-1" id="validationFile" name="files" multiple="multiple" required>
 						    <div class="invalid-feedback">주최하실 공모전의 예시 사진을 첨부해주세요! (이미지 업로드에 도움이 됩니다.)</div>
 						</div>
 				    </div>
@@ -241,7 +241,7 @@ li{text-decoration:none; list-style-type : none }
                             <span class="demi">종료일 : </span>
                             <!-- 종료일 -->
                             <span class="dset">
-                                <input type="text" class="datepicker inpType" name="searchEndDate" id="datepicker" readonly >
+                                <input type="text" class="datepicker inpType" name="enddate" id="datepicker" readonly >
                                
                             </span>
                         </div>    

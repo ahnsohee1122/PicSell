@@ -67,66 +67,24 @@
     	</div>
     	<div class="container pb-5">
     		<div class="row m-auto">
-    			<div class="col-12 col-md-6 col-xl-4 mt-2 mb-4">
-    				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
-    					<p><img src="${pageContext.request.contextPath}/img/contest01.jpg" style="width: 300px; height: 170px;"></p>
-    					<p class="px-2 pb-2" style="font-size: 20px;"><a href="#" style="color: black;">웨딩사진 공모전</a></p>
-    					<p class="px-2 py-0" style="font-size: 17px;">상금  1,000,000원</p>
-    					<p class="px-2 py-0" style="font-size: 17px;">기간  ~ 2020/01/30</p>
-    				</div>
-    			</div>
-    			<div class="col-12 col-md-6 col-xl-4 mt-2 mb-4">
-    				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
-    					<p><img src="${pageContext.request.contextPath}/img/contest01.jpg" style="width: 300px; height: 170px;"></p>
-    					<p class="px-2 pb-2" style="font-size: 20px;"><a href="#" style="color: black;">웨딩사진 공모전</a></p>
-    					<p class="px-2 py-0" style="font-size: 17px;">상금  1,000,000원</p>
-    					<p class="px-2 py-0" style="font-size: 17px;">기간  ~ 2020/01/30</p>
-    				</div>
-    			</div>
-    			<div class="col-12 col-md-6 col-xl-4 mt-2 mb-4">
-    				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
-    					<p><img src="${pageContext.request.contextPath}/img/contest01.jpg" style="width: 300px; height: 170px;"></p>
-    					<p class="px-2 pb-2" style="font-size: 20px;"><a href="#" style="color: black;">웨딩사진 공모전</a></p>
-    					<p class="px-2 py-0" style="font-size: 17px;">상금  1,000,000원</p>
-    					<p class="px-2 py-0" style="font-size: 17px;">기간  ~ 2020/01/30</p>
-    				</div>
-    			</div>
-    			<div class="col-12 col-md-6 col-xl-4 mt-2 mb-4">
-    			
-    				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
-    					<p><img src="${pageContext.request.contextPath}/img/contest01.jpg" style="width: 300px; height: 170px;"></p>
-    					<p class="px-2 pb-2" style="font-size: 20px;"><a href="#" style="color: black;">웨딩사진 공모전</a></p>
-    					<p class="px-2 py-0" style="font-size: 17px;">상금  1,000,000원</p>
-    					<p class="px-2 py-0" style="font-size: 17px;">기간  ~ 2020/01/30</p>
-    				
-    			</div>
-    			</div>
-    			<div class="col-12 col-md-6 col-xl-4 mt-2 mb-4">
-    				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
-    					<p><img src="${pageContext.request.contextPath}/img/contest01.jpg" style="width: 300px; height: 170px;"></p>
-    					<p class="px-2 pb-2" style="font-size: 20px;"><a href="#" style="color: black;">웨딩사진 공모전</a></p>
-    					<p class="px-2 py-0" style="font-size: 17px;">상금  1,000,000원</p>
-    					<p class="px-2 py-0" style="font-size: 17px;">기간  ~ 2020/01/30</p>
-    				</div>
-    			</div>
-    			
     			<c:choose>
-<c:when test = "${list.size() ==0 }">
-공모전없음
-</c:when>
-<c:otherwise>
-<c:forEach items="${list}" var="dto">
-
-<div class="col-12 col-md-6 col-xl-4 mt-2 mb-4" id="contest${dto.contest_seq}">
+				<c:when test = "${list.size() == 0 }">
+					공모전없음
+				</c:when>
+				<c:otherwise>
+				<c:forEach items="${list}" var="dto">
+				<div class="col-12 col-md-6 col-xl-4 mt-2 mb-4" id="contest${dto.contest_seq}">
     				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
     					<p><img src="${pageContext.request.contextPath}/img/contest01.jpg" style="width: 300px; height: 170px;"></p>
     					<p class="px-2 pb-2" style="font-size: 20px;"><a href="#" style="color: black;">${dto.title }</a></p>
     					<p class="px-2 py-0" style="font-size: 17px;" id="price${dto.contest_seq}"></p>
-    					<p class="px-2 py-0" style="font-size: 17px;" id="date${dto.term_time }">기간  ${dto.term_time}</p>
+    					<p class="px-2 py-0" style="font-size: 17px;" id="date${dto.enddate }">기간  ${dto.enddate}</p>
     					<p class="px-2 py-0" style="font-size: 17px; color:red; display:none;" id="time${dto.contest_seq }">기간  지남</p>
     				</div>
     				</div>
     			<input type="hidden" id="hid${dto.contest_seq}" value="${dto.price}">
+    			
+    			
     			<script>
     			var num = $("#hid${dto.contest_seq}").val();
     			console.log(num);
@@ -134,11 +92,11 @@
     				  var regexp = /\B(?=(\d{3})+(?!\d))/g;
     				  return num.toString().replace(regexp, ',');
     				}
-  			$("#price${dto.contest_seq}").html("상금 : "+(addComma(num))+"원");
+  				$("#price${dto.contest_seq}").html("상금 : "+(addComma(num))+"원");
   			
     			
     			
-    			var a = "${dto.term_time}";
+    			var a = "${dto.enddate}";
     
     			var inputyear = a.substr(0,4); //게시끝나는년도
     			var inputmonth = a.substr(5,2); //끝나는월

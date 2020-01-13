@@ -13,6 +13,19 @@ public class ContestDAO {
 @Autowired
 private SqlSessionTemplate jdbc;
 
+//새로운 공모전 신청하기.
+public int insert(ContestDTO dto) {
+	return jdbc.insert("Contest.insert",dto);
+}
+//새 공모전 신청시 파일 업로드
+public int fileinsert(ContestDTO dto) {
+	return jdbc.insert("Contest.fileinsert",dto);
+}
+//파일 업로드시 parent 신청글 번호.
+public int getcurrval() {
+	return jdbc.selectOne("Contest.getcurrval");
+}
+
 public List<ContestDTO> notyetList() throws Exception{ //승인안된공모전조회
 	return jdbc.selectList("Contest.getNoList");
 }
@@ -27,5 +40,9 @@ public int acceptno(int contest_seq) throws Exception{
 }
 public List<ContestDTO> acceptList() throws Exception{ //승인된 공모전
 	return jdbc.selectList("Contest.acceptlist");
+}
+
+public List<ContestDTO> exampleimg(int contest_seq){
+	return jdbc.selectList("Contest.exampleimg",contest_seq);
 }
 }
