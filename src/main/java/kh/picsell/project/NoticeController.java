@@ -52,6 +52,7 @@ public class NoticeController {
 			Map map = noticeService.detail(notice_seq);
 			System.out.println(map.get("fileDto").toString());
 			mav.addObject("map", map);
+			System.out.println(map.get("notice").toString());
 			mav.setViewName("notice/noticeView");
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -118,10 +119,10 @@ public class NoticeController {
 		noticeService.delete(seq, file_path, summernote_filePath);
 		return "redirect:/notice/notice.do";
 	}
-	
+
 	@RequestMapping("/modify.do")
 	public String modify(int seq) {
-		
+
 		try {
 			Map map = noticeService.detail(seq);
 			System.out.println(map.get("fileDto").toString());
@@ -132,13 +133,22 @@ public class NoticeController {
 			return "error";
 		}
 	}
-	
+
 	@RequestMapping("/modifyProc.do")
-	public void modifyProc(String[] removeFileSeq) {
-		for(String s : removeFileSeq) {
-			System.out.println(s);
+	public String modifyProc(String[] removeFileSeq, NoticeDTO noticeDto, NoticeFileDTO noticeFileDto) {
+		if(removeFileSeq != null){
+			for(String fileSeq : removeFileSeq) {
+				int seq = Integer.parseInt(fileSeq);
+				System.out.println(seq);
+				noticeService.deleteFile(seq);
+			}
 		}
+
+		String file_path = session.getServletContext().getRealPath("/notice_files");
+		String summernote_filePath = session.getServletContext().getRealPath("notice_summernote_files") ;
+		noticeService.modify(noticeDto, noticeFileDto, file_path, summernote_filePath);
+		return "notice/notice.do";
 	}
-	
+
 
 }

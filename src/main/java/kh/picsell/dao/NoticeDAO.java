@@ -43,4 +43,8 @@ public class NoticeDAO {
 		jdbc.delete("Notice.delete", notice_seq);
 	}
 	
+	public void modify(NoticeDTO noticeDto) {
+		jdbc.update("Notice.update", noticeDto);
+	}
+	
 }
