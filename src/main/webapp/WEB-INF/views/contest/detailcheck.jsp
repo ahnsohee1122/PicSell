@@ -142,21 +142,37 @@ width:100%;
 				    </div>
 				    <hr>
 				  	<div class="row mt-5 mb-3">
-				  		<button class="m-auto btn border border-danger rounded-lg text-black" type="submit" style="width: 150px;" id="accept">승인</button>
-				  		<button class="m-auto btn border border-danger rounded-lg text-black" type="submit" style="width: 150px;" id="nono">승인거절</button>
+				  		<button id="accept" class="m-auto btn border border-danger rounded-lg text-black" type="submit" style="width: 150px;" id="accept">승인</button>
+				  		<button id="nono" class="m-auto btn border border-danger rounded-lg text-black" type="button" style="width: 150px;" id="nono">승인거절</button>
 				  	</div>
 				</fieldset>
+				<input type="hidden" id="why">
+				<input type="hidden" id="time${dto.contest_seq}">
 			</form>
 
 </div>
 
 	<script>
+	var now = new Date();
+	var year = now.getFullYear();
+	var month = (now.getMonth()+1);
+	var date = now.getDate();
+	if((date+"").length < 2){ //날짜가 한자리면 앞에 0추가
+		date = "0"+date;
+	}
+	if((month+"").length < 2){ //월이 한자리면 앞에 0추가
+		month = "0"+month;
+	}
+	var sysdate = (year+"-"+month+"-"+date);
+	var seq = "${contest.seq}";
+	$("#time${dto.contest_seq}").val(sysdate);
+	
 	$("#accept").on("click",function(){
 	
 		$.ajax({
 			url:"accept.do",
 			type:"post",
-			data:{contest_seq:'${dto.contest_seq}'}
+			data:{contest_seq:'${dto.contest_seq}',accept_date:sysdate}
 		}).done(function(res){
 			if(res=="승인"){
 				alert("승인되었습니다");
@@ -170,12 +186,13 @@ width:100%;
 		});
 	});
 	$("#nono").on("click",function(){
-		var reok = confirm("승인을 거절하시겠습니까?");
-		if(reok){
+		var msg = prompt("승인 거절이유를 입력하세요");
+	$("#why").val(msg);
+	if(msg!=""){
 			$.ajax({
 				url:"acceptno.do",
 				type:"post",
-				data:{contest_seq:'${dto.contest_seq}'}
+				data:{contest_seq:'${dto.contest_seq}',rejection:msg}
 			}).done(function(res){
 				if(res=="거절"){
 					alert("거절되었습니다");
@@ -188,9 +205,9 @@ width:100%;
 					alert("서버에러입니다");
 				}
 			});
-		}else{
-			alert("취소되었습니다");
-		}
+	}else{
+		alert("거절이유를 입력해주세요");
+	}
 	});
 	</script>
 </body>

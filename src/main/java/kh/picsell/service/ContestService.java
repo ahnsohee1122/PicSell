@@ -26,12 +26,12 @@ public ContestDTO detailcheck(int contest_seq) throws Exception{
 	return dao.detailcheck(contest_seq);
 }
 
-public int accept(int contest_seq) throws Exception{
-	return dao.accept(contest_seq);
+public int accept(String accept_date, int contest_seq) throws Exception{
+	return dao.accept(accept_date, contest_seq);
 }
 
-public int noaccept(int contest_seq) throws Exception {
-	return dao.acceptno(contest_seq);
+public int noaccept(String rejection, int contest_seq) throws Exception {
+	return dao.acceptno(rejection, contest_seq);
 }
 
 public List<ContestDTO> acceptList() throws Exception{
@@ -78,5 +78,12 @@ public void newcontest(MultipartFile[] file, ContestDTO dto, String path, String
 	
 	
 	
+}
+public int showok(String host) throws Exception{
+	return dao.showok(host);
+}public int showno(String host)throws Exception{
+	return dao.showno(host);
+}public int notyet(String host)throws Exception{
+	return dao.notyet(host);
 }
 }
