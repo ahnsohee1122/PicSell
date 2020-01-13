@@ -312,8 +312,8 @@
 											</div>
 											<hr>
 											<div class="row my-4 text-center" style="font-size: 20px;">
-												<div id="logout1" class="col-12">
-													<a href="#" class="btn" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
+												<div class="col-12">
+													<a href="#" class="btn" id="logout1" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
 												</div>
 											</div>
 										</div>

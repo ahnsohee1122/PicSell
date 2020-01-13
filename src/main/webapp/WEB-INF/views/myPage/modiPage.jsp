@@ -5,6 +5,9 @@
 <meta charset="UTF-8">
 <title>Info Modify | PicSell</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style>
+	.quickMenu:hover {background-color: #EAEAEA;}
+</style>
 </head>
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
@@ -23,7 +26,7 @@
 						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/myInfo/myInfo.do" style="color: black; font-size: 22px; text-decoration: none;">내 정보</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/myInfo/myInfo.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/myInfo/modiPage.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 수정</a></div>
-						<div class="px-3 py-1 mb-3 w-100 quickMenu"><a href="${pageContext.request.contextPath}/myInfo/modiPage.do" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/승인 내역</a></div>
+						<div class="px-3 py-1 mb-3 w-100 quickMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/승인 내역</a></div>
 					</div>
 					<hr class="py-1 m-auto" style="max-width: 220px;">
 					<div class="row m-0 px-0 w-100 text-left">
