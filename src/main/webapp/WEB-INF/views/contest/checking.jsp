@@ -54,7 +54,7 @@
 <tr>
 <td>${dto.contest_seq }
 <td><a href="detailcheck.do?contest_seq=${dto.contest_seq}">${dto.title }</a>
-<td>${dto.term_time }
+<td>${dto.enddate }
 <td>${dto.hosttype }
 <td>${dto.host }
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kh.picsell.dto.ContestDTO;
 import kh.picsell.service.ContestService;
@@ -22,6 +23,7 @@ public class ContestController {
 //	private HttpServletRequest request;
 	@Autowired
 	private ContestService service;
+	
 	// 공모전 페이지
 	@RequestMapping("/contest.do")
 	public String contest(HttpServletRequest request) {
@@ -32,7 +34,6 @@ public class ContestController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("Contest Page");
 		return "contest/contest";
 	}
 	
@@ -42,6 +43,7 @@ public class ContestController {
 		System.out.println("New Contest Open Page");
 		return "contest/newOpen";
 	}
+	
 	@RequestMapping("/check.do")
 	public String check(ContestDTO dto, HttpServletRequest request) {
 		List<ContestDTO> list;
@@ -58,6 +60,8 @@ public class ContestController {
 		ContestDTO dto = null;
 		try {
 			dto = service.detailcheck(contest_seq);
+			List<ContestDTO> imglist = service.exampleimg(contest_seq);
+			request.setAttribute("imglist", imglist);
 			request.setAttribute("dto", dto);
 			return "contest/detailcheck";
 		}catch(Exception e) {
@@ -96,4 +100,19 @@ public class ContestController {
 		}
 	}
 
+ //공모전신청 
+	@RequestMapping("newcontestform")
+	public String newContestform(MultipartFile[] files, ContestDTO dto) {
+		String path = session.getServletContext().getRealPath("contestfiles");
+		service.newcontest(files, dto, path);
+		return "redirect:contest.do";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

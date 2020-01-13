@@ -4,13 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Contest">
 <insert id="insert" parameterType="kh.picsell.dto.ContestDTO">
-		insert into contest values(contest_seq.nextval, #{reason} , #{title} , #{detail}, #{terms}, #{term_time},#{price},#{hosttype},#{host},N,N)
-	</insert>
+		insert into contest values(contest_seq.nextval, #{reason} , #{title} , #{detail}, #{terms}, #{enddate} ,#{price}, #{hosttype},'host','N','N',sysdate)
+</insert>
+<insert id="fileinsert" parameterType="kh.picsell.dto.ContestDTO">
+		insert into contestfiles values(contestfiles_seq.nextval, #{contest_seq}, #{oriname}, #{sysname},#{title}, #{hosttype} )
+</insert>
 <select id="getNoList" resultType="kh.picsell.dto.ContestDTO">
 		select * from contest where accept = 'N' and checking ='N'
 	</select>
 <update id="accept" parameterType="kh.picsell.dto.ContestDTO">
-	update contest set accept = 'Y', checking = 'Y' where contest_seq = #{contest_seq}
+	update contest set accept = 'Y', checking = 'Y', accept_date = sysdate where contest_seq = #{contest_seq}
 </update>
 <select id="detailcheck" resultType="kh.picsell.dto.ContestDTO">
 		select * from contest where contest_seq = #{contest_seq}
@@ -19,6 +22,12 @@
 	update contest set checking = 'Y' where contest_seq = #{contest_seq}
 </update>
 <select id="acceptlist" resultType="kh.picsell.dto.ContestDTO">
-	select * from contest where accept='Y'
+	select * from contest where accept='Y' order by 12, 6 desc
+</select>
+<select id="getcurrval" resultType="Integer">
+	select contest_seq.currval from dual
+</select>
+<select id="exampleimg" resultType="kh.picsell.dto.ContestDTO">
+	select * from contestfiles where contest_seq = #{contest_seq}
 </select>
 </mapper>
