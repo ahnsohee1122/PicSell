@@ -39,6 +39,9 @@
 ${loginInfo} 님이 신청한 공모전이 없습니다.
 </c:when>
 <c:otherwise>
+<div style="text-align:center">
+<table><tr><td>승인된 공모전 : ${ok}개</td><td>승인 거절된 공모전 : ${no}개</td><td>승인대기중인 공모전 : ${notyet}개</td></tr></table>
+</div>
 <table id="example" class = "display" style="width:90%">
 <thead>
 <tr>
@@ -65,7 +68,7 @@ if(checking=="N"){
 }else if(checking=="Y"){
 	$("#checking${dto.contest_seq}").html("심사완료");
 if(accept=="N"){
-	$("#accept${dto.contest_seq}").html("등록거절");
+	$("#accept${dto.contest_seq}").html("등록거절 (사유 : ${dto.rejection})");
 }else if(accept="Y"){
 	$("#accept${dto.contest_seq}").html("등록승인");
 }

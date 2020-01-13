@@ -7,7 +7,6 @@ private String title;
 private String detail;
 private String terms;
 private String enddate;
-private int price;
 private String hosttype;
 private String host;
 private String accept;
@@ -15,14 +14,17 @@ private String checking;
 private String accept_date;
 private String oriname;
 private String sysname;
+private int price;
 private int contestfiles_seq;
+private String rejection;
 
 public ContestDTO() {
 	super();
 }
 
-public ContestDTO(int contest_seq, String reason, String title, String detail, String terms, String enddate, int price,
-		String hosttype, String host, String accept, String checking, String accept_date) {
+public ContestDTO(int contest_seq, String reason, String title, String detail, String terms, String enddate,
+		String hosttype, String host, String accept, String checking, String accept_date, String oriname,
+		String sysname, int price, int contestfiles_seq, String rejection) {
 	super();
 	this.contest_seq = contest_seq;
 	this.reason = reason;
@@ -30,12 +32,16 @@ public ContestDTO(int contest_seq, String reason, String title, String detail, S
 	this.detail = detail;
 	this.terms = terms;
 	this.enddate = enddate;
-	this.price = price;
 	this.hosttype = hosttype;
 	this.host = host;
 	this.accept = accept;
 	this.checking = checking;
 	this.accept_date = accept_date;
+	this.oriname = oriname;
+	this.sysname = sysname;
+	this.price = price;
+	this.contestfiles_seq = contestfiles_seq;
+	this.rejection = rejection;
 }
 
 public int getContest_seq() {
@@ -84,14 +90,6 @@ public String getEnddate() {
 
 public void setEnddate(String enddate) {
 	this.enddate = enddate;
-}
-
-public int getPrice() {
-	return price;
-}
-
-public void setPrice(int price) {
-	this.price = price;
 }
 
 public String getHosttype() {
@@ -150,6 +148,14 @@ public void setSysname(String sysname) {
 	this.sysname = sysname;
 }
 
+public int getPrice() {
+	return price;
+}
+
+public void setPrice(int price) {
+	this.price = price;
+}
+
 public int getContestfiles_seq() {
 	return contestfiles_seq;
 }
@@ -157,6 +163,18 @@ public int getContestfiles_seq() {
 public void setContestfiles_seq(int contestfiles_seq) {
 	this.contestfiles_seq = contestfiles_seq;
 }
+
+public String getRejection() {
+	return rejection;
+}
+
+public void setRejection(String rejection) {
+	this.rejection = rejection;
+}
+
+
+
+
 
 
 
