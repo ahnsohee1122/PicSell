@@ -9,5 +9,6 @@
 </head>
 <body>
 <a href="${pageContext.request.contextPath}/writer/writerpage"><input type="button" value="view"></a>
+
 </body>
 </html>

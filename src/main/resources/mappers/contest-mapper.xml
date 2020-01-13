@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Contest">
 <insert id="insert" parameterType="kh.picsell.dto.ContestDTO">
-		insert into contest values(contest_seq.nextval, #{reason} , #{title} , #{detail}, #{terms}, #{enddate} ,#{price}, #{hosttype},'host','N','N',sysdate)
+		insert into contest values(contest_seq.nextval, #{dto.reason} , #{dto.title} , #{dto.detail}, #{dto.terms}, #{dto.enddate} ,#{dto.price}, #{dto.hosttype}, #{nickname},'N','N',sysdate)
 </insert>
 <insert id="fileinsert" parameterType="kh.picsell.dto.ContestDTO">
 		insert into contestfiles values(contestfiles_seq.nextval, #{contest_seq}, #{oriname}, #{sysname},#{title}, #{hosttype} )

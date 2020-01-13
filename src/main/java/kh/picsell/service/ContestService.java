@@ -45,8 +45,12 @@ public List<ContestDTO> exampleimg(int contest_seq) throws Exception {
 }
 
 @Transactional("txManager")
-public void newcontest(MultipartFile[] file, ContestDTO dto, String path) {
-	dao.insert(dto);
+public void newcontest(MultipartFile[] file, ContestDTO dto, String path, String nickname) {
+	Map<String, Object> map = new HashMap<>();
+	System.out.println(nickname);
+	map.put("dto", dto);
+	map.put("nickname",nickname);
+	dao.insert(map);
 	
 	File filepath = new File(path);	
 	int currval = dao.getcurrval();
