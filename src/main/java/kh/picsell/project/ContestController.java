@@ -95,5 +95,21 @@ public class ContestController {
 			return "서버";
 		}
 	}
+	@RequestMapping("/contestchecking.do")
+	public String contestchecking(String host, HttpServletRequest request) {
+		
+		String host1 = (String)session.getAttribute("loginInfo");
+		host=host1;
+		List<ContestDTO> list;
+		try {
+			list = service.contestchecking(host);
+			request.setAttribute("list", list);
+			return "myPage/contestaccpet";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		
+	}
 
 }

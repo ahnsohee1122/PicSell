@@ -21,4 +21,7 @@
 <select id="acceptlist" resultType="kh.picsell.dto.ContestDTO">
 	select * from contest where accept='Y'
 </select>
+<select id="contestchecking" resultType="kh.picsell.dto.ContestDTO">
+	select * from contest where host=#{host}
+</select>
 </mapper>

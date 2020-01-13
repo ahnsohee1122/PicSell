@@ -21,7 +21,21 @@ public class img_upDAO {
 	public int accept(int img_seq) throws Exception{ //승인하기
 		return jdbc.update("Img.accept", img_seq);
 	}
-	public int delete(int img_seq) throws Exception{ //삭제하기
-		return jdbc.delete("Img.delete", img_seq);
+	public int noaccept(int img_seq) throws Exception{
+		return jdbc.update("Img.noaccept", img_seq);
+	}public List<img_upDTO> acceptpage(String nickname){
+		return jdbc.selectList("Img.acceptpage",nickname);
+	}
+	public int delete(int img_seq) throws Exception{
+		return jdbc.delete("Img.delete",img_seq);
+	}
+	public int showok(String nickname) throws Exception{
+		return jdbc.selectOne("Img.showok",nickname);
+	}
+	public int showno(String nickname) throws Exception{
+		return jdbc.selectOne("Img.showno",nickname);
+	}
+	public int notyet(String nickname) throws Exception{
+		return jdbc.selectOne("Img.notyet",nickname);
 	}
 }

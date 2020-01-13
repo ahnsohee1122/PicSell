@@ -4,15 +4,30 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Img">
 <select id="getNoList" resultType="kh.picsell.dto.img_upDTO">
-		select * from imageup where accept = 'N'
+		select * from writer_image_up where accept = 'N' and checking='N'
+	</select>
+	<select id="acceptpage" resultType="kh.picsell.dto.img_upDTO">
+		select * from writer_image_up where nickname=#{nickname}
 	</select>
 	<select id="getYesList" resultType="kh.picsell.dto.img_upDTO">
-		select * from imageup where accept = 'Y'
+		select * from writer_image_up where accept = 'Y'
 	</select>
 	<update id="accept" parameterType="kh.picsell.dto.img_upDTO">
-	update imageup set accept = 'Y' where img_seq = #{img_seq}
+	update writer_image_up set accept = 'Y', checking ='Y' where img_seq = #{img_seq}
 	</update>
-	<delete id="delete" parameterType="integer">
-		delete from imageup where img_seq = #{img_seq}
+	<update id="noaccept" parameterType="kh.picsell.dto.img_upDTO">
+	update writer_image_up set checking = 'Y' where img_seq = #{img_seq}
+	</update>
+	<delete id="delete">
+		delete from writer_image_up where img_seq = #{img_seq}
 	</delete>
+	<select id="showok" resultType="integer">
+		select count(*) from writer_image_up where accept='Y' and nickname=#{nickname}
+	</select>
+	<select id="showno" resultType="integer">
+		select count(*) from writer_image_up where checking='Y' and accept='N' and nickname=#{nickname}
+	</select>
+	<select id="notyet" resultType="integer">
+		select count(*) from writer_image_up where checking='N' and nickname=#{nickname}
+	</select>
 </mapper>

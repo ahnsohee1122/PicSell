@@ -34,6 +34,31 @@ public String Nolist(img_upDTO dto) { //사진목록(승인안된것만)
 	
 	return "Img_up/noList";
 }
+@RequestMapping("/acceptpage.do") //마이페이지에서 사진심사확인
+public String acceptpage(String nickname, HttpServletRequest request) {
+	List<img_upDTO> list;
+	String nick = (String)session.getAttribute("loginInfo");
+	nickname = nick;
+	int ok = 0;
+	int no = 0;
+	int notyet = 0;
+	try {
+		list = service.acceptpage(nickname);
+		ok = service.showok(nickname);
+		no = service.showno(nickname);
+		notyet = service.notyet(nickname);
+		session.setAttribute("ok", ok);
+		session.setAttribute("no", no);
+		session.setAttribute("notyet", notyet);
+		
+		
+		request.setAttribute("list", list);
+		return "myPage/imageaccept";
+	}catch (Exception e) {
+		e.printStackTrace();
+		return "error";
+	}
+}
 
 @RequestMapping(value="/accept.do", produces="text/html; charset=UTF-8")
 @ResponseBody
@@ -53,10 +78,10 @@ public String accept(int img_seq) { //사진심사 승인
 }
 @RequestMapping(value="/delete.do", produces="text/html; charset=UTF-8")
 @ResponseBody
-public String delete(int img_seq) { //사진삭제
+public String delete(int img_seq) { //승인거절
 	int result;
 	try {
-		result = service.delete(img_seq);
+		result = service.noaccept(img_seq);
 		if(result>0) {
 			return"성공";
 		}else {
@@ -65,6 +90,22 @@ public String delete(int img_seq) { //사진삭제
 	} catch (Exception e) {
 		e.printStackTrace();
 		return"서버";
+	}
+}
+@RequestMapping(value="/del.do", produces="text/html; charset=UTF-8")
+@ResponseBody
+public String del(int img_seq) { //사진심사 승인
+	int result;
+	try {
+		result = service.delete(img_seq);
+		if(result>0) {
+			return "성공";
+		}else {
+			return "실패";
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+		return "서버";
 	}
 }
 }

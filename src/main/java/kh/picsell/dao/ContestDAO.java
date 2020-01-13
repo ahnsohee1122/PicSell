@@ -28,4 +28,7 @@ public int acceptno(int contest_seq) throws Exception{
 public List<ContestDTO> acceptList() throws Exception{ //승인된 공모전
 	return jdbc.selectList("Contest.acceptlist");
 }
+public List<ContestDTO> contestchecking(String host) throws Exception{
+	return jdbc.selectList("Contest.contestchecking",host);
+}
 }

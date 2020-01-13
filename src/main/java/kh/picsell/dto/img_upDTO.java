@@ -1,5 +1,7 @@
 package kh.picsell.dto;
 
+import java.sql.Timestamp;
+
 public class img_upDTO {
 private int img_seq;
 private String nickname;
@@ -8,17 +10,25 @@ private String tag;
 private String file_extension;
 private String oriName;
 private String sysName;
-private int likepoint;
+private int img_size;
+private String make;
+private String model;
+private String XDimension;
+private String YDimension;
+private int img_like;
 private int viewCount;
 private int downCount;
-private int price;
 private String accept;
+private String checking;
+private Timestamp img_sysdate;
+
 public img_upDTO() {
 	super();
 }
 
 public img_upDTO(int img_seq, String nickname, String usage, String tag, String file_extension, String oriName,
-		String sysName, int likepoint, int viewCount, int downCount, int price, String accept) {
+		String sysName, int img_size, String make, String model, String xDimension, String yDimension, int img_like,
+		int viewCount, int downCount, String accept, String checking, Timestamp img_sysdate) {
 	super();
 	this.img_seq = img_seq;
 	this.nickname = nickname;
@@ -27,12 +37,19 @@ public img_upDTO(int img_seq, String nickname, String usage, String tag, String 
 	this.file_extension = file_extension;
 	this.oriName = oriName;
 	this.sysName = sysName;
-	this.likepoint = likepoint;
+	this.img_size = img_size;
+	this.make = make;
+	this.model = model;
+	XDimension = xDimension;
+	YDimension = yDimension;
+	this.img_like = img_like;
 	this.viewCount = viewCount;
 	this.downCount = downCount;
-	this.price = price;
 	this.accept = accept;
+	this.checking = checking;
+	this.img_sysdate = img_sysdate;
 }
+
 public int getImg_seq() {
 	return img_seq;
 }
@@ -75,11 +92,41 @@ public String getSysName() {
 public void setSysName(String sysName) {
 	this.sysName = sysName;
 }
-public int getLikepoint() {
-	return likepoint;
+public int getImg_size() {
+	return img_size;
 }
-public void setLikepoint(int likepoint) {
-	this.likepoint = likepoint;
+public void setImg_size(int img_size) {
+	this.img_size = img_size;
+}
+public String getMake() {
+	return make;
+}
+public void setMake(String make) {
+	this.make = make;
+}
+public String getModel() {
+	return model;
+}
+public void setModel(String model) {
+	this.model = model;
+}
+public String getXDimension() {
+	return XDimension;
+}
+public void setXDimension(String xDimension) {
+	XDimension = xDimension;
+}
+public String getYDimension() {
+	return YDimension;
+}
+public void setYDimension(String yDimension) {
+	YDimension = yDimension;
+}
+public int getImg_like() {
+	return img_like;
+}
+public void setImg_like(int img_like) {
+	this.img_like = img_like;
 }
 public int getViewCount() {
 	return viewCount;
@@ -93,17 +140,24 @@ public int getDownCount() {
 public void setDownCount(int downCount) {
 	this.downCount = downCount;
 }
-public int getPrice() {
-	return price;
-}
-public void setPrice(int price) {
-	this.price = price;
-}
 public String getAccept() {
 	return accept;
 }
 public void setAccept(String accept) {
 	this.accept = accept;
 }
+public String getChecking() {
+	return checking;
+}
+public void setChecking(String checking) {
+	this.checking = checking;
+}
+public Timestamp getImg_sysdate() {
+	return img_sysdate;
+}
+public void setImg_sysdate(Timestamp img_sysdate) {
+	this.img_sysdate = img_sysdate;
+}
+
 
 }

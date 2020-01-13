@@ -48,7 +48,7 @@ height:1000px;
 <tr id="img${dto.img_seq}" style="display:none; border:1px solid">
 <td colspan=4 style="text-align:center">이미지들어갈곳<!-- <img src="${dto.sysName} "> -->
 <td colspan=2><input type="button" id="ok${dto.img_seq}" value="승인">
-<input type="button" id="delete${dto.img_seq}" value="삭제">
+<input type="button" id="delete${dto.img_seq}" value="거절">
 <input type="button" id="hide${dto.img_seq}" value="닫기"></td></tr>
 <script>
 $("#hide${dto.img_seq}").on("click",function(){
@@ -76,17 +76,22 @@ $("#ok${dto.img_seq}").on("click",function(){
 			});
 })
 			$("#delete${dto.img_seq}").on("click",function(){
+				var result = confirm("거절하시겠습니까?");
+				if(result){
 				$.ajax({
 					url:"delete.do",
 					type:"post",
 					data:{img_seq:${dto.img_seq}}
 				}).done(function(res){
-					if(res="성공"){alert("삭제에 성공했습니다.");
+					if(res="성공"){alert("승인거절에 성공했습니다.");
 					location.href="NoList"}
-					else if(res="실패"){alert("삭제에 실패했습니다.")}
+					else if(res="실패"){alert("승인거절에 실패했습니다.")}
 				}).fail(function(res){
 					alert("서버에러입니다.")
 				});
+				}else{
+					alert("취소했습니다");
+				}
 			})
 </script>
 </c:forEach>
