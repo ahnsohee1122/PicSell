@@ -61,6 +61,7 @@ $("#no${dto.img_seq}").on("click",function(){
 	var msg = prompt("승인거절 이유를 작성해주세요.");
 	$("#why${dto.img_seq}").val(msg);
 	var seq = ${dto.img_seq};
+	if(msg==null){alert("취소되었습니다.");return false;}
 	if(msg!=""){
 	$.ajax({
 		url:"delete.do",
@@ -80,6 +81,7 @@ $("#no${dto.img_seq}").on("click",function(){
 	}else{
 		alert("거절 사유를 작성해주세요");
 	}
+	
 })
 </script>
 </div>
