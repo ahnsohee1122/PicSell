@@ -10,13 +10,14 @@ public class WriterImageUpDTO {
 	private int img_like, viewcount, downcount;
 	private String accept,checking;
 	private Timestamp img_sysdate;
+	private String rejection;
 	
 	public WriterImageUpDTO() {}
 
 	public WriterImageUpDTO(int img_seq, String nickname, String usage, String copyright, String tag,
 			String file_extension, String oriname, String sysname, int img_size, String make, String model,
 			String xDimension, String yDimension, String sysname_watermark, int img_like, int viewcount, int downcount,
-			String accept, String checking, Timestamp img_sysdate) {
+			String accept, String checking, Timestamp img_sysdate, String rejection) {
 		super();
 		this.img_seq = img_seq;
 		this.nickname = nickname;
@@ -38,6 +39,7 @@ public class WriterImageUpDTO {
 		this.accept = accept;
 		this.checking = checking;
 		this.img_sysdate = img_sysdate;
+		this.rejection = rejection;
 	}
 
 	public int getImg_seq() {
@@ -200,7 +202,15 @@ public class WriterImageUpDTO {
 		this.img_sysdate = img_sysdate;
 	}
 
-	
-	
+	public String getRejection() {
+		return rejection;
+	}
 
+	public void setRejection(String rejection) {
+		this.rejection = rejection;
+	}
+
+	
+	
+	
 }

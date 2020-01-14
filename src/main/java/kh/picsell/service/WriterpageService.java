@@ -28,11 +28,20 @@ public class WriterpageService {
 	
 	public Map<String,Integer> imginfo(String nickname){
 		Map<String,Integer> info = new HashMap<>();
+		if(dao.imgcount(nickname) > 0) {
 			info.put("imgcount", dao.imgcount(nickname));
 			info.put("downcount", dao.downcount(nickname));
 			info.put("viewcount", dao.viewcount(nickname));
 			info.put("imglike", dao.imglike(nickname));
 			info.put("likepoint", dao.likepoint(nickname));
+		}else {
+			info.put("imgcount", 0);
+			info.put("downcount", 0);
+			info.put("viewcount", 0);
+			info.put("imglike", 0);
+			info.put("likepoint", 0);
+		}
+			
 			return info;
 	}
 	
