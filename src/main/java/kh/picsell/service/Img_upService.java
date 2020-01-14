@@ -1,6 +1,7 @@
 package kh.picsell.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -42,5 +43,7 @@ public class Img_upService {
 	public int notyet(String nickname) throws Exception{
 		return dao.notyet(nickname);
 	}
-	
+	public img_upDTO detailview(int img_seq) throws Exception{
+		return dao.detailview(img_seq);
+	}
 }

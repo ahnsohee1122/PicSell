@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공모전 심사/승인</title>
 <jsp:include page="../key/top.jsp" flush="false"/>
 				<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
                 <link

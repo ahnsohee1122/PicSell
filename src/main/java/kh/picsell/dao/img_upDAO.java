@@ -43,5 +43,9 @@ public class img_upDAO {
 	public int notyet(String nickname) throws Exception{
 		return jdbc.selectOne("Img.notyet",nickname);
 	}
-
+	public img_upDTO detailview(int img_seq) throws Exception{
+		
+		return jdbc.selectOne("Img.detailview",img_seq);
+		
+	}
 }

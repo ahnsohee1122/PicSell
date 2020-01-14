@@ -4,42 +4,42 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Contest">
 <insert id="insert" parameterType="kh.picsell.dto.ContestDTO">
-		insert into contest values(contest_seq.nextval, #{reason} , #{title} , #{detail}, #{terms}, #{enddate} ,#{price}, #{hosttype},'host','N','N',sysdate)
+      insert into contest values(contest_seq.nextval, #{dto.reason} , #{dto.title} , #{dto.detail}, #{dto.terms}, #{dto.enddate} ,#{dto.price}, #{dto.hosttype}, #{nickname},'N','N',sysdate,null)
 </insert>
 <insert id="fileinsert" parameterType="kh.picsell.dto.ContestDTO">
-		insert into contestfiles values(contestfiles_seq.nextval, #{contest_seq}, #{oriname}, #{sysname},#{title}, #{hosttype} )
+      insert into contestfiles values(contestfiles_seq.nextval, #{contest_seq}, #{oriname}, #{sysname},#{title}, #{hosttype} )
 </insert>
 <select id="getNoList" resultType="kh.picsell.dto.ContestDTO">
-		select * from contest where accept = 'N' and checking ='N'
-	</select>
+      select * from contest where accept = 'N' and checking ='N'
+   </select>
 <update id="accept" parameterType="kh.picsell.dto.ContestDTO">
-	update contest set accept = 'Y', checking = 'Y', accept_date = #{accept_date} where contest_seq = #{contest_seq}
+   update contest set accept = 'Y', checking = 'Y', accept_date = #{accept_date} where contest_seq = #{contest_seq}
 </update>
 <select id="detailcheck" resultType="kh.picsell.dto.ContestDTO">
-		select * from contest where contest_seq = #{contest_seq}
-	</select>
-	<update id="acceptno" parameterType="kh.picsell.dto.ContestDTO">
-	update contest set rejection=#{rejection}, checking = 'Y' where contest_seq = #{contest_seq}
+      select * from contest where contest_seq = #{contest_seq}
+   </select>
+   <update id="acceptno" parameterType="kh.picsell.dto.ContestDTO">
+   update contest set rejection=#{rejection}, checking = 'Y' where contest_seq = #{contest_seq}
 </update>
 <select id="acceptlist" resultType="kh.picsell.dto.ContestDTO">
-	select * from contest where accept='Y' order by 12, 6 desc
+   select * from contest where accept='Y' order by 12, 6 desc
 </select>
 <select id="getcurrval" resultType="Integer">
-	select contest_seq.currval from dual
+   select contest_seq.currval from dual
 </select>
 <select id="exampleimg" resultType="kh.picsell.dto.ContestDTO">
-	select * from contestfiles where contest_seq = #{contest_seq}
+   select * from contestfiles where contest_seq = #{contest_seq}
 </select>
 <select id="contestchecking" resultType="kh.picsell.dto.ContestDTO">
-	select * from contest where host=#{host}
+   select * from contest where host=#{host}
 </select>
 <select id="showok" resultType="integer">
-		select count(*) from contest where accept='Y' and host=#{host}
-	</select>
-	<select id="showno" resultType="integer">
-		select count(*) from contest where checking='Y' and accept='N' and host=#{host}
-	</select>
-	<select id="notyet" resultType="integer">
-		select count(*) from contest where checking='N' and host=#{host}
-	</select>
+      select count(*) from contest where accept='Y' and host=#{host}
+   </select>
+   <select id="showno" resultType="integer">
+      select count(*) from contest where checking='Y' and accept='N' and host=#{host}
+   </select>
+   <select id="notyet" resultType="integer">
+      select count(*) from contest where checking='N' and host=#{host}
+   </select>
 </mapper>
