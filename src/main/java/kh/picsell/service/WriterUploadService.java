@@ -39,7 +39,7 @@ public class WriterUploadService {
     
     @Transactional("txManager")
     public void upload(MultipartFile[] file, HttpServletRequest request, WriterImageUpDTO dto, String path, String watermarkpath,String nickname) {
-		dto.setNickname("@"+nickname);
+		dto.setNickname(nickname);
 		File filepath = new File(path);
 		File watermarkfilepath = new File(watermarkpath);
 

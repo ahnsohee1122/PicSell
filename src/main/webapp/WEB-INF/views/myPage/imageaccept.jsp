@@ -1,4 +1,4 @@
-<%@ page import="kh.picsell.dto.img_upDTO" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -18,6 +18,7 @@
 #container{height:1200px;position:relative;min-width:1400px;}
 #manage{width:80%; float:right;text-align:center;min-width:860px;}
 #leftmenu{width:20%; float:left;height:100%;min-width:182px}
+img{ width: 300px; height: 300px;}
 </style>
 </head>
 <body>
@@ -47,7 +48,7 @@ ${loginInfo} 님이 등록신청한 이미지가 없습니다.
 <tr>
 <th>등록번호</th>
 <th>사진</th>
-<th>승인상태</th>
+<th>심사진행</th>
 <th>승인여부</th>
 <th>등록일</th>
 <th>삭제</th>
@@ -55,13 +56,13 @@ ${loginInfo} 님이 등록신청한 이미지가 없습니다.
 </thead>
 <tbody>
 <c:forEach items="${list}" var="dto">
-<tr style="height:100px;">
+<tr style="height:100px;" >
 <td>${dto.img_seq}</td>
-<td>사진들어갈곳</td>
+<td><img src='/writeruploadfiles/${dto.sysname}'></td>
 <td id="checking${dto.img_seq}"></td>
 <td id="accept${dto.img_seq}"></td>
 <td id="time${dto.img_seq}"></td>
-<td><input type="button" id="delete${dto.img_seq}" value="삭제"></td>
+<td id="btn${dto.img_seq}"></td>
 </tr>
 <script>
 var why = "${dto.rejection}";
@@ -72,12 +73,13 @@ if(checking=="N"){
 	$("#checking${dto.img_seq}").html("심사중");
 	$("#accept${dto.img_seq}").html("심사중");
 }else if(checking=="Y"){
-	$("#checking${dto.img_seq}").html("심사완료");
-if(accept=="N"){
-	$("#accept${dto.img_seq}").html("등록거절 (사유 : ${dto.rejection})");
-}else if(accept="Y"){
-	$("#accept${dto.img_seq}").html("등록승인");
-}
+		$("#checking${dto.img_seq}").html("심사완료");
+		$("#btn${dto.img_seq}").html('<input type="button" id="delete${dto.img_seq}" value="삭제">')	
+	if(accept=="N"){
+		$("#accept${dto.img_seq}").html("등록거절 (사유 : ${dto.rejection})");
+	}else if(accept="Y"){
+		$("#accept${dto.img_seq}").html("등록승인");
+	}
 }
 var showdate = date.substr(0,16);
 $("#time${dto.img_seq}").html(showdate);
@@ -106,6 +108,8 @@ $("#delete${dto.img_seq}").on("click",function(){
 		alert("취소했습니다.");
 	}
 });
+
+
 </script>
 </c:forEach>
 </tbody>
