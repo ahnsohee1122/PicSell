@@ -122,6 +122,6 @@ $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
 </c:choose>
 </div>
 </div>
-
+<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
 </html>

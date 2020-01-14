@@ -108,5 +108,17 @@ public String del(int img_seq) { //사진심사 승인
 		return "서버";
 	}
 }
+@RequestMapping(value="detailview")
+public String detailview(int img_seq, HttpServletRequest request) {
+	
+	try {
+		img_upDTO dto = service.detailview(img_seq);
+		request.setAttribute("dto", dto);
+		return "Img_up/detailview";
+	}catch(Exception e) {
+		e.printStackTrace();
+		return"error";
+	}
+}
 
 }
