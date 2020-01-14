@@ -9,6 +9,9 @@
 	<select id="acceptpage" resultType="kh.picsell.dto.img_upDTO">
 		select * from writer_image_up where nickname=#{nickname}
 	</select>
+	<select id="detailview" resultType="kh.picsell.dto.img_upDTO">
+		select * from writer_image_up where img_seq = #{img_seq}
+	</select>
 	<select id="getYesList" resultType="kh.picsell.dto.img_upDTO">
 		select * from writer_image_up where accept = 'Y'
 	</select>
