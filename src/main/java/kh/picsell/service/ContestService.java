@@ -19,71 +19,69 @@ public class ContestService {
 private ContestDAO dao;
 
 public List<ContestDTO> notyetList() throws Exception{
-	return dao.notyetList();
+   return dao.notyetList();
 }
 
 public ContestDTO detailcheck(int contest_seq) throws Exception{
-	return dao.detailcheck(contest_seq);
+   return dao.detailcheck(contest_seq);
 }
 
 public int accept(String accept_date, int contest_seq) throws Exception{
-	return dao.accept(accept_date, contest_seq);
+   return dao.accept(accept_date, contest_seq);
 }
 
 public int noaccept(String rejection, int contest_seq) throws Exception {
-	return dao.acceptno(rejection, contest_seq);
+   return dao.acceptno(rejection, contest_seq);
 }
 
 public List<ContestDTO> acceptList() throws Exception{
-	return dao.acceptList();
-}public List<ContestDTO> contestchecking(String host) throws Exception{
-	return dao.contestchecking(host);
+   return dao.acceptList();
+}
+public List<ContestDTO> contestchecking(String host) throws Exception{
+   return dao.contestchecking(host);
 }
 
 public List<ContestDTO> exampleimg(int contest_seq) throws Exception {
-	return dao.exampleimg(contest_seq);
+   return dao.exampleimg(contest_seq);
 }
 
 @Transactional("txManager")
 public void newcontest(MultipartFile[] file, ContestDTO dto, String path, String nickname) {
-	Map<String, Object> map = new HashMap<>();
-	System.out.println(nickname);
-	map.put("dto", dto);
-	map.put("nickname",nickname);
-	dao.insert(map);
-	
-	File filepath = new File(path);	
-	int currval = dao.getcurrval();
-	
-	if(!filepath.exists()) {
-		filepath.mkdir();
-	}
-	
-	String oriname = "";
-	String sysname = "";
+   dto.setHost(nickname);
+   dao.insert(dto);
+   
+   File filepath = new File(path);   
+   int currval = dao.getcurrval();
+   
+   if(!filepath.exists()) {
+      filepath.mkdir();
+   }
+   
+   String oriname = "";
+   String sysname = "";
 
-	for(MultipartFile f : file) {
-		try {
-		oriname = f.getOriginalFilename();
-		sysname = dto.getHosttype()+"_"+System.currentTimeMillis() + "_" + oriname;
-		dto.setOriname(oriname);
-		dto.setSysname(sysname);
-		dto.setContest_seq(currval);
-		f.transferTo(new File(path+"/"+sysname));
-		dao.fileinsert(dto);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-	
+   for(MultipartFile f : file) {
+      try {
+      oriname = f.getOriginalFilename();
+      sysname = dto.getHosttype()+"_"+System.currentTimeMillis() + "_" + oriname;
+      dto.setOriname(oriname);
+      dto.setSysname(sysname);
+      dto.setContest_seq(currval);
+      f.transferTo(new File(path+"/"+sysname));
+      dao.fileinsert(dto);
+      }catch(Exception e) {
+         e.printStackTrace();
+      }
+   }
+   
+   
+   
 }
 public int showok(String host) throws Exception{
-	return dao.showok(host);
+   return dao.showok(host);
 }public int showno(String host)throws Exception{
-	return dao.showno(host);
+   return dao.showno(host);
 }public int notyet(String host)throws Exception{
-	return dao.notyet(host);
+   return dao.notyet(host);
 }
 }

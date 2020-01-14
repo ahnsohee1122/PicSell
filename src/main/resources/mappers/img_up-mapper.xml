@@ -3,19 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Img">
-<select id="getNoList" resultType="kh.picsell.dto.img_upDTO">
+<select id="getNoList" resultType="kh.picsell.dto.WriterImageUpDTO">
 		select * from writer_image_up where accept = 'N' and checking='N'
 	</select>
-	<select id="acceptpage" resultType="kh.picsell.dto.img_upDTO">
+	<select id="acceptpage" resultType="kh.picsell.dto.WriterImageUpDTO">
 		select * from writer_image_up where nickname=#{nickname}
 	</select>
-	<select id="getYesList" resultType="kh.picsell.dto.img_upDTO">
+	<select id="detailview" resultType="kh.picsell.dto.WriterImageUpDTO">
+		select * from writer_image_up where img_seq = #{img_seq}
+	</select>
+	<select id="getYesList" resultType="kh.picsell.dto.WriterImageUpDTO">
 		select * from writer_image_up where accept = 'Y'
 	</select>
-	<update id="accept" parameterType="kh.picsell.dto.img_upDTO">
+	<update id="accept" parameterType="kh.picsell.dto.WriterImageUpDTO">
 	update writer_image_up set accept = 'Y', checking ='Y' where img_seq = #{img_seq}
 	</update>
-	<update id="noaccept" parameterType="kh.picsell.dto.img_upDTO">
+	<update id="noaccept" parameterType="kh.picsell.dto.WriterImageUpDTO">
 	update writer_image_up set checking = 'Y', rejection=#{rejection} where img_seq = #{img_seq}
 	</update>
 	<delete id="delete">

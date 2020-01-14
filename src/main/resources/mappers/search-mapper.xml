@@ -5,12 +5,12 @@
 <mapper namespace="Search">
 	
 	<select id="search" resultType="kh.picsell.dto.WriterImageUpDTO">
-		select * from imageup where REGEXP_LIKE (tag, #{tag})
+		select * from writer_image_up where REGEXP_LIKE (tag, #{tag})
 	</select>
 
 	<select id="align" resultType="kh.picsell.dto.WriterImageUpDTO" parameterType="java.util.Map">
 		
-		select * from (select imageup.*, row_number() over(order by img_seq ) as rown from imageup where REGEXP_LIKE (tag, #{tag})
+		select * from (select writer_image_up.*, row_number() over(order by img_seq ) as rown from writer_image_up where REGEXP_LIKE (tag, #{tag})
 
 		<if test="keyword2 != null">
 			and REGEXP_LIKE (tag, #{keyword2})
@@ -27,4 +27,29 @@
 		
 		) where rown between #{start} and #{end}
 	</select>
+	
+	<select id="getDetailImage" resultType="kh.picsell.dto.WriterImageUpDTO">
+		select * from writer_image_up where img_seq = #{img_seq}
+	</select>
+
+	<select id="getLikepoint" resultType="integer">
+		select likepoint from member where nickname = #{nickname}
+	</select>
+	
+	<update id="photolike" parameterType="java.util.Map">
+		update writer_image_up set img_like = img_like + #{count} where img_seq = #{img_seq}
+	</update>
+
+	<update id="updateViewCount">
+		update writer_image_up set viewcount = viewcount + 1 where img_seq = #{img_seq}
+	</update>
+
+	<update id="writerlike" parameterType="java.util.Map">
+		update member set likepoint = likepoint + #{count} where nickname = #{nickname}
+	</update>
+	
+	<select id="writerexist" resultType="integer">
+		select count(*) from member where nickname = #{writer}
+	</select>
+	
 </mapper>

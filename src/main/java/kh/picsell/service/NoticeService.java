@@ -152,7 +152,7 @@ public class NoticeService {
 		File summernote_path = new File(summernote_filePath); 
 
 		if(noticeDto.getNotice_contents().contains("base64")){
-			Pattern p = Pattern.compile("<img.+?src=\\\"data:image/jpeg;base64,(.+?)\\\".+?data-filename=\\\"(.+?)\\\".*?>");
+			Pattern p = Pattern.compile("<img.+?src=\\\"data:image/(jpeg|png);base64,(.+?)\\\".+?data-filename=\\\"(.+?)\\\".*?>");
 			Matcher m = p.matcher(noticeDto.getNotice_contents());	
 			List<String> summernoteFileList = new ArrayList<>();
 
