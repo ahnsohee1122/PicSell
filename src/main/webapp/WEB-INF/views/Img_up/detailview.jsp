@@ -10,6 +10,12 @@
 <jsp:include page="../key/top.jsp" flush="false"/>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
+<style>
+#container{height:800px;position:relative;min-width:1400px;}
+#manage{width:80%; float:right;text-align:center;min-width:860px;}
+#leftmenu{width:20%; float:left;height:100%;min-width:182px}
+td{margin-left:40px;}
+</style>
 <body>
 <div style="text-align:center">
 <h1>이미지 등록/심사</h1>
@@ -29,7 +35,8 @@
 <div style="width:100%;text-align:center">${dto.nickname} 님의 ${dto.img_seq}번 이미지 승인신청입니다</div>
 <div><table><tr><td>용도 : ${dto.usage}</td><td>사진사이즈 : ${dto.XDimension} * ${dto.YDimension}</td><td>파일크기 : ${dto.img_size}</td><td>신청일 : ${dto.img_sysdate}</td></tr></table></div>
 </div>
-<div>사진들어갈곳</div>
+<div style="width:80%; height:500px; text-align:center;border:1px solid;">사진들어갈곳</div>
+<hr>
 <input type="button" value="승인" id="ok${dto.img_seq}">
 <input type="button" value="승인거절" id="no${dto.img_seq}">
 <input type="hidden" id="why${dto.img_seq }">
@@ -77,5 +84,6 @@ $("#no${dto.img_seq}").on("click",function(){
 </script>
 </div>
 </div>
+<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
 </html>

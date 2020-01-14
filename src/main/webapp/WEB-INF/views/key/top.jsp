@@ -391,6 +391,18 @@
 		
     	
 			$("#login").on("click",function(){
+				var login_id = $("#loginId").val();
+        		var login_pw = $("#loginPw").val();
+        		if(login_id==""){
+        			alert("아이디 항목은 필수 입력값입니다.");
+        			$("#loginId").focus();
+        			return;
+        		}
+        		if(login_pw==""){
+        			alert("비밀번호 항목은 필수 입력값입니다.");
+        			$("#loginPw").focus();
+        			return;
+        		}
 				$.ajax({
 					url:"${pageContext.request.contextPath}/member/loginProc.do",
 					type:"post",
@@ -426,7 +438,57 @@
 					alert("서버에러입니다 관리자에게 문의하세요");}
 				});
 			});
-		
+	        $(document).on("keyup", function(e){
+
+	            if(e.keyCode == 13){
+	            	var login_id = $("#loginId").val();
+	        		var login_pw = $("#loginPw").val();
+	        		if(login_id==""){
+	        			alert("아이디 항목은 필수 입력값입니다.");
+	        			$("#loginId").focus();
+	        			return;
+	        		}
+	        		if(login_pw==""){
+	        			alert("비밀번호 항목은 필수 입력값입니다.");
+	        			$("#loginPw").focus();
+	        			return;
+	        		}
+					$.ajax({
+						url:"${pageContext.request.contextPath}/member/loginProc.do",
+						type:"post",
+						data:{ id:$("#loginId").val(),
+							pw:$("#loginPw").val()
+						}
+					}).done(function(res){
+						if(res == "로그인성공"){
+							console.log(res);
+						
+								alert("로그인에 성공했습니다!");
+								location.href="/home.do";
+							}else if(res=="관리자로그인성공"){
+								
+								alert("관리자로 로그인했습니다");
+								location.href="/home.do";
+							}else if(res=="블랙1"){
+								
+								alert("로그인에 성공했습니다!\n블랙리스트 1회경고 회원입니다. 한번더 경고를받을시 블랙리스트에 등록됩니다.");
+								location.href="/home.do";
+							}else if(res=="블랙2"){
+								alert("블랙리스트 회원입니다 관리자에게 문의바랍니다.");
+					}else if(res == "로그인실패!"){
+								console.log(res);
+						 	$(".ears").css("transform", "rotate3d(1, -0.648763, -0.324382, 0.31546rad)");
+						    $(".eyes").css("transform", "rotate3d(1, -0.648763, -0.324382, 0.31546rad)");
+						    $(".muzzle").css("transform", "rotate3d(1, -0.648763, -0.324382, 0.31546rad)");
+						    $("#info").css("display", "block");
+							}
+					}).fail(function(res){ 
+						console.log(res);
+						if(res == "서버에러입니다 관리자에게 문의하세요"){
+						alert("서버에러입니다 관리자에게 문의하세요");}
+					});
+	            }
+	        });
 		const ryan = document.querySelector('#ryan');
 		const face = document.querySelectorAll('.ears, .eyes, .muzzle');
 		const email = document.querySelector('input[type="text"]');
