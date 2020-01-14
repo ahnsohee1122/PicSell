@@ -36,7 +36,8 @@ public int noaccept(String rejection, int contest_seq) throws Exception {
 
 public List<ContestDTO> acceptList() throws Exception{
    return dao.acceptList();
-}public List<ContestDTO> contestchecking(String host) throws Exception{
+}
+public List<ContestDTO> contestchecking(String host) throws Exception{
    return dao.contestchecking(host);
 }
 
@@ -46,11 +47,8 @@ public List<ContestDTO> exampleimg(int contest_seq) throws Exception {
 
 @Transactional("txManager")
 public void newcontest(MultipartFile[] file, ContestDTO dto, String path, String nickname) {
-   Map<String, Object> map = new HashMap<>();
-   System.out.println(nickname);
-   map.put("dto", dto);
-   map.put("nickname",nickname);
-   dao.insert(map);
+   dto.setHost(nickname);
+   dao.insert(dto);
    
    File filepath = new File(path);   
    int currval = dao.getcurrval();
