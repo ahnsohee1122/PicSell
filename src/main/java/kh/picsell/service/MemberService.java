@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import kh.picsell.dao.MemberDAO;
 import kh.picsell.dto.MemberDTO;
-import kh.picsell.dto.img_upDTO;
 
 @Service
 public class MemberService {

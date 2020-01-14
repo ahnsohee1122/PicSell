@@ -1,4 +1,4 @@
-<%@ page import="kh.picsell.dto.img_upDTO" %>
+<%@ page import="kh.picsell.dto.WriterImageUpDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -15,6 +15,8 @@
 #manage{width:80%; float:right;text-align:center;min-width:860px;}
 #leftmenu{width:20%; float:left;height:100%;min-width:182px}
 td{margin-left:40px;}
+#img{width:800px;margin:auto}
+img{width:100%; height:100%;}
 </style>
 <body>
 <div style="text-align:center">
@@ -33,9 +35,11 @@ td{margin-left:40px;}
 
 <div>
 <div style="width:100%;text-align:center">${dto.nickname} 님의 ${dto.img_seq}번 이미지 승인신청입니다</div>
-<div><table><tr><td>용도 : ${dto.usage}</td><td>사진사이즈 : ${dto.XDimension} * ${dto.YDimension}</td><td>파일크기 : ${dto.img_size}</td><td>신청일 : ${dto.img_sysdate}</td></tr></table></div>
+<div><table><tr><td>용도 : ${dto.usage}</td><td>사진사이즈 : ${dto.xDimension} * ${dto.yDimension}</td><td>파일크기 : ${dto.img_size}</td><td>신청일 : ${dto.img_sysdate}</td></tr></table></div>
 </div>
-<div style="width:80%; height:500px; text-align:center;border:1px solid;">사진들어갈곳</div>
+<div id="img" style="width:80%; height:500px; text-align:center;border:1px solid;">
+	<img src='/writeruploadfiles/${dto.sysname}'>
+</div>
 <hr>
 <input type="button" value="승인" id="ok${dto.img_seq}">
 <input type="button" value="승인거절" id="no${dto.img_seq}">

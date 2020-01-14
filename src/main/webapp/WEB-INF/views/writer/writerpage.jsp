@@ -12,35 +12,19 @@
 <style>
 	.writer {width: 100%; min-height: 250px; background-image: url('${pageContext.request.contextPath}/img/write_banner.png'); background-repeat: no-repeat;}
 	.explanation {margin-top: 5px; padding: 0px; background: none; border: 0; color: white; border-bottom: 1px solid white;}
-	
+	#gallery { max-width: 1500px; width : 1480px; border: 1px solid gray; margin: 15px auto; padding: 10px; height: 800px; border-radius:5px;}
 	
 </style>
 </head>
 
 <body>
 <jsp:include page="../key/top.jsp" flush="false"/>
+<jsp:include page="../key/profile.jsp" flush="false"/>
 <script src="/js/jquery.justifiedGallery.js"></script>
-	
-	
-	  <div class="container-fluid m-0 p-0">
-        <div class="writer row m-0 p-0">
-        <div class="m-auto" style="text-align: center;">
-            <div class="text-white" style="font-size: 32px; font-family: 'Cafe24Oneprettynight';">@${writerdto.nickname }</div>
-            <div class="text-white" style="font-size: 30px; font-family: 'Cafe24Oneprettynight';">${imginfo.imgcount }</div>
-            <div class="text-white" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">${imginfo.downcount }</div>
-            <div class="text-white" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">${imginfo.viewcount }</div>
-            <div class="text-white" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">${imginfo.imglike }</div>
-      		 <div class="text-white" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">${imginfo.likepoint }</div>
-			    </div>
-			  </div>
-			</div>
-   
-    
-    
-    		<div id="gallery"></div>
-    
-  
+<div class="row">
 
+    	<div class="col-12 col-md-12 col-xl-12 text-center px-0 py-3" id="gallery"></div>
+</div>
 	<script>
 
 	let isEnd = false;
@@ -73,15 +57,21 @@
 		data:{"currentPage" : currentPage},
 		dataType:"json",
 		success:function(resp){
-			console.log(resp)
-			let length = resp.length;
-			console.log(length)
-			if(length < 5){
-				isEnd = true;
+			if(resp == 0 ){
+				$("#gallery").append('<div>등록된 이미지가 없습니다. 이미지를 등록하여 작가로 활동해보세요!</div>')
+				isEnd == true;
+			}else{
+				let length = resp.length;
+				console.log(length)
+				if(length < 5){
+					isEnd = true;
+				}
+				for(i=0; i<resp.length;i++){
+					renderList(resp[i].sysname, resp[i].tag)
+				}
+				
 			}
-			for(i=0; i<resp.length;i++){
-				renderList(resp[i].sysname, resp[i].tag)
-			}
+			
 		
 		}
 	})
@@ -94,7 +84,7 @@
 		var html = "<div class=image><a><img src=/writeruploadfiles/"+sysname+" alt="+tags+"></a></div>"
 		$("#gallery").append(html)
 		$("#gallery").justifiedGallery({
-			rowHeight : 100,
+			rowHeight : 200,
 		    lastRow : 'nojustify',
 		    margins : 10
 		}); 

@@ -48,8 +48,7 @@ public class WriterController {
 	@RequestMapping("upload")
 	public String upload(MultipartFile[] file, HttpServletRequest request, WriterImageUpDTO dto) {
 		System.out.println("업로드도착");
-		//String nickname = (String)session.getAttribute("loginInfo");
-		String nickname = "hello";
+		String nickname = (String)session.getAttribute("loginInfo");
 		String path = session.getServletContext().getRealPath("writeruploadfiles");
 		String watermarkpath = session.getServletContext().getRealPath("watermarkfiles");
 		service.upload(file,request,dto,path,watermarkpath,nickname);
@@ -59,8 +58,7 @@ public class WriterController {
 	//작가페이지로 이동
 	@RequestMapping("writerpage")
 	public String view(HttpServletRequest request) {
-		//String nickname = (String)session.getAttribute("loginInfo");
-		String nickname = "hello";
+		String nickname = (String)session.getAttribute("loginInfo");
 		MemberDTO writerinfo = writerservice.writerInfo(nickname);
 		Map<String,Integer> imginfo = writerservice.imginfo(nickname);
 		request.setAttribute("imginfo", imginfo);
@@ -77,8 +75,7 @@ public class WriterController {
 		Map<String,Object> param = new HashMap<>();
 		List<WriterImageUpDTO> list;
 		if(currentPage == 1) {
-			System.out.println(currentPage);
-			String nickname = "hello";
+			String nickname = (String)session.getAttribute("loginInfo");
 			param.put("start", 0);
 			param.put("end", 20);
 			param.put("nickname",nickname);
