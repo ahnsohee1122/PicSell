@@ -189,6 +189,7 @@ width:100%;
 	$("#nono").on("click",function(){
 		var msg = prompt("승인 거절이유를 입력하세요");
 	$("#why").val(msg);
+	if(msg==null){alert("취소되었습니다.");return false;}
 	if(msg!=""){
 			$.ajax({
 				url:"acceptno.do",
