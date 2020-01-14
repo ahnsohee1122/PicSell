@@ -15,7 +15,7 @@
 <script
 	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <style>
-#container{height:800px;position:relative;min-width:1400px;}
+#container{height:1200px;position:relative;min-width:1400px;}
 #manage{width:80%; float:right;text-align:center;min-width:860px;}
 #leftmenu{width:20%; float:left;height:100%;min-width:182px}
 </style>
