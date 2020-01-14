@@ -47,5 +47,29 @@ public class SearchService {
 	
 		return dao.align(start, end, tag, file_extension, usage, orderBy, keyword2);
 	}
+	
+	public WriterImageUpDTO getDetailImage(int img_seq) {
+		return dao.getDetailImage(img_seq);
+	}
+	
+	public int getLikepoint(String nickname) { // 작가 좋아요 개수 구하기
+		return dao.getLikepoint(nickname);
+	}
+	
+	public int photolike(int img_seq, int count) { // 이미지 좋아요 up & down		
+		return dao.photolike(img_seq, count);
+	}
+	
+	public int updateViewCount(int img_seq) {
+		return dao.updateViewCount(img_seq);
+	}
+	
+	public int writerlike(String nickname, int count) { // 작가 좋아요 up & down		
+		return dao.writerlike(nickname, count);
+	}
+	
+	public int writerexist(String writer) {
+		return dao.writerexist(writer);
+	}
 
 }
