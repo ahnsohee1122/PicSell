@@ -33,7 +33,7 @@ public class SearchController {
 			return "writer/writerpage"; // 작가 페이지로
 		}else {
 			request.setAttribute("searchKeyword", tag);
-			return "searchList2";
+			return "searchList";
 		}
 	}
 
@@ -119,7 +119,7 @@ public class SearchController {
 
 		request.setAttribute("dto", dto);
 		request.setAttribute("likepoint", likepoint);
-		return "detailImageView2";
+		return "detailImageView";
 	}
 
 	@RequestMapping(value="/PhotoLike.do", produces="text/html; charset=UTF-8")
