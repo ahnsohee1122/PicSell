@@ -13,6 +13,27 @@
 	.date {width: 20%;}
 	.viewCount {width: 10%;}
 	.li {margin: auto; width: 33%; float:left; text-align: center;}
+	
+	.dataTables_wrapper .dataTables_paginate {width: 100%!important; text-align: center!important; margin: auto!important; color: black!important;}
+		
+	.dataTables_wrapper .dataTables_paginate .paginate_button {
+	    border: 1px solid #f4f2f5!important;
+	    background-color: #f4f2f5!important;
+	    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f4f2f5), color-stop(100%, #f4f2f5))!important;
+	    background: -webkit-linear-gradient(top, #f4f2f5 0%, #f4f2f5 100%)!important;
+	    background: -moz-linear-gradient(top, #f4f2f5 0%, #f4f2f5 100%)!important;
+	    background: -ms-linear-gradient(top, #f4f2f5 0%, #f4f2f5 100%)!important;
+	    background: -o-linear-gradient(top, #f4f2f5 0%, #f4f2f5 100%)!important;
+	    background: linear-gradient(to bottom, #f4f2f5 0%, #f4f2f5 100%)!important;
+	}
+	
+	.dataTables_wrapper .dataTables_paginate span .paginate_button:hover {color: black!important;}
+	.dataTables_wrapper .dataTables_paginate span .paginate_button.current {font-weight: 900!important;}
+	
+	.dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {color: black!important;}
+	.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover {color: black!important;}
+	
+	
 </style>
 <script>
 
@@ -21,20 +42,20 @@
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
 
-	<div class="container-fluid py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
+	<div class="container-fluid py-5" style="min-height: 950px; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 		<div class="container m-auto">
 			<h2 class="mx-auto my-0 text-center">공지사항</h2>
 		</div>
 		<div class="container mx-auto mt-5 mb-4 text-center" style="height: 40px;">
 			<ul class="p-0 m-0 h-100" style="list-style-type: none; border: 1px solid gray; border-radius: 10px;">
-				<li class="li h-100"><a href="#" style="font-size: 18px; line-height: 40px; color: black;">공지사항</a></li>
+				<li class="li h-100"><a href="${pageContext.request.contextPath}/notice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">공지사항</a></li>
 				<li class="li h-100"><a href="#" style="font-size: 18px; line-height: 40px; color: black;">편집의뢰게시판</a></li>
 				<li class="li h-100"><a href="#" style="font-size: 18px; line-height: 40px; color: black;">작품의뢰게시판</a></li>
 			</ul>
 		</div>
 		<div class="container mx-auto my-5">
 			<table id="example" class="row-border" style="width: 100%; text-align: center;">
-				<thead style="border-bottom: 1px solid gray;">
+				<thead>
 					<tr>
 						<th class="data seq">번호</th>
 						<th class="data title">제목</th>
@@ -45,9 +66,9 @@
 				</thead>
 				<tbody style="font-size: 18px;">
 					<c:forEach var="noticeList" items="${noticeList }">
-						<tr>
+						<tr style="background-color: #f4f2f5;">
 							<td class="seq">${noticeList.notice_seq}</td>
-							<td class="title"><a href="${pageContext.request.contextPath}/notice/detail.do?notice_seq=${noticeList.notice_seq}">${noticeList.notice_title}</td>
+							<td class="title"><a style="color: black;" href="${pageContext.request.contextPath}/notice/detail.do?notice_seq=${noticeList.notice_seq}">${noticeList.notice_title}</td>
 							<td class="writer">${noticeList.notice_writer}</td>
 							<td class="date">${noticeList.notice_write_date}</td>
 							<td class="viewCount">${noticeList.notice_view_count}</td>
@@ -55,8 +76,8 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<div>
-				<input type="button" id="writeBtn" value="글쓰기">
+			<div class="text-right">
+				<input type="button" id="writeBtn" value="글쓰기" style="width: 150px; backgorund-color: #f4f2f5; border: 1px solid gray; border-radius: 10px;">
 			</div>
 		</div>
 	</div>
