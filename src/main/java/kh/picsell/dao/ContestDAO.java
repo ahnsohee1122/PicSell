@@ -15,8 +15,8 @@ public class ContestDAO {
 private SqlSessionTemplate jdbc;
 
 //새로운 공모전 신청하기.
-public int insert(Map<String,Object> map) {
-   return jdbc.insert("Contest.insert", map);
+public int insert(ContestDTO dto) {
+   return jdbc.insert("Contest.insert", dto);
 }
 //새 공모전 신청시 파일 업로드
 public int fileinsert(ContestDTO dto) {
