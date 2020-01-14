@@ -71,6 +71,11 @@ public int getLikepoint() {
 public void setLikepoint(int likepoint) {
 	this.likepoint = likepoint;
 }
+@Override
+public String toString() {
+	return "MemberDTO [id=" + id + ", pw=" + pw + ", name=" + name + ", nickname=" + nickname + ", email=" + email
+			+ ", email_receive=" + email_receive + ", black=" + black + ", likepoint=" + likepoint + "]";
+}
 
 
 }
