@@ -29,7 +29,7 @@ public class NoticeService {
 
 	@Autowired
 	private NoticeFileDAO fileDao;
-	
+
 	@Autowired
 	private SummernoteDAO summernoteDao;
 
@@ -57,7 +57,7 @@ public class NoticeService {
 	public void write(NoticeDTO noticeDto, NoticeFileDTO fileDto, String file_path, String summernote_filePath) {
 
 		File summernote_path = new File(summernote_filePath);  
-
+		System.out.println(noticeDto.getNotice_contents());
 		if(!summernote_path.exists()) {
 			summernote_path.mkdir();
 		} 
@@ -70,7 +70,6 @@ public class NoticeService {
 			while(m.find()) {
 				String oriName = m.group(2);
 				String sysName = System.currentTimeMillis() + "_" + oriName;
-				
 				String imageString = m.group(1).split(",")[1];
 
 				byte[] imgBytes = Base64Utils.decodeFromString(imageString);
@@ -86,14 +85,14 @@ public class NoticeService {
 			e.printStackTrace();
 		}
 		dao.write(noticeDto);
-		
-		
+
+
 		int noticeFile_parentSeq = dao.getParentSeq(noticeDto.getNotice_writer());
 
 		for(String summernote_sysName : summernoteFileList) {
 			summernoteDao.summernoteFile(noticeFile_parentSeq, summernote_sysName);
 		}
-		
+
 		File filePath = new File(file_path);
 
 		if(!filePath.exists()) {
@@ -128,7 +127,7 @@ public class NoticeService {
 				file.delete();
 			}
 		}
-		
+
 		List<String> summernoteFile_sysName = summernoteDao.getFileSysName(notice_seq);
 		for(String sysName : summernoteFile_sysName) {
 			String summernoteFilePath = summernote_filePath + "/" + sysName;
@@ -142,4 +141,89 @@ public class NoticeService {
 		dao.delete(notice_seq);
 	}
 
+	public void deleteFile(int seq ) {
+		fileDao.deleteFile(seq);
+	}
+
+	public void modify(NoticeDTO noticeDto, NoticeFileDTO fileDto, String file_path, String summernote_filePath) {
+
+		int noticeFile_parentSeq = noticeDto.getNotice_seq();
+
+		File summernote_path = new File(summernote_filePath); 
+
+		if(noticeDto.getNotice_contents().contains("base64")){
+			Pattern p = Pattern.compile("<img.+?src=\\\"data:image/jpeg;base64,(.+?)\\\".+?data-filename=\\\"(.+?)\\\".*?>");
+			Matcher m = p.matcher(noticeDto.getNotice_contents());	
+			List<String> summernoteFileList = new ArrayList<>();
+
+			try {
+				System.out.println("qq");
+				while(m.find()) {
+					String oriName = m.group(2);
+					System.out.println(oriName);
+					String sysName = System.currentTimeMillis() + "_" + oriName;
+					String imageString = m.group(1);
+					byte[] imgBytes = Base64Utils.decodeFromString(imageString);
+					FileOutputStream fis = new FileOutputStream(summernote_path + "/" + sysName);
+					DataOutputStream dos = new DataOutputStream(fis);
+					dos.write(imgBytes);
+					dos.flush();
+					dos.close();
+					noticeDto.setNotice_contents(noticeDto.getNotice_contents().replaceFirst(Pattern.quote(m.group(1)), "/notice_summernote_files/" + sysName).replace("data:image/jpeg;base64,", ""));		
+			
+					summernoteFileList.add(sysName);
+					System.out.println("성공 1");
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			for(String summernote_sysName : summernoteFileList) {
+				if(!summernote_sysName.isEmpty()) {
+					System.out.println("a");
+					System.out.println(noticeFile_parentSeq);
+					System.out.println(summernote_sysName);
+					summernoteDao.summernoteFile(noticeFile_parentSeq, summernote_sysName);
+				}
+			}
+			System.out.println("pp");
+			System.out.println(noticeDto.getNotice_contents());
+			
+//			Pattern p2 = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+//			Matcher m2 = p2.matcher(noticeDto.getNotice_contents());
+//
+//			
+//			while(m2.find()) {
+//				String oriName = m2.group(2);
+//				System.out.println(oriName);
+//				String sysName = System.currentTimeMillis() + "_" + oriName;	
+//				System.out.println(sysName);
+//				}
+		}
+		System.out.println("b");
+		dao.modify(noticeDto);
+		System.out.println("c");
+		File filePath = new File(file_path);
+
+		for(MultipartFile tmp : fileDto.getNoticeFile_file()) {
+			System.out.println("d");
+			if(!tmp.isEmpty()) {
+				String noticeFile_oriName = tmp.getOriginalFilename();
+				String noticeFile_sysName = System.currentTimeMillis() + "_" + noticeFile_oriName;
+
+				fileDto.setNoticeFile_parentSeq(noticeFile_parentSeq);
+				fileDto.setNoticeFile_oriName(noticeFile_oriName);
+				fileDto.setNoticeFile_sysName(noticeFile_sysName);
+
+				try {
+					tmp.transferTo(new File(file_path + "/" + noticeFile_sysName));
+					fileDao.fileUpload(fileDto);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
+
+
+

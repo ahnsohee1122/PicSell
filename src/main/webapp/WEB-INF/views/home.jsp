@@ -16,12 +16,10 @@
     
 /*    검색기능 css */
     .searchbar{margin-bottom: auto; margin-top: auto; height: 50px; background-color: white; border-radius: 30px; padding: 10px;}
-    .search_input{color: white; border: 0; outline: 0; background: none; width: 0; caret-color:transparent; line-height: 30px; transition: width 0.4s linear; font-size: 14px;}
+    .search_input{padding: 0 10px; color: white; border: 0; width: 400px; background: none; line-height: 30px; font-size: 14px;}
     .search_input::placeholder {color: #353535;}
-    .hashTag {display: none;}
+    .hashTag {text-align: left;}
     .search_icon {color: #353535;}
-    .searchbar:hover > .search_input{padding: 0 10px; width: 400px; caret-color: #e74c3c; transition: width 0.4s linear;}
-    .searchbar:hover > .hashTag {display: block; text-align: left;}
     .searchbar:hover > .search_icon{color: #e74c3c;}
     .search_icon{height: 30px; width: 30px; float: right; display: flex; justify-content: center; align-items: center; border-radius: 50%; color:dark; text-decoration:none;}
     
@@ -163,14 +161,14 @@
                     <div class="container h-100">
                       <div class="d-flex justify-content-center h-100">
                         <div class="searchbar">
-                          <input class="search_input" type="text" name="" placeholder="이미지 검색 / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
-<!--                          <button class="search_icon" style="border: 0px; background-color: #353535;"><i class="fas fa-search"></i></button>-->
-                          <a href="#" class="search_icon"><i class="fas fa-search"></i></a> <!-- 검색 버튼 : a 태그 대신 위에 버튼으로 바꿀 수 있음-->
-                          <div class="hashTag m-3">
-                              <span class="pr-1" style="font-size: 13px;">#겨울</span>
-                              <span class="pr-1" style="font-size: 13px;">#웨딩</span>
-                              <span class="pr-1" style="font-size: 13px;">#인테리어</span>
-                          </div>
+                          	<input class="search_input" type="text" name="" placeholder="이미지 검색 / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
+<!--                        <button class="search_icon" style="border: 0px; background-color: #353535;"><i class="fas fa-search"></i></button>-->
+                        	<a href="#" class="search_icon"><i class="fas fa-search"></i></a> <!-- 검색 버튼 : a 태그 대신 위에 버튼으로 바꿀 수 있음-->
+	                        <div class="hashTag m-3">
+	                        	<span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#겨울</a></span>
+	                            <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#웨딩</a></span>
+	                            <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#인테리어</a></span>
+	                      	</div>
                         </div>
                       </div>
                     </div>
