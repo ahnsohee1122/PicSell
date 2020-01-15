@@ -39,6 +39,10 @@ public class MyInfoDAO {
 		jdbc.update("MyInfo.modifyPw", param);
 	}
 	
+	public void modiprofileimg(MemberDTO dto) {
+		jdbc.update("MyInfo.modiprofileimg", dto );
+	}
+	
 //	public void modifyInfo(String nick, MemberDTO dto) {
 //		Map<String, Object> param = new HashMap<>();
 //		param.put("nick", nick);
