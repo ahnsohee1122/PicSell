@@ -448,6 +448,10 @@ $(function(){
 												<div class="col-12">
 													<a href="#" style="color: black; text-decoration: none;">출석체크</a>
 												</div>
+											<div class="col-12">
+													<a href="${pageContext.request.contextPath}/honor/inserthonor.do" style="color: black; text-decoration: none;">명예의전당 등록</a>
+												</div>
+												<hr>
 											</div>
 											<hr>
 											<div class="row my-4 text-center" style="font-size: 20px;">
@@ -552,6 +556,7 @@ $(function(){
 												</div>
 											</div>
 											<hr>
+											
 											<div class="row my-4 text-center" style="font-size: 20px;">
 												<div class="col-12">
 													<a href="#" class="btn" id="logout1" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>

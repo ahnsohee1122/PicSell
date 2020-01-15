@@ -193,7 +193,7 @@
     <div class="container-fluid" style="background-color: white;">
         <div class="container px-0 py-5">
             <div class="row">
-                <p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>
+                <p class="contest01"><a href="${pageContext.request.contextPath}/honor/list.do"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></a></p>
             </div>
             <div class="row">
                 <div class="col-12 col-xl-3">

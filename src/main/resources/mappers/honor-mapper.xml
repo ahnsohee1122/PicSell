@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Honor">
+<insert id="insert" parameterType="kh.picsell.dto.HonorDTO">
+insert into honor values(honor_seq.nextval, 0, #{nickname}, sysdate, #{img_seq}, #{oriname}, #{sysname})
+</insert>
+<select id="honorlist" resultType="kh.picsell.dto.HonorDTO">
+select * from honor
+</select>
+<update id="like" parameterType="int">
+		update honor set honorpoint=honorpoint+1 where honor_seq = #{honor_seq}
+	</update>
+	<update id="dislike" parameterType="int">
+		update honor set honorpoint=honorpoint-1 where honor_seq = #{honor_seq}
+	</update>
+	<select id="showview" parameterType="String" resultType="kh.picsell.dto.WriterImageUpDTO">
+	select * from (select * from writer_image_up order by viewcount desc) where<![CDATA[ rownum<=3]]>
+	</select>
+	<select id="showdownload" parameterType="String" resultType="kh.picsell.dto.WriterImageUpDTO">
+	select * from (select * from writer_image_up order by downcount desc) where<![CDATA[ rownum<=3]]>
+	</select>
+	<select id="showlike" parameterType="String" resultType="kh.picsell.dto.WriterImageUpDTO">
+	select * from (select * from writer_image_up order by img_like desc) where<![CDATA[ rownum<=3]]>
+	</select>
+	<select id="insertcheck" resultType="integer">
+	select count(*) from honor where img_seq = #{img_seq}
+	</select>
+</mapper>
