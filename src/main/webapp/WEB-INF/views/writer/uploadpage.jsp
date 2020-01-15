@@ -44,6 +44,7 @@
 	<div class="container-fluid py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 		<div class="container m-auto">
 			<h2 class="mx-auto my-0 text-center">이미지 업로드</h2>
+			<h2 class="mx-auto my-0 text-center">이미지 업로드</h2>
 		</div>
 		<div class="container mx-auto my-5">
 			<div class="row">
