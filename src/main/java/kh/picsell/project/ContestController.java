@@ -132,10 +132,15 @@ public class ContestController {
       String nickname = (String)session.getAttribute("loginInfo");
       service.newcontest(files, dto, path, nickname);
       return "redirect:contest.do";
-   
-      
+
    }
    
+   @RequestMapping("lastContest")
+   public String lastContest(HttpServletRequest request) {
+	  List<ContestDTO> list =  service.lastContest();
+	  request.setAttribute("list", list);
+	   return "home";
+   }
    
    
    

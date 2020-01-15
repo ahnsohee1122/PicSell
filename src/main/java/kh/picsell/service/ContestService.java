@@ -79,9 +79,14 @@ public void newcontest(MultipartFile[] file, ContestDTO dto, String path, String
 }
 public int showok(String host) throws Exception{
    return dao.showok(host);
-}public int showno(String host)throws Exception{
+}
+public int showno(String host)throws Exception{
    return dao.showno(host);
-}public int notyet(String host)throws Exception{
+}
+public int notyet(String host)throws Exception{
    return dao.notyet(host);
+}
+public List<ContestDTO> lastContest(){
+	return dao.lastContest();
 }
 }

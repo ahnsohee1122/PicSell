@@ -42,4 +42,7 @@
    <select id="notyet" resultType="integer">
       select count(*) from contest where checking='N' and host=#{host}
    </select>
+   <select id="lastcontest" resultType="kh.picsell.dto.ContestDTO">
+   		select * from (select contest.*, row_number() over(order by accept_date desc ) as rown from contest) where rown between 1 and 5 and accept='Y'
+   </select>
 </mapper>
