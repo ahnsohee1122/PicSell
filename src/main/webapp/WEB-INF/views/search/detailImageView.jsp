@@ -11,6 +11,26 @@
 <script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style>
 	body {margin: 0;}
+	                    .ico {
+                        border-radius: 50%;
+                        cursor: pointer;
+                        fill: #232323;
+                        transition: .4s;
+                    }
+
+                    .liked {
+                        transform: scale(1.05) rotate(360deg);
+                        background-color: #C62828;
+                        padding: .3rem;
+                        fill: white !important;
+                    }
+                    
+                    .ico2 {
+                        border-radius: 50%;
+                        cursor: pointer;
+                        fill: #232323;
+                        transition: .4s;
+                    }
 </style>
 </head>
 <body>
