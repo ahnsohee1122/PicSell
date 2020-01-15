@@ -314,7 +314,7 @@
 		var mailValid = 0;
 		var pwcheckValid = 0;
 		var pwc = 0;
-		var namec = 0;
+		
 		var nicknamec = 0;
 		var mailvalue = 0;
 		var agree1 = 0;
@@ -357,7 +357,7 @@
    		
    		// 이름 정규식 검사
    		$("#name").on("blur",function(){
-   			var regex = /^[가-힣]+$/;
+   			var regex = /^[가-힣]{2,4}$/;
    			var data = $("#name").val();
    			var result = regex.exec(data);
    			
