@@ -79,7 +79,7 @@ public class MoneyDAO {
 	
 	}
 	
-	// 최종 point를 update한다 > 충전, 환급, 사진 구매하기  
+	// 최종 point를 update한다 > 회원가입 포인트 지급, 충전, 환급, 사진 구매하기  
 	public int pointUpdate(String nickname, String deal_sort, String point_date, int point, String money_sort) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("nickname", nickname);

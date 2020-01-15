@@ -43,7 +43,7 @@
 		insert into charge_list values(#{charge_nickname}, #{receipt_id}, #{price}, #{payment_name}, #{requested_at})
 	</insert> 
 
-	<!-- 2. point 테이블에 등록한다 > 충전, 환급, 사진 구매하기  -->
+	<!-- 2. point 테이블에 등록한다 > 회원가입 포인트 지급, 충전, 환급, 사진 구매하기  -->
 	<insert id="pointUpdate" parameterType="java.util.Map">
 		insert into point values(point_seq.nextval, #{nickname}, #{deal_sort}, #{point_date}, #{point}, #{money_sort})
 	</insert>
