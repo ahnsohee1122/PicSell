@@ -57,8 +57,8 @@ public class WriterController {
 
 	//작가페이지로 이동
 	@RequestMapping("writerpage")
-	public String view(HttpServletRequest request) {
-		String nickname = (String)session.getAttribute("loginInfo");
+	public String view(HttpServletRequest request, String nickname) {
+//		String nickname = (String)session.getAttribute("loginInfo");
 		MemberDTO writerinfo = writerservice.writerInfo(nickname);
 		Map<String,Integer> imginfo = writerservice.imginfo(nickname);
 		request.setAttribute("imginfo", imginfo);
@@ -69,9 +69,9 @@ public class WriterController {
 	//작가페이지 사진뿌리기
 	@RequestMapping("list")
 	@ResponseBody
-	public List<WriterImageUpDTO> list(int currentPage) {
+	public List<WriterImageUpDTO> list(int currentPage, String nickname) {
 		System.out.println("hi");
-		String nickname = (String)session.getAttribute("loginInfo");
+//		String nickname = (String)session.getAttribute("loginInfo");
 		int start = 0;
 		int end = 0 ;
 		Map<String,Object> param = new HashMap<>();

@@ -52,13 +52,13 @@
 		}
 
 	$.ajax({
-		url: "${pageContext.request.contextPath}/writer/list",
+		url: "${pageContext.request.contextPath}/writer/list?nickname=${sessionScope.loginInfo}",
 		type:"GET",
 		data:{"currentPage" : currentPage},
 		dataType:"json",
 		success:function(resp){
 				let length = resp.length;
-				if(length==0){
+				if(length==0 && currentPage==1){
 					var html = "<div>등록된 이미지가 없습니다. 이미지를 등록 후 작가로 활동해보세요!</div>"
 					$("#gallery").append(html);
 					isEnd = true;
