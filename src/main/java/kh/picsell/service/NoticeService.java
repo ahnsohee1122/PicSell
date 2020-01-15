@@ -42,8 +42,8 @@ public class NoticeService {
 	public Map detail(int notice_seq) {
 		dao.viewCountUp(notice_seq);
 		NoticeDTO notice = dao.detail(notice_seq);
-		NoticeDTO beforeNotice = dao.detail(notice_seq-1);
-		NoticeDTO afterNotice = dao.detail(notice_seq+1);
+		NoticeDTO beforeNotice = dao.previousRow(notice_seq);
+		NoticeDTO afterNotice = dao.nextRow(notice_seq);
 		List<NoticeFileDTO> fileDto = fileDao.selectAll(notice_seq);
 
 		Map map = new HashMap();
@@ -147,29 +147,30 @@ public class NoticeService {
 
 	public void modify(NoticeDTO noticeDto, NoticeFileDTO fileDto, String file_path, String summernote_filePath) {
 
+		
 		int noticeFile_parentSeq = noticeDto.getNotice_seq();
 
 		File summernote_path = new File(summernote_filePath); 
 
 		if(noticeDto.getNotice_contents().contains("base64")){
-			Pattern p = Pattern.compile("<img.+?src=\\\"data:image/(jpeg|png);base64,(.+?)\\\".+?data-filename=\\\"(.+?)\\\".*?>");
+			Pattern p = Pattern.compile("<img.+?src=\"data:image\\/(jpeg|jpg|gif|png|PNG|JPEG);base64,(.+?)\".+?data-filename=\"(.+?)\".*?>");
 			Matcher m = p.matcher(noticeDto.getNotice_contents());	
 			List<String> summernoteFileList = new ArrayList<>();
-
 			try {
-				System.out.println("qq");
 				while(m.find()) {
-					String oriName = m.group(2);
+					String oriName = m.group(3);
+					System.err.println("이름");
 					System.out.println(oriName);
 					String sysName = System.currentTimeMillis() + "_" + oriName;
-					String imageString = m.group(1);
+					String imageString = m.group(2);
+					//System.out.println(imageString);
 					byte[] imgBytes = Base64Utils.decodeFromString(imageString);
 					FileOutputStream fis = new FileOutputStream(summernote_path + "/" + sysName);
 					DataOutputStream dos = new DataOutputStream(fis);
 					dos.write(imgBytes);
 					dos.flush();
 					dos.close();
-					noticeDto.setNotice_contents(noticeDto.getNotice_contents().replaceFirst(Pattern.quote(m.group(1)), "/notice_summernote_files/" + sysName).replace("data:image/jpeg;base64,", ""));		
+					noticeDto.setNotice_contents(noticeDto.getNotice_contents().replaceFirst(Pattern.quote(m.group(2)), "/notice_summernote_files/" + sysName).replaceAll("data:image/(jpeg|jpg|gif|png|PNG|JPEG);base64,", ""));		
 			
 					summernoteFileList.add(sysName);
 					System.out.println("성공 1");
