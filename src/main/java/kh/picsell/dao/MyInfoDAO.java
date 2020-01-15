@@ -38,4 +38,11 @@ public class MyInfoDAO {
 		param.put("nickname", nickname);
 		jdbc.update("MyInfo.modifyPw", param);
 	}
+	
+//	public void modifyInfo(String nick, MemberDTO dto) {
+//		Map<String, Object> param = new HashMap<>();
+//		param.put("nick", nick);
+//		param.put("dto", dto);
+//		jdbc.update("MyInfo.modifyInfo", param);
+//	}
 }

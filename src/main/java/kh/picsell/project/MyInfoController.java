@@ -24,7 +24,7 @@ public class MyInfoController {
 	@RequestMapping("/myInfo.do")
 	public String myInfo() {
 		System.out.println("오냐?");
-		String nickName = "이이이";
+		String nickName = (String)session.getAttribute("loginInfo");
 		MemberDTO memberDto = myInfoService.myInfo(nickName);
 		memberDto.toString();
 		System.out.println("ze");
@@ -33,14 +33,17 @@ public class MyInfoController {
 	}
 	
 	@RequestMapping("/infoModifyProc.do")
-	public void infoModifyProc(String id,MemberDTO memberDto) {
+	public String infoModifyProc(String id,MemberDTO memberDto) {
+		System.out.println(id);
 		memberDto.setId(id);
 		myInfoService.infoModifyProc(memberDto);
+		session.removeAttribute("loginInfo");
+		return "home";
 	}
 	
 	@RequestMapping("/modiPage.do")
 	public String modiPage() {
-		String nickName = "이이이";
+		String nickName = (String)session.getAttribute("loginInfo");
 		MemberDTO memberDto = myInfoService.myInfo(nickName);
 		session.setAttribute("memberDto", memberDto);
 		return "myPage/modiPage";
@@ -55,17 +58,25 @@ public class MyInfoController {
 	@ResponseBody
 	public String currentPwCheck(String currentPw) {
 		System.out.println("여기요");
-		String nickName = "이이이";
+		String nickName = (String)session.getAttribute("loginInfo");
 		String pw = myInfoService.currentPwCheck(nickName);
 		return pw;
 	}
 	
 	@RequestMapping("/modifyPwProc.do")
 	public String modifyPwProc(String pw) {
-		String nickName = "이이이";
+		String nickName = (String)session.getAttribute("loginInfo");
 		myInfoService.modifyPwProc(pw, nickName);
-		return "redirect:myInfo.do";
+		session.removeAttribute("loginInfo");
+		return "home";
 	}
+	
+//	@RequestMapping("/modifyInfo.do")
+//	public void modifyInfo(MemberDTO dto) {
+//		String nick = (String)session.getAttribute("loginInfo");
+//		myInfoService.modifyInfo(nick, dto);
+//
+//	}
 
 	
 }

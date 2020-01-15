@@ -37,4 +37,14 @@
 		notice_title = #{notice_title}, notice_contents = #{notice_contents}
 		where notice_seq = #{notice_seq}
 	</update>
+	
+	<select id="previousRow" resultType="kh.picsell.dto.NoticeDTO">
+		select * from(select notice.*, row_number() over(order by notice_seq) as rown from notice)
+where rown=(select rown from(select notice.*, row_number() over(order by notice_seq) as rown from notice) where notice_seq=#{seq})-1
+	</select>
+
+	<select id="nextRow" resultType="kh.picsell.dto.NoticeDTO">
+		select * from(select notice.*, row_number() over(order by notice_seq) as rown from notice)
+where rown=(select rown from(select notice.*, row_number() over(order by notice_seq) as rown from notice) where notice_seq=#{seq})+1
+	</select>
 </mapper>

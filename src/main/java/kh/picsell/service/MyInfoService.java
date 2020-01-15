@@ -33,5 +33,9 @@ public class MyInfoService {
 	public void modifyPwProc(String pw, String nickname) {
 		myInfoDao.modifyPwProc(pw, nickname);
 	}
+	
+//	public void modifyInfo(String nick, MemberDTO dto) {
+//		myInfoDao.modifyInfo(nick, dto);
+//	}
 
 }

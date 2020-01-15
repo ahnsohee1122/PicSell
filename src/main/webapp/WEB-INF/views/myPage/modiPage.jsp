@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +41,7 @@
 				</div>
 				<div class="col-12 col-md-9 col-xl-10 px-0 px-md-3 text-center">
 					<div class="m-auto w-100 h-100 py-5" style="border: 1px solid gray; border-radius: 10px;">
-						<form action="#" class="m-auto px-2 px-ml-0" style="max-width: 500px;">
+						<form action="${pageContext.request.contextPath}/myInfo/infoModifyProc.do?id='${memberDto.id }'"  id="frm" class="m-auto px-2 px-ml-0" style="max-width: 500px;">
 							<div class="form-group row mx-auto my-3">
 								<label for="modifyId" class="col-3 col-form-label">아이디</label>
 							    <div class="col-9">
@@ -58,7 +59,7 @@
 							<div class="form-group row mx-auto my-3">
 								<label for="modifyName" class="col-3 col-form-label">이름</label>
 							    <div class="col-9">
-							      <input type="text" class="form-control text-right" id="modifyName" name="pw" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.name }">
+							      <input type="text" class="form-control text-right" id="modifyName" name="name" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.name }">
 							   		<div id="alert_name_form" class="px-1 alert4 invalid-feedback">잘못된 이름 형식입니다.</div>
 							    </div>
 							</div>
@@ -72,7 +73,7 @@
 							<div class="form-group row mx-auto my-3">
 								<label for="modifyEmail" class="col-3 col-form-label">이메일</label>
 							    <div class="col-9 text-right">
-							      <input type="text" class="form-control text-right" id="modifyEmail" name="email" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.email }">
+							      <input type="text" class="form-control text-right" id="modifyEmail" name="email" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.email }" readonly>
 							      <input type="button" data-toggle="modal" data-target="#modiEmail" id="mailc" value="메일변경" class="mt-2" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
 							   		<div id="emailcheck" class="px-1 alert6 invalid-feedback">잘못된 이메일 입니다.</div>
 							    </div>
@@ -113,15 +114,11 @@
 						    </div>
 						</div>
 					</div>
-					
-					
-					
-					
-					
-					
 							<div class="form-group row mx-auto my-3">
 								<label for="modifyEmail" class="col-3 col-form-label">이메일 수신</label>
 							    <div class="col-9 text-right px-0 align-self-end">
+							     <c:choose>
+							    <c:when test="${memberDto.email_receive  == 'Y'}">
 							    	<div class="form-check form-check-inline text-right">
 										<input class="form-check-input" type="radio" name="email_receive" id="email_Y" value="Y" checked="checked">
 									  	<label class="form-check-label" for="email_Y">수신동의</label>
@@ -130,10 +127,22 @@
 										<input class="form-check-input" type="radio" name="email_receive" id="email_N" value="N">
 									  	<label class="form-check-label" for="email_N">수신거부</label>
 									</div>
-							    </div>
+									</c:when>
+								<c:when test="${memberDto.email_receive  == 'N'}">
+							    	<div class="form-check form-check-inline text-right">
+										<input class="form-check-input" type="radio" name="email_receive" id="email_Y" value="Y">
+									  	<label class="form-check-label" for="email_Y">수신동의</label>
+									</div>
+									<div class="form-check form-check-inline text-right">
+										<input class="form-check-input" type="radio" name="email_receive" id="email_N" value="N" checked="checked">
+									  	<label class="form-check-label" for="email_N">수신거부</label>
+									</div>
+								</c:when>
+							</c:choose>
+							  </div>
 							</div>
 							<div class="form-group row mx-auto mt-5">
-								<button id="signup_join" class="m-auto btn rounded-lg text-black" type="submit" style="width: 150px; border: 1px solid darkgray;">수정하기</button>
+								<button id="signup_join" class="m-auto btn rounded-lg text-black" style="width: 150px; border: 1px solid darkgray;">수정하기</button>
 							</div>
 						</form>
 					</div>
@@ -320,8 +329,14 @@
 		}
 	})
    		$("#modifyPw2").on("click",function(){
-   			alert("z");
    			location.href="${pageContext.request.contextPath}/myInfo/modifyPw.do";
+   			})
+   			
+   		$("#signup_join").on("click",function(){
+   			var result = confirm("수정을 진행하시겠습니까?(수정완료 후에는 재로그인 해주세요.)")
+   			if(result){
+   				$("#frm").submit();
+   			}
    		})
 	</script>
 </body>
