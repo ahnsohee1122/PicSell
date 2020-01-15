@@ -17,7 +17,7 @@ input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1p
 			<div class="row">
 				<div id="profilediv" class="col-5 col-md-3 col-xl-2 text-center px-0 py-3" style="border: 1px solid gray; box-sizing: border-box; border-radius: 10px;">
 			<form method="post" enctype="multipart/form-data" id="fileform">
-					<img id="profile"  src="/profileimage/${writerdto.profileimg }"class="img-thumbnail" style="width: 150px; height: 140px; border-radius: 50%;"><br>
+					<img id="profile"  src="/profileimage/${memberDto.profileimg }"class="img-thumbnail" style="width: 150px; height: 140px; border-radius: 50%;"><br>
 					<label for="profileimg" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">대표이미지설정</label>
 					<input type="file" id="profileimg" name="file" class="mt-3" value="대표 이미지 설정" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 				</form>
@@ -25,7 +25,7 @@ input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1p
 				<div class="col-7 col-md-9 col-xl-10 text-center">
 					<div class="m-auto w-100 h-100" style="border-radius: 10px; background-color: #B0B0B0; color: white;">
 						<div class="row m-auto h-50 px-3 align-items-end">
-							<div style="font-size: 30px; font-family: 'Cafe24Oneprettynight';">@${writerdto.nickname }</div>
+							<div style="font-size: 30px; font-family: 'Cafe24Oneprettynight';">@${memberDto.nickname }</div>
 						</div>
 						<hr class="m-auto p-0" style="max-width: 1200px; background-color: white; font-family: 'Cafe24Oneprettynight';">
 						<div class="row m-auto h-50 px-3 px-lg-4 py-2">

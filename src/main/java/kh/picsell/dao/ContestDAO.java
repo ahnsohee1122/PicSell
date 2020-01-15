@@ -67,4 +67,8 @@ public int showno(String host)throws Exception{
 public int notyet(String host)throws Exception{
    return jdbc.selectOne("Contest.notyet",host);
 }
+
+public List<ContestDTO> lastContest(){
+	return jdbc.selectList("Contest.lastcontest");
+}
 }
