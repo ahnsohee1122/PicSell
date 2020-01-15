@@ -146,7 +146,7 @@
                                     <td>사용범위:</td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${dto.usage == '상업' }">
+                                            <c:when test="${dto.usage == '상업용' }">
                                                 <span id=commercial style="color: dodgerblue;">상업적인 사용 가능</span>
                                                 <span id=editorial>/ 에디토리얼 전용</span>
                                             </c:when>
