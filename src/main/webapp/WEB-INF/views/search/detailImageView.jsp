@@ -20,19 +20,41 @@
 				<div id="picture">
 	            	<img src="/watermarkfiles/${dto.sysname_watermark }">
 	        	</div>
-	                        <div id="photo_like_box">
-	                            <svg class="ico" width="24" height="24" viewBox="0 0 24 24">
-	                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
-	                            </svg>
-	                            <span>좋아요</span>
-	                        </div>
+	            	<div id="photo_like_box">
+                        <!-- ***************************************************** -->
+                        <c:choose>
+	                        <c:when test="${likestatus == 1 }">
+	                        	<svg class="ico liked" width="24" height="24" viewBox="0 0 24 24">
+			                    	<path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+			                    </svg>
+	                        </c:when>
+	                        <c:otherwise>
+	                        	<svg class="ico" width="24" height="24" viewBox="0 0 24 24">
+			                    	<path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+			                    </svg>
+	                        </c:otherwise>
+                        </c:choose>
+                        <!-- ***************************************************** -->
+	                    <span>좋아요</span>
+	                </div>
 	                        <div id="info">
 	                            크리에이터
 	                            <a href='/writer/writerpage?nickname=${dto.nickname }' style='text-decoration:none' onclick='window.open("about:blank").location.href=this.href; return false;'>@${dto.nickname }</a>
 	                            <span>                            
-		                            <svg class="ico2" width="24" height="24" viewBox="0 0 24 24">
-		                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
-		                            </svg>
+                            <!-- ***************************************************** -->
+	                            <c:choose>
+	                            	<c:when test="${writerlikestatus == 1 }">
+		                            	<svg class="ico2 liked" width="24" height="24" viewBox="0 0 24 24">
+			                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+			                            </svg>
+	                            	</c:when>
+	                            	<c:otherwise>
+		                            	<svg class="ico2" width="24" height="24" viewBox="0 0 24 24">
+			                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+			                            </svg>
+	                            	</c:otherwise>
+	                            </c:choose>
+	                        <!-- ***************************************************** -->         
 	                            </span>
 	                            <span>'</span>
 	                            <span id="total_writer_like">${likepoint }</span>
@@ -77,7 +99,7 @@
                                     <td>사용범위:</td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${dto.usage == '상업' }">
+                                            <c:when test="${dto.usage == '상업용' }">
                                                 <span id=commercial style="color: dodgerblue;">상업적인 사용 가능</span>
                                                 <span id=editorial>/ 에디토리얼 전용</span>
                                             </c:when>
@@ -403,14 +425,18 @@
 
                     var likeBtn = document.querySelector('.ico');
                     likeBtn.addEventListener('click', function() {
-/*                     	
-                    	var sessionInfo = "${sessionScope.loginInfo}"; // 로그인 안하고 좋아요 누르면 로그인 페이지로
-                    	if(sessionInfo == ""){
+                    	/*************************************************************/
+                    	var userSessionInfo = "${sessionScope.loginInfo}"; // 로그인 안하고 좋아요 누르면 로그인 페이지로
+                    	var adminSessionInfo = "${sessionScope.adminInfo}";
+                    	console.log("userInfo : " + userSessionInfo);
+                    	console.log("adminInfo : " + adminSessionInfo);
+                    	if(userSessionInfo == "" && adminSessionInfo == ""){
                     		alert("로그인 후 이용하시기 바랍니다.");
                     		window.close();
                     		opener.window.location = "/GoToLogin.do";
+                    		return;
                     	}
-                    	 */
+/*************************************************************/
                         let count = 0;
                         let total_count = ($("#total_photo_like").html())*1; // 총 좋아요 수 숫자로 변환
 
@@ -441,14 +467,26 @@
                     
                     var likeBtn2 = document.querySelector('.ico2');
                     likeBtn2.addEventListener('click', function() {
-/*                     	
-                    	var sessionInfo = "${sessionScope.loginInfo}"; // 로그인 안하고 좋아요 누르면 로그인 페이지로
-                    	if(sessionInfo == ""){
+                    	/*************************************************************/
+                    	var userSessionInfo = "${sessionScope.loginInfo}"; 
+                    	var adminSessionInfo = "${sessionScope.adminInfo}";
+                    	console.log("userInfo : " + userSessionInfo);
+                    	console.log("adminInfo : " + adminSessionInfo);
+                    	
+                    	// 로그인 안하고 좋아요 누르면 로그인 페이지로
+                    	if(userSessionInfo == "" && adminSessionInfo == ""){
                     		alert("로그인 후 이용하시기 바랍니다.");
                     		window.close();
                     		opener.window.location = "/GoToLogin.do";
+                    		return;
                     	}
-                    	 */
+                    	
+                    	// 본인 작가 좋아요 못 누르게
+                    	if(userSessionInfo == "${dto.nickname}" || adminSessionInfo == "${dto.nickname}"){
+                    		alert('사용자 본인은 작가 좋아요를 누를 수 없습니다.');
+                    		return;
+                    	}
+/*************************************************************/
                         let count = 0;
                         let total_count = ($("#total_writer_like").html())*1; // 총 좋아요 수 숫자로 변환
 
