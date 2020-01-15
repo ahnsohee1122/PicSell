@@ -92,7 +92,7 @@ public class WriterUploadService {
 			dto.setSysname(sysNamelist.get(i));
 	
 			//확장자저장
-			Pattern p = Pattern.compile("\\..{3,4}$");
+			Pattern p = Pattern.compile("(png|jpeg|jpg)$");
 			Matcher m = p.matcher(oriNamelist.get(i));
 			while(m.find()) {
 				dto.setFile_extension(m.group(0));

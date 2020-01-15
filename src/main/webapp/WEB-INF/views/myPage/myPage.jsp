@@ -49,41 +49,44 @@
 							<div class="form-group row mx-auto my-3">
 								<label for="selectId" class="col-3 col-form-label">아이디</label>
 							    <div class="col-9">
-							      <input type="text" class="form-control text-right" id="selectId" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="hihi" readonly>
-							    </div>
-							</div>
-							<div class="form-group row mx-auto my-3">
-								<label for="selectPw" class="col-3 col-form-label">비밀번호</label>
-							    <div class="col-9">
-							      <input type="password" class="form-control text-right" id="selectPw" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="" readonly>
+							      <input type="text" class="form-control text-right" id="selectId" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.id }" readonly>
 							    </div>
 							</div>
 							<div class="form-group row mx-auto my-3">
 								<label for="selectName" class="col-3 col-form-label">이름</label>
 							    <div class="col-9">
-							      <input type="text" class="form-control text-right" id="selectName" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="" readonly>
+							      <input type="text" class="form-control text-right" id="selectName" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.name }" readonly>
 							    </div>
 							</div>
 							<div class="form-group row mx-auto my-3">
 								<label for="selectNickName" class="col-3 col-form-label">닉네임</label>
 							    <div class="col-9">
-							      <input type="text" class="form-control text-right" id="selectNickName" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="" readonly>
+							      <input type="text" class="form-control text-right" id="selectNickName" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.nickname }" readonly>
 							    </div>
 							</div>
 							<div class="form-group row mx-auto my-3">
 								<label for="selectEmail" class="col-3 col-form-label">이메일</label>
 							    <div class="col-9">
-							      <input type="text" class="form-control text-right" id="selectEmail" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="" readonly>
+							      <input type="text" class="form-control text-right" id="selectEmail" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.email }" readonly>
 							    </div>
 							</div>
 							<div class="form-group row mx-auto my-3">
 								<label for="selectEmail" class="col-3 col-form-label">이메일 수신</label>
 							    <div class="col-9">
-							      <input type="text" class="form-control text-right" id="selectEmail" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="" readonly>
+							    <c:choose>
+							    	<c:when test="${memberDto.email_receive == 'Y'}">
+							    		 <input type="text" class="form-control text-right" id="selectEmail" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="동의함" readonly>
+							    	</c:when>
+							    	<c:otherwise>
+							    		 <input type="text" class="form-control text-right" id="selectEmail" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="동의하지 않음" readonly>
+							    	</c:otherwise>
+							    </c:choose>
+							     
 							    </div>
 							</div>
 							<div class="form-group row mx-auto mt-5">
 								<button id="info_modify" class="m-auto btn rounded-lg text-black" type="button" style="width: 150px; border: 1px solid darkgray;">수정하기</button>
+								
 								<button id="info_withdrawal" class="m-auto btn rounded-lg text-black" type="button" style="width: 150px; border: 1px solid darkgray;" data-toggle="modal" data-target="#Withdrawal">탈퇴하기</button>
 								<div class="modal fade" id="Withdrawal" role="dialog" aria-labelledby="Label" aria-hidden="true" style="top: 110px;">
 								<div class="modal-dialog" role="document">

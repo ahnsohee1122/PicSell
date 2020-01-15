@@ -147,7 +147,7 @@ public class NoticeController {
 		String file_path = session.getServletContext().getRealPath("/notice_files");
 		String summernote_filePath = session.getServletContext().getRealPath("notice_summernote_files") ;
 		noticeService.modify(noticeDto, noticeFileDto, file_path, summernote_filePath);
-		return "notice/notice.do";
+		return "redirect:notice.do";
 	}
 
 

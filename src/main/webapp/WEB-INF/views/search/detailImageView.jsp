@@ -1,91 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <meta charset="UTF-8">
-                <title>Insert title here</title>
-                <style>
-                    *{margin: auto; box-sizing: border-box;}
-                    div{border-bottom: 1px solid black;}
-                    #container{
-                        width:1000px;
-                        height:1000px;
-                        border: 1px solid;
-                    }
-
-                    #orderleft{
-                        float: left;
-                        width: 70%;
-                        height: 100%;
-                        border: 1px solid;
-                    }
-
-                    #picture{
-                        margin-left: 30px;
-                        margin-top: 15px;
-                        width: 100%;
-                        height: 60%;
-                        margin: 0;
-                    }
-
-                    #photo_like_box{
-                        text-align: right;
-                    }
-
-                    #info{
-                        width: 100%;
-                    }
-
-                    #orderright{
-                        float: right;
-                        width: 29%;
-                        height: 100%;
-                    }
-
-                    #righttop{
-                        width: 100%;
-                        height: 100px;
-                    }
-
-                    .rightchild{
-                        border: 1px solid;
-                        width: 25%;
-                        float: left;
-                        margin-left: 10px;
-                    }
-
-                    .ico {
-                        border-radius: 50%;
-                        cursor: pointer;
-                        fill: #232323;
-                        transition: .4s;
-                    }
-
-                    .liked {
-                        transform: scale(1.05) rotate(360deg);
-                        background-color: #C62828;
-                        padding: .3rem;
-                        fill: white !important;
-                    }
-                    
-                    .ico2 {
-                        border-radius: 50%;
-                        cursor: pointer;
-                        fill: #232323;
-                        transition: .4s;
-                    }
-
-                </style>
-            </head>
-            <body>
-            
-            	<jsp:include page="key/top.jsp" flush="false"/>
-
-                <div id="container">
-                    <div id="orderleft">
-                        <div id="picture">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Image Detail | PicSell</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style>
+</style>
+</head>
+<body>
+	<div class="container-fulid" style="height: 950px; background-color: #f4f2f5;">
+		<div class="col-8">
+		<div id="picture">
                             <img src="/watermarkfiles/${dto.sysname_watermark }" style="width:100%; height:auto%;">
                         </div>
                         <div id="photo_like_box">
@@ -106,10 +33,9 @@
                             <span id="total_writer_like">${likepoint }</span>
                             <span>'명이 좋아하는 작가로 등록을 하였습니다.</span>
                         </div>
-                    </div>
-
-                    <div id="orderright">
-                        <div id="righttop">
+		</div>
+		<div class="col-4">
+		<div id="righttop">
                             <div class="rightchild">${dto.viewcount }</div>
                             <div class="rightchild">${dto.downcount }</div>
                             <div class="rightchild">
@@ -146,7 +72,7 @@
                                     <td>사용범위:</td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${dto.usage == '상업용' }">
+                                            <c:when test="${dto.usage == '상업' }">
                                                 <span id=commercial style="color: dodgerblue;">상업적인 사용 가능</span>
                                                 <span id=editorial>/ 에디토리얼 전용</span>
                                             </c:when>
@@ -178,7 +104,7 @@
                         <div id=tagbox style="border-bottom:none;">
                         </div>
                     </div>
-                </div>
+		</div>
 
                 <script>
 
@@ -284,6 +210,6 @@
                         });
                     });
                     
-                </script>             
-            </body>
-        </html>
+                </script>
+</body>
+</html>
