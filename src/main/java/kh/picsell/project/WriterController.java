@@ -70,22 +70,23 @@ public class WriterController {
 	@RequestMapping("list")
 	@ResponseBody
 	public List<WriterImageUpDTO> list(int currentPage) {
+		System.out.println("hi");
+		String nickname = (String)session.getAttribute("loginInfo");
 		int start = 0;
 		int end = 0 ;
 		Map<String,Object> param = new HashMap<>();
 		List<WriterImageUpDTO> list;
 		if(currentPage == 1) {
-			String nickname = (String)session.getAttribute("loginInfo");
 			param.put("start", 0);
 			param.put("end", 20);
 			param.put("nickname",nickname);
 			list = writerservice.writerview(param);
+			
 			return list;
 		}else {
 			System.out.println(currentPage);
 			start = currentPage * 10 + 1;
 			end = start + (10 - 1);	
-			String nickname = "hello";
 			param.put("start", start);
 			param.put("end", end);
 			param.put("nickname",nickname);
