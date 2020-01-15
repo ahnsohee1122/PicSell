@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Charge">
+
+
+	<!-- 포인트 가져오기  -->
+	<select id="getPoint" resultType="Integer">
+		select nvl(sum(point),0) from point where money_sort = '포인트' and nickname=#{nickname}
+	</select>
+	
+	<!-- 과거 사진 구매 이력 확인 -->
+	<select id="buyHistory" parameterType="java.util.Map" resultType="kh.picsell.dto.Deal_ListDTO">
+		select * from deal_list where buyer_nickname=#{nickname} and deal_img_seq=#{deal_img_seq}
+	</select>
+	
+	<!-- 전환 가능 수익금 가져오기  -->
+	<select id="getProfit" parameterType="String" resultType="Integer">
+		select nvl(sum(point),0) from point where money_sort='수익금' and (nickname=#{nickname})
+	</select>
+	
+	<!-- 포인트 입출금 내역 확인하기  -->
+	<select id="getPointList" parameterType="String" resultType="kh.picsell.dto.PointDTO">
+		select * from point where nickname=#{nickname} and money_sort='포인트' order by point_seq desc
+	</select>
+
+	<!-- 사진 거래 내역 추가하기 -->
+	<insert id="insertBuyList" parameterType="java.util.Map">
+		insert into deal_list values(deal_seq.nextval, #{deal_date}, 500, #{deal_img_seq}, #{writer_nickname}, #{buyer_nickname})
+	</insert>
+	
+	<!-- 다운로드 수 추가하기  -->
+	<update id="downCountUp" parameterType="Integer">
+		update writer_img_up set downCount=downCount+1 where img_seq=#{deal_img_seq}  
+	</update>
+	
+	<!-- 충전하기 -->
+	
+	<!-- 1. 충전 내역을 insert한다  -->
+	<insert id="chargeComplete" parameterType="java.util.Map">
+		insert into charge_list values(#{charge_nickname}, #{receipt_id}, #{price}, #{payment_name}, #{requested_at})
+	</insert> 
+
+	<!-- 2. point 테이블에 등록한다 > 충전, 환급, 사진 구매하기  -->
+	<insert id="pointUpdate" parameterType="java.util.Map">
+		insert into point values(point_seq.nextval, #{nickname}, #{deal_sort}, #{point_date}, #{point}, #{money_sort})
+	</insert>
+	
+	<!-- 3. 충전내역을 화면에 뿌린다 SelectOne -->
+	<select id="chargeList" resultType="kh.picsell.dto.Charge_ListDTO">
+		select * from charge_list where receipt_id=#{receipt_id}
+	</select>
+	
+	<!-- 구매 내역 확인하기 -->
+	<select id="buy_list_check" resultType="kh.picsell.dto.Deal_ListDTO">
+		select * from deal_list where buyer_nickname=#{buyer_nickname} order by deal_date desc
+	</select>
+	
+	<!-- 구매 내역 ( 사진 ) 확인하기 -->
+	<select id="buy_sysname" resultType="java.lang.String">
+		select sysname, deal_date, buyer_nickname from writer_img_up w, deal_list d where w.img_seq=d.deal_img_seq and buyer_nickname=#{nickname} order by d.deal_date desc
+	</select>
+	
+	<!-- 판매 내역 확인하기  -->
+	<select id="sell_list_check" resultType="kh.picsell.dto.Deal_ListDTO">
+		select * from deal_list where writer_nickname=#{writer_nickname} order by deal_date desc
+	</select>
+
+	<!-- 판매 내역 ( 사진 ) 확인하기 -->
+	<select id="sell_sysname" resultType="java.lang.String">
+		select sysname, deal_date, buyer_nickname from writer_img_up w, deal_list d where w.img_seq=d.deal_img_seq and writer_nickname=#{nickname} order by d.deal_date desc
+	</select>
+	
+
+
+
+</mapper>

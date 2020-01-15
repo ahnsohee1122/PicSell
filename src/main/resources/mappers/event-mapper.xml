@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Event">
+	
+	<!-- 출석체크  -->
+	
+	<!-- 1. 그날 출석체크 했는지 안했는지 체크 > 버튼 기능 조절  -->
+	<select id="todayCheck" parameterType="java.util.Map" resultType="kh.picsell.dto.EventDTO">
+		select * from event where nickname = #{nickname} and event_date = #{event_date}
+	</select>
+	
+	<!-- 2. 출석체크한 정보 가져오기 -->
+	<select id="getEvent" parameterType="String" resultType="kh.picsell.dto.EventDTO">
+		select * from event where nickname = #{nickname}
+	</select>
+	
+	<!-- 3. 출석체크한 사용자의 닉네임, 날짜 추가 -->
+	<insert id="addCalendar" parameterType="java.util.Map">
+		insert into event values (#{nickname}, '출석완료', #{event_date}, '/images/icon.png')
+	</insert>
+	
+	<!-- 4. 출석체크한 사용자에게 10포인트 추가 -->
+	<insert id="addPoint" parameterType="java.util.Map">
+		insert into point values (point_seq.nextval, #{nickname}, '이벤트', #{point_date}, 10, '포인트' )
+	</insert>
+	
+</mapper>
