@@ -57,31 +57,25 @@
 		data:{"currentPage" : currentPage},
 		dataType:"json",
 		success:function(resp){
-			if(resp == 0 ){
-				$("#gallery").append('<div>등록된 이미지가 없습니다. 이미지를 등록하여 작가로 활동해보세요!</div>')
-				isEnd == true;
-				return;
-			}else{
 				let length = resp.length;
-				console.log(length)
-				if(length < 5){
+				if(length==0){
+					var html = "<div>등록된 이미지가 없습니다. 이미지를 등록 후 작가로 활동해보세요!</div>"
+					$("#gallery").append(html);
+					isEnd = true;
+				}else if(length < 5){
 					isEnd = true;
 				}
 				for(i=0; i<resp.length;i++){
 					renderList(resp[i].sysname, resp[i].tag, resp[i].img_seq)
 					
 				}
-				
-			}
 			
-		
 		}
 	})
 	}
 
 	let renderList = function(sysname,tag,img_seq){
 		tags = tag.replace(/{/gi,"#").replace(/}/gi,"")
-		console.log("result : " + tags)
 		
 		var html = "<div class=image><a href=${writerdto.nickname}${img_seq}><img src=/writeruploadfiles/"+sysname+" alt="+tags+"></a></div>"
 		$("#gallery").append(html)

@@ -143,7 +143,7 @@ input[type=radio]:checked+label {
 				thumb.innerHTML = ''
 				thumb.appendChild(img)
 				img.onload = function() {
-					var dataURL = watermarkedDataURL(img, "PicSell\n무단배포금지",
+					var dataURL = watermarkedDataURL(img, "PicSell",
 							cnt, thumb);
 				};
 			};

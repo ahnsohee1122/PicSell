@@ -39,10 +39,7 @@
         <div class="m-auto" style="text-align: center;">
             <div class="text-white" style="font-size: 32px; font-family: 'Cafe24Oneprettynight';">${loginInfo} 님의 등록신청 현황</div>
             <div class="text-white" style="font-size: 30px; font-family: 'Cafe24Oneprettynight';">￣</div>
-            <div class="text-white" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">작가가 되어 나의 작품을 알리고</div>
-            <div class="text-white" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">새로운 수익을 만들어보세요!</div>
-            <div class="text-white" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">누구나 작가가 될 수 있는 기회입니다!</div>
-            <button type="button" class="explanation" data-toggle="modal" data-target="#Modal" style="font-size: 16px; font-family: 'Cafe24Oneprettynight';">작가 홈이란?</button>
+            
         </div>
         </div>
     </div>
