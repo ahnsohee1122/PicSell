@@ -9,6 +9,8 @@ private String email;
 private String email_receive;
 private int black;
 private int likepoint;
+private String profileimg;
+
 public MemberDTO() {
 	super();
 }
@@ -70,6 +72,14 @@ public int getLikepoint() {
 }
 public void setLikepoint(int likepoint) {
 	this.likepoint = likepoint;
+}
+
+
+public String getProfileimg() {
+	return profileimg;
+}
+public void setProfileimg(String profileimg) {
+	this.profileimg = profileimg;
 }
 @Override
 public String toString() {

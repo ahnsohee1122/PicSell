@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kh.picsell.dto.MemberDTO;
 import kh.picsell.service.MyInfoService;
@@ -77,6 +78,16 @@ public class MyInfoController {
 //		myInfoService.modifyInfo(nick, dto);
 //
 //	}
-
+	@RequestMapping(value="profileimg", produces="text/html; charset=UTF-8")
+	@ResponseBody
+	public String modiprofileimg(MultipartFile file, String nickname) {
+		System.out.println("오니");
+		System.out.println(nickname);
+		System.out.println(file);
+		String path = session.getServletContext().getRealPath("profileimage");
+		String url = myInfoService.modiprofileimg(file, path, nickname);
+		System.out.println(url);
+		return url; 
+	}
 	
 }
