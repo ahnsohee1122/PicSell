@@ -6,35 +6,40 @@
 <meta charset="UTF-8">
 <title>Image Detail | PicSell</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style>
+	body {margin: 0;}
 </style>
 </head>
 <body>
-	<div class="container-fulid" style="height: 950px; background-color: #f4f2f5;">
-		<div class="col-8">
-		<div id="picture">
-                            <img src="/watermarkfiles/${dto.sysname_watermark }" style="width:100%; height:auto%;">
-                        </div>
-                        <div id="photo_like_box">
-                            <svg class="ico" width="24" height="24" viewBox="0 0 24 24">
-                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
-                            </svg>
-                            <span>좋아요</span>
-                        </div>
-                        <div id="info">
-                            크리에이터
-                            <a href='/writer/writerpage?nickname=${dto.nickname }' style='text-decoration:none' onclick='window.open("about:blank").location.href=this.href; return false;'>@${dto.nickname }</a>
-                            <span>                            
-	                            <svg class="ico2" width="24" height="24" viewBox="0 0 24 24">
+	<div class="container-fulid" style="height: 100%; background-color: #f4f2f5; min-width: 1360px;">
+		<div class="row m-auto p-4 text-center" style="max-width: 1360px;">
+			<div class="col-7 mx-3" style="border: 1px solid darkgray; border-radius: 10px;">
+				<div id="picture">
+	            	<img src="/watermarkfiles/${dto.sysname_watermark }">
+	        	</div>
+	                        <div id="photo_like_box">
+	                            <svg class="ico" width="24" height="24" viewBox="0 0 24 24">
 	                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
 	                            </svg>
-                            </span>
-                            <span>'</span>
-                            <span id="total_writer_like">${likepoint }</span>
-                            <span>'명이 좋아하는 작가로 등록을 하였습니다.</span>
-                        </div>
-		</div>
-		<div class="col-4">
+	                            <span>좋아요</span>
+	                        </div>
+	                        <div id="info">
+	                            크리에이터
+	                            <a href='/writer/writerpage?nickname=${dto.nickname }' style='text-decoration:none' onclick='window.open("about:blank").location.href=this.href; return false;'>@${dto.nickname }</a>
+	                            <span>                            
+		                            <svg class="ico2" width="24" height="24" viewBox="0 0 24 24">
+		                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+		                            </svg>
+	                            </span>
+	                            <span>'</span>
+	                            <span id="total_writer_like">${likepoint }</span>
+	                            <span>'명이 좋아하는 작가로 등록을 하였습니다.</span>
+	                        </div>
+			</div>
+			<div class="col-4 mx-3 ml-auto" style="border: 1px solid darkgray; border-radius: 10px;">
 		<div id="righttop">
                             <div class="rightchild">${dto.viewcount }</div>
                             <div class="rightchild">${dto.downcount }</div>
@@ -104,7 +109,8 @@
                         <div id=tagbox style="border-bottom:none;">
                         </div>
                     </div>
-		</div>
+		</div>	
+	</div>
 
                 <script>
 
