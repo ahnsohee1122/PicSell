@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kh.picsell.dto.DealListDTO;
 import kh.picsell.dto.WriterImageUpDTO;
+import kh.picsell.service.MoneyService;
 import kh.picsell.service.SearchService;
 
 @Controller
@@ -20,6 +22,9 @@ public class SearchController {
 
 	@Autowired
 	private SearchService service;
+	
+	@Autowired
+	private MoneyService money_service;
 
 	@Autowired
 	private HttpServletRequest request;
@@ -134,8 +139,32 @@ public class SearchController {
 		System.out.println(dto);
 		System.out.println(likepoint);
 
+		
 		request.setAttribute("dto", dto);
 		request.setAttribute("likepoint", likepoint);
+		
+		// 다운로드 버튼 제어 
+		
+		// 로그인 안한 경우 
+		if(loginInfo==null) {
+				
+				// 로그인 한 경우 
+				}else {
+				// 사진 구매 가능 여부 알기 위해서 point 받아옴 
+				int point = money_service.getPoint(nickname);
+				request.setAttribute("point", point);
+				// 이미 구매한 사용자는 '구매'버튼이 아닌 '다운로드'버튼을 보게된다
+				// 구매 이력을 가져온다 
+				DealListDTO dto2 = money_service.buyHistory(nickname, dto.getImg_seq()); 
+					// 구매 이력이 없는 경우 
+					if(dto2==null) {
+						request.setAttribute("history", 0);
+					// 구매 이력이 있는 경우 
+					}else {
+						request.setAttribute("history", 1);
+					}
+					
+				}
 		return "/search/detailImageView";
 	}
 
