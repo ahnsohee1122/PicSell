@@ -99,6 +99,7 @@ public class SearchController {
 		System.out.println("도착!!!!!!!!!!!!!!!!!!");
 		System.out.println(img_seq);
 		System.out.println(nickname);
+		System.out.println("봅시단");
 
 		// 조회수 증가
 
@@ -151,7 +152,9 @@ public class SearchController {
 				// 로그인 한 경우 
 				}else {
 				// 사진 구매 가능 여부 알기 위해서 point 받아옴 
-				int point = money_service.getPoint(nickname);
+				int point = money_service.getPoint((String)loginInfo);
+				System.out.println("내 닉네임은" + (String)loginInfo);
+				System.out.println("포인트는 :" + point);
 				request.setAttribute("point", point);
 				// 이미 구매한 사용자는 '구매'버튼이 아닌 '다운로드'버튼을 보게된다
 				// 구매 이력을 가져온다 

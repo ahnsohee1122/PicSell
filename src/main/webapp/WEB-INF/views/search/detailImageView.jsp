@@ -93,7 +93,268 @@
                                     <td>
                                         <span>${dto.file_extension }</span>
                                         <span style="margin-left: 100px;">500원</span>
-                                        <span><input type="button" value="다운로드" style="margin-left: 100px;"></span>
+                                      
+                                      
+                             <%-- 다운로드 버튼 제어  --%> 
+                             
+							 <c:choose>
+								<%-- 로그인 안한 경우 --%>
+								<c:when test="${loginInfo==null && adminInfo==null}">
+									<span><button id=login data-toggle="modal"
+											data-target="#Modal" style="margin-left: 100px;">무료
+											다운로드</button></span>
+									<div class="modal" tabindex="-1" role="dialog" id=Modal>
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">무료 다운로드</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<p>
+														무료로 한번 사용해 보시겠어요? <br> (회원 가입 즉시 포인트 1000원 제공)
+													</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">취소</button>
+													<button type="button" class="btn btn-primary login">확인</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<script>
+                        $(".login").on("click", function(){
+                            location.href="${pageContext.request.contextPath}/member/login.do";
+                        })
+                    </script>
+								</c:when>
+
+								<%-- 로그인 한 경우  --%>
+								<c:otherwise>
+
+									<c:choose>
+										<%-- 사용자가 관리자일 때  --%>
+										<c:when test="${adminInfo!=null}">
+											<span><button id=admin data-toggle="modal"
+													data-target="#Modal2" style="margin-left: 100px;">다운로드</button></span>
+
+											<div class="modal" tabindex="-1" role="dialog" id=Modal2>
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title">관리자는 이미지 구매 불가</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+														관리자는 이미지를 다운로드할 수 없습니다. 
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">확인</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</c:when>
+										
+										<%-- 사용자가 작가일 때  --%>
+										<c:when test="${loginInfo==dto.nickname}">
+
+											<span><button id=writer_buy data-toggle="modal"
+													data-target="#Modal2" style="margin-left: 100px;">다운로드</button></span>
+
+											<div class="modal" tabindex="-1" role="dialog" id=Modal2>
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title">본인의 이미지는 구매가 불가능합니다</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															무료 프로모션 금액으로 본인의 이미지를 구매, <br> 여러 계정을 생성하여 무료 프로모션
+															금액으로 본인의 이미지를 구매, <br> 무료 프로모션 금액을 이용하여 타인에게 <br>
+															본인의 이미지를 구매하게 유도하는 행위는 <br> 크라우드픽 이용약관 제11조(회원의 의무)
+															및 회사 내부규정에 위반되어 <br> 불이익을 받거나 탈퇴 처리될 수 있습니다.
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">확인</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<%-- 사용자가 작가가 아닐 때  --%>
+
+											<c:choose>
+
+												<%-- 이미 구매 한 경우 --%>
+												<c:when test="${history==1}">
+													<button id=historyYes>다운로드</button>
+
+													<script>
+                                                        $("#historyYes").on("click", function(){
+                                                            alert("이미 사진을 구매 한 사용자입니다. 사진이 다운로드됩니다.");
+
+                                                            $.ajax({
+                                                                url : "${pageContext.request.contextPath}/down.do",
+                                                                type : "post",
+                                                                data : { img_seq : dto.img_seq}
+                                                            }).done(function(){
+                                                                alert("다운로드가 성공했습니다.");
+                                                            }).fail(function(){
+                                                                alert("다운로드에 실패했습니다.");
+                                                            })
+                                                        })
+                                                    </script>
+												</c:when>
+
+												<%-- 구매 한 적이 없는 경우 --%>
+												<c:otherwise>
+													<c:choose>
+
+
+														<%-- 포인트가 500원 이상인 경우  --%>
+														<c:when test="${point>=500}">
+															<script>
+                                                                    </script>
+
+															<span><button id=buy data-toggle="modal"
+																	data-target="#Modal3" style="margin-left: 100px;">구매</button></span>
+
+															<div class="modal" tabindex="-1" role="dialog" id=Modal3>
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title">사진 구매</h5>
+																			<button type="button" class="close"
+																				data-dismiss="modal" aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<div class="modal-body">
+																			구매 시 500원이 차감됩니다. <br> 구매한 이미지는 회원 정보 사용 내역에서 확인
+																			가능하며, 평생 다운로드 가능합니다. <br> 해당 사진을 구매 하시겠습니까?
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-primary buy">구매하기</button>
+																			<button type="button" class="btn btn-secondary"
+																				id="close_btn" data-dismiss="modal">취소</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+
+															<script>
+
+                                                                        $(".buy").on("click", function(){
+                                                                            $.ajax({
+                                                                                url : "money/buy.do",
+                                                                                type : "post", 
+                                                                                data : { 
+                                                                                    writer_nickname : "${dto.nickname}",
+                                                                                    deal_img_seq : "${dto.img_seq}" 
+                                                                                }
+                                                                            }).done(function(data){
+                                                                                alert("구매에 성공했습니다.");
+                                                                                $("#close_btn").trigger("click");
+                                                                                // 구매 버튼을 다운로드 버튼으로 바꾼다 
+                                                                                $("#buy").html('다운로드');
+                                                                                //$("#buy").removeAttr('onclick',"").unbind('click');
+                                                                                $("#buy").removeAttr('onclick');
+                                                                                $("#buy").attr('id','historyYes');     
+                                                                                $("#historyYes").attr("onclick", historyYes)
+
+                                                                            }).fail(function(data){
+                                                                                alert("구매에 실패했습니다. 다시 시도해주세요.");
+                                                                            })
+
+                                                                        })
+
+                                                                        function historyYes(){ 
+                                                                            $("#historyYes").on("click", function(){
+
+                                                                                $('#Modal3').remove();
+                                                                                $("#close_btn").trigger("click");
+
+                                                                                alert("이미 사진을 구매 한 사용자입니다. 사진이 다운로드됩니다.");
+
+                                                                                $.ajax({
+                                                                                    url : "${pageContext.request.contextPath}/down.do",
+                                                                                    type : "post",
+                                                                                    data : { img_seq : "${dto.img_seq}"
+                                                                                           }
+                                                                                }).done(function(){
+                                                                                    alert("다운로드가 성공했습니다.");
+                                                                                }).fail(function(){
+                                                                                    alert("다운로드에 실패했습니다.");
+                                                                                })
+                                                                            })			
+                                                                        }
+                                                                    </script>
+														</c:when>
+
+														<%-- 포인트가 500원 미만인 경우 --%>
+														<c:otherwise>
+
+															<span><button id=chargePoint data-toggle="modal"
+																	data-target="#Modal4" style="margin-left: 100px;">구매</button></span>
+
+															<div class="modal" tabindex="-1" role="dialog" id=Modal4>
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title">포인트 부족</h5>
+																			<button type="button" class="close"
+																				data-dismiss="modal" aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<div class="modal-body">
+																			포인트가 부족하여 구매가 불가능합니다. <br> 포인트 충전화면으로 이동하시겠습니까?
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button"
+																				class="btn btn-primary chargePoint">확인</button>
+																			<button type="button" class="btn btn-secondary"
+																				data-dismiss="modal">취소</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+
+															<script>
+                                                                            $(".chargePoint").on("click", function(){
+                                                                                location.href="${pageContext.request.contextPath}/money/charge.do";
+                                                                            })
+                                                                        </script>
+														</c:otherwise>
+													</c:choose>
+
+												</c:otherwise>
+											</c:choose>
+
+										</c:otherwise>
+									</c:choose>
+
+								</c:otherwise>
+							</c:choose> 
+							<%-- --%>
+							
                                     </td>
                                 </tr>
                             </table>
