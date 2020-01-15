@@ -65,22 +65,22 @@ public class MoneyController {
 		// 임시로 정한 DTO라서 실제 값 받아오도록 고쳐줘야함 
 		//WriterImageUpDTO dto = new Writer_Img_UpDTO(2, "bbb", 1, "icon.png");
 		//request.setAttribute("dto", dto);
-		if(nickname==null) {
+		//if(nickname==null) {
 			
-		}else {
+		//}else {
 		// 사진 구매 가능 여부 알기 위해서 point 받아옴 
-		int point = money_sv.getPoint(nickname);
-		request.setAttribute("point", point);
+		//int point = money_sv.getPoint(nickname);
+		//request.setAttribute("point", point);
 		// 이미 구매한 사용자는 '구매'버튼이 아닌 '다운로드'버튼을 보게된다
 		// 구매 이력을 가져온다 
 		//DealListDTO dto2 = money_sv.buyHistory(nickname, dto.getImg_seq()); 
 			// 구매 이력이 없는 경우 
 			//if(dto2==null) {
-				request.setAttribute("history", 0);
+				//request.setAttribute("history", 0);
 			// 구매 이력이 있는 경우 
 			//}else {
-				request.setAttribute("history", 1);
-			}
+				//request.setAttribute("history", 1);
+			//}
 			
 		//}
 		return "home";

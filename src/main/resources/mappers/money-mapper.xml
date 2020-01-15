@@ -7,12 +7,12 @@
 
 
 	<!-- 포인트 가져오기  -->
-	<select id="getPoint" resultType="Integer">
+	<select id="getPoint" parameterType="String" resultType="Integer">
 		select nvl(sum(point),0) from point where money_sort = '포인트' and nickname=#{nickname}
 	</select>
 	
 	<!-- 과거 사진 구매 이력 확인 -->
-	<select id="buyHistory" parameterType="java.util.Map" resultType="kh.picsell.dto.Deal_ListDTO">
+	<select id="buyHistory" parameterType="java.util.Map" resultType="kh.picsell.dto.DealListDTO">
 		select * from deal_list where buyer_nickname=#{nickname} and deal_img_seq=#{deal_img_seq}
 	</select>
 	
@@ -49,12 +49,12 @@
 	</insert>
 	
 	<!-- 3. 충전내역을 화면에 뿌린다 SelectOne -->
-	<select id="chargeList" resultType="kh.picsell.dto.Charge_ListDTO">
+	<select id="chargeList" resultType="kh.picsell.dto.ChargeListDTO">
 		select * from charge_list where receipt_id=#{receipt_id}
 	</select>
 	
 	<!-- 구매 내역 확인하기 -->
-	<select id="buy_list_check" resultType="kh.picsell.dto.Deal_ListDTO">
+	<select id="buy_list_check" resultType="kh.picsell.dto.DealListDTO">
 		select * from deal_list where buyer_nickname=#{buyer_nickname} order by deal_date desc
 	</select>
 	
@@ -64,7 +64,7 @@
 	</select>
 	
 	<!-- 판매 내역 확인하기  -->
-	<select id="sell_list_check" resultType="kh.picsell.dto.Deal_ListDTO">
+	<select id="sell_list_check" resultType="kh.picsell.dto.DealListDTO">
 		select * from deal_list where writer_nickname=#{writer_nickname} order by deal_date desc
 	</select>
 
