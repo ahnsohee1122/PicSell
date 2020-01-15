@@ -97,17 +97,34 @@ public class SearchController {
 
 		// 조회수 증가
 
-		try { // loginInfo 가 null 이 아니면(즉 로그인한 상태라면) 
-			String loginInfo = (String)session.getAttribute("loginInfo");
-			if(!nickname.contentEquals(loginInfo)) {// 그리고 클릭한 사람이 글쓴이가 아니라면
-				service.updateViewCount(img_seq); // 조회수 증가
-			}
-		}catch(Exception e) { // loginInfo 가 null 이면(즉 비회원이라면)
-			e.printStackTrace();
-			System.out.println("비회원");
-			service.updateViewCount(img_seq); // 조회수 증가
+//		try { // loginInfo 가 null 이 아니면(즉 로그인한 상태라면) 
+//			String loginInfo = (String)session.getAttribute("loginInfo");
+//			String adminInfo = (String)session.getAttribute("adminInfo");
+//			
+//			if(!nickname.contentEquals(loginInfo)) {// 그리고 클릭한 사람이 글쓴이가 아니라면
+//				service.updateViewCount(img_seq); // 조회수 증가
+//			}
+//		}catch(Exception e) { // loginInfo 가 null 이면(즉 비회원이라면)
+////			e.printStackTrace();
+//			System.out.println("비회원");
+//			service.updateViewCount(img_seq); // 조회수 증가
+//		}
+		
+		Object loginInfo = session.getAttribute("loginInfo");
+		Object adminInfo = session.getAttribute("adminInfo");
+		
+		// 조회수 증가 대상
+		// 1. 비회원
+		// 2. 회원 & 글쓴이 아닌 사람
+		// 3. 회원 & 관리자 아닌 사람
+		
+		// 조회수 증가 대상 아닌 사람
+		// 1. 회원 & 글쓴이 : loginInfo != null && nickname.contentEquals((String)loginInfo)
+		// 2. 회원 & 관리자 : adminInfo != null
+		if(!((loginInfo != null && nickname.contentEquals((String)loginInfo))|(adminInfo != null))) {
+			service.updateViewCount(img_seq);
 		}
-
+		
 		// 이까지 조회수 증가
 
 
