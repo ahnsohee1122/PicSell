@@ -63,7 +63,7 @@ public class WriterController {
 		MemberDTO writerinfo = writerservice.writerInfo(nickname);
 		Map<String,Integer> imginfo = writerservice.imginfo(nickname);
 		request.setAttribute("imginfo", imginfo);
-		request.setAttribute("writerdto", writerinfo);
+		request.setAttribute("memberDto", writerinfo);
 		return "writer/writerpage";
 	}
 

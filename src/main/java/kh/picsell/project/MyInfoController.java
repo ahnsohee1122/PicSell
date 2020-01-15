@@ -1,16 +1,19 @@
 package kh.picsell.project;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.picsell.dto.MemberDTO;
 import kh.picsell.service.MyInfoService;
+import kh.picsell.service.WriterpageService;
 
 @Controller
 @RequestMapping("/myInfo")
@@ -21,11 +24,16 @@ public class MyInfoController {
 	
 	@Autowired
 	private MyInfoService myInfoService;
-
+	
+	@Autowired
+	private WriterpageService writerservice;
+	
 	@RequestMapping("/myInfo.do")
-	public String myInfo() {
+	public String myInfo(HttpServletRequest request) {
 		System.out.println("오냐?");
 		String nickName = (String)session.getAttribute("loginInfo");
+		Map<String,Integer> imginfo = writerservice.imginfo(nickName);
+		request.setAttribute("imginfo", imginfo);
 		MemberDTO memberDto = myInfoService.myInfo(nickName);
 		memberDto.toString();
 		System.out.println("ze");
@@ -43,9 +51,11 @@ public class MyInfoController {
 	}
 	
 	@RequestMapping("/modiPage.do")
-	public String modiPage() {
+	public String modiPage(HttpServletRequest request) {
 		String nickName = (String)session.getAttribute("loginInfo");
 		MemberDTO memberDto = myInfoService.myInfo(nickName);
+		Map<String,Integer> imginfo = writerservice.imginfo(nickName);
+		request.setAttribute("imginfo", imginfo);
 		session.setAttribute("memberDto", memberDto);
 		return "myPage/modiPage";
 	}
@@ -86,7 +96,7 @@ public class MyInfoController {
 		System.out.println(file);
 		String path = session.getServletContext().getRealPath("profileimage");
 		String url = myInfoService.modiprofileimg(file, path, nickname);
-		System.out.println(url);
+		System.out.println();
 		return url; 
 	}
 	
