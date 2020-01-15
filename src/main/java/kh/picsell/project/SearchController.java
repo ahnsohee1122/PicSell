@@ -119,7 +119,7 @@ public class SearchController {
 
 		request.setAttribute("dto", dto);
 		request.setAttribute("likepoint", likepoint);
-		return "detailImageView";
+		return "/search/detailImageView";
 	}
 
 	@RequestMapping(value="/PhotoLike.do", produces="text/html; charset=UTF-8")

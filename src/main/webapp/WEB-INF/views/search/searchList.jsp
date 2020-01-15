@@ -32,29 +32,29 @@
 	</div>
     <div class="container-fluid py-2" style="border-top: 1px solid gray; border-bottom: 1px solid gray; font-family: 'Cafe24Oneprettynight';"> 
     	<div class="row py-2 text-center">
-    		<div class="dropdown ml-2 my-1">
-	        	<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid darkgray; border-radius: 10px;">정렬</button>
+    		<div class="dropdown ml-2 mb-2 mb-lg-0">
+	        	<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid darkgray; border-radius: 5px;">정렬</button>
 	            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 	            	<a class="dropdown-item" data-category="orderBy" data-value="img_sysdate" href="#">최신순</a>
 	                <a class="dropdown-item" data-category="orderBy" data-value="viewcount" href="#">조회순</a>
 	            </div>
 	        </div>
-	        <div class="dropdown ml-2 my-1">
-	            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid darkgray; border-radius: 10px;">파일형식</button>
+	        <div class="dropdown ml-2 mb-2 mb-lg-0">
+	            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid darkgray; border-radius: 5px;">파일형식</button>
 	            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 	                <a class="dropdown-item" data-category="file_extension" data-value="jpg" href="#">JPG</a>
 	                <a class="dropdown-item" data-category="file_extension" data-value="png" href="#">PNG</a>
 	            </div>
 	        </div>
-	        <div class="dropdown ml-2 my-1">
-	            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid darkgray; border-radius: 10px;">사용범위</button>
+	        <div class="dropdown ml-2 mb-2 mb-lg-0">
+	            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid darkgray; border-radius: 5px;">사용범위</button>
 	            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 	                <a class="dropdown-item" data-category="usage" data-value="상업용" href="#">상업적 용도</a>
 	                <a class="dropdown-item" data-category="usage" data-value="비상업용" href="#">에디토리얼 용도</a>
 	            </div>
 	        </div>
-	        <div class="dropdown ml-2 my-1">
-	            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid darkgray; border-radius: 10px;">결과 내 재검색</button>
+	        <div class="dropdown ml-2">
+	            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid darkgray; border-radius: 5px;">결과 내 재검색</button>
 	            <div class="dropdown-menu px-2 m-auto text-center" aria-labelledby="dropdownMenuButton" style="width: 290px;">
 	                <input type="text" id="keyword2" style="width: 200px; border: 1px solid darkgray;">
 	                <button id="keyword2Btn" style="width: 60px; border: 1px solid darkgray; background-color: white;">확인</button>
@@ -62,7 +62,7 @@
 	        </div>
     	</div>
         <div class="row">
-        	<div id="historyBox" class="mx-1">
+        	<div id="historyBox">
 	            <input type="hidden" name="tag" value="${searchKeyword }" class="mx-2">
 	        </div>
         </div>
@@ -171,7 +171,7 @@
             }else{
                 var filter2 = $("#historyBox span input[name="+name+"]");
                 if(filter2.length == 0){
-                    var span = $("<span class='span-box'><input type=hidden name="+name+" value='"+value+"'><span class='history ml-2' name="+name+">포함된 키워드: "+value+"<span class=filter-remove>x</span></span></span>");
+                    var span = $("<span class='span-box h-100'><input type=hidden name="+name+" value='"+value+"'><span style='border: 1px solid darkgray' class='history ml-2' name="+name+">포함된 키워드: "+value+"<span class='filter-remove pl-2 m-0 text-right'>x</span></span></span>");
                     $("#historyBox").append(span);
                 }else{
                     $(".span-box > input[name="+name+"]").prop("value",value);
@@ -195,7 +195,7 @@
             var filter = $("#historyBox span input[name="+name+"]");
 
             if(filter.length == 0){
-                var span = $("<span class='span-box'><input type=hidden name="+name+" value="+value+"><span class='history ml-2' name="+name+">"+print_value+"<span class=filter-remove>x</span></span></span>");
+                var span = $("<span class='span-box h-100'><input type=hidden name="+name+" value="+value+"><span style='border: 1px solid darkgray' class='history ml-2' name="+name+">"+print_value+"<span class='filter-remove pl-2 m-0 text-right'>x</span></span></span>");
                 $("#historyBox").append(span);
             }else{
                 $(".span-box > input[name="+name+"]").prop("value",value);
