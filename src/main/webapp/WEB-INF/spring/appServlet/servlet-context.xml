@@ -24,6 +24,7 @@
 	<mvc:resources mapping="/css/**" location="/resources/css/" />
 	<mvc:resources mapping="/js/**" location="/resources/js/" />
 	<mvc:resources mapping="/watermarkfiles/**" location="/watermarkfiles/" />
+	<mvc:resources mapping="/profileimage/**" location="/profileimage/" />
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->

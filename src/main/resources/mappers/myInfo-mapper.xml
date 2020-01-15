@@ -20,4 +20,7 @@
 		update member set pw=#{pw} where nickname=#{nickname}
 	</update>
 	
+	<update id="modiprofileimg" parameterType="kh.picsell.dto.MemberDTO">
+		update member set profileimg = #{profileimg} where nickname = #{nickname}
+	</update>
 </mapper>
