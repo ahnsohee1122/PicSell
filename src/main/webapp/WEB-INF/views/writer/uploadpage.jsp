@@ -1,116 +1,97 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Image Upload | PicSell</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
-
-
 <style>
-.upload-list {
-	list-style-type: none;
-}
-
-.list {
-	width: 1280px;
-	height: 300px;
-}
-
-.left {
-	width: 300px;
-	height: 300px;
-	float: left;
-}
-
-.right {
-	width: 500px;
-	height: 300px;
-	float: left;
-}
-
-li {
-	list-style-type: none;
-}
-
-.canvas {
-	padding: 10px;
-	width: 300px;
-	margin: auto;
-}
-
-.canvas>img {
-	width: 100%;
-	height:100%;
+	.upload-list {list-style-type: none; padding: 0; margin: 0;}
 	
-}
-
-.left>input {
-	width: 100%;
-}
-
-canvas {
-	display: none;
-}
-
-.tag-item {
-	display: inline-block;
-	color: #000;
-	margin: 3px 5px;
-	border: 1px solid black;
-	padding: 3px;
-	border-radius: 3px;
-}
-
-input[type=radio] {
-	display: none;
-	background-color: transparent;
-}
-
-label {
-	display: inline-block;
-	margin: 0 10px;
-	border: 1px solid black;
-	border-radius: 3px;
-	width: 80px;
-	height: 30px;
-	text-align: center;
-	line-height: 30px;
-}
-
-.tag-del {
-	background-color: transparent;
-	border: none;
-}
-
-input[type=radio]:checked+label {
-	background-color: gray;
-}
+	.list {text-align: right; padding: 10px 10px 0px 10px;}
+	.left {min-height: 200px; text-align: left; padding: 0; border-bottom: 1px solid darkgray;}
+	.right {text-align: left; margin: 10px 0;}
+	
+	li {list-style-type: none;}
+	
+	.canvas {margin: 10px 0; width: 300px;}
+	.canvas>img {width: 100%; height:100%;}
+	canvas {display: none;}
+	
+	input[type=radio] {display: none; background-color: transparent;}
+	input[type=radio]:checked+label {background-color: #FFEFEF;}
+	label {display: inline-block; border: 1px solid darkgray; margin-right: 10px; border-radius: 3px; width: 80px; height: 30px; text-align: center; line-height: 30px;}
+	label:hover {cursor: pointer;}
+	
+	.tag-item {display: inline-block; color: #000; border: 1px solid darkgray; padding: 3px; margin: 5px 10px 0 0; border-radius: 3px;}
+	.tag-del {background-color: transparent; border: none;}
+	.tagList {padding: 0;}
+	
+	input[type=text] {padding: 0 10px; width: 100%; max-width: 400px; border: 1px solid darkgray; border-radius: 5px;}
+	
+	#floatMenu {position: relative;}
+	
+	.closeBtn {border: 0; background-color: #f4f2f5;}
 </style>
 </head>
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
-	<div class="app">
-		<form id="uploadform"
-			action="${pageContext.request.contextPath}/writer/upload" method="post" enctype="multipart/form-data">
-			<button type="button" class="add-item">ADD</button>
-			<input type="hidden" value="" name="tag" id="rdTag" /> 
-			<input type="hidden" value="" name="img_size" id="size"> 
-			<input type="hidden" value="" name="make" id="make"> 
-				<input type="hidden" value="" name="model" id="model"> 
-				<input type="hidden" value="" name="XDimension" id="XDimension"> 
-				<input type="hidden" value="" name="YDimension" id="YDimension">
-			<ul class="upload-list">
-			</ul>
-			<button type="button" id="upload">upload</button>
-		</form>
+	
+	<div class="container-fluid py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
+		<div class="container m-auto">
+			<h2 class="mx-auto my-0 text-center">이미지 업로드</h2>
+		</div>
+		<div class="container mx-auto my-5">
+			<div class="row">
+				<div class="col-3 col-md-2 h-100 p-0 text-center" style="border-radius: 10px;">
+					<button type="button" class="add-item m-auto" id="floatMenu" style="width: 80%; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">이미지 추가</button>
+				</div>
+				<div class="col-9 col-md-10 h-100 p-0" style="border: 1px solid darkgray; border-radius: 10px;">	
+					<form id="uploadform" action="${pageContext.request.contextPath}/writer/upload" method="post" enctype="multipart/form-data">
+						<input type="hidden" value="" name="tag" id="rdTag" /> 
+						<input type="hidden" value="" name="img_size" id="size"> 
+						<input type="hidden" value="" name="make" id="make"> 
+						<input type="hidden" value="" name="model" id="model"> 
+						<input type="hidden" value="" name="XDimension" id="XDimension"> 
+						<input type="hidden" value="" name="YDimension" id="YDimension">
+						<ul class="upload-list"></ul>
+						<div class="text-center">
+							<button type="button" id="upload" class="mb-3" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">등록하기</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
+	
 	<script>
+		$(document).ready(function() {
+	
+			// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
+			var floatPosition = parseInt($("#floatMenu").css('top'));
+			// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+	
+			$(window).scroll(function() {
+				// 현재 스크롤 위치를 가져온다.
+				var scrollTop = $(window).scrollTop();
+				var newPosition = scrollTop + floatPosition + "px";
+	
+				/* 애니메이션 없이 바로 따라감
+				 $("#floatMenu").css('top', newPosition);
+				 */
+	
+				$("#floatMenu").stop().animate({
+					"top" : newPosition
+				}, 500);
+	
+			}).scroll();
+	
+		});
+
 		var addButton = document.getElementsByClassName('add-item')[0]
 		var list = document.getElementsByClassName('upload-list')[0]
 		var count = 0
@@ -211,13 +192,14 @@ input[type=radio]:checked+label {
 			var tags = document.createElement('div')
 			var tagView = document.createElement('ul')
 			tagView.classList.add('taglist'+cnt)
+			tagView.classList.add('tagList')
 			var tagInput = document.createElement('input')
-			tagInput.setAttribute('placeholder', '태그입력 후 엔터.')
+			tagInput.setAttribute('placeholder', '태그를 입력하신 후 엔터키를 눌러주세요')
 			tagInput.classList.add('taginput'+cnt)
-
-			var usage = '<div class=usage><p>어떤용도로 판매하시겠습니까?</p></div>'
-			var copyright = '<div class=copyright><p>재산권 및 초상권에 대한 정보를 적어주세요</p><textarea name="copyright" class="c-text'+cnt+'" ></textarea></div>'
-			var tag = '<div class="tag"><p>최소 5개이상의 태그를 적어주세요</p></div>'
+			
+			var usage = '<div class=usage><p style="margin-bottom: 5px;">어떤용도로 판매하시겠습니까?</p></div>'
+			var copyright = '<div class=copyright><p style="margin-bottom: 5px;">재산권 및 초상권에 대한 정보를 적어주세요</p><textarea style="resize: none; width: 100%; max-width: 400px; height: 100px; border-radius: 5px;" name="copyright" class="c-text'+cnt+'" ></textarea></div>'
+			var tag = '<div class="tag"><p style="margin-bottom: 5px;">최소 5개이상의 태그를 적어주세요</p></div>'
 			var radio = ''
 					+ '<input type="radio" id="p' + cnt + '-c" class="c usagebtn'+cnt+'" name="p' + cnt + '-commercial" value=상업용 >'
 					+ '<label for="p' + cnt + '-c">상업용</label>'
@@ -281,12 +263,15 @@ input[type=radio]:checked+label {
 			var remove = document.createElement('button')
 			var left = leftTemplate(count)
 			var right = rightTemplate(count)
+			var hr = document.createElement('hr')
 
 			item.classList.add('list')
 			remove.textContent = 'X'
+			remove.classList.add('closeBtn')
 			remove.classList.add('rm' + count)
 			remove.onclick = function() {
 				list.removeChild(item)
+				list.removeChild(hr)
 				console.log(count)
 				fileList.splice(count)
 				console.log(fileList)
@@ -295,6 +280,7 @@ input[type=radio]:checked+label {
 			item.appendChild(left)
 			item.appendChild(right)
 			list.appendChild(item)
+			list.appendChild(hr)
 			count++
 
 			if (count >= 10) {
@@ -346,9 +332,8 @@ input[type=radio]:checked+label {
 				e.target.value = '';
 			}
 		}
-		
-		
 	</script>
+	
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
 </html>
