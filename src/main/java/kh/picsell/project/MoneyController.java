@@ -39,6 +39,7 @@ import kh.picsell.service.MoneyService;
 
 
 @Controller
+@RequestMapping("/money")
 public class MoneyController {
 
 	@Autowired
@@ -50,46 +51,10 @@ public class MoneyController {
 	@Autowired
 	private HttpServletRequest request;
 
-	// Home 화면 
-	@RequestMapping(value = "/")
-	public String home() {
-		// 로그인 연결하면 고쳐야 할 부분 
-		session.setAttribute("loginInfo", "aaa");
-		// 로그인 안 한 경우
-		// session.setAttribute("loginInfo", null);
-		String nickname = (String)session.getAttribute("loginInfo");
-		
-		System.out.println("도착");
-		
-		// 상세페이지에 뿌릴 DTO
-		// 임시로 정한 DTO라서 실제 값 받아오도록 고쳐줘야함 
-		//WriterImageUpDTO dto = new Writer_Img_UpDTO(2, "bbb", 1, "icon.png");
-		//request.setAttribute("dto", dto);
-		//if(nickname==null) {
-			
-		//}else {
-		// 사진 구매 가능 여부 알기 위해서 point 받아옴 
-		//int point = money_sv.getPoint(nickname);
-		//request.setAttribute("point", point);
-		// 이미 구매한 사용자는 '구매'버튼이 아닌 '다운로드'버튼을 보게된다
-		// 구매 이력을 가져온다 
-		//DealListDTO dto2 = money_sv.buyHistory(nickname, dto.getImg_seq()); 
-			// 구매 이력이 없는 경우 
-			//if(dto2==null) {
-				//request.setAttribute("history", 0);
-			// 구매 이력이 있는 경우 
-			//}else {
-				//request.setAttribute("history", 1);
-			//}
-			
-		//}
-		return "home";
-	}
-
 	// 충전 금액 선택 화면으로 가게하기 
 	@RequestMapping(value = "/charge.do")
 	public String plus() {
-		return "charge";
+		return "money/charge";
 	}
 
 	// 충전 로직 완료 + form으로 데이터 받아서 충전 내역 화면에 뿌리기 
@@ -114,6 +79,8 @@ public class MoneyController {
 	@RequestMapping("/buy.do")
 	@ResponseBody
 	public String buy(String writer_nickname, int deal_img_seq) {
+		System.out.println(writer_nickname);
+		System.out.println(deal_img_seq);
 		String buyer_nickname = (String)session.getAttribute("loginInfo");
 		// 날짜
 		Date today = new Date();

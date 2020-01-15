@@ -7,7 +7,7 @@
 
 
 	<!-- 포인트 가져오기  -->
-	<select id="getPoint" resultType="Integer">
+	<select id="getPoint" parameterType="String" resultType="Integer">
 		select nvl(sum(point),0) from point where money_sort = '포인트' and nickname=#{nickname}
 	</select>
 	

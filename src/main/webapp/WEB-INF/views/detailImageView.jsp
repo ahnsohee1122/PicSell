@@ -1,186 +1,424 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <meta charset="UTF-8">
-                <title>Insert title here</title>
-                <style>
-                    *{margin: auto; box-sizing: border-box;}
-                    div{border-bottom: 1px solid black;}
-                    #container{
-                        width:1000px;
-                        height:1000px;
-                        border: 1px solid;
-                    }
+	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+* {
+	margin: auto;
+	box-sizing: border-box;
+}
 
-                    #orderleft{
-                        float: left;
-                        width: 70%;
-                        height: 100%;
-                        border: 1px solid;
-                    }
+div {
+	border-bottom: 1px solid black;
+}
 
-                    #picture{
-                        margin-left: 30px;
-                        margin-top: 15px;
-                        width: 100%;
-                        height: 60%;
-                        margin: 0;
-                    }
+#container {
+	width: 1000px;
+	height: 1000px;
+	border: 1px solid;
+}
 
-                    #photo_like_box{
-                        text-align: right;
-                    }
+#orderleft {
+	float: left;
+	width: 70%;
+	height: 100%;
+	border: 1px solid;
+}
 
-                    #info{
-                        width: 100%;
-                    }
+#picture {
+	margin-left: 30px;
+	margin-top: 15px;
+	width: 100%;
+	height: 60%;
+	margin: 0;
+}
 
-                    #orderright{
-                        float: right;
-                        width: 29%;
-                        height: 100%;
-                    }
+#photo_like_box {
+	text-align: right;
+}
 
-                    #righttop{
-                        width: 100%;
-                        height: 100px;
-                    }
+#info {
+	width: 100%;
+}
 
-                    .rightchild{
-                        border: 1px solid;
-                        width: 25%;
-                        float: left;
-                        margin-left: 10px;
-                    }
+#orderright {
+	float: right;
+	width: 29%;
+	height: 100%;
+}
 
-                    .ico {
-                        border-radius: 50%;
-                        cursor: pointer;
-                        fill: #232323;
-                        transition: .4s;
-                    }
+#righttop {
+	width: 100%;
+	height: 100px;
+}
 
-                    .liked {
-                        transform: scale(1.05) rotate(360deg);
-                        background-color: #C62828;
-                        padding: .3rem;
-                        fill: white !important;
-                    }
-                    
-                    .ico2 {
-                        border-radius: 50%;
-                        cursor: pointer;
-                        fill: #232323;
-                        transition: .4s;
-                    }
+.rightchild {
+	border: 1px solid;
+	width: 25%;
+	float: left;
+	margin-left: 10px;
+}
 
-                </style>
-            </head>
-            <body>
-            
-            	<jsp:include page="key/top.jsp" flush="false"/>
+.ico {
+	border-radius: 50%;
+	cursor: pointer;
+	fill: #232323;
+	transition: .4s;
+}
 
-                <div id="container">
-                    <div id="orderleft">
-                        <div id="picture">
-                            <img src="/watermarkfiles/${dto.sysname_watermark }" style="width:100%; height:auto%;">
-                        </div>
-                        <div id="photo_like_box">
-                            <svg class="ico" width="24" height="24" viewBox="0 0 24 24">
-                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+.liked {
+	transform: scale(1.05) rotate(360deg);
+	background-color: #C62828;
+	padding: .3rem;
+	fill: white !important;
+}
+
+.ico2 {
+	border-radius: 50%;
+	cursor: pointer;
+	fill: #232323;
+	transition: .4s;
+}
+</style>
+</head>
+<body>
+
+	<jsp:include page="key/top.jsp" flush="false" />
+
+	<div id="container">
+		<div id="orderleft">
+			<div id="picture">
+				<img src="/watermarkfiles/${dto.sysname_watermark }"
+					style="width: 100%; height: auto%;">
+			</div>
+			<div id="photo_like_box">
+				<svg class="ico" width="24" height="24" viewBox="0 0 24 24">
+                                <path
+						d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
                             </svg>
-                            <span>좋아요</span>
-                        </div>
-                        <div id="info">
-                            크리에이터
-                            <a href='/writer/writerpage?nickname=${dto.nickname }' style='text-decoration:none' onclick='window.open("about:blank").location.href=this.href; return false;'>@${dto.nickname }</a>
-                            <span>                            
-	                            <svg class="ico2" width="24" height="24" viewBox="0 0 24 24">
-	                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+				<span>좋아요</span>
+			</div>
+			<div id="info">
+				크리에이터 <a href='/writer/writerpage?nickname=${dto.nickname }'
+					style='text-decoration: none'
+					onclick='window.open("about:blank").location.href=this.href; return false;'>@${dto.nickname }</a>
+				<span> <svg class="ico2" width="24" height="24"
+						viewBox="0 0 24 24">
+	                                <path
+							d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
 	                            </svg>
-                            </span>
-                            <span>'</span>
-                            <span id="total_writer_like">${likepoint }</span>
-                            <span>'명이 좋아하는 작가로 등록을 하였습니다.</span>
-                        </div>
-                    </div>
+				</span> <span>'</span> <span id="total_writer_like">${likepoint }</span> <span>'명이
+					좋아하는 작가로 등록을 하였습니다.</span>
+			</div>
+		</div>
 
-                    <div id="orderright">
-                        <div id="righttop">
-                            <div class="rightchild">${dto.viewcount }</div>
-                            <div class="rightchild">${dto.downcount }</div>
-                            <div class="rightchild">
-                                <span id="total_photo_like">${dto.img_like }</span>
-                            </div>
-                        </div>
-                        <div>
-                            <table>
-                                <tr>
-                                    <td>해상도:</td>
-                                    <td>${dto.xDimension }X${dto.yDimension }</td>
-                                </tr>
-                                <tr>
-                                    <td>용량:</td>
-                                    <td>${dto.img_size }MB</td>
-                                </tr>
-                                <tr>
-                                    <td>파일 형식:</td>
-                                    <td>${dto.file_extension }</td>
-                                </tr>
-                                <tr>
-                                    <td>업로드 날짜:</td>
-                                    <td id="date"></td>
-                                </tr>
-                                <tr>
-                                    <td>제조사:</td>
-                                    <td>${dto.make }</td>
-                                </tr>
-                                <tr>
-                                    <td>모델:</td>
-                                    <td>${dto.model }</td>
-                                </tr>
-                                <tr>
-                                    <td>사용범위:</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${dto.usage == '상업용' }">
-                                                <span id=commercial style="color: dodgerblue;">상업적인 사용 가능</span>
-                                                <span id=editorial>/ 에디토리얼 전용</span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span id=commercial>상업적인 사용 가능 /</span>
-                                                <span id=editorial style="color: dodgerblue;">에디토리얼 전용</span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>사진</td>
-                                    <td>
-                                        <span>${dto.file_extension }</span>
-                                        <span style="margin-left: 100px;">500원</span>
-                                        <span><input type="button" value="다운로드" style="margin-left: 100px;"></span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div>
-                            <h4>이미지 구매시 주의사항</h4>
-                            이미지 구매전 꼭 구매자 가이드를 읽어보시기 바랍니다.
-                            이용약관 및 구매자 가이드를 준수하지 않고 발생한 문제의 경우 당사가 책임지지 않습니다.<br>
-                            일부 콘텐츠는 초상권과 재산권의 추가 확보가 필요할 수 있으니 중요한 용도로 사용할 경우에는 반드시 구매전에 크라우드픽으로 문의하시기 바랍니다.<br>
-                            인물 콘텐츠 사용 시에는 이미지 사용제한 규정이 좀 더 민감하게 적용될 수 있으므로 구매자 가이드의 사진 사용제한 부분을 꼭 참고하시기 바랍니다.<br>
-                            이미지 구매시 이미지에 사용된 폰트는 디자인 샘플일 뿐, 함께 제공되는 것이 아닙니다. 정품 폰트를 구입하시거나 다른 폰트로 변경하여 사용하시길 바랍니다.
-                        </div>
-                        <div id=tagbox style="border-bottom:none;">
-                        </div>
-                    </div>
-                </div>
+		<div id="orderright">
+			<div id="righttop">
+				<div class="rightchild">${dto.viewcount }</div>
+				<div class="rightchild">${dto.downcount }</div>
+				<div class="rightchild">
+					<span id="total_photo_like">${dto.img_like }</span>
+				</div>
+			</div>
+			<div>
+				<table>
+					<tr>
+						<td>해상도:</td>
+						<td>${dto.xDimension }X${dto.yDimension }</td>
+					</tr>
+					<tr>
+						<td>용량:</td>
+						<td>${dto.img_size }MB</td>
+					</tr>
+					<tr>
+						<td>파일 형식:</td>
+						<td>${dto.file_extension }</td>
+					</tr>
+					<tr>
+						<td>업로드 날짜:</td>
+						<td id="date"></td>
+					</tr>
+					<tr>
+						<td>제조사:</td>
+						<td>${dto.make }</td>
+					</tr>
+					<tr>
+						<td>모델:</td>
+						<td>${dto.model }</td>
+					</tr>
+					<tr>
+						<td>사용범위:</td>
+						<td><c:choose>
+								<c:when test="${dto.usage == '상업용' }">
+									<span id=commercial style="color: dodgerblue;">상업적인 사용
+										가능</span>
+									<span id=editorial>/ 에디토리얼 전용</span>
+								</c:when>
+								<c:otherwise>
+									<span id=commercial>상업적인 사용 가능 /</span>
+									<span id=editorial style="color: dodgerblue;">에디토리얼 전용</span>
+								</c:otherwise>
+							</c:choose></td>
+					</tr>
+					<tr>
+						<td>사진</td>
+						<td><span>${dto.file_extension }</span> <span
+							style="margin-left: 100px;">500원</span>
+						
+							 <%-- 다운로드 버튼 제어  --%> 
+							 <c:choose>
+								<%-- 로그인 안한 경우 --%>
+								<c:when test="${loginInfo==null}">
+									<span><button id=login data-toggle="modal"
+											data-target="#Modal" style="margin-left: 100px;">무료
+											다운로드</button></span>
+									<div class="modal" tabindex="-1" role="dialog" id=Modal>
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">무료 다운로드</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<p>
+														무료로 한번 사용해 보시겠어요? <br> (회원 가입 즉시 포인트 1000원 제공)
+													</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">취조</button>
+													<button type="button" class="btn btn-primary login">확인</button>
+												</div>
+											</div>
+										</div>
+									</div>
 
-                <script>
+									<script>
+                        $(".login").on("click", function(){
+                            location.href="${pageContext.request.contextPath}/member/login.do";
+                        })
+                    </script>
+								</c:when>
+
+								<%-- 로그인 한 경우  --%>
+								<c:otherwise>
+
+									<c:choose>
+										<%-- 사용자가 작가일 때  --%>
+										<c:when test="${loginInfo==dto.nickname}">
+
+											<span><button id=writer_buy data-toggle="modal"
+													data-target="#Modal2" style="margin-left: 100px;">다운로드</button></span>
+
+											<div class="modal" tabindex="-1" role="dialog" id=Modal2>
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title">본인의 이미지는 구매가 불가능합니다</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															무료 프로모션 금액으로 본인의 이미지를 구매, <br> 여러 계정을 생성하여 무료 프로모션
+															금액으로 본인의 이미지를 구매, <br> 무료 프로모션 금액을 이용하여 타인에게 <br>
+															본인의 이미지를 구매하게 유도하는 행위는 <br> 크라우드픽 이용약관 제11조(회원의 의무)
+															및 회사 내부규정에 위반되어 <br> 불이익을 받거나 탈퇴 처리될 수 있습니다.
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">확인</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<%-- 사용자가 작가가 아닐 때  --%>
+
+											<c:choose>
+
+												<%-- 이미 구매 한 경우 --%>
+												<c:when test="${history==1}">
+													<button id=historyYes>다운로드</button>
+
+													<script>
+                                                        $("#historyYes").on("click", function(){
+                                                            alert("이미 사진을 구매 한 사용자입니다. 사진이 다운로드됩니다.");
+
+                                                            $.ajax({
+                                                                url : "${pageContext.request.contextPath}/down.do",
+                                                                type : "post",
+                                                                data : { img_seq : dto.img_seq}
+                                                            }).done(function(){
+                                                                alert("다운로드가 성공했습니다.");
+                                                            }).fail(function(){
+                                                                alert("다운로드에 실패했습니다.");
+                                                            })
+                                                        })
+                                                    </script>
+												</c:when>
+
+												<%-- 구매 한 적이 없는 경우 --%>
+												<c:otherwise>
+													<c:choose>
+
+
+														<%-- 포인트가 500원 이상인 경우  --%>
+														<c:when test="${point>=500}">
+															<script>
+                                                                    </script>
+
+															<span><button id=buy data-toggle="modal"
+																	data-target="#Modal3" style="margin-left: 100px;">구매</button></span>
+
+															<div class="modal" tabindex="-1" role="dialog" id=Modal3>
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title">사진 구매</h5>
+																			<button type="button" class="close"
+																				data-dismiss="modal" aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<div class="modal-body">
+																			구매 시 500원이 차감됩니다. <br> 구매한 이미지는 회원 정보 사용 내역에서 확인
+																			가능하며, 평생 다운로드 가능합니다. <br> 해당 사진을 구매 하시겠습니까?
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-primary buy">구매하기</button>
+																			<button type="button" class="btn btn-secondary"
+																				id="close_btn" data-dismiss="modal">취소</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+
+															<script>
+
+                                                                        $(".buy").on("click", function(){
+                                                                            $.ajax({
+                                                                                url : "buy.do",
+                                                                                type : "post", 
+                                                                                data : { 
+                                                                                    writer_nickname : "${dto.nickname}",
+                                                                                    deal_img_seq : "${dto.img_seq}" 
+                                                                                }
+                                                                            }).done(function(data){
+                                                                                alert("구매에 성공했습니다.");
+                                                                                $("#close_btn").trigger("click");
+                                                                                // 구매 버튼을 다운로드 버튼으로 바꾼다 
+                                                                                $("#buy").html('다운로드');
+                                                                                //$("#buy").removeAttr('onclick',"").unbind('click');
+                                                                                $("#buy").removeAttr('onclick');
+                                                                                $("#buy").attr('id','historyYes');     
+                                                                                $("#historyYes").attr("onclick", historyYes)
+
+                                                                            }).fail(function(data){
+                                                                                alert("다운로드에 실패했습니다. 다시 시도해주세요.");
+                                                                            })
+
+                                                                        })
+
+                                                                        function historyYes(){ 
+                                                                            $("#historyYes").on("click", function(){
+
+                                                                                $('#Modal3').remove();
+                                                                                $("#close_btn").trigger("click");
+
+                                                                                alert("이미 사진을 구매 한 사용자입니다. 사진이 다운로드됩니다.");
+
+                                                                                $.ajax({
+                                                                                    url : "${pageContext.request.contextPath}/down.do",
+                                                                                    type : "post",
+                                                                                    data : { img_seq : "${dto.img_seq}"
+                                                                                           }
+                                                                                }).done(function(){
+                                                                                    alert("다운로드가 성공했습니다.");
+                                                                                }).fail(function(){
+                                                                                    alert("다운로드에 실패했습니다.");
+                                                                                })
+                                                                            })			
+                                                                        }
+                                                                    </script>
+														</c:when>
+
+														<%-- 포인트가 500원 미만인 경우 --%>
+														<c:otherwise>
+
+															<span><button id=chargePoint data-toggle="modal"
+																	data-target="#Modal4" style="margin-left: 100px;">구매</button></span>
+
+															<div class="modal" tabindex="-1" role="dialog" id=Modal4>
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title">포인트 부족</h5>
+																			<button type="button" class="close"
+																				data-dismiss="modal" aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<div class="modal-body">
+																			포인트가 부족하여 구매가 불가능합니다. <br> 포인트 충전화면으로 이동하시겠습니까?
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button"
+																				class="btn btn-primary chargePoint">확인</button>
+																			<button type="button" class="btn btn-secondary"
+																				data-dismiss="modal">취소</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+
+															<script>
+                                                                            $(".chargePoint").on("click", function(){
+                                                                                location.href="${pageContext.request.contextPath}/money/charge.do";
+                                                                            })
+                                                                        </script>
+														</c:otherwise>
+													</c:choose>
+
+												</c:otherwise>
+											</c:choose>
+
+										</c:otherwise>
+									</c:choose>
+
+								</c:otherwise>
+							</c:choose>
+							<%-- --%>
+							
+							</td>
+					</tr>
+				</table>
+			</div>
+			<div>
+				<h4>이미지 구매시 주의사항</h4>
+				이미지 구매전 꼭 구매자 가이드를 읽어보시기 바랍니다. 이용약관 및 구매자 가이드를 준수하지 않고 발생한 문제의 경우
+				당사가 책임지지 않습니다.<br> 일부 콘텐츠는 초상권과 재산권의 추가 확보가 필요할 수 있으니 중요한 용도로
+				사용할 경우에는 반드시 구매전에 크라우드픽으로 문의하시기 바랍니다.<br> 인물 콘텐츠 사용 시에는 이미지
+				사용제한 규정이 좀 더 민감하게 적용될 수 있으므로 구매자 가이드의 사진 사용제한 부분을 꼭 참고하시기 바랍니다.<br>
+				이미지 구매시 이미지에 사용된 폰트는 디자인 샘플일 뿐, 함께 제공되는 것이 아닙니다. 정품 폰트를 구입하시거나 다른
+				폰트로 변경하여 사용하시길 바랍니다.
+			</div>
+			<div id=tagbox style="border-bottom: none;"></div>
+		</div>
+	</div>
+
+	<script>
 
                     $(function(){
                         var tag = "${dto.tag}";
@@ -284,6 +522,6 @@
                         });
                     });
                     
-                </script>             
-            </body>
-        </html>
+                </script>
+</body>
+</html>
