@@ -134,15 +134,29 @@ public class SearchController {
 		// 이까지 조회수 증가
 
 
-		WriterImageUpDTO dto = service.getDetailImage(img_seq);
-		int likepoint = service.getLikepoint(nickname);
+		// ****************************이 밑줄부터
+		// like_list 테이블에 이미지 좋아요 기록 있는지 여부
+		WriterImageUpDTO dto = service.getDetailImage(img_seq); 
+		int likepoint = service.getLikepoint(nickname); 
+		
+		String viewer = null; 
+		if(loginInfo != null) { 
+			viewer = (String)loginInfo; 
+		}else if(loginInfo == null) { // 여기 관리자도 포함됨
+			viewer = " ";
+		}
+		int likestatus = service.likeStatus(img_seq, viewer);
+		
+		int writerlikestatus = service.writerLikeStatus(nickname, viewer);
+		// ****************************이까지
 
 		System.out.println(dto);
 		System.out.println(likepoint);
 
-		
 		request.setAttribute("dto", dto);
 		request.setAttribute("likepoint", likepoint);
+		request.setAttribute("likestatus", likestatus); // 이 줄*********************
+		request.setAttribute("writerlikestatus", writerlikestatus); // 이 줄*********************
 		
 		// 다운로드 버튼 제어 
 		
@@ -171,6 +185,8 @@ public class SearchController {
 		return "/search/detailImageView";
 	}
 
+
+	//******************************************************************************
 	@RequestMapping(value="/PhotoLike.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String photolike(int img_seq, int count) {
@@ -178,11 +194,28 @@ public class SearchController {
 		System.out.println("좋아요 도착");
 		System.out.println("count: " + count);
 
-		int result = service.photolike(img_seq, count);
-		if(result > 0) {return "ok";}
+		String viewer = null;
+		if(session.getAttribute("loginInfo") != null) {
+			viewer = (String)session.getAttribute("loginInfo");
+		}else if(session.getAttribute("adminInfo") != null) {
+			viewer = (String)session.getAttribute("adminInfo");
+		}
+		
+		int result1 = 0;
+		
+		// like_list 테이블
+		if(count == 1) { // 좋아요 눌렀을 경우
+			result1 = service.insertLikeList(img_seq, viewer);
+		}else if(count == -1) { // 좋아요 취소 눌렀을 경우
+			result1 = service.deleteLikeList(img_seq, viewer);
+		}
+		
+		// writer_image_up 테이블
+		int result2 = service.photolike(img_seq, count); 
+		
+		if(result1 > 0 && result2 > 0) {return "ok";}
 		else {return "fail";}
 	}
-
 
 	@RequestMapping(value="/WriterLike.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
@@ -190,11 +223,30 @@ public class SearchController {
 		System.out.println("nickname: " + nickname);
 		System.out.println("작가좋아요 도착");
 		System.out.println("count: " + count);
-
-		int result = service.writerlike(nickname, count);
-		if(result > 0) {return "ok";}
+		
+		String viewer = null;
+		if(session.getAttribute("loginInfo") != null) {
+			viewer = (String)session.getAttribute("loginInfo");
+		}else if(session.getAttribute("adminInfo") != null) {
+			viewer = (String)session.getAttribute("adminInfo");
+		}
+		
+		int result1 = 0;
+		
+		// like_list 테이블
+		if(count == 1) { // 좋아요 눌렀을 경우
+			result1 = service.insertWriterLikeList(nickname, viewer);
+		}else if(count == -1) { // 좋아요 취소 눌렀을 경우
+			result1 = service.deleteWriterLikeList(nickname, viewer);
+		}
+		
+		// member 테이블
+		int result2 = service.writerlike(nickname, count);
+		if(result1 > 0 && result2 > 0) {return "ok";}
 		else {return "fail";}
 	}
+	
+	//******************************************************************************
 	
 	@RequestMapping(value="/WriterExist.do", produces="text/html; charset=UTF-8")
 	@ResponseBody

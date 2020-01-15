@@ -71,5 +71,31 @@ public class SearchService {
 	public int writerexist(String writer) {
 		return dao.writerexist(writer);
 	}
+	
+	// *********************************
+	public int likeStatus(int img_seq, String viewer) {
+		return dao.likeStatus(img_seq, viewer);
+	}
+	
+	public int insertLikeList(int img_seq, String viewer) {
+		return dao.insertLikeList(img_seq, viewer);
+	}
+	
+	public int deleteLikeList(int img_seq, String viewer) {
+		return dao.deleteLikeList(img_seq, viewer);
+	}
+	
+	public int writerLikeStatus(String nickname, String viewer) {
+		return dao.writerLikeStatus(nickname, viewer);
+	}
+	
+	public int insertWriterLikeList(String nickname, String viewer) {
+		return dao.insertWriterLikeList(nickname, viewer);
+	}
+	
+	public int deleteWriterLikeList(String nickname, String viewer) {
+		return dao.deleteWriterLikeList(nickname, viewer);
+	}
+	// *********************************
 
 }
