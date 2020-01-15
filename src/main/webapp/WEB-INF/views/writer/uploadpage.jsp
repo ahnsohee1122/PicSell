@@ -40,13 +40,14 @@ li {
 
 .canvas {
 	padding: 10px;
-	width: 250px;
+	width: 300px;
 	margin: auto;
 }
 
 .canvas>img {
 	width: 100%;
-	height: 100%;
+	height:100%;
+	
 }
 
 .left>input {
@@ -56,11 +57,7 @@ li {
 canvas {
 	display: none;
 }
-.canvas{
-border:1px solid black;
-width:280px;
-height:280px;
-}
+
 .tag-item {
 	display: inline-block;
 	color: #000;
@@ -146,7 +143,7 @@ input[type=radio]:checked+label {
 				thumb.innerHTML = ''
 				thumb.appendChild(img)
 				img.onload = function() {
-					var dataURL = watermarkedDataURL(img, "PicSell\n무단배포금지",
+					var dataURL = watermarkedDataURL(img, "PicSell",
 							cnt, thumb);
 				};
 			};
@@ -197,30 +194,6 @@ input[type=radio]:checked+label {
 			input.setAttribute('type', 'file')
 			input.setAttribute('name', 'file')
 			input.setAttribute('accept','.jpg,.png,.jpeg')
-			$(document).on("dragenter",function(e){
-				e.stopPropagation();
-		          e.preventDefault();
-		          $(this).css('border', '2px solid #5272A0');
-
-			}).on('dragleave',function(e){
-				e.stopPropagation();
-		          e.preventDefault();
-		          $(this).css('border', '2px dotted #8296C2');
-
-			}).on('dragover',function(e){
-				e.stopPropagation();
-				e.preventDefault();
-			}).on('drop',function(e){
-				e.stopPropagation();
-				e.preventDefault();
-				$(this).css('border', '2px dotted #8296C2')
-				var files = e.originalEvent.dataTransfer.files
-				$("input[type='file']")
-		        .prop("files", files)  // put files into element
-		        .closest("form")
-				readImage(files, cnt, thumb)
-		        
-			})
 			input.onchange = function(e) {
 				//첨부파일 추가시 이미지 미리보기 function실행.
 				readImage(e.target.files, cnt, thumb)

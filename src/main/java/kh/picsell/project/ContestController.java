@@ -19,8 +19,7 @@ import kh.picsell.service.ContestService;
 public class ContestController {
    @Autowired
    private HttpSession session;
-//   @Autowired
-//   private HttpServletRequest request;
+
    @Autowired
    private ContestService service;
    
@@ -99,6 +98,7 @@ public class ContestController {
          return "서버";
       }
    }
+   
    @RequestMapping("/contestchecking.do")
    public String contestchecking(String host, HttpServletRequest request) {
       
@@ -112,9 +112,9 @@ public class ContestController {
          ok = service.showok(host);
          no = service.showno(host);
          notyet = service.notyet(host);
-         session.setAttribute("ok", ok);
-         session.setAttribute("no", no);
-         session.setAttribute("notyet", notyet);
+         request.setAttribute("ok", ok);
+         request.setAttribute("no", no);
+         request.setAttribute("notyet", notyet);
          list = service.contestchecking(host);
          request.setAttribute("list", list);
          return "myPage/contestaccpet";
@@ -125,14 +125,15 @@ public class ContestController {
       
    }
 
- //공모전신청 
+   //공모전신청 
    @RequestMapping("newcontestform")
    public String newContestform(MultipartFile[] files, ContestDTO dto) {
       String path = session.getServletContext().getRealPath("contestfiles");
-      //String nickname = (String)session.getAttribute("loginInfo");
-      String nickname = "hello";
+      String nickname = (String)session.getAttribute("loginInfo");
       service.newcontest(files, dto, path, nickname);
       return "redirect:contest.do";
+   
+      
    }
    
    
