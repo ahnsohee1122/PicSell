@@ -59,7 +59,7 @@
 							<div class="form-group row mx-auto my-3">
 								<label for="modifyName" class="col-3 col-form-label">이름</label>
 							    <div class="col-9">
-							      <input type="text" class="form-control text-right" id="modifyName" name="name" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.name }">
+							      	<input type="text" class="form-control text-right" id="modifyName" name="name" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.name }">
 							   		<div id="alert_name_form" class="px-1 alert4 invalid-feedback">잘못된 이름 형식입니다.</div>
 							    </div>
 							</div>
@@ -72,10 +72,16 @@
 							</div>
 							<div class="form-group row mx-auto my-3">
 								<label for="modifyEmail" class="col-3 col-form-label">이메일</label>
-							    <div class="col-9 text-right">
+							    <div class="col-9">
 							      <input type="text" class="form-control text-right" id="modifyEmail" name="email" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.email }" readonly>
-							      <input type="button" data-toggle="modal" data-target="#modiEmail" id="mailc" value="메일변경" class="mt-2" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
-							   		<div id="emailcheck" class="px-1 alert6 invalid-feedback">잘못된 이메일 입니다.</div>
+							    </div>
+							</div>
+							<div class="form-group row mx-auto my-3">
+							    <div class="col-9 ml-auto">
+							    	<div class="form-control h-100 px-0" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0; text-align: right;">
+							    		<button type="button"  data-toggle="modal" data-target="#modiEmail" id="mailc" style="width: 100px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">메일변경</button>
+							    		<div id="emailcheck" class="px-1 alert6 invalid-feedback">잘못된 이메일 입니다.</div>
+							    	</div>
 							    </div>
 							</div>
 							<div class="modal fade" id="modiEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="top: 250px;">
