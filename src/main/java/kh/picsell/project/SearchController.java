@@ -33,7 +33,7 @@ public class SearchController {
 			return "writer/writerpage"; // 작가 페이지로
 		}else {
 			request.setAttribute("searchKeyword", tag);
-			return "searchList";
+			return "/search/searchList";
 		}
 	}
 
