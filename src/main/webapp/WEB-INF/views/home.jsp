@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -241,51 +242,18 @@
             <div class="row">
                 <div class="MultiCarousel" data-items="1,2,3,3" data-slide="1" id="MultiCarousel"  data-interval="1000">
                     <div class="MultiCarousel-inner">
+                        <c:forEach items="${list }" var="list">
                         <div class="item">
                             <div class="pad15">
                                 <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
-                                <p class="lead">웨딩사진 공모전</p>
-                                <p class="text-danger">모집중</p>
-                                <p>~ 20/01/30</p>
-                                <p><a href="contest" class="btn btn-outline-dark btn-sm">참여하기</a></p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
-                                <p class="lead">웨딩사진 공모전</p>
+                                <p class="lead">${list.title }</p>
                                 <p class="text-danger">집계중</p>
-                                <p>19/12/30 ~ 20/01/30</p>
+                                <p>${list.enddate }</p>
                                 <p><a href="contest" class="btn btn-outline-dark btn-sm">참여하기</a></p>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
-                                <p class="lead">웨딩사진 공모전</p>
-                                <p class="text-danger">집계중</p>
-                                <p>19/12/30 ~ 20/01/30</p>
-                                <p><a href="contest" class="btn btn-outline-dark btn-sm">참여하기</a></p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
-                                <p class="lead">웨딩사진 공모전</p>
-                                <p class="text-danger">집계중</p>
-                                <p>19/12/30 ~ 20/01/30</p>
-                                <p><a href="contest" class="btn btn-outline-dark btn-sm">참여하기</a></p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
-                                <p class="lead">웨딩사진 공모전</p>
-                                <p class="text-danger">집계중</p>
-                                <p>19/12/30 ~ 20/01/30</p>
-                                <p><a href="contest" class="btn btn-outline-dark btn-sm">참여하기</a></p>
-                            </div>
-                        </div>
+                        </c:forEach>
+                        
                     </div>
                     <button class="btn border-0 leftLst"><img src="${pageContext.request.contextPath}/img/previous01.png" style="width: 17px; height: 17px;"></button>
                     <button class="btn border-0 rightLst"><img src="${pageContext.request.contextPath}/img/next01.png" style="width: 17px; height: 17px;"></button>
