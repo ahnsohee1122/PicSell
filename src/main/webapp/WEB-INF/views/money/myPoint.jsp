@@ -46,7 +46,7 @@
 	<button id=chargePoint>충전하기</button>
 	<script>
 	$("#chargePoint").on("click", function(){
-		location.href="${pageContext.request.contextPath}/charge.do";
+		location.href="${pageContext.request.contextPath}/money/charge.do";
 	})
 	</script>
 	<hr>
@@ -55,7 +55,7 @@
 	<button id=moneyBack>환급하기</button>
 	<script>
 	$("#moneyBack").on("click", function(){
-		location.href="${pageContext.request.contextPath}/moneyBack.do";
+		location.href="${pageContext.request.contextPath}/money/moneyBack.do";
 	})
 	</script>
 	<hr>
@@ -64,7 +64,7 @@
 	<button id=change>전환하기</button>
 	<script>
 	$("#change").on("click", function(){
-		location.href = "${pageContext.request.contextPath}/change.do";
+		location.href = "${pageContext.request.contextPath}/money/change.do";
 	})
 	</script>
 	<hr>

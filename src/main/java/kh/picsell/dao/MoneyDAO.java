@@ -98,26 +98,16 @@ public class MoneyDAO {
 	
 	////////////////////////////////////////////////////////////////
 	
-	// 구입 내역 확인하기 
-	public List<DealListDTO> buy_list_check(String buyer_nickname){
-		return jdbc.selectList("Charge.buy_list_check", buyer_nickname);
+	// 구매 내역 확인하기
+	public List<Map<String, Object>> buy_list(String nickname){
+		return jdbc.selectList("Charge.buy_list", nickname);
 	}
 	
-	// 구입 내역 ( 사진 ) 확인하기
-	public List<String> buy_sysname(String nickname){
-		return jdbc.selectList("Charge.buy_sysname", nickname);
+	// 판매 내역 확인하기
+	public List<Map<String, Object>> sell_list(String nickname){
+		return jdbc.selectList("Charge.sell_list", nickname);
 	}
 	
-	// 판매 내역 확인하기 
-	public List<DealListDTO> sell_list_check(String writer_nickname){
-		return jdbc.selectList("Charge.sell_list_check", writer_nickname);
-	}
-	
-	// 판매 내역 ( 사진 ) 확인하기
-	public List<String> sell_sysname(String nickname){
-		return jdbc.selectList("Charge.sell_sysname", nickname);
-	}
-
 	
 
 }

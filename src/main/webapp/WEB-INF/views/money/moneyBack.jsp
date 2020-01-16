@@ -16,7 +16,7 @@
 		 - 잔여 수익금 이하만 출금가능합니다. <br> 
 		 - 잔여 수익금 5000원 이상인 경우에만 출금 가능합니다.
 	</h2>
-	<form action="${pageContext.request.contextPath}/moneyBackProc.do" method="post">
+	<form action="${pageContext.request.contextPath}/money/moneyBackProc.do" method="post">
 		잔여 수익금 : ${profit}<br>
 		환급할 포인트 : <input type="text" name="back_point">
 		<button>환급하기</button>

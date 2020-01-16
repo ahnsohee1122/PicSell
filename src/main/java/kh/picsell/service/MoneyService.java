@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,12 +51,12 @@ public class MoneyService {
 	// 포인트 거래 내역 추가 + 사진 거래 내역 추가
 	@Transactional("txManager")
 	public void buy(String deal_date, int point, int deal_img_seq, String buyer_nickname, String writer_nickname, 
-			String buyer_deal_sort, String writer_deal_sort, String money_sort) {
+			String buyer_deal_sort, String writer_deal_sort, String buyer_money_sort, String writer_money_sort) {
 		money_dao.insertBuyList(deal_date, deal_img_seq, buyer_nickname, writer_nickname);
 		String point_date = deal_date;
-		money_dao.pointUpdate(writer_nickname, writer_deal_sort, point_date, point, money_sort);
+		money_dao.pointUpdate(writer_nickname, writer_deal_sort, point_date, point, writer_money_sort);
 		point = -500;
-		money_dao.pointUpdate(buyer_nickname, buyer_deal_sort, point_date, point, money_sort);
+		money_dao.pointUpdate(buyer_nickname, buyer_deal_sort, point_date, point, buyer_money_sort);
 	}
 	
 	// 충전 완료 + 충전 내역 뿌리기 
@@ -88,29 +89,17 @@ public class MoneyService {
 		money_dao.pointUpdate(nickname, deal_sort, formatted_requested_at, change_profit, profit_money_sort);
 	}
 	//////////////////////////////////////////////////////////////
-	
-	// 구매 내역 확인하기
-	public List<DealListDTO> buy_list_check(String buyer_nickname){
-		List<DealListDTO> list = money_dao.buy_list_check(buyer_nickname);
-		return list;
-	}
-	
-	// 구매 내역 ( 사진 ) 확인하기
-	public List<String> buy_sysname(String nickname){
-		List<String> list = money_dao.buy_sysname(nickname);
-		return list;
-	}	
-	
-	// 판매 내역 확인하기 
-	public List<DealListDTO> sell_list_check(String writer_nickname){
-		List<DealListDTO> list = money_dao.sell_list_check(writer_nickname);
-		return list;
-	}
-	
-	// 판매 내역 ( 사진 ) 확인하기
-	public List<String> sell_sysname(String nickname){
-		List<String> list = money_dao.buy_sysname(nickname);
-		return list;
-	}	
 
+	// 구매 내역 확인하기
+	public List<Map<String, Object>> buy_list(String nickname){
+		List<Map<String, Object>> list = money_dao.buy_list(nickname);
+		return list;
+	}
+		
+	// 판매 내역 확인하기
+	public List<Map<String, Object>> sell_list(String nickname){
+		List<Map<String, Object>> list = money_dao.sell_list(nickname);
+		return list;
+	}
+	
 }
