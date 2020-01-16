@@ -115,7 +115,6 @@
 			var fileList = []
 		//이미지를 불러와서 미리보기.
 		function readImage(files, cnt, thumb) {
-				console.log(files)
 			var reader = new FileReader()
 			reader.onload = function(e) {
 				var data = e.target.result
@@ -126,19 +125,20 @@
 				img.onload = function() {
 					var dataURL = watermarkedDataURL(img, "PicSell",
 							cnt, thumb);
+					var xsdataURL = xswatermarkedDataURL(img,"PICSELL",cnt,thumb)
+					
 				};
 			};
 
 			if (files && files[0])reader.readAsDataURL(files[0])
-			//fileList.push(files[0])
-			//console.log(fileList)
 			getExif(files[0]);
+			console.log(files[0])
+
 
 		};
 
 		//워터마크 새로 canvas에 그리기.
 		function watermarkedDataURL(img, text, cnt, thumb) {
-			console.log(img)
 			var tempCanvas = document.createElement('canvas');
 			tempCanvas.classList.add("watermark")
 			var tempCtx = tempCanvas.getContext('2d');
@@ -150,7 +150,7 @@
 			cw = tempCanvas.width = img.naturalWidth;
 			ch = tempCanvas.height = img.naturalHeight;
 			tempCtx.drawImage(img, 10, 10);
-			tempCtx.font = "70px verdana";
+			tempCtx.font = "200px verdana";
 			var textWidth = tempCtx.measureText(text).width;
 			tempCtx.globalAlpha = .50;
 			tempCtx.fillStyle = 'white'
@@ -165,7 +165,36 @@
 					.toDataURL()
 			return (tempCanvas.toDataURL());
 		}
-
+		//작은워터마크
+		function xswatermarkedDataURL(img, text, cnt, thumb) {
+			var xstempCanvas = document.createElement('canvas');
+			xstempCanvas.classList.add("xswatermark")
+			var xstempCtx = xstempCanvas.getContext('2d');
+			var xshidden = document.createElement('input')
+			xshidden.setAttribute('type', 'hidden')
+			xshidden.classList.add("xswatermark" + cnt)
+			xshidden.setAttribute('name', "xswatermark" + cnt)
+			var xscw, xsch;
+			xscw = xstempCanvas.width = img.naturalWidth;
+			xsch = xstempCanvas.height = img.naturalHeight;
+			xstempCtx.drawImage(img, 10, 10);
+			xstempCtx.font = "30px verdana";
+			var xstextWidth = xstempCtx.measureText(text).width;
+			xstempCtx.globalAlpha = .50;
+			xstempCtx.fillStyle = 'white'
+			xstempCtx.textAlign = 'right'
+			xstempCtx.textBaseline = 'middle';
+			var x = xscw-10;
+			var y = xsch-20;
+			xstempCtx.fillText(text, x, y);
+			thumb.appendChild(xstempCanvas);
+			thumb.appendChild(xshidden)
+			document.getElementsByClassName("xswatermark" + cnt)[0].value = xstempCanvas
+					.toDataURL()
+			return (xstempCanvas.toDataURL());
+		}
+		
+		
 		function leftTemplate(cnt) {
 			var left = document.createElement('div')
 			var input = document.createElement('input')
@@ -174,10 +203,44 @@
 			left.classList.add('left')
 			input.setAttribute('type', 'file')
 			input.setAttribute('name', 'file')
-			input.setAttribute('accept','.jpg,.png,.jpeg')
+			input.setAttribute('accept','image/*')
 			input.onchange = function(e) {
-				//첨부파일 추가시 이미지 미리보기 function실행.
-				readImage(e.target.files, cnt, thumb)
+				var filename = e.target.files[0].name
+				var reg = /(.*?)\.(jpg|jpeg|png|bmp|JPG|JPEG|PNG|BMP)$/;
+				var maxSize  =30  * 1024 * 1024 //30MB
+				var filesize = e.target.files[0].size
+				
+				
+				function pixel(){ 
+					var xPixel = EXIF.getTag(this,"PixelXDimension")
+					var yPixel = EXIF.getTag(this,"PixelXDimension")
+					 var c = filename.match(reg)
+					 
+					if(!filename.match(reg)) {
+						alert("해당 파일은 이미지 파일이 아닙니다.");
+						$("input[type=file]").val("");
+						return;
+					}
+					
+					if(xPixel == null || yPixel == null || xPixel < 1024 || yPixel < 1024){
+						alert("최소 해상도는 1024픽셀 이상이어야 합니다.")
+						$("input[type=file]").val("");
+						return;
+				
+					}
+					
+					if(filesize > maxSize){
+						alert("첨부파일 사이즈는 30MB 이내로 등록 가능합니다.")
+						$("input[type=file]").val("");
+						return;
+					}
+					
+					//첨부파일 추가시 이미지 미리보기 function실행.
+					readImage(e.target.files, cnt, thumb)
+				}
+				
+					EXIF.getData(e.target.files[0], pixel)
+					
 			}
 			left.appendChild(input)
 			left.appendChild(thumb)
@@ -198,13 +261,13 @@
 			tagInput.classList.add('taginput'+cnt)
 			
 			var usage = '<div class=usage><p style="margin-bottom: 5px;">어떤용도로 판매하시겠습니까?</p></div>'
-			var copyright = '<div class=copyright><p style="margin-bottom: 5px;">재산권 및 초상권에 대한 정보를 적어주세요</p><textarea style="resize: none; width: 100%; max-width: 400px; height: 100px; border-radius: 5px;" name="copyright" class="c-text'+cnt+'" ></textarea></div>'
+			var copyright = '<div class=copyright><p style="margin-bottom: 5px;">재산권 및 초상권에 대한 정보를 적어주세요</p><textarea style="resize: none; width: 100%; max-width: 400px; height: 100px; border-radius: 5px;" name="copyright" class="ctext" ></textarea></div>'
 			var tag = '<div class="tag"><p style="margin-bottom: 5px;">최소 5개이상의 태그를 적어주세요</p></div>'
 			var radio = ''
-					+ '<input type="radio" id="p' + cnt + '-c" class="c usagebtn'+cnt+'" name="p' + cnt + '-commercial" value=상업용 >'
-					+ '<label for="p' + cnt + '-c">상업용</label>'
-					+ '<input type="radio" id="p' + cnt + '-nc" class ="nc usagebtn'+cnt+'" name="p' + cnt + '-commercial" value=비상업용 >'
-					+ '<label for="p' + cnt + '-nc">비상업용</label>'
+					+ '<input type="radio" id="p' + cnt + '-c" class="c usagebtn" name="p' + cnt + '-commercial" value=상업용 required >'
+					+ '<label for="p' + cnt + '-c" >상업용</label>'
+					+ '<input type="radio" id="p' + cnt + '-nc" class ="nc usagebtn" name="p' + cnt + '-commercial" value=비상업용 required>'
+					+ '<label for="p' + cnt + '-nc" >비상업용</label>'
 
 			var tagList = []
 			
@@ -214,6 +277,7 @@
 			tagInput.onkeypress = function(e) {
 				addTags(e, cnt, tagView, tagList)
 			}
+				
 			commercial.innerHTML = radio
 			tags.appendChild(tagInput)
 			tags.appendChild(tagView)
@@ -228,30 +292,38 @@
 	
 		$("#upload").on("click",function(){
 			var a = document.getElementsByName('file')
+			var firstlist = document.getElementsByClassName('list')
+			var ctext = document.getElementsByClassName('ctext')
+			var tags = document.getElementsByClassName('tagList')
+			
+ 			
+			if(firstlist.length == 0){
+				alert("이미지를 첨부해주세요")
+				return;
+			}
 			for(i=0; i<a.length; i++){
 				if(a[i].value == ""){
 					alert("이미지를 첨부해주세요.")
 					return;
 				}
+		
+				if(firstlist[i].querySelectorAll(".usagebtn")[0].checked == false & firstlist[i].querySelectorAll(".usagebtn")[1].checked == false){
+					alert((i+1)+"번째 이미지의 용도를 선택해주세요")
+					return;
+				}
 				
-			if(!$("input:radio[name=p"+i+"-commercial]").is(":checked")){
-				alert((i+1)+"번째 이미지의 용도를 선택해주세요")
-				$("input:radio[name=p"+i+"-commercial]").focus();
-				return;
-			}
-			
-			if($(".c-text"+i).val()==""){
-				alert("재산권 및 초상권에 대한 정보를 적어주세요.")
-				$(".c-text"+i).focus()
-				return;
-			}
-			
-			if($(".taglist"+i).children().length == 0){
-				alert("태그를 입력해주세요.")
-				$(".taginput"+i).focus()
-				return;
-			}
+				if(ctext[i].value == ""){
+					alert((i+1)+"번째 이미지의 재산권 및 초상권에 대한 정보를 적어주세요.")
+					ctext[i].focus();
+					return;
+				}
 				
+				if(tags[i].childElementCount == 0 || tags[i].childElementCount < 5){
+					alert((i+1)+"번째 이미지의 태그를 최소 5개이상 입력해주세요.")
+					$(".taginput"+i).focus()
+					return;
+				}
+					
 			}
 
 			$("#uploadform").submit();
@@ -260,28 +332,38 @@
 		
 		function setItem() {
 			var item = document.createElement('li')
-			var remove = document.createElement('button')
+			var remove = document.createElement('input')
 			var left = leftTemplate(count)
 			var right = rightTemplate(count)
 			var hr = document.createElement('hr')
 
 			item.classList.add('list')
-			remove.textContent = 'X'
+			remove.setAttribute("type","button")
+			remove.setAttribute("value",'X')
 			remove.classList.add('closeBtn')
 			remove.classList.add('rm' + count)
+			
+			
 			remove.onclick = function() {
+			if(remove.className === "closeBtn rm0"){
+				return;
+				
+				}else{
 				list.removeChild(item)
 				list.removeChild(hr)
-				console.log(count)
-				fileList.splice(count)
-				console.log(fileList)
+				count--;
+				console.log("- : " + count)
+				}
 			}
-			item.appendChild(remove)
-			item.appendChild(left)
-			item.appendChild(right)
-			list.appendChild(item)
-			list.appendChild(hr)
-			count++
+			
+			
+				item.appendChild(remove)
+				item.appendChild(left)
+				item.appendChild(right)
+				list.appendChild(item)
+				list.appendChild(hr)
+				count++
+				console.log("+ : " + count)
 
 			if (count >= 10) {
 				alert("최대 10개까지 업로드 가능합니다")
@@ -312,7 +394,7 @@
 					alert('중복된 태그입니다.')
 					return false
 				}
-
+				
 				var item = document.createElement('li')
 				var tag = ''
 						+ '<input type="hidden" name="p'+cnt+'-tags[]" value="'+value+'">'
@@ -331,6 +413,10 @@
 				list.push(value)
 				e.target.value = '';
 			}
+		}
+		
+		function check(){
+			
 		}
 	</script>
 	
