@@ -52,4 +52,30 @@
 		select count(*) from member where nickname = #{writer}
 	</select>
 	
+	
+	
+	<select id="likeStatus" resultType="integer" parameterType="java.util.Map">
+		select count(*) from like_list where img_seq=#{img_seq} and nickname=#{viewer}
+	</select>
+	
+	<insert id="insertLikeList" parameterType="java.util.Map">
+		insert into like_list values(#{img_seq},#{viewer})
+	</insert>
+	
+	<delete id="deleteLikeList" parameterType="java.util.Map">
+		delete from like_list where img_seq=#{img_seq} and nickname=#{viewer}
+	</delete>
+	
+	<select id="writerLikeStatus" resultType="integer" parameterType="java.util.Map">
+		select count(*) from writer_like_list where writer=#{writer} and nickname=#{nickname}
+	</select>
+	
+	<insert id="insertWriterLikeList" parameterType="java.util.Map">
+		insert into writer_like_list values(#{writer},#{nickname})
+	</insert>
+	
+	<delete id="deleteWriterLikeList" parameterType="java.util.Map">
+		delete from writer_like_list where writer=#{writer} and nickname=#{nickname}
+	</delete>
+	
 </mapper>
