@@ -54,7 +54,7 @@ public class MoneyController {
 	// 충전 금액 선택 화면으로 가게하기 
 	@RequestMapping(value = "/charge.do")
 	public String plus() {
-		return "money/charge";
+		return "/money/charge";
 	}
 
 	// 충전 로직 완료 + form으로 데이터 받아서 충전 내역 화면에 뿌리기 
@@ -70,7 +70,7 @@ public class MoneyController {
 		ChargeListDTO dto = money_sv.Charge(nickname, receipt_id, price, payment_name, requested_at, deal_sort, money_sort);
 		request.setAttribute("dto", dto);
 		// 4. 충전 내역 화면으로 보낸다 
-		return "chargeComplete";
+		return "money/chargeComplete";
 	}
 
 	/////////////////////////////////////////////////////////
@@ -89,12 +89,13 @@ public class MoneyController {
 		// 구분
 		String buyer_deal_sort = "구매";
 		String writer_deal_sort = "판매";
-		String money_sort = "포인트";
+		String buyer_money_sort = "포인트";
+		String writer_money_sort = "수익금";
 		int point = 500;
 		if(writer_nickname == buyer_nickname) {
 			return "본인의 사진은 구매하실 수 없습니다..?";
 		}
-		money_sv.buy(deal_date, point, deal_img_seq, buyer_nickname, writer_nickname, buyer_deal_sort, writer_deal_sort, money_sort);
+		money_sv.buy(deal_date, point, deal_img_seq, buyer_nickname, writer_nickname, buyer_deal_sort, writer_deal_sort, buyer_money_sort, writer_money_sort);
 		return "";	
 	}
 	///////////////////////////////////////////////////////////////////
@@ -111,7 +112,7 @@ public class MoneyController {
 		list = money_sv.getPointList(nickname);
 		request.setAttribute("list", list);
 		request.setAttribute("msg", msg);
-		return "myPoint";
+		return "/money/myPoint";
 	}
 
 	///////////////////////////////////////////////////////////////////
@@ -121,9 +122,10 @@ public class MoneyController {
 	public String moneyBack(String msg) {
 		String nickname = (String)session.getAttribute("loginInfo");
 		int profit = money_sv.getProfit(nickname);
+		System.out.println(profit);
 		request.setAttribute("msg", msg);
 		request.setAttribute("profit", profit);
-		return "moneyBack";
+		return "/money/moneyBack";
 	}
 
 	// 환급하기 
@@ -155,7 +157,7 @@ public class MoneyController {
 			request.setAttribute("list", list);
 			int point = money_sv.getPoint(nickname);
 			request.setAttribute("point", point);
-			return "myPoint";
+			return "/money/myPoint";
 		}
 	}
 
@@ -168,7 +170,7 @@ public class MoneyController {
 		// 전환 가능 수익금을 가지고 감 
 		int profit = money_sv.getProfit(nickname);
 		request.setAttribute("profit", profit);
-		return "change";
+		return "/money/change";
 	}
 	
 	// 수익금을 포인트로 전환하기 
@@ -181,13 +183,13 @@ public class MoneyController {
 		if(money<100) {
 			String msg = "전환하려는 포인트가 1000원보다 작습니다.";
 			request.setAttribute("msg", msg);
-			return "change";
+			return "/money/change";
 			//return 
 		// 전환하려는 포인트가 수익금보다 작은 경우 
 		}else if(profit<money) {
 			String msg = "전환하려는 포인트가 잔여 수익금보다 많습니다.";
 			request.setAttribute("msg", msg);
-			return "change";
+			return "/money/change";
 		// 정상 전환 
 		}else {
 			Date today = new Date();
@@ -206,32 +208,29 @@ public class MoneyController {
 			request.setAttribute("list", list);
 			int point = money_sv.getPoint(nickname);
 			request.setAttribute("point", point);
-			return "myPoint";
+			return "/money/myPoint";
 		}
 	}
 	///////////////////////////////////////////////////////////////////
 
+	
 	// 구매 내역 확인하기
-	@RequestMapping("/buy_list_check.do")
-	public String buy_list_check() {
-		String buyer_nickname = (String)session.getAttribute("loginInfo");
-		List<DealListDTO> list = money_sv.buy_list_check(buyer_nickname);
+	@RequestMapping("/buy_list.do")
+	public String buy_list() {
+		String nickname = (String)session.getAttribute("loginInfo");
+		List<Map<String, Object>> list = money_sv.buy_list(nickname);
 		request.setAttribute("list", list);
-		List<String> list2 = money_sv.buy_sysname(buyer_nickname);
-		request.setAttribute("list2", list2);
-		return "Buy_List_Check";
+		return "/money/Buy_List_Check";
 	}
-	// 판매 내역 확인하기 
-	@RequestMapping("/sell_list_check.do")
-	public String sell_list_check() {
-		String writer_nickname = (String)session.getAttribute("loginInfo");
-		List<DealListDTO> list = money_sv.sell_list_check(writer_nickname);
+	
+	// 판매 내역 확인하기
+	@RequestMapping("/sell_list.do")
+	public String sell_list() {
+		String nickname = (String)session.getAttribute("loginInfo");
+		List<Map<String, Object>> list = money_sv.sell_list(nickname);
 		request.setAttribute("list", list);
-		List<String> list2 = money_sv.buy_sysname(writer_nickname);
-		request.setAttribute("list2", list2);
-		return "Sell_List_Check";
+		return "/money/Sell_List_Check";
 	}
-
-
+	
 
 }

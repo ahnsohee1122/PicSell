@@ -472,6 +472,82 @@
 
         	});
    		});
+
+                    $(function(){
+                        var tag = "${dto.tag}";
+                        tags = tag.replace(/{/gi,"").replace(/}/gi,",");
+                        var arr = tags.split(",");
+                        console.log(arr);
+                        console.log(arr.length-1);
+
+                        for(var i=0; i<arr.length-1; i++){
+                            var span = "<a href='/Search.do?tag="+arr[i]+"' style='text-decoration:none;'><span style='border-radius:3px; border:1px solid black; margin:3px; padding:2px;'>"+arr[i]+"</span></a>";
+                            $("#tagbox").append(span);
+                        }
+
+                        var date = "${dto.img_sysdate}";
+                        $("#date").html(getFormatDate(date));                    
+                    })
+
+                    function getFormatDate(date){
+                        var newDate = new Date(date);
+                        var year = newDate.getFullYear();   
+                        var month = (1 + newDate.getMonth());          
+                        month = month >= 10 ? month : '0' + month;  
+                        var day = newDate.getDate();                   
+                        day = day >= 10 ? day : '0' + day;          
+                        return  year + '년 ' + month + '월 ' + day + '일';
+                    }
+
+                    var likeBtn = document.querySelector('.ico');
+                    likeBtn.addEventListener('click', function() {
+                    	/*************************************************************/
+                    	var userSessionInfo = "${sessionScope.loginInfo}"; // 로그인 안하고 좋아요 누르면 로그인 페이지로
+                    	var adminSessionInfo = "${sessionScope.adminInfo}";
+                    	console.log("userInfo : " + userSessionInfo);
+                    	console.log("adminInfo : " + adminSessionInfo);
+                    	if(userSessionInfo == "" && adminSessionInfo == ""){
+                    		alert("로그인 후 이용하시기 바랍니다.");
+                    	
+                    		var link = document.location.href;
+							console.log(link);
+                    		window.opener.$("#gotologin").click();
+                    		
+                    		
+ 	                  		$('body').on('shown.bs.modal', '.modal-dialog', function () {
+    							$('input:visible:enabled:first', this).focus();
+							})
+
+                    		return;
+                    	}
+/*************************************************************/
+                        let count = 0;
+                        let total_count = ($("#total_photo_like").html())*1; // 총 좋아요 수 숫자로 변환
+
+                        likeBtn.classList.toggle('liked');
+                        var state = $(this).attr("class");
+                        if(state == "ico liked"){ // 좋아요 누르면
+                            count = 1;	
+                        }else{ // 좋아요 취소하면
+                            count = -1;
+                        }
+
+                        $.ajax({
+                            url:"/PhotoLike.do",
+                            type:"post",
+                            data:{
+                                img_seq : ${dto.img_seq},
+                            	count : count
+                        		}
+                               }).done(function(res){
+                            if(res == "ok"){
+                                total_count += count;
+                                $("#total_photo_like").html(total_count); // 총 좋아요 수 (화면상에서만) 수정
+                            }
+                        }).fail(function(){
+
+                        });
+                    });
                     
         var likeBtn2 = document.querySelector('.ico2');
         

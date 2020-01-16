@@ -17,7 +17,7 @@
 <input type="radio" name="money" value="20000" class=money>20000원<br><br>
 
 <button id=charge>충전하기</button>
-<form action="${pageContext.request.contextPath}/chargeComplete.do" method="POST">
+<form action="${pageContext.request.contextPath}/money/chargeComplete.do" method="POST">
 <input type="text" val="" id="receipt_id" name="receipt_id">
 <input type="text" val="" id="price" name="price">
 <input type="text" val="" id="payment_name" name="payment_name">

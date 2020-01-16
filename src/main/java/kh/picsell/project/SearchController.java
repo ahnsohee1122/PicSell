@@ -262,6 +262,6 @@ public class SearchController {
 	
 	@RequestMapping("/GoToLogin.do")
 	public String gotologin() {
-		return "member/login";
+		return "member/login.do";
 	}
 }

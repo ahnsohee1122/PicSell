@@ -327,7 +327,7 @@ $(function(){
 							<a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a>
 						</li>
 						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
-							<a href="#" class="text-dark explanation" data-toggle="modal" data-target="#Login">로그인</a>
+							<a id="gotologin" href="#" class="text-dark explanation" data-toggle="modal" data-target="#Login">로그인</a>
 						</li>
 						<div class="modal fade" id="Login" role="dialog" aria-labelledby="Label" aria-hidden="true" style="top: 110px;">
 							<div class="modal-dialog" role="document">
