@@ -17,9 +17,18 @@ input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1p
 			<div class="row">
 				<div id="profilediv" class="col-5 col-md-3 col-xl-2 text-center px-0 py-3" style="border: 1px solid gray; box-sizing: border-box; border-radius: 10px;">
 			<form method="post" enctype="multipart/form-data" id="fileform">
+			<c:choose>
+			<c:when test="${memberDto.profileimg == null }">
+					<img id="profile"  src="${pageContext.request.contextPath}/img/user.png"class="img-thumbnail" style="width: 150px; height: 140px; border-radius: 50%;"><br>
+					<label for="profileimg" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">대표이미지설정</label>
+					<input type="file" id="profileimg" name="file" class="mt-3" value="대표 이미지 설정" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
+				</c:when>
+				<c:otherwise>
 					<img id="profile"  src="/profileimage/${memberDto.profileimg }"class="img-thumbnail" style="width: 150px; height: 140px; border-radius: 50%;"><br>
 					<label for="profileimg" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">대표이미지설정</label>
 					<input type="file" id="profileimg" name="file" class="mt-3" value="대표 이미지 설정" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
+				</c:otherwise>
+				</c:choose>
 				</form>
 				</div>
 				<div class="col-7 col-md-9 col-xl-10 text-center">
