@@ -11,7 +11,7 @@
 <body>
 <h1>*포인트를 수익금으로 전환하기*</h1>
 전환 가능한 수익금 : ${profit} <br>
-<form action="${pageContext.request.contextPath}/changeProc.do" method="post">>
+<form action="${pageContext.request.contextPath}/money/changeProc.do" method="post">
 전환 금액  : <input type="text" id="money" name="money"> <br>
 - 작가 수익금 포인트(P)를 다운로드 가능 금액(원)으로 전환할 수 있습니다. <br>
 - 전환한 금액만큼 작가 수익금 포인트에서 차감되어 다운로드 가능 금액으로 전환됩니다. <br>

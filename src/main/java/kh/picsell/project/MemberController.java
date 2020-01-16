@@ -1,5 +1,7 @@
 package kh.picsell.project;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,9 +44,16 @@ public class MemberController {
 	@RequestMapping(value="/signupProc.do", produces="text/html; charset=UTF-8") //회원가입
 	@ResponseBody
 	public String signupProc(MemberDTO dto) {
-
+		String deal_sort = "회원가입";
+		// 날짜
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String point_date = sdf.format(today);
+		int point = 1000;
+		String money_sort = "포인트";
 		try {
-			int result = service.insert(dto);
+			
+			int result = service.insert(dto, deal_sort, point_date, point, money_sort);
 			if(result>0) {
 				return"ㅇㅋ";
 			}else {
