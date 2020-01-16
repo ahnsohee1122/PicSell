@@ -481,7 +481,7 @@
                         console.log(arr.length-1);
 
                         for(var i=0; i<arr.length-1; i++){
-                            var span = "<a href='/Search.do?tag="+arr[i]+"' style='text-decoration:none;'><span style='border-radius:3px; border:1px solid black; margin:3px; padding:2px;'>"+arr[i]+"</span></a>";
+                            var span = "<a href='/Search.do?tag="+arr[i]+"' class='mx-1' style='text-decoration:none; padding: 5px;'>"+"#"+arr[i]+"</a>";
                             $("#tagbox").append(span);
                         }
 
