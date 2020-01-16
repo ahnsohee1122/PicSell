@@ -33,6 +33,8 @@
 
 	<style>
 		th{background-color:skyblue;}
+		img{width:200px; height:200px;}
+		tr:hover{background-color:#edf2ef!important;}
 	</style>
 	
 </head>
@@ -51,15 +53,18 @@
 		</tr> 
 	</thead>
 	<tbody>
-	<c:forEach items="${list}" var="list" varStatus="status">
-		<tr>
-			<td>${list.deal_seq}</td>
-			<td>${list.deal_date}</td>
-			<td>${list.deal_price} </td>
-			<td>${list.deal_img_seq}</td>
-			<td>${list.writer_nickname}</td>
-			<td>${list2[status.index]}</td>
+	<c:forEach items="${list}" var="list">
+		
+		<tr onclick="window.open('${pageContext.request.contextPath}/DetailImage.do?img_seq=${list.dealImgSeq}&nickname=${loginInfo}',
+			'','scrollbars=yes,resizable=yes,top=0, width=1360, height=950'); return false;" 
+			style="cursor:hand; width: 336px; height: 224.07px; top: 2146.92px; left: 347px;" class="jg-entry entry-visible" >
+			<td>${list.dealDate}</td>
+			<td>${list.dealPrice} </td>
+			<td>${list.dealImgSeq}</td>
+			<td>${list.writerNickname}</td>
+			<td><img src="/writeruploadfiles/${list.sysName}"></td>
 		</tr>
+		
 	</c:forEach>
 	</tbody>
 
