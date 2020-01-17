@@ -37,7 +37,6 @@ import kh.picsell.dto.DealListDTO;
 import kh.picsell.dto.PointDTO;
 import kh.picsell.service.MoneyService;
 
-
 @Controller
 @RequestMapping("/money")
 public class MoneyController {
@@ -54,7 +53,7 @@ public class MoneyController {
 	// 충전 금액 선택 화면으로 가게하기 
 	@RequestMapping(value = "/charge.do")
 	public String plus() {
-		return "/money/charge";
+		return "money/charge";
 	}
 
 	// 충전 로직 완료 + form으로 데이터 받아서 충전 내역 화면에 뿌리기 
@@ -112,7 +111,7 @@ public class MoneyController {
 		list = money_sv.getPointList(nickname);
 		request.setAttribute("list", list);
 		request.setAttribute("msg", msg);
-		return "/money/myPoint";
+		return "money/myPoint";
 	}
 
 	///////////////////////////////////////////////////////////////////
@@ -125,7 +124,7 @@ public class MoneyController {
 		System.out.println(profit);
 		request.setAttribute("msg", msg);
 		request.setAttribute("profit", profit);
-		return "/money/moneyBack";
+		return "money/moneyBack";
 	}
 
 	// 환급하기 
@@ -157,7 +156,7 @@ public class MoneyController {
 			request.setAttribute("list", list);
 			int point = money_sv.getPoint(nickname);
 			request.setAttribute("point", point);
-			return "/money/myPoint";
+			return "money/myPoint";
 		}
 	}
 
@@ -170,7 +169,7 @@ public class MoneyController {
 		// 전환 가능 수익금을 가지고 감 
 		int profit = money_sv.getProfit(nickname);
 		request.setAttribute("profit", profit);
-		return "/money/change";
+		return "money/change";
 	}
 	
 	// 수익금을 포인트로 전환하기 
@@ -183,13 +182,13 @@ public class MoneyController {
 		if(money<100) {
 			String msg = "전환하려는 포인트가 1000원보다 작습니다.";
 			request.setAttribute("msg", msg);
-			return "/money/change";
+			return "money/change";
 			//return 
 		// 전환하려는 포인트가 수익금보다 작은 경우 
 		}else if(profit<money) {
 			String msg = "전환하려는 포인트가 잔여 수익금보다 많습니다.";
 			request.setAttribute("msg", msg);
-			return "/money/change";
+			return "money/change";
 		// 정상 전환 
 		}else {
 			Date today = new Date();
@@ -208,7 +207,7 @@ public class MoneyController {
 			request.setAttribute("list", list);
 			int point = money_sv.getPoint(nickname);
 			request.setAttribute("point", point);
-			return "/money/myPoint";
+			return "money/myPoint";
 		}
 	}
 	///////////////////////////////////////////////////////////////////
@@ -220,7 +219,7 @@ public class MoneyController {
 		String nickname = (String)session.getAttribute("loginInfo");
 		List<Map<String, Object>> list = money_sv.buy_list(nickname);
 		request.setAttribute("list", list);
-		return "/money/Buy_List_Check";
+		return "money/Buy_List_Check";
 	}
 	
 	// 판매 내역 확인하기
@@ -229,7 +228,7 @@ public class MoneyController {
 		String nickname = (String)session.getAttribute("loginInfo");
 		List<Map<String, Object>> list = money_sv.sell_list(nickname);
 		request.setAttribute("list", list);
-		return "/money/Sell_List_Check";
+		return "money/Sell_List_Check";
 	}
 	
 	//////////////////////////////////////////////////////////////////
@@ -239,7 +238,7 @@ public class MoneyController {
 	public String admin_point() {
 		List<PointDTO> list = money_sv.admin_point();
 		request.setAttribute("list", list);
-		return "/money/admin_point";
+		return "money/admin_point";
 	}
 	
 	// 관리자 > 거래 내역 확인하기
@@ -247,7 +246,7 @@ public class MoneyController {
 	public String admin_deal() {
 		List<Map<String, Object>> list = money_sv.admin_deal();
 		request.setAttribute("list", list);
-		return "/money/admin_deal";
+		return "money/admin_deal";
 	}
 
 }
