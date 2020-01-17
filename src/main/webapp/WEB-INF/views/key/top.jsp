@@ -427,6 +427,12 @@ $(function(){
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/contest/check.do" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/업로드 </a>
 												</div>
+												<div class="col-12 sideMenu">
+													<a href="${pageContext.request.contextPath}/money/admin_point.do" style="color: black; font-size: 16px; text-decoration: none;">회원 포인트 내역 </a>
+												</div>
+												<div class="col-12 sideMenu">
+													<a href="${pageContext.request.contextPath}/money/admin_deal.do" style="color: black; font-size: 16px; text-decoration: none;">회원 거래 내역 </a>
+												</div>
 											</div>
 											<hr>
 											<div class="row my-2" style="font-size: 20px;">
