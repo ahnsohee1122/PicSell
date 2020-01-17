@@ -30,7 +30,7 @@
 	        </form>
 		</div>
 	</div>
-    <div class="container-fluid py-2" style="border-top: 1px solid gray; border-bottom: 1px solid gray; font-family: 'Cafe24Oneprettynight';"> 
+    <div class="container-fluid py-2" style="border-top: 1px solid darkgray; border-bottom: 1px solid darkgray; font-family: 'Cafe24Oneprettynight';"> 
     	<div class="row py-2 text-center">
     		<div class="dropdown ml-2 mb-2 mb-lg-0">
 	        	<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid darkgray; border-radius: 5px;">정렬</button>
@@ -145,7 +145,7 @@
 	    let renderList = function(sysname, tag, img_seq, nickname){
 	    	tags = tag.replace(/{/gi,"#").replace(/}/gi,"");
 	
-	        var html = "<div class='image'><a href='/DetailImage.do?img_seq="+img_seq+"&nickname="+nickname+"' onclick=\"window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1360, height=950'); return false;\" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src=/writeruploadfiles/"+sysname+" alt="+tags+"></a></div>"
+	        var html = "<div class='image'><a href='/DetailImage.do?img_seq="+img_seq+"&nickname="+nickname+"' onclick=\"window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;\" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src=/writeruploadfiles/"+sysname+" alt="+tags+"></a></div>"
 	        $("#gallery").append(html);
 	        $("#gallery").justifiedGallery({
 	        	rowHeight : 200,

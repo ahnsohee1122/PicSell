@@ -79,12 +79,21 @@ public class WriterUploadService {
 			//워터마크 처리한 이미지 저장.
 			//디코딩한 파일 byte배열로 가져와서 이름앞에 marked_ 붙혀서 watermarkfilepath에 저장. 
 			byte[] imgBytes = decodeBase64ToBytes(request.getParameter("watermark"+i));
+			byte[] xsimgBytes = decodeBase64ToBytes(request.getParameter("xswatermark"+i));
 			String sysName_watermark = "marked_" + sysNamelist.get(i);
+			String xsSysName_watermark = "xsmarked_" + sysNamelist.get(i);
+			System.out.println(xsSysName_watermark);
 			FileOutputStream fis = new FileOutputStream(watermarkfilepath + "/" + sysName_watermark);
+			FileOutputStream xsfis = new FileOutputStream(watermarkfilepath + "/" + xsSysName_watermark);
 			DataOutputStream dos = new DataOutputStream(fis);
+			DataOutputStream xsdos = new DataOutputStream(xsfis);
             dos.write(imgBytes);
+            dos.write(xsimgBytes);
+            xsdos.write(xsimgBytes);
             dos.flush();
             dos.close();
+            xsdos.flush();
+            xsdos.close();
             dto.setSysname_watermark(sysName_watermark);
             
 			//파일이름저장
@@ -92,7 +101,7 @@ public class WriterUploadService {
 			dto.setSysname(sysNamelist.get(i));
 	
 			//확장자저장
-			Pattern p = Pattern.compile("(png|jpeg|jpg)$");
+			Pattern p = Pattern.compile("(png|jpeg|jpg|PNG|JPG|JPEG)$");
 			Matcher m = p.matcher(oriNamelist.get(i));
 			while(m.find()) {
 				dto.setFile_extension(m.group(0));

@@ -130,17 +130,13 @@ public class ContestController {
    public String newContestform(MultipartFile[] files, ContestDTO dto) {
       String path = session.getServletContext().getRealPath("contestfiles");
       String nickname = (String)session.getAttribute("loginInfo");
+      System.out.println(nickname);
       service.newcontest(files, dto, path, nickname);
       return "redirect:contest.do";
 
    }
    
-   @RequestMapping("lastContest")
-   public String lastContest(HttpServletRequest request) {
-	  List<ContestDTO> list =  service.lastContest();
-	  request.setAttribute("list", list);
-	   return "home";
-   }
+  
    
    
    
