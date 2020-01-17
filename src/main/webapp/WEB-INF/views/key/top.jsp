@@ -450,12 +450,6 @@ $(function(){
 												</div>
 											</div>
 											<hr>
-											<div class="row my-2" style="font-size: 20px;">
-												<div class="col-12">
-													<a href="#" style="color: black; text-decoration: none;">출석체크</a>
-												</div>
-											</div>
-											<hr>
 											<div class="row my-4 text-center" style="font-size: 20px;">
 												<div class="col-12">
 													<a id="logout" href="#" class="btn" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
@@ -554,7 +548,7 @@ $(function(){
 											<hr>
 											<div class="row my-2" style="font-size: 20px;">
 												<div class="col-12">
-													<a href="#" style="color: black; text-decoration: none;">출석체크</a>
+													<a href="${pageContext.request.contextPath}/event/attendance_check.do" style="color: black; text-decoration: none;">출석체크</a>
 												</div>
 											</div>
 											<hr>
