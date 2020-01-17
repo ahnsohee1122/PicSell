@@ -440,7 +440,7 @@
             if(userSessionInfo == "" && adminSessionInfo == ""){
             	alert("로그인 후 이용하시기 바랍니다.");
             	window.close();
-                opener.window.location = "/GoToLogin.do";
+            	window.opener.$("#gotologin").click();/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
                 return;
         	}
 		/*************************************************************/
@@ -487,7 +487,7 @@
             if(userSessionInfo == "" && adminSessionInfo == ""){
             	alert("로그인 후 이용하시기 바랍니다.");
                 window.close();
-                opener.window.location = "/GoToLogin.do";
+                window.opener.$("#gotologin").click();/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
                 return;
 			}
                     	
