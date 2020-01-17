@@ -398,13 +398,11 @@
 		</div>	
 	</div>
 
-    <script>         
-    	$(function () {
-        	$('[data-toggle="tooltip"]').tooltip()
-        })
 
-        $(function(){
-        	var tag = "${dto.tag}";
+	<script>
+
+		$(function(){
+			var tag = "${dto.tag}";
             tags = tag.replace(/{/gi,"").replace(/}/gi,",");
             var arr = tags.split(",");
             console.log(arr);
@@ -416,8 +414,10 @@
             }
 
             var date = "${dto.img_sysdate}";
-            $("#date").html(getFormatDate(date));                    
-        })
+            $("#date").html(getFormatDate(date));     
+            
+            $('[data-toggle="tooltip"]').tooltip();
+		})
 		
         function getFormatDate(date){
         	var newDate = new Date(date);
@@ -440,7 +440,7 @@
             if(userSessionInfo == "" && adminSessionInfo == ""){
             	alert("로그인 후 이용하시기 바랍니다.");
             	window.close();
-                opener.window.location = "/GoToLogin.do";
+            	window.opener.$("#gotologin").click();/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
                 return;
         	}
 		/*************************************************************/
@@ -472,6 +472,7 @@
 
         	});
    		});
+
                     
         var likeBtn2 = document.querySelector('.ico2');
         
@@ -486,7 +487,7 @@
             if(userSessionInfo == "" && adminSessionInfo == ""){
             	alert("로그인 후 이용하시기 바랍니다.");
                 window.close();
-                opener.window.location = "/GoToLogin.do";
+                window.opener.$("#gotologin").click();/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
                 return;
 			}
                     	

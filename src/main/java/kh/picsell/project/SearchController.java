@@ -260,8 +260,10 @@ public class SearchController {
 		}
 	}
 	
-	@RequestMapping("/GoToLogin.do")
-	public String gotologin() {
-		return "member/login.do";
-	}
+	/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */	
+//	@RequestMapping("/GoToLogin.do")
+//	public String gotologin() {
+//		return "member/login.do";
+//	}
+	/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 }
