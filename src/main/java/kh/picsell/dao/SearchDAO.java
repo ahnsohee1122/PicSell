@@ -61,5 +61,50 @@ public class SearchDAO {
 	public int writerexist(String writer) {
 		return jdbc.selectOne("Search.writerexist", writer);
 	}
+	
+	//******************************
+	public int likeStatus(int img_seq, String viewer) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("img_seq", img_seq);
+		map.put("viewer", viewer);
+		return jdbc.selectOne("Search.likeStatus", map);
+	}
+	
+	public int insertLikeList(int img_seq, String viewer) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("img_seq", img_seq);
+		map.put("viewer", viewer);
+		return jdbc.insert("Search.insertLikeList", map);
+	}
+	
+	public int deleteLikeList(int img_seq, String viewer) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("img_seq", img_seq);
+		map.put("viewer", viewer);
+		return jdbc.delete("Search.deleteLikeList", map);
+	}
+	
+	public int writerLikeStatus(String nickname, String viewer) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("writer", nickname);
+		map.put("nickname", viewer);
+		return jdbc.selectOne("Search.writerLikeStatus", map);
+	}
+	
+	public int insertWriterLikeList(String nickname, String viewer) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("writer", nickname);
+		map.put("nickname", viewer);
+		return jdbc.insert("Search.insertWriterLikeList", map);
+	}
+	
+	public int deleteWriterLikeList(String nickname, String viewer) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("writer", nickname);
+		map.put("nickname", viewer);
+		return jdbc.delete("Search.deleteWriterLikeList", map);
+	}
+	//******************************
+
 
 }

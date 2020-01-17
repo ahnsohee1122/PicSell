@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Contest">
 <insert id="insert" parameterType="kh.picsell.dto.ContestDTO">
-      insert into contest values(contest_seq.nextval, #{reason} , #{title} , #{detail}, #{terms}, #{enddate} ,#{price}, #{hosttype}, #{nickname},'N','N',sysdate,null)
+      insert into contest values(contest_seq.nextval, #{reason} , #{title} , #{detail}, #{terms}, #{enddate} ,#{price}, #{hosttype}, #{host},'N','N',sysdate,null)
 </insert>
 <insert id="fileinsert" parameterType="kh.picsell.dto.ContestDTO">
       insert into contestfiles values(contestfiles_seq.nextval, #{contest_seq}, #{oriname}, #{sysname},#{title}, #{hosttype} )
@@ -22,7 +22,7 @@
    update contest set rejection=#{rejection}, checking = 'Y' where contest_seq = #{contest_seq}
 </update>
 <select id="acceptlist" resultType="kh.picsell.dto.ContestDTO">
-   select * from contest where accept='Y' order by 12, 6 desc
+   select * from contest where accept='Y' order by 6 desc
 </select>
 <select id="getcurrval" resultType="Integer">
    select contest_seq.currval from dual
@@ -41,5 +41,8 @@
    </select>
    <select id="notyet" resultType="integer">
       select count(*) from contest where checking='N' and host=#{host}
+   </select>
+   <select id="lastcontest" resultType="kh.picsell.dto.ContestDTO">
+   		select * from (select contest.*, row_number() over(order by accept_date desc ) as rown from contest) where rown between 1 and 5 and accept='Y' and (enddate > sysdate)
    </select>
 </mapper>

@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kh.picsell.dao.MemberDAO;
+import kh.picsell.dao.MoneyDAO;
 import kh.picsell.dto.MemberDTO;
 
 @Service
@@ -13,10 +15,26 @@ public class MemberService {
 	
 	@Autowired
 	private MemberDAO dao;
+
+	@Autowired
+	private MoneyDAO money_dao; 
 	
-	public int insert(MemberDTO dto) throws Exception{ //회원가입
-		return dao.insert(dto);
+	// 회원가입 + 회원가입 포인트 지급 
+	@Transactional("txManager")
+	public int insert(MemberDTO dto, String deal_sort, String point_date, int point, String money_sort) throws Exception{
+		int result = 0; 
+		int signup = dao.insert(dto);
+		System.out.println("성공"+signup);
+		int signupPoint = money_dao.pointUpdate(dto.getNickname(), deal_sort, point_date, point, money_sort);
+		System.out.println("성공2"+signupPoint);
+		if((signup>0)&&(signupPoint>0)) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		return result;
 	}
+
 	public int idCheck(String id) throws Exception{ //아디체크
 		return dao.idCheck(id);
 	}
