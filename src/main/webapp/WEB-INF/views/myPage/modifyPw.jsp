@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ModifyPW | PicSell</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
@@ -34,7 +33,32 @@
 					<div class="m-auto w-100 h-100 py-5" style="border: 1px solid gray; border-radius: 10px;">
 						<form class="m-auto px-2 px-ml-0" style="max-width: 500px;">
 							<h4>비밀번호 변경</h4>
-							
+						</form>
+						<form class="mx-auto mt-5 px-2 px-ml-0" action="${pageContext.request.contextPath}/myInfo/modifyPwProc.do" method="post" id="frm" style="max-width: 500px;">
+							<div class="row w-100 mx-auto my-3">
+			     				<label class="col-4 col-lg-4 pt-0" style="font-family: 'Cafe24Oneprettynight';">현재 비밀번호</label>
+				      			<div class="col-7 col-lg-8">
+				      				<input type="password" class="form-control" id="currentPw" placeholder="현재 비밀번호를 입력해주세요."  style="font-size: 15px; color:black;">
+				      				<div id="currentPwMsg" class="px-1 alert2 invalid-feedback">비밀번호가 옳지 않습니다.</div>
+								</div>
+							</div>
+							<div class="row w-100 mx-auto my-3">
+			     				<label class="col-4 col-lg-4 pt-0" style="font-family: 'Cafe24Oneprettynight';">새 비밀번호</label>
+				      			<div class="col-7 col-lg-8">
+				      				<input type="password" class="form-control"  id="pw" name="pw" placeholder="8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)"  style="font-size: 15px; color:black;">
+				      				<div id="pwCheckMsg" class="px-1 alert2 invalid-feedback">비밀번호가 옳지 않습니다.</div>
+								</div>
+							</div>
+							<div class="row w-100 mx-auto my-3">
+			     				<label class="col-4 col-lg-4 pt-0" style="font-family: 'Cafe24Oneprettynight';">새 비밀번호 확인</label>
+				      			<div class="col-7 col-lg-8">
+				      				<input type="password" class="form-control" id="pw_check" placeholder="비밀번호를 한번 더 입력해 주세요."  style="font-size: 15px; color:black;">
+				      				<div id="reCheckMsg" class="px-1 alert2 invalid-feedback">비밀번호가 옳지 않습니다.</div>
+								</div>
+							</div>
+							<div class="row w-100 mx-auto mt-5 text-center">
+			     				<button class="btn mx-auto" id="modifyBtn" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5;">변경하기</button>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -43,25 +67,6 @@
 	</div>
 
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
-
-	<form action="${pageContext.request.contextPath}/myInfo/modifyPwProc.do" method="post" id="frm">
-		<label>현재 비밀번호</label>
-    	<input type="password" id=currentPw>
-    	<div style="display:none" id="currentPwMsg">비밀번호가 옳지 않습니다.</div><br>
-    
-    
-   		<label>새 비밀번호</label>
-    	<input type="password" id="pw" name="pw" placeholder = "8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)">
-    	<div style="display:none" id="pwCheckMsg">잘못된 비밀번호 형식입니다.</div><br>
-    
-    
-    	<label>비밀번호 확인</label>
-    	<input type="password" id="pw_check" placeholder = "8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)">
-		<div style="display:none" id=reCheckMsg>비밀번호를 다시 확인해주세요.</div><br>
-		
-		<button id="modifyBtn">변경하기</button>
-	</form>
-	
 	
 	<script>
 		var currentPwCheck = 0;
