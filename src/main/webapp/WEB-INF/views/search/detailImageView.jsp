@@ -26,7 +26,7 @@
 				<div class="h-100" style="border: 1px solid darkgray; border-radius: 10px;">
 					<div class="row m-auto w-100 text-right" style="height: 600px;">
 						<div id="picture" class="align-self-center m-auto p-0 text-center">
-			            	<img src="/watermarkfiles/${dto.sysname_watermark }" class="w-100 h-100" style="min-width: 500px; min-height: 300px; max-width: 750px; max-height: 500px;">
+			            	<img src="/watermarkfiles/${dto.sysname_watermark }" class="w-100 h-100" style="min-width: 500px; min-height: 300px; max-width: 750px; max-height: 550px;">
 			        	</div>
 					</div>
 		            <div id="photo_like_box" class="text-right px-3">
