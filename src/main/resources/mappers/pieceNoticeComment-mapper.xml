@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PieceNoticeComment">
+	<select id="selectAll" resultType="kh.picsell.dto.PieceNoticeCommentDTO">
+		select * from pieceNoticeComment where pieceNotice_seq = #{pieceNotice_seq}
+	</select>
+	
+	<delete id="delete">
+		delete from pieceNoticeComment where comment_seq=#{comment_seq}
+	</delete>
+	
+	<insert id="write">
+		insert into pieceNoticeComment values(pieceNoticeComment_seq.nextval, #{pieceNotice_seq},
+		#{notice_comment}, sysdate, #{writer})
+	</insert>
+</mapper>

@@ -159,11 +159,8 @@ public class NoticeService {
 			try {
 				while(m.find()) {
 					String oriName = m.group(3);
-					System.err.println("이름");
-					System.out.println(oriName);
 					String sysName = System.currentTimeMillis() + "_" + oriName;
 					String imageString = m.group(2);
-					//System.out.println(imageString);
 					byte[] imgBytes = Base64Utils.decodeFromString(imageString);
 					FileOutputStream fis = new FileOutputStream(summernote_path + "/" + sysName);
 					DataOutputStream dos = new DataOutputStream(fis);
@@ -171,42 +168,21 @@ public class NoticeService {
 					dos.flush();
 					dos.close();
 					noticeDto.setNotice_contents(noticeDto.getNotice_contents().replaceFirst(Pattern.quote(m.group(2)), "/notice_summernote_files/" + sysName).replaceAll("data:image/(jpeg|jpg|gif|png|PNG|JPEG);base64,", ""));		
-			
 					summernoteFileList.add(sysName);
-					System.out.println("성공 1");
 				}
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 			for(String summernote_sysName : summernoteFileList) {
 				if(!summernote_sysName.isEmpty()) {
-					System.out.println("a");
-					System.out.println(noticeFile_parentSeq);
-					System.out.println(summernote_sysName);
 					summernoteDao.summernoteFile(noticeFile_parentSeq, summernote_sysName);
 				}
 			}
-			System.out.println("pp");
-			System.out.println(noticeDto.getNotice_contents());
-			
-//			Pattern p2 = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
-//			Matcher m2 = p2.matcher(noticeDto.getNotice_contents());
-//
-//			
-//			while(m2.find()) {
-//				String oriName = m2.group(2);
-//				System.out.println(oriName);
-//				String sysName = System.currentTimeMillis() + "_" + oriName;	
-//				System.out.println(sysName);
-//				}
 		}
-		System.out.println("b");
 		dao.modify(noticeDto);
-		System.out.println("c");
 		File filePath = new File(file_path);
 
 		for(MultipartFile tmp : fileDto.getNoticeFile_file()) {
-			System.out.println("d");
 			if(!tmp.isEmpty()) {
 				String noticeFile_oriName = tmp.getOriginalFilename();
 				String noticeFile_sysName = System.currentTimeMillis() + "_" + noticeFile_oriName;
