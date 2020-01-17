@@ -10,10 +10,6 @@
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
 	
-	<div class="container-fluid m-0 py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
-		<h2 class="mx-auto my-0 text-center">마이 페이지</h2>
-	</div>
-	
 	<jsp:include page="../key/profile.jsp" flush="false"/>
 	
 	<div class="container-fluid m-0 py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">

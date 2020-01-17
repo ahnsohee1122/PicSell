@@ -13,10 +13,6 @@
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
 	
-	<div class="container-fluid m-0 py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
-		<h2 class="mx-auto my-0 text-center">마이 페이지</h2>
-	</div>
-	
 	<jsp:include page="../key/profile.jsp" flush="false"/>
 	
 	<div class="container-fluid m-0 py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
@@ -83,41 +79,41 @@
 							    </div>
 							</div>
 							<div class="modal fade" id="modiEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="top: 250px;">
-  						<div class="modal-dialog" role="document">
-    						<div class="modal-content m-auto" style="width: 450px;">
-      							<div class="modal-header">
-        							<h5 class="modal-title" id="exampleModalLabel">이메일 인증 서비스</h5>
-        							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-         	 							<span aria-hidden="true">&times;</span>
-        							</button>
-      							</div>
-      							<div class="modal-body">
-	          						<div class="form-group">
-		          						<label class="col-form-label pt-0" style="font-family: 'Cafe24Oneprettynight';">이메일</label>
-							            <div>
-								            <input type="text" class="form-control" id="emailval" style="width: 300px; float: left;" placeholder="예) picsell@gmail.com">
-								            <input type="button" id="mailsend" value="메일인증" class="mx-2" style="width: 100px; height: 38px; border: 1px solid darkgray; background-color: white; border-radius: 10px;">
-								            <div id="mai1" class="px-1 alert7 invalid-feedback">사용가능한 이메일입니다.</div>
-								            <div id="mai2" class="px-1 alert8 invalid-feedback">이미사용중인 이메일입니다.</div>
-								            <div id="mai3" class="px-1 alert9 invalid-feedback">이메일 주소를 입력해주세요.</div>
-							            </div>
- 							        </div>
-							        <div class="form-group">
-							        	<label class="col-form-label pt-0" style="font-family: 'Cafe24Oneprettynight';">인증번호</label>
-							        	<div>
-							        		<input type="text" class="form-control" id="mailvalue" placeholder="예) rQQPrsS4wK">
-							        		<div id="mailvaluecheck1" class="px-1 alert10 invalid-feedback">인증 완료되었습니다.</div>
-								        	<div id="mailvaluecheck2" class="px-1 alert11 invalid-feedback">인증번호를 다시 확인하여 입력해주세요.</div>
-							        	</div>
-							        </div>
-      							</div>
-							    <div class="modal-footer">
-							    	<div class="m-auto"><button type="button" id="close" class="btn border border-secondary text-black" style="background-color: white;" data-dismiss="modal">취소</button></div>
-							    	<div class="m-auto"><button type="button" class="btn border-secondary text-black" id="checkmail">확인</button></div>
-							   	</div>
-						    </div>
-						</div>
-					</div>
+  								<div class="modal-dialog" role="document">
+    								<div class="modal-content m-auto" style="width: 450px;">
+		      							<div class="modal-header">
+		        							<h5 class="modal-title" id="exampleModalLabel">이메일 인증 서비스</h5>
+		        							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		         	 							<span aria-hidden="true">&times;</span>
+		        							</button>
+		      							</div>
+		      							<div class="modal-body text-left">
+			          						<div class="form-group">
+				          						<label class="col-form-label pt-0" style="font-family: 'Cafe24Oneprettynight';">이메일</label>
+									            <div>
+										            <input type="text" class="form-control" id="emailval" style="width: 300px; float: left;" placeholder="예) picsell@gmail.com">
+										            <input type="button" id="mailsend" value="메일인증" class="mx-2" style="width: 100px; height: 38px; border: 1px solid darkgray; background-color: white; border-radius: 10px;">
+										            <div id="mai1" class="px-1 alert7 invalid-feedback">사용가능한 이메일입니다.</div>
+										            <div id="mai2" class="px-1 alert8 invalid-feedback">이미사용중인 이메일입니다.</div>
+										            <div id="mai3" class="px-1 alert9 invalid-feedback">이메일 주소를 입력해주세요.</div>
+									            </div>
+		 							        </div>
+									        <div class="form-group">
+									        	<label class="col-form-label pt-0" style="font-family: 'Cafe24Oneprettynight';">인증번호</label>
+									        	<div>
+									        		<input type="text" class="form-control" id="mailvalue" placeholder="예) rQQPrsS4wK">
+									        		<div id="mailvaluecheck1" class="px-1 alert10 invalid-feedback">인증 완료되었습니다.</div>
+										        	<div id="mailvaluecheck2" class="px-1 alert11 invalid-feedback">인증번호를 다시 확인하여 입력해주세요.</div>
+									        	</div>
+									        </div>
+		      							</div>
+									    <div class="modal-footer">
+									    	<div class="m-auto"><button type="button" id="close" class="btn border border-secondary text-black" style="background-color: white;" data-dismiss="modal">취소</button></div>
+									    	<div class="m-auto"><button type="button" class="btn border-secondary text-black" id="checkmail">확인</button></div>
+									   	</div>
+								    </div>
+								</div>
+							</div>
 							<div class="form-group row mx-auto my-3">
 								<label for="modifyEmail" class="col-3 col-form-label">이메일 수신</label>
 							    <div class="col-9 text-right px-0 align-self-end">
