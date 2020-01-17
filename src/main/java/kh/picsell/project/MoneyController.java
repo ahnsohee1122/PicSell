@@ -232,5 +232,22 @@ public class MoneyController {
 		return "/money/Sell_List_Check";
 	}
 	
+	//////////////////////////////////////////////////////////////////
+	
+	// 관리자 > 포인트 내역 확인하기
+	@RequestMapping("/admin_point.do")
+	public String admin_point() {
+		List<PointDTO> list = money_sv.admin_point();
+		request.setAttribute("list", list);
+		return "/money/admin_point";
+	}
+	
+	// 관리자 > 거래 내역 확인하기
+	@RequestMapping("/admin_deal.do")
+	public String admin_deal() {
+		List<Map<String, Object>> list = money_sv.admin_deal();
+		request.setAttribute("list", list);
+		return "/money/admin_deal";
+	}
 
 }
