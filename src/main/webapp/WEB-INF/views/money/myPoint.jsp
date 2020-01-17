@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>     
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <style>
+	.odd > td {background-color: #f4f2f5; height: 50px; line-height: 50px;}
+	
+	.table-bordered th {border: 0 !important;}
+
 	.dataTables_wrapper .dataTables_paginate {width: 100%!important; text-align: center!important; margin: auto!important; color: black!important;}
 		
 	.dataTables_wrapper .dataTables_paginate .paginate_button {
@@ -27,6 +31,8 @@
 	
 	.dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {color: black!important;}
 	.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover {color: black!important;}
+	
+	.rowBtn {width: 50%;}
 </style>
 <script> 
 	jQuery(function($){             
@@ -45,6 +51,7 @@
 			"pagingType": "simple_numbers"
 		});        
 	});
+	$($.fn.dataTable.tables(true)).DataTable().columns.adjust();
 </script>
 </head>
 <body>
@@ -67,7 +74,7 @@
 					</div>
 					<hr class="py-1 m-auto" style="max-width: 220px;">
 					<div class="row m-0 px-0 w-100 text-left">
-						<div class="px-3 py-2 w-100"><a href="#" style="color: black; font-size: 22px; text-decoration: none;">내 포인트</a></div>
+						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/money/myPoint.do" style="color: black; font-size: 22px; text-decoration: none;">내 포인트</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/myPoint.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 조회하기</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/buy_list.do" style="color: black; font-size: 16px; text-decoration: none;">구매내역 확인하기</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/sell_list.do" style="color: black; font-size: 16px; text-decoration: none;">판매내역 확인하기</a></div>
@@ -75,7 +82,7 @@
 				</div>
 				<div class="col-12 col-md-9 col-xl-10 px-0 px-md-3 text-center">
 					<div class="m-auto w-100 h-100 py-5" style="border: 1px solid gray; border-radius: 10px;">
-						<form class="m-auto px-2 px-ml-0" style="max-width: 500px;">
+						<form class="m-auto px-2 px-ml-0" style="max-width: 600px;">
 							<h4>내 포인트<img src="${pageContext.request.contextPath}/img/question.png" class="pl-1" style="width: 23px; height: 20px; cursor: pointer;" data-toggle="modal" data-target="#question"></h4>
 							<div class="modal fade" id="question" role="dialog" aria-labelledby="Label" aria-hidden="true" style="top: 150px;">
 								<div class="modal-dialog" role="document">
@@ -92,27 +99,38 @@
 								    </div>
 							  	</div>
 							</div>
-							<div class="row mx-auto my-4">
-								<label for="selectId" class="col-4">내 포인트</label>
-							    <div class="col-7" style="border-bottom: 1px solid darkgray;">
-							    	${point}<span class="mx-1">원</span>
-							    </div>
-							</div>
-							<div class="row mx-auto my-4">
-								<label for="selectId" class="col-4">작가 수익금</label>
-							    <div class="col-7" style="border-bottom: 1px solid darkgray;">
-							    	${point}<span class="mx-1">원</span>
-							    </div>
-							</div>
 							<div class="row mx-auto my-5">
-								<button id="chargePoint" class="m-auto btn rounded-lg text-black" type="button" style="width: 150px; border: 1px solid darkgray;">충전하기</button>
-								<button id="moneyBack" class="m-auto btn rounded-lg text-black" type="button" style="width: 150px; border: 1px solid darkgray;">환급하기</button>
+								<div class="col-9 p-0 m-0">
+									<div class="row mx-auto my-4">
+										<label for="selectId" class="col-4">내 포인트</label>
+									    <div class="col-8" style="border-bottom: 1px solid darkgray;">
+									    	${point}<span class="mx-1">원</span>
+									    </div>
+									</div>
+									<div class="row mx-auto my-4">
+										<label for="selectId" class="col-4">작가 수익금</label>
+									    <div class="col-8" style="border-bottom: 1px solid darkgray;">
+									    	${point}<span class="mx-1">원</span>
+									    </div>
+									</div>
+								</div>
+								<div class="col-3 p-0 m-0 align-self-center text-right">
+									<button id="change" class="m-auto btn rounded-lg text-black" type="button" style="border: 1px solid darkgray;">포인트 거래소</button>
+								</div>
+							</div>
+							<div class="row mx-auto my-5 text-center">
+								<div class="rowBtn text-right px-3">
+									<button id="chargePoint" class="btn rounded-lg text-black" type="button" style="width: 150px; border: 1px solid darkgray;">충전하기</button>
+								</div>
+								<div class="rowBtn text-left px-3">
+									<button id="moneyBack" class="btn rounded-lg text-black" type="button" style="width: 150px; border: 1px solid darkgray;">환급하기</button>
+								</div>
 							</div>
 						</form>
 						<hr>
-						<form class="mx-auto my-5 px-2 px-ml-0" style="max-width: 100%;">
+						<form class="mx-auto mt-5 px-3 px-ml-0" style="max-width: 100%;">
 							<h4>포인트 입출금 내역</h4>
-							<table id="DataTable" class="table table-bordered">
+							<table id="DataTable" class="row-border">
 								<thead> 
 									<tr>
 										<th>날짜</th>
@@ -122,7 +140,7 @@
 								<thead> 
 								<tbody>
 									<c:forEach items="${list}" var="list">
-										<tr>
+										<tr style="background-color: #f4f2f5;">
 											<td id="${list.point_seq}"></td>
 											<script>
 												var date ="${list.point_date}";
@@ -134,7 +152,6 @@
 											</script>									
 											<td>${list.deal_sort}</td>
 											<td>${list.point}</td>
-										
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -170,9 +187,6 @@
 			</script>
 		</c:otherwise>
 	</c:choose>
-	
-	<h2>포인트 전환하기</h2>
-	<button id=change>전환하기</button>
 	
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
