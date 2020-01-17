@@ -452,16 +452,8 @@
                     	console.log("adminInfo : " + adminSessionInfo);
                     	if(userSessionInfo == "" && adminSessionInfo == ""){
                     		alert("로그인 후 이용하시기 바랍니다.");
-                    	
-                    		var link = document.location.href;
-							console.log(link);
-                    		window.opener.$("#gotologin").click();
-                    		
-                    		
- 	                  		$('body').on('shown.bs.modal', '.modal-dialog', function () {
-    							$('input:visible:enabled:first', this).focus();
-							})
-
+                    		window.close();
+                    		window.opener.$("#gotologin").click();/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
                     		return;
                     	}
 /*************************************************************/

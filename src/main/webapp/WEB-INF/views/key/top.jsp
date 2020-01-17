@@ -125,6 +125,8 @@ $(function(){
 		
     	
 			$("#login").on("click",function(){
+				var link = document.location.href;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+				
 				var login_id = $("#loginId").val();
         		var login_pw = $("#loginPw").val();
         		if(login_id==""){
@@ -141,14 +143,19 @@ $(function(){
 					url:"${pageContext.request.contextPath}/member/loginProc.do",
 					type:"post",
 					data:{ id:$("#loginId").val(),
-						pw:$("#loginPw").val()
-					}
+						pw:$("#loginPw").val(),
+						link:link/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+					},
+					dataType:"JSON"/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 				}).done(function(res){
-					if(res == "로그인성공"){
-						console.log(res);
 					
+					console.log(res);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+					console.log(res.link);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+					
+					if(res.status == "로그인성공"){/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 							alert("로그인에 성공했습니다!");
-							location.href="/home.do";
+							/* location.href="/home.do"; */
+							location.href=res.link;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 						}else if(res=="관리자로그인성공"){
 							
 							alert("관리자로 로그인했습니다");
