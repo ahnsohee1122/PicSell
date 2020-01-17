@@ -108,6 +108,17 @@ public class MoneyDAO {
 		return jdbc.selectList("Charge.sell_list", nickname);
 	}
 	
+	/////////////////////////////////////////////////////////////////
+	
+	// 관리자 > 포인트 내역 확인하기
+	public List<PointDTO> admin_point(){
+		return jdbc.selectList("Charge.admin_point");
+	}
+	
+	// 관리자 > 거래 내역 확인하기
+	public List<Map<String, Object>> admin_deal(){
+		return jdbc.selectList("Charge.admin_deal");
+	}
 	
 
 }

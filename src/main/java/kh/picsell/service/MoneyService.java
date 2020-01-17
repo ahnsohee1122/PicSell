@@ -102,4 +102,17 @@ public class MoneyService {
 		return list;
 	}
 	
+	///////////////////////////////////////////////////////////////////
+	
+	// 관리자 > 포인트 내역 확인하기 
+	public List<PointDTO> admin_point(){
+		List<PointDTO> list = money_dao.admin_point();
+		return list;
+	}
+	
+	// 관리자 > 거래 내역 확인하기
+	public List<Map<String, Object>> admin_deal(){
+		List<Map<String, Object>> list = money_dao.admin_deal();
+		return list;
+	}
 }

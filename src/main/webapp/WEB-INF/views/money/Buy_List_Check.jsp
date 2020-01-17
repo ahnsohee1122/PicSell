@@ -15,8 +15,6 @@
 	<script> 
 		jQuery(function($){             
 			$("#DataTable").DataTable({
-				searching:false,
-				ordering:false,
 				info:false,
 				order:[[2,"desc"]],
 				"language": {
