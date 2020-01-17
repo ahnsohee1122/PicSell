@@ -145,7 +145,7 @@
 	    let renderList = function(sysname, tag, img_seq, nickname){
 	    	tags = tag.replace(/{/gi,"#").replace(/}/gi,"");
 	
-	        var html = "<div class='image'><a href='/DetailImage.do?img_seq="+img_seq+"&nickname="+nickname+"' onclick=\"window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;\" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src=/writeruploadfiles/"+sysname+" alt="+tags+"></a></div>"
+	        var html = "<div class='image'><a href='/DetailImage.do?img_seq="+img_seq+"&nickname="+nickname+"' onclick=\"window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;\" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src=/watermarkfiles/xsmarked_"+sysname+" alt="+tags+"></a></div>"
 	        $("#gallery").append(html);
 	        $("#gallery").justifiedGallery({
 	        	rowHeight : 200,
