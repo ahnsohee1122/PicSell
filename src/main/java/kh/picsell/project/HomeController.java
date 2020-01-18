@@ -1,5 +1,7 @@
 package kh.picsell.project;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.picsell.dto.MemberDTO;
+import kh.picsell.service.HonorService;
 import kh.picsell.service.MemberService;
 
 @Controller
@@ -17,8 +20,9 @@ public class HomeController {
 	private HttpSession session;
 	@Autowired
 	private MemberService service;
+
 	@Autowired
-	private HttpServletRequest request;
+	private HonorService hservice;
 	
 	@RequestMapping("/index")
 	public String index() {
@@ -27,11 +31,14 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/home")
-	public String home() {
+	public String home(MemberDTO dto, HttpServletRequest request) {
+	
 		if((String)session.getAttribute("loginInfo")!=null) { //일반회원으로 로그인
 		String nickname = (String)session.getAttribute("loginInfo");
 		System.out.println("일반회원 nick : "+nickname);
 		try {
+			
+			
 			MemberDTO black1 = service.getblacknick(nickname);
 			int black = black1.getBlack();
 			session.setAttribute("blackpoint", black);

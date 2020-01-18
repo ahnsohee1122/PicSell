@@ -1,13 +1,13 @@
 package kh.picsell.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.picsell.dto.HonorDTO;
+import kh.picsell.dto.MemberDTO;
 import kh.picsell.dto.WriterImageUpDTO;
 
 @Repository
@@ -39,6 +39,33 @@ public List<WriterImageUpDTO> showdownload(WriterImageUpDTO imgdto){
 }
 public int insertcheck(int img_seq) throws Exception{ //이미 등록된사진인지
 	return jdbc.selectOne("Honor.insertcheck", img_seq);
+}
+public List<MemberDTO> manlike(MemberDTO dto){
+	return jdbc.selectList("Honor.manlike",dto);
+}
+public List<WriterImageUpDTO> manpic(String nickname){
+	return jdbc.selectList("Honor.manpic",nickname);
+}
+public List<MemberDTO> first(MemberDTO dto){
+	return jdbc.selectList("Honor.first",dto);
+}
+public List<MemberDTO> second(MemberDTO dto){
+	return jdbc.selectList("Honor.second",dto);
+}
+public List<MemberDTO> third(MemberDTO dto){
+	return jdbc.selectList("Honor.third",dto);
+}
+public MemberDTO dfirst(){
+	return jdbc.selectOne("Honor.first");
+}
+public MemberDTO dsecond(){
+	return jdbc.selectOne("Honor.second");
+}
+public MemberDTO dthird(){
+	return jdbc.selectOne("Honor.third");
+}
+public List<WriterImageUpDTO> detailview(String nickname) throws Exception{
+	return jdbc.selectList("Honor.secdpic", nickname);
 }
 	
 }

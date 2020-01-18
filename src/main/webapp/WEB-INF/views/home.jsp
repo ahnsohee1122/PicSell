@@ -1,7 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="kh.picsell.dto.MemberDTO" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Home | PicSell</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -149,6 +153,12 @@
 </script>
 </head>
 <body>
+          <div id="foreach">
+<input type="hidden" id="hi1">
+<script>
+var first = ${dto1}
+</script>
+            </div>
 	<jsp:include page="key/top.jsp" flush="false"/>
 	
 <!--  Main -->
@@ -161,8 +171,9 @@
                     <div class="container h-100">
                       <div class="d-flex justify-content-center h-100">
                         <div class="searchbar">
-                          	<input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
-                        	<button id="searchBtn" class="search_icon" style="border: 0px; background-color: white !important;"><i class="fas fa-search"></i></button>
+                          	<input class="search_input" type="text" name="" placeholder="이미지 검색 / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
+<!--                        <button class="search_icon" style="border: 0px; background-color: #353535;"><i class="fas fa-search"></i></button>-->
+                        	<a href="#" class="search_icon"><i class="fas fa-search"></i></a> <!-- 검색 버튼 : a 태그 대신 위에 버튼으로 바꿀 수 있음-->
 	                        <div class="hashTag m-3">
 	                        	<span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#겨울</a></span>
 	                            <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#웨딩</a></span>
@@ -189,11 +200,13 @@
     <hr class="p-0 m-0">
     
 <!--  이달의 작가님 -->
+   
     <div class="container-fluid" style="background-color: white;">
         <div class="container px-0 py-5">
             <div class="row">
-                <p class="contest01"><a href="${pageContext.request.contextPath}/honor/list.do"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></a></p>
-            </div>
+            
+                <a href="${pageContext.request.contextPath}/honor/honorlist.do" style="text-align:center"><p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>
+            </a></div>
             <div class="row">
                 <div class="col-12 col-xl-3">
                     <div class="card m-auto" style="width: 15rem;">
@@ -293,35 +306,6 @@
             </div>
         </div>
     </div>
-    
-    <script>
-    $("#searchBtn").on("click",function(){
-    	var tag = $("#search").val();
-    	var writer = tag.substr(1);
-    	
-    	if(tag == ""){
-    		alert("키워드를 입력하세요");
-    		return;
-    	}else if(tag.charAt(0) == '@'){
-    		$.ajax({
-    			url:"/WriterExist.do",
-    			type:"post",
-    			data:{writer:writer}
-    		}).done(function(resp){
-    			console.log(resp);
-    			if(resp == "yes"){
-    				location.href = "/writer/writerpage";
-    			}else if(resp == "no"){
-    				alert("존재하는 작가가 아닙니다.");
-    			}
-    		}).fail(function(){
-    			
-    		});
-    	}else{
-    		location.href = "/Search.do?tag=" + tag;
-    	}
-    })
-    </script>
 	
 	<jsp:include page="key/bottom.jsp" flush="false"/>
 </body>

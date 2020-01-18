@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kh.picsell.dao.HonorDAO;
 import kh.picsell.dto.HonorDTO;
+import kh.picsell.dto.MemberDTO;
 import kh.picsell.dto.WriterImageUpDTO;
 
 @Service
@@ -37,5 +38,29 @@ public List<WriterImageUpDTO> showdownload(WriterImageUpDTO imgdto) throws Excep
 }
 public int insertcheck(int img_seq) throws Exception{
 	return dao.insertcheck(img_seq);
+}
+public List<MemberDTO> manlike(MemberDTO dto){
+	return dao.manlike(dto);
+}
+public List<WriterImageUpDTO> manpic(String nickname){
+	return dao.manpic(nickname);
+}
+public List<MemberDTO> first(MemberDTO dto){
+	return dao.first(dto);
+}
+public List<MemberDTO> second(MemberDTO dto){
+	return dao.second(dto);
+}
+public List<MemberDTO> third(MemberDTO dto){
+	return dao.third(dto);
+}
+public MemberDTO dfirst(){
+	return dao.dfirst();
+}
+public MemberDTO dsecond(){
+	return dao.dsecond();
+}
+public MemberDTO dthird(){
+	return dao.dthird();
 }
 }
