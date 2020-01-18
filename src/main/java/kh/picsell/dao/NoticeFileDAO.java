@@ -15,8 +15,6 @@ public class NoticeFileDAO {
 	private SqlSessionTemplate jdbc;
 	
 	public void fileUpload(NoticeFileDTO fileDto) {
-		System.out.println("ze");
-		System.out.println(fileDto.toString());
 		jdbc.insert("NoticeFile.fileUpload", fileDto);
 	}
 	
