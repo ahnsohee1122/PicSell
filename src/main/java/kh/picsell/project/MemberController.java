@@ -118,11 +118,7 @@ public class MemberController {
 	}
 	@RequestMapping(value="/loginProc.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
-	public String loginProc(String id, String pw, HttpServletRequest request, String link) { //로그인 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-		System.out.println("link: "+link);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-		JsonObject json = new JsonObject();/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-		json.addProperty("link", link);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-		
+	public String loginProc(String id, String pw, HttpServletRequest request) {
 		System.out.println(id+" : "+pw);
 		try {
 			MemberDTO dto = service.getnick(id);			 
@@ -143,8 +139,7 @@ public class MemberController {
 						//mav.addObject("로그인성공", ok);
 						session = request.getSession(); //일반회원로그인
 						session.setAttribute("loginInfo", nickname);
-						json.addProperty("status", "로그인성공");/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-						return  json.toString();/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+						return  "로그인성공";
 					}
 					
 				}else if(black==1) { //블랙1단계로그인
