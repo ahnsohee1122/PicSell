@@ -68,7 +68,6 @@ public class MyInfoController {
 	@RequestMapping(value="/currentPwCheck.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String currentPwCheck(String currentPw) {
-		System.out.println("여기요");
 		String nickName = (String)session.getAttribute("loginInfo");
 		String pw = myInfoService.currentPwCheck(nickName);
 		return pw;

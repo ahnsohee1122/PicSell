@@ -12,7 +12,7 @@ input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1p
 </style>
 </head>
 <body>
-	<div class="container-fluid m-0" style="background-color: #f4f2f5;">
+	<div class="container-fluid m-0 pt-5" style="background-color: #f4f2f5;">
 		<div class="container" style="max-width: 1500px;">
 			<div class="row">
 				<div id="profilediv" class="col-5 col-md-3 col-xl-2 text-center px-0 py-3" style="border: 1px solid gray; box-sizing: border-box; border-radius: 10px;">

@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Notice | PicSell</title>
+<title>PieceNotice | PicSell</title>
 <style>
 	.data {text-align: center;}
 	.seq {width: 10%;}
@@ -33,16 +34,13 @@
 	.dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {color: black!important;}
 	.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover {color: black!important;}
 </style>
-<script>
-
-</script>
 </head>
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
 
 	<div class="container-fluid py-5" style="min-height: 950px; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 		<div class="container m-auto">
-			<h2 class="mx-auto my-0 text-center">공지사항</h2>
+			<h2 class="mx-auto my-0 text-center">작품의뢰게시판</h2>
 		</div>
 		<div class="container mx-auto mt-5 mb-4 text-center" style="height: 40px;">
 			<ul class="p-0 m-0 h-100" style="list-style-type: none; border: 1px solid gray; border-radius: 10px;">
@@ -63,13 +61,13 @@
 					</tr>
 				</thead>
 				<tbody style="font-size: 18px;">
-					<c:forEach var="noticeList" items="${noticeList }">
+					<c:forEach var="pieceNoticeList" items="${pieceNoticeList }">
 						<tr style="background-color: #f4f2f5;">
-							<td class="seq">${noticeList.notice_seq}</td>
-							<td class="title"><a style="color: black;" href="${pageContext.request.contextPath}/notice/detail.do?notice_seq=${noticeList.notice_seq}">${noticeList.notice_title}</td>
-							<td class="writer">${noticeList.notice_writer}</td>
-							<td class="date">${noticeList.notice_write_date}</td>
-							<td class="viewCount">${noticeList.notice_view_count}</td>
+							<td class="seq">${pieceNoticeList.pieceNotice_seq}</td>
+							<td class="title"><a style="color: black;" href="${pageContext.request.contextPath}/pieceNotice/detail.do?pieceNotice_seq=${pieceNoticeList.pieceNotice_seq}">${pieceNoticeList.pieceNotice_title}</td>
+							<td class="writer">${pieceNoticeList.pieceNotice_writer}</td>
+							<td class="date">${pieceNoticeList.pieceNotice_write_date}</td>
+							<td class="viewCount">${pieceNoticeList.pieceNotice_view_count}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -81,8 +79,8 @@
 	</div>
 	
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
-	
-	<script>
+
+<script>
 		$(document).ready(function() {
 			$('#example').DataTable({
 				searching:false,
@@ -90,7 +88,7 @@
 		        info:false,
 		        order:[[2,"desc"]],
 		        "language": {
-		             "emptyTable": "등록된 공지사항이 없습니다.",
+		             "emptyTable": "등록된 의뢰글이 없습니다.",
 		              "paginate" :{
 		              "previous" : "<<",
 		              "next" : ">>"
@@ -102,7 +100,7 @@
 		$($.fn.dataTable.tables(true)).DataTable().columns.adjust();
 		
 		$("#writeBtn").on("click", function(){
-			location.href="${pageContext.request.contextPath}/notice/noticeWrite.do";
+			location.href="${pageContext.request.contextPath}/pieceNotice/noticeWrite.do";
 		})
 	</script>
 </body>
