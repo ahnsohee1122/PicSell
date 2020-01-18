@@ -99,6 +99,7 @@
 		
 		//사진 메타데이터 정보 가져오기.
 		function getExif(img) {
+			console.log(img)
 			EXIF.getData(img, function() {
 				document.getElementById('size').value = img.size
 				document.getElementById('make').value = EXIF.getTag(this,
@@ -132,7 +133,6 @@
 
 			if (files && files[0])reader.readAsDataURL(files[0])
 			getExif(files[0]);
-			console.log(files[0])
 
 
 		};
@@ -205,17 +205,25 @@
 			input.setAttribute('name', 'file')
 			input.setAttribute('accept','image/*')
 			input.onchange = function(e) {
+				//이미지 확장자 체크
 				var filename = e.target.files[0].name
 				var reg = /(.*?)\.(jpg|jpeg|png|bmp|JPG|JPEG|PNG|BMP)$/;
+				
+				//이미지 사이즈 체크
 				var maxSize  =30  * 1024 * 1024 //30MB
 				var filesize = e.target.files[0].size
 				
+				//이미지 해상도 체크
+				var file = this.files[0];
+				var _URL = window.URL || window.webkitURL;
+				var img = new Image();
+				img.src = _URL.createObjectURL(file);
 				
 				function pixel(){ 
-					var xPixel = EXIF.getTag(this,"PixelXDimension")
-					var yPixel = EXIF.getTag(this,"PixelXDimension")
-					 var c = filename.match(reg)
-					 
+
+				var xPixel = img.width
+				var yPixel = img.height
+				
 					if(!filename.match(reg)) {
 						alert("해당 파일은 이미지 파일이 아닙니다.");
 						$("input[type=file]").val("");
@@ -238,7 +246,7 @@
 					//첨부파일 추가시 이미지 미리보기 function실행.
 					readImage(e.target.files, cnt, thumb)
 				}
-				
+
 					EXIF.getData(e.target.files[0], pixel)
 					
 			}
