@@ -33,8 +33,6 @@
 	
 	.dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {color: black!important;}
 	.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover {color: black!important;}
-	
-	
 </style>
 </head>
 <body>
