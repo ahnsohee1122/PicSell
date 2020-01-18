@@ -157,6 +157,21 @@
     	</div>
     </div>
     
+    
+    <script>
+    var loginInfo = "${sessionScope.loginInfo}"
+    	$("#contestopen").on("click",function(){
+    		if(loginInfo==""){
+    			alert("로그인 후 이용해주세요");
+    			$("#gotologin").click();    			
+    		}else{
+    			location.href = "newOpen.do"
+    		}
+    	})
+    
+    </script>
+    
+    
     <jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
 </html>
