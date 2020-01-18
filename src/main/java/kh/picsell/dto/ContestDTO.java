@@ -17,6 +17,9 @@ private String sysname;
 private int price;
 private int contestfiles_seq;
 private String rejection;
+private String contest_img_seq;
+private String enroll_sysname;
+
 
 public ContestDTO() {
    super();
@@ -173,6 +176,27 @@ public String getRejection() {
 public void setRejection(String rejection) {
    this.rejection = rejection;
 }
+
+
+public String getContest_img_seq() {
+	return contest_img_seq;
+}
+
+
+public void setContest_img_seq(String contest_img_seq) {
+	this.contest_img_seq = contest_img_seq;
+}
+
+
+public String getEnroll_sysname() {
+	return enroll_sysname;
+}
+
+
+public void setEnroll_sysname(String enroll_sysname) {
+	this.enroll_sysname = enroll_sysname;
+}
+
 
 
 
