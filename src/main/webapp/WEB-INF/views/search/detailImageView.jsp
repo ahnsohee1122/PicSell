@@ -574,7 +574,7 @@
     					alert("서버에러입니다 관리자에게 문의하세요");}
     				});
     			});
-    	        $(document).on("keyup", function(e){
+    	        $("#loginPw").on("keyup", function(e){
 
     	            if(e.keyCode == 13){
     	            	var login_id = $("#loginId").val();
