@@ -13,9 +13,7 @@ import kh.picsell.dto.PieceNoticeDTO;
 
 @Repository
 public class PieceNoticeDAO {
-	public static void main(String[] args) {
-		
-	}
+
 	@Autowired
 	private SqlSessionTemplate jdbc;
 	
