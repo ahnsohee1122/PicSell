@@ -130,14 +130,42 @@ public class ContestController {
    public String newContestform(MultipartFile[] files, ContestDTO dto) {
       String path = session.getServletContext().getRealPath("contestfiles");
       String nickname = (String)session.getAttribute("loginInfo");
-      System.out.println(nickname);
       service.newcontest(files, dto, path, nickname);
       return "redirect:contest.do";
 
    }
    
+  @RequestMapping("detail")
+   public String detail(ContestDTO dto, HttpServletRequest request) {
+	  try {
+	  ContestDTO contestDto = service.detailcheck(dto.getContest_seq());
+	  request.setAttribute("contestDto", contestDto);
+	  }catch(Exception e) {
+		  e.printStackTrace();
+	  }
+	   return "contest/contestdetail";
+   }
   
-   
+  @RequestMapping("upload")
+  public String contestupload(ContestDTO dto, HttpServletRequest request) {
+	  request.setAttribute("title", dto.getTitle());
+	  request.setAttribute("contest_seq", dto.getContest_seq());
+	  return "contest/imageupload";
+  }
+  
+  @RequestMapping("enroll")
+  public String imageupload(MultipartFile[] files, ContestDTO dto,HttpServletRequest request) {
+	  try {
+	  String contestpath = session.getServletContext().getRealPath("contestenroll");
+	  String nickname = (String)session.getAttribute("loginInfo");
+	  service.enrollimg(files, dto, contestpath,nickname );
+	  ContestDTO contestDto = service.detailcheck(dto.getContest_seq());
+	  request.setAttribute("contestDto", contestDto);
+	  }catch(Exception e) {
+		  e.printStackTrace();
+	  }
+	  return "contest/contestdetail";
+  }
    
    
    
