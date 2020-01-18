@@ -8,4 +8,13 @@
 		values(#{editNotice_seq},
 		#{editNotice_sysName})
 	</insert>
+	
+	<delete id="delete">
+		delete from editSummernoteFile where editNotice_seq = #{editNotice_seq}
+	</delete>
+	
+	<select id="getFileSysName" resultType="String">
+		select editNotice_sysName
+		from editSummernoteFile where editNotice_seq = #{editNotice_seq}
+	</select>
 </mapper>

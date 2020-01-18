@@ -30,7 +30,7 @@
 			location.href="${pageContext.request.contextPath}/pieceNotice/notice.do"
 		})
 		
-		$("editNotice").on("click", function(){
+		$("#editNotice").on("click", function(){
 			location.href="${pageContext.request.contextPath}/editNotice/notice.do"
 		})
 	</script>

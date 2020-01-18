@@ -21,6 +21,8 @@
 	<mvc:resources mapping="/notice_files/**" location="/notice_files/" />
 	<mvc:resources mapping="/pieceNotice_summernote_files/**" location="/pieceNotice_summernote_files/" />
 	<mvc:resources mapping="/pieceNotice_files/**" location="/pieceNotice_files/" />
+	<mvc:resources mapping="/editNotice_summernote_files/**" location="/editNotice_summernote_files/" />
+	<mvc:resources mapping="/editNotice_files/**" location="/editNotice_files/" />
 	<mvc:resources mapping="/writeruploadfiles/**" location="/writeruploadfiles/" />
 	<mvc:resources mapping="/contestfiles/**" location="/contestfiles/" />
 	<mvc:resources mapping="/css/**" location="/resources/css/" />

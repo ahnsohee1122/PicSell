@@ -1,6 +1,7 @@
 package kh.picsell.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,5 +19,13 @@ public class EditSummernoteDAO {
 		param.put("editNotice_seq", editNotice_seq);
 		param.put("editNotice_sysName", editNotice_sysName);
 		jdbc.insert("EditSummernote.summernoteFile", param);
+	}
+	
+	public void delete(int editNotice_seq) {
+		jdbc.delete("EditSummernote.delete", editNotice_seq);
+	}
+	
+	public List<String> getFileSysName(int editNotice_seq){
+		return jdbc.selectList("EditSummernote.getFileSysName", editNotice_seq);
 	}
 }

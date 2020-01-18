@@ -23,6 +23,8 @@ import kh.picsell.dao.EditSummernoteDAO;
 import kh.picsell.dto.EditNoticeCommentDTO;
 import kh.picsell.dto.EditNoticeDTO;
 import kh.picsell.dto.EditNoticeFileDTO;
+import kh.picsell.dto.PieceNoticeDTO;
+import kh.picsell.dto.PieceNoticeFileDTO;
 
 @Service
 public class EditNoticeService {
@@ -122,5 +124,88 @@ public class EditNoticeService {
 		map.put("editFileDto", editFileDto);
 		map.put("commentDto", commentDto);
 		return map;
+	}
+	
+	@Transactional("txManager")
+	public void delete(int editNotice_seq, String editFile_path, String editSummernote_filePath) {
+		List<String> editFile_sysName = fileDao.getFileSysName(editNotice_seq);
+		for(String sysName : editFile_sysName) {
+			String editFilePath = editFile_path + "/" + sysName;
+			File file = new File(editFilePath);
+			while(file.exists()) {
+				file.delete();
+			}
+		}
+		List<String> editSummernoteFile_sysName = summernoteDao.getFileSysName(editNotice_seq);
+		for(String sysName : editSummernoteFile_sysName) {
+			String editSummernoteFilePath = editSummernote_filePath + "/" + sysName;
+			File file = new File(editSummernoteFilePath);
+			while(file.exists()) {
+				file.delete();
+			}
+		}
+		fileDao.delete(editNotice_seq);
+		summernoteDao.delete(editNotice_seq);
+		dao.delete(editNotice_seq);
+	}
+	
+	public void deleteFile(int editNoticeseq ) {
+		fileDao.deleteFile(editNoticeseq);
+	}
+	
+	public void modify(EditNoticeDTO editNoticeDto, EditNoticeFileDTO editNoticeFileDto, String file_path, String summernote_filePath) {
+
+
+		int editNoticeFile_parentSeq = editNoticeDto.getEditNotice_seq();
+
+		File summernote_path = new File(summernote_filePath); 
+
+		if(editNoticeDto.getEditNotice_contents().contains("base64")){
+			Pattern p = Pattern.compile("<img.+?src=\"data:image\\/(jpeg|jpg|gif|png|PNG|JPEG);base64,(.+?)\".+?data-filename=\"(.+?)\".*?>");
+			Matcher m = p.matcher(editNoticeDto.getEditNotice_contents());	
+			List<String> summernoteFileList = new ArrayList<>();
+			try {
+				while(m.find()) {
+					String oriName = m.group(3);
+					String sysName = System.currentTimeMillis() + "_" + oriName;
+					String imageString = m.group(2);
+					byte[] imgBytes = Base64Utils.decodeFromString(imageString);
+					FileOutputStream fis = new FileOutputStream(summernote_path + "/" + sysName);
+					DataOutputStream dos = new DataOutputStream(fis);
+					dos.write(imgBytes);
+					dos.flush();
+					dos.close();
+					editNoticeDto.setEditNotice_contents(editNoticeDto.getEditNotice_contents().replaceFirst(Pattern.quote(m.group(2)), "/editNotice_summernote_files/" + sysName).replaceAll("data:image/(jpeg|jpg|gif|png|PNG|JPEG);base64,", ""));		
+					summernoteFileList.add(sysName);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			for(String summernote_sysName : summernoteFileList) {
+				if(!summernote_sysName.isEmpty()) {
+					summernoteDao.summernoteFile(editNoticeFile_parentSeq, summernote_sysName);
+				}
+			}
+		}
+		dao.modify(editNoticeDto);
+		File filePath = new File(file_path);
+
+		for(MultipartFile tmp : editNoticeFileDto.getEditNoticeFile_file()) {
+			if(!tmp.isEmpty()) {
+				String editNoticeFile_oriName = tmp.getOriginalFilename();
+				String editNoticeFile_sysName = System.currentTimeMillis() + "_" + editNoticeFile_oriName;
+
+				editNoticeFileDto.setEditNoticeFile_parentSeq(editNoticeFile_parentSeq);
+				editNoticeFileDto.setEditNoticeFile_oriName(editNoticeFile_oriName);
+				editNoticeFileDto.setEditNoticeFile_sysName(editNoticeFile_sysName);
+
+				try {
+					tmp.transferTo(new File(file_path + "/" + editNoticeFile_sysName));
+					fileDao.fileUpload(editNoticeFileDto);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

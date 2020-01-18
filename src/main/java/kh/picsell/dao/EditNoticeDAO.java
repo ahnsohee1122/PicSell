@@ -47,4 +47,12 @@ public class EditNoticeDAO {
 	public EditNoticeDTO nextRow(int seq) {
 		return jdbc.selectOne("EditNotice.nextRow", seq);
 	}
+	
+	public void delete(int editNotice_seq) {
+		jdbc.delete("EditNotice.delete", editNotice_seq);
+	}
+	
+	public void modify(EditNoticeDTO editNoticeDto) {
+		jdbc.update("editNotice.update", editNoticeDto);
+	}
 }

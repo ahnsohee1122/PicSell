@@ -30,11 +30,21 @@
 	
 	<select id="previousRow" resultType="kh.picsell.dto.EditNoticeDTO">
 		select * from(select editNotice.*, row_number() over(order by editNotice_seq) as rown from editNotice)
-		where rown=(select rown from(select editNotice.*, row_number() over(order by editNotice_seq) as rown from pieceNotice) where editNotice_seq=#{seq})-1
+		where rown=(select rown from(select editNotice.*, row_number() over(order by editNotice_seq) as rown from editNotice) where editNotice_seq=#{seq})-1
 	</select>
 
 	<select id="nextRow" resultType="kh.picsell.dto.EditNoticeDTO">
 		select * from(select editNotice.*, row_number() over(order by editNotice_seq) as rown from editNotice)
 		where rown=(select rown from(select editNotice.*, row_number() over(order by editNotice_seq) as rown from editNotice) where editNotice_seq=#{seq})+1
 	</select>
+	
+	<delete id="delete">
+		delete from editNotice where editNotice_seq = #{editNotice_seq}
+	</delete>
+	
+	<update id="update" parameterType="kh.picsell.dto.EditNoticeDTO">
+		update editNotice set
+		editNotice_title = #{editNotice_title}, editNotice_contents = #{editNotice_contents}
+		where editNotice_seq = #{editNotice_seq}
+	</update>
 </mapper>

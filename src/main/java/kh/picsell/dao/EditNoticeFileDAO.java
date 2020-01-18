@@ -22,4 +22,16 @@ public class EditNoticeFileDAO {
 	public List<EditNoticeFileDTO> selectAll(int editNoticeFile_parentSeq ){
 		return jdbc.selectList("EditNoticeFile.selectAll", editNoticeFile_parentSeq);
 	} 
+	
+	public List<String> getFileSysName(int editNoticeFile_parentSeq){
+		return jdbc.selectList("EditNoticeFile.getFileSysName", editNoticeFile_parentSeq);
+	}
+	
+	public void delete(int editNoticeFile_parentSeq) {
+		jdbc.delete("EditNoticeFile.delete", editNoticeFile_parentSeq);
+	}
+	
+	public void deleteFile(int editNoticeFile_seq) {
+		jdbc.delete("EditNoticeFile.deleteFile", editNoticeFile_seq);
+	}
 }
