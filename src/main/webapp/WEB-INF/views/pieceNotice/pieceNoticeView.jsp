@@ -61,6 +61,12 @@
 					<tr>
 						<td colspan="6" class="text-left m-0 px-2">${map.pieceNotice.pieceNotice_contents }</td>
 					</tr>
+				
+				
+				
+				
+				
+				
 					<!-----comment code----------------------------  -->
 					<tr>
 						<td colspan="6" class="text-left m-0 px-2">
@@ -69,15 +75,18 @@
 							<c:forEach var="commentDto" items="${map.commentDto }">
 								<div>${commentDto.writer} : ${commentDto.notice_comment} : ${commentDto.write_date }
 									
-									<input type="button" value="삭제"
+									<input type="button" value="삭제" style="display:none;"
 									id="a${commentDto.comment_seq }" 
 									onclick="commentDelete(${commentDto.comment_seq })">
 									
-									<input type="button" value="수정"
+									<input type="button" value="수정" 
 									id="b${commentDto.comment_seq }" 
 									onclick="commentModify(${commentDto.comment_seq })"><br>
 									
-									<textarea>sdf</textarea>
+									<textarea id="c${commentDto.comment_seq }" style="display:none;"></textarea>
+									<input id="d${commentDto.comment_seq }" style="display:none;" 
+									type="button" value="수정완료"
+									onclick="commentModifyComplete(${commentDto.comment_seq })">
 								</div>
 							</c:forEach>
 							
@@ -94,6 +103,15 @@
 					</td>
 					</tr>
 					<!-- ---------comment code---------------------------------------------------- -->
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				</tfoot>
 			</table>
 		</div>
@@ -154,7 +172,7 @@
 				}
 			}).done(function(res){
 				console.log(res);
-				$("#comment_box").append("<div>""</div>");
+				$("#comment_box").append("<div>" + $("#comment").val() + "</div>");
 			})
 		}) 
 		
@@ -172,8 +190,27 @@
 		};
 		
 		function commentModify(seq){
-			
+			$("#c" + seq).css("display","block");
+			$("#d" + seq).css("display","block");
 		};
+		
+		function commentModifyComplete(seq){
+			console.log("zz");
+			if($("#c" + seq).val() == ""){
+				alert("변경할 내용을 작성해주세요.");
+			}else{
+				$.ajax({
+					url:"${pageContext.request.contextPath}/pieceComment/commentModify.do",
+					type:"post",
+					data:{
+						comment_seq:seq,
+						comment:$("#c" + seq).val()
+					}
+				}).done(function(res){
+					console.log(res);
+				})
+			}
+		}
 		
 		
 		

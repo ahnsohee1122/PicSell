@@ -57,7 +57,7 @@
 								</div>
 							</div>
 							<div class="row w-100 mx-auto mt-5 text-center">
-			     				<button class="btn mx-auto" id="modifyBtn" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5;">변경하기</button>
+			     				<button type="button" class="btn mx-auto" id="modifyBtn" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5;">변경하기</button>
 							</div>
 						</form>
 					</div>
@@ -80,10 +80,7 @@
 				type:"post",
 				data:{currentPw : currentPw}
 			}).done(function(res){
-				console.log(res)
-				console.log(currentPw)
 				if(res == currentPw){
-					console.log("zz");
 					currentPwCheck = 1;
 					$("#currentPwMsg").css("display","none");
 				}else{
@@ -122,8 +119,12 @@
 	   	
 	   	$("#modifyBtn").on("click", function(){
 	   		var result = confirm("변경하시겠습니까?");
+	   		console.log(result);
 	   		if(result){
-	   			if(currnetPwCheck == 0){
+	   			console.log(currentPwCheck);
+	   			console.log(pwc);
+	   			console.log(pwcheckValid);
+	   			if(currentPwCheck == 0){
 	   				alert("현재 비밀번호가 옳지 않습니다.");
 	   				return false;
 	   			}else if(pwc == 0){
@@ -133,8 +134,8 @@
 	   				alert("새 비밀번호와 비밀번호 확인이 올바른지 확인해주세요.");
 	   				return false;
 	   			}else{
-	   				$("#frm").submit();
-	   			}	
+	   			$("#frm").submit();
+	   			}	 
 	   		}
 	   	})
 		

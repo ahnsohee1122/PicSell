@@ -31,4 +31,11 @@ public class PieceCommentController {
 		pieceCommentService.commentWrite(pieceNotice_seq, writer, comment);
 		return "댓글 작성 완료";
 	}
+	
+	@RequestMapping(value="/commentModify.do", produces="text/html; charset=UTF-8")
+	@ResponseBody
+	public String commentModify(int comment_seq, String comment) {
+		pieceCommentService.commentModify(comment_seq, comment);
+		return "완료";
+	}
 }

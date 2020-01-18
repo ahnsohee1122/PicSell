@@ -15,4 +15,8 @@
 		insert into pieceNoticeComment values(pieceNoticeComment_seq.nextval, #{pieceNotice_seq},
 		#{notice_comment}, sysdate, #{writer})
 	</insert>
+	
+	<update id="modify">
+		update pieceNoticeComment set notice_comment = #{comment} where comment_seq = #{comment_seq}
+	</update>
 </mapper>

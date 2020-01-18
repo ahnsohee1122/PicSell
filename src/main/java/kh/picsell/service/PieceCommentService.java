@@ -20,4 +20,8 @@ public class PieceCommentService {
 		System.out.println(pieceNotice_seq);
 		commentDao.commentWrite(pieceNotice_seq, writer, comment);
 	}
+	
+	public void commentModify(int comment_seq, String comment) {
+		commentDao.commentModify(comment_seq, comment);
+	}
 }

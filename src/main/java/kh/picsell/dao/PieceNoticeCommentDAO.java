@@ -31,4 +31,11 @@ public class PieceNoticeCommentDAO {
 		map.put("notice_comment", comment);
 		jdbc.insert("PieceNoticeComment.write", map);
 	}
+	
+	public void commentModify(int comment_seq, String comment) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("comment_seq", comment_seq);
+		map.put("comment", comment);
+		jdbc.update("PieceNoticeComment.modify", map);
+	}
 }
