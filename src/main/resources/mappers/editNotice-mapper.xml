@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EditNotice">
+	<select id="selectAll" resultType="kh.picsell.dto.EditNoticeDTO">
+		select * from editNotice
+	</select>
+	
+	<insert id="insert" parameterType="kh.picsell.dto.EditNoticeDTO">
+		insert into editNotice
+		values(editNotice_seq.nextval, #{editNotice_title}, #{editNotice_contents},
+		#{editNotice_writer}, sysdate, 0)
+	</insert>
+	
+	<select id="getParentSeq" resultType="java.lang.Integer">
+		select max(editNotice_seq) from editNotice where editNotice_writer = #{editNotice_writer}
+	</select>
+	
+	<update id="viewCountUp" parameterType="java.lang.Integer">
+		update editNotice set
+		editNotice_view_count = editNotice_view_count + 1 where editNotice_seq =
+		#{editNotice_seq}
+	</update>
+	
+	<select id="detail" resultType="kh.picsell.dto.EditNoticeDTO">
+		select * from editNotice where
+		editNotice_seq = #{editNotice_seq}
+	</select>
+	
+	<select id="previousRow" resultType="kh.picsell.dto.EditNoticeDTO">
+		select * from(select editNotice.*, row_number() over(order by editNotice_seq) as rown from editNotice)
+		where rown=(select rown from(select editNotice.*, row_number() over(order by editNotice_seq) as rown from pieceNotice) where editNotice_seq=#{seq})-1
+	</select>
+
+	<select id="nextRow" resultType="kh.picsell.dto.EditNoticeDTO">
+		select * from(select editNotice.*, row_number() over(order by editNotice_seq) as rown from editNotice)
+		where rown=(select rown from(select editNotice.*, row_number() over(order by editNotice_seq) as rown from editNotice) where editNotice_seq=#{seq})+1
+	</select>
+</mapper>
