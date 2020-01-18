@@ -32,8 +32,6 @@
 	
 	.dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {color: black!important;}
 	.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover {color: black!important;}
-	
-	
 </style>
 <script>
 
@@ -50,7 +48,7 @@
 			<ul class="p-0 m-0 h-100" style="list-style-type: none; border: 1px solid gray; border-radius: 10px;">
 				<li class="li h-100"><a href="${pageContext.request.contextPath}/notice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">공지사항</a></li>
 				<li class="li h-100"><a href="#" style="font-size: 18px; line-height: 40px; color: black;">편집의뢰게시판</a></li>
-				<li class="li h-100"><a href="#" style="font-size: 18px; line-height: 40px; color: black;">작품의뢰게시판</a></li>
+				<li class="li h-100"><a href="${pageContext.request.contextPath}/pieceNotice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">작품의뢰게시판</a></li>
 			</ul>
 		</div>
 		<div class="container mx-auto my-5">
