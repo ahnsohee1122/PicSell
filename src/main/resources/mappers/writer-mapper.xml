@@ -21,7 +21,7 @@
 		
 		<!-- 이미지수 / 아이디존재체크 -->
 		<select id="imgcount" resultType="Integer">
-			select count(*) from writer_image_Up where nickname = #{nickname}
+			select count(*) from writer_image_Up where nickname = #{nickname} and accept = 'Y'
 		</select>
 		<!-- 다운로드 수 -->
 		<select id="downcount" resultType="Integer">

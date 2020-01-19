@@ -47,12 +47,9 @@ public class NoticeController {
 	@RequestMapping("/detail.do")
 	public ModelAndView detail(int notice_seq) {
 
-		System.out.println(notice_seq);
 		try {
 			Map map = noticeService.detail(notice_seq);
-			System.out.println(map.get("fileDto").toString());
 			mav.addObject("map", map);
-			System.out.println(map.get("notice").toString());
 			mav.setViewName("notice/noticeView");
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -147,7 +144,7 @@ public class NoticeController {
 		String file_path = session.getServletContext().getRealPath("/notice_files");
 		String summernote_filePath = session.getServletContext().getRealPath("notice_summernote_files") ;
 		noticeService.modify(noticeDto, noticeFileDto, file_path, summernote_filePath);
-		return "notice/notice.do";
+		return "redirect:notice.do";
 	}
 
 

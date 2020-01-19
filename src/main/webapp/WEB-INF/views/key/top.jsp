@@ -125,6 +125,8 @@ $(function(){
 		
     	
 			$("#login").on("click",function(){
+				var link = document.location.href;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+				
 				var login_id = $("#loginId").val();
         		var login_pw = $("#loginPw").val();
         		if(login_id==""){
@@ -141,14 +143,19 @@ $(function(){
 					url:"${pageContext.request.contextPath}/member/loginProc.do",
 					type:"post",
 					data:{ id:$("#loginId").val(),
-						pw:$("#loginPw").val()
-					}
+						pw:$("#loginPw").val(),
+						link:link/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+					},
+					dataType:"JSON"/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 				}).done(function(res){
-					if(res == "로그인성공"){
-						console.log(res);
 					
+					console.log(res);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+					console.log(res.link);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+					
+					if(res.status == "로그인성공"){/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 							alert("로그인에 성공했습니다!");
-							location.href="/home.do";
+							/* location.href="/home.do"; */
+							location.href=res.link;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 						}else if(res=="관리자로그인성공"){
 							
 							alert("관리자로 로그인했습니다");
@@ -327,7 +334,7 @@ $(function(){
 							<a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a>
 						</li>
 						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
-							<a href="#" class="text-dark explanation" data-toggle="modal" data-target="#Login">로그인</a>
+							<a id="gotologin" href="#" class="text-dark explanation" data-toggle="modal" data-target="#Login">로그인</a>
 						</li>
 						<div class="modal fade" id="Login" role="dialog" aria-labelledby="Label" aria-hidden="true" style="top: 110px;">
 							<div class="modal-dialog" role="document">
@@ -426,6 +433,12 @@ $(function(){
 												</div>
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/contest/check.do" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/업로드 </a>
+												</div>
+												<div class="col-12 sideMenu">
+													<a href="${pageContext.request.contextPath}/money/admin_point.do" style="color: black; font-size: 16px; text-decoration: none;">회원 포인트 내역 </a>
+												</div>
+												<div class="col-12 sideMenu">
+													<a href="${pageContext.request.contextPath}/money/admin_deal.do" style="color: black; font-size: 16px; text-decoration: none;">회원 거래 내역 </a>
 												</div>
 											</div>
 											<hr>

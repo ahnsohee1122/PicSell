@@ -52,7 +52,7 @@
 		}
 
 	$.ajax({
-		url: "${pageContext.request.contextPath}/writer/list?nickname=${sessionScope.loginInfo}",
+		url: "${pageContext.request.contextPath}/writer/list?nickname=${memberDto.nickname}",
 		type:"GET",
 		data:{"currentPage" : currentPage},
 		dataType:"json",

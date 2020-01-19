@@ -4,17 +4,30 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Honor">
 <insert id="insert" parameterType="kh.picsell.dto.HonorDTO">
-insert into honor values(honor_seq.nextval, 0, #{nickname}, sysdate, #{img_seq}, #{oriname}, #{sysname})
+insert into honor values(honor_seq.nextval, 0, #{nickname}, null)
 </insert>
+<insert id="enter" parameterType = "kh.picsell.dto.HonorListDTO">
+insert into honorlist values(honorlist_seq.nextval, #{nickname}, #{honorpoint}, sysdate)
+</insert>
+<insert id="voteinsert" parameterType="kh.picsell.dto.HonorVoteDTO">
+insert into honorvote values(#{nickname})
+</insert>
+<select id="votecheck" resultType="integer">
+	select count(*) from honorvote where nick=#{nick}
+	</select>
+<select id="enterhonorlist" resultType="kh.picsell.dto.HonorListDTO">
+select * from honorlist
+</select>
 <select id="honorlist" resultType="kh.picsell.dto.HonorDTO">
 select * from honor
 </select>
-<update id="like" parameterType="int">
-		update honor set honorpoint=honorpoint+1 where honor_seq = #{honor_seq}
+<delete id="delete">
+delete honor
+</delete>
+<update id="like" parameterType="kh.picsell.dto.HonorDTO">
+		update honor set honorpoint=honorpoint+1 where nickname = #{nickname}
 	</update>
-	<update id="dislike" parameterType="int">
-		update honor set honorpoint=honorpoint-1 where honor_seq = #{honor_seq}
-	</update>
+
 	<select id="showview" parameterType="String" resultType="kh.picsell.dto.WriterImageUpDTO">
 	select * from (select * from writer_image_up where substr(img_sysdate, 4,2)='01' order by viewcount desc) where<![CDATA[ rownum<=3]]>
 	</select>
@@ -25,10 +38,10 @@ select * from honor
 	select * from (select * from writer_image_up where substr(img_sysdate, 4,2)='01' order by img_like desc) where<![CDATA[ rownum<=3]]>
 	</select>
 	<select id="insertcheck" resultType="integer">
-	select count(*) from honor where img_seq = #{img_seq}
+	select count(*) from honor where nickname=#{nickname}
 	</select>
 	<select id="manlike" parameterType="String" resultType="kh.picsell.dto.MemberDTO">
-	select * from (select * from member order by likepoint desc) where admin='N' and <![CDATA[ rownum<=3]]>
+	select * from (select * from member order by likepoint desc) where <![CDATA[ rownum<=3]]>
 	</select>
 	<select id="manpic" parameterType="String" resultType="kh.picsell.dto.WriterImageUpDTO">
 	select * from (select * from writer_image_up where nickname=#{nickname} order by downcount+img_like desc) where<![CDATA[ rownum<=3]]>
@@ -42,5 +55,22 @@ select * from honor
 	<select id="third" parameterType="String" resultType="kh.picsell.dto.MemberDTO">
 	select * from (select member.*, row_number() over(order by likepoint desc) as rown from member) where rown=3
 	</select>
-
+	<select id="honorfirst" parameterType="String" resultType="kh.picsell.dto.HonorDTO">
+	select * from (select honor.*, row_number() over(order by honorpoint desc) as rown from honor) where rown=1
+	</select>
+	<select id="honorsecond" parameterType="String" resultType="kh.picsell.dto.HonorDTO">
+	select * from (select honor.*, row_number() over(order by honorpoint desc) as rown from honor) where rown=2
+	</select>
+	<select id="honorthird" parameterType="String" resultType="kh.picsell.dto.HonorDTO">
+	select * from (select honor.*, row_number() over(order by honorpoint desc) as rown from honor) where rown=3
+	</select>
+	<select id="list" parameterType="String" resultType="kh.picsell.dto.HonorDTO">
+	select * from Honor
+	</select>
+	<select id="mainlist" parameterType="String" resultType="kh.picsell.dto.MemberDTO">
+	select * from member where nickname = #{nickname}
+	</select>
+	<select id="honormember" parameterType="String" resultType="kh.picsell.dto.HonorDTO">
+	select * from honor
+	</select>
 </mapper>

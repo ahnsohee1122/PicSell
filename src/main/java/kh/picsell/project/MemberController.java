@@ -1,5 +1,7 @@
 package kh.picsell.project;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.JsonObject;
 
 import kh.picsell.dto.MemberDTO;
 import kh.picsell.service.MemberService;
@@ -42,9 +46,16 @@ public class MemberController {
 	@RequestMapping(value="/signupProc.do", produces="text/html; charset=UTF-8") //회원가입
 	@ResponseBody
 	public String signupProc(MemberDTO dto) {
-
+		String deal_sort = "회원가입";
+		// 날짜
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String point_date = sdf.format(today);
+		int point = 1000;
+		String money_sort = "포인트";
 		try {
-			int result = service.insert(dto);
+			
+			int result = service.insert(dto, deal_sort, point_date, point, money_sort);
 			if(result>0) {
 				return"ㅇㅋ";
 			}else {
@@ -107,7 +118,11 @@ public class MemberController {
 	}
 	@RequestMapping(value="/loginProc.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
-	public String loginProc(String id, String pw, HttpServletRequest request) { //로그인
+	public String loginProc(String id, String pw, HttpServletRequest request, String link) { //로그인 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+		System.out.println("link: "+link);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+		JsonObject json = new JsonObject();/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+		json.addProperty("link", link);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+		
 		System.out.println(id+" : "+pw);
 		try {
 			MemberDTO dto = service.getnick(id);			 
@@ -128,7 +143,8 @@ public class MemberController {
 						//mav.addObject("로그인성공", ok);
 						session = request.getSession(); //일반회원로그인
 						session.setAttribute("loginInfo", nickname);
-						return  "로그인성공";
+						json.addProperty("status", "로그인성공");/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+						return  json.toString();/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 					}
 					
 				}else if(black==1) { //블랙1단계로그인

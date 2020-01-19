@@ -11,6 +11,7 @@
 <input type="button" id="notice" value="notice">
 <input type="button" id="myInfo" value="myInfo">
 <input type="button" id="infoModify" value="infoModify">
+<input type="button" id="pieceNotice" value="pieceNotice">
 	<script>
 		$("#notice").on("click",function(){
 			location.href="${pageContext.request.contextPath}/notice/notice.do"
@@ -22,6 +23,10 @@
 		
 		$("#infoModify").on("click",function(){
 			location.href="${pageContext.request.contextPath}/myInfo/infoModify.do"
+		})
+		
+		$("#pieceNotice").on("click",function(){
+			location.href="${pageContext.request.contextPath}/pieceNotice/notice.do"
 		})
 	</script>
 </body>

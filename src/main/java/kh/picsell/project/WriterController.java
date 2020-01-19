@@ -34,13 +34,14 @@ public class WriterController {
 	//작가 홈 도착
 	@RequestMapping("/writer.do")
 	public String contest() {
-		System.out.println("Writer Page");
+		System.out.println("작가홈입니");
 		return "writer/writer";
 	}
 
 	//업로드 (+)버튼 누름
 	@RequestMapping("doupload")
 	public String upload() {
+		System.out.println("업로드버튼 누름");
 		return "writer/uploadpage";
 	}
 
@@ -62,7 +63,7 @@ public class WriterController {
 		MemberDTO writerinfo = writerservice.writerInfo(nickname);
 		Map<String,Integer> imginfo = writerservice.imginfo(nickname);
 		request.setAttribute("imginfo", imginfo);
-		request.setAttribute("writerdto", writerinfo);
+		request.setAttribute("memberDto", writerinfo);
 		return "writer/writerpage";
 	}
 

@@ -23,7 +23,7 @@
 				<table style="width: 100%;">
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="notice_title" class="w-100 px-2"></td>
+						<td><input type="text" id="title" name="notice_title" class="w-100 px-2"></td>
 					</tr>
 					<tr>
 						<td>첨부파일</td>

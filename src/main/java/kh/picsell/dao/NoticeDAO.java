@@ -47,4 +47,12 @@ public class NoticeDAO {
 		jdbc.update("Notice.update", noticeDto);
 	}
 	
+	public NoticeDTO previousRow(int seq){
+		return jdbc.selectOne("Notice.previousRow", seq);
+	} 
+	
+	public NoticeDTO nextRow(int seq) {
+		return jdbc.selectOne("Notice.nextRow", seq);
+	}
+	
 }

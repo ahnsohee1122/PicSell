@@ -52,7 +52,8 @@
 						<textarea style="display: none" id="notice_contents" name="notice_contents"></textarea>
 					</tr>
 					<tr style="text-align: center;">
-						<td colspan=2><input class="mx-1" type="button" id="writeBtn" class="inputBtn" value="수정하기" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5;"><input class="mx-1" type="button" id="listBtn" class="inputBtn" value="목록보기" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5;"></td>
+						<td colspan=2><input class="mx-1" type="button" id="writeBtn" class="inputBtn" value="수정하기" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5;">
+						<input class="mx-1" type="button" id="listBtn" class="inputBtn" value="목록보기" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5;"></td>
 					</tr>
 				</table>
 			</form>

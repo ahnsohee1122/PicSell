@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PieceNotice">
+	<select id="selectAll" resultType="kh.picsell.dto.PieceNoticeDTO">
+		select * from pieceNotice
+	</select>
+	
+	<insert id="insert" parameterType="kh.picsell.dto.PieceNoticeDTO">
+		insert into pieceNotice
+		values(pieceNotice_seq.nextval, #{pieceNotice_title}, #{pieceNotice_contents},
+		#{pieceNotice_writer}, sysdate, 0)
+	</insert>
+	
+	<select id="getParentSeq" resultType="java.lang.Integer">
+		select max(pieceNotice_seq) from pieceNotice where pieceNotice_writer = #{pieceNotice_writer}
+	</select>
+	
+	<update id="viewCountUp" parameterType="java.lang.Integer">
+		update pieceNotice set
+		pieceNotice_view_count = pieceNotice_view_count + 1 where pieceNotice_seq =
+		#{pieceNotice_seq}
+	</update>
+	
+	<select id="detail" resultType="kh.picsell.dto.PieceNoticeDTO">
+		select * from pieceNotice where
+		pieceNotice_seq = #{pieceNotice_seq}
+	</select>
+	
+	<select id="previousRow" resultType="kh.picsell.dto.PieceNoticeDTO">
+		select * from(select pieceNotice.*, row_number() over(order by pieceNotice_seq) as rown from pieceNotice)
+		where rown=(select rown from(select pieceNotice.*, row_number() over(order by pieceNotice_seq) as rown from pieceNotice) where pieceNotice_seq=#{seq})-1
+	</select>
+
+	<select id="nextRow" resultType="kh.picsell.dto.PieceNoticeDTO">
+		select * from(select pieceNotice.*, row_number() over(order by pieceNotice_seq) as rown from pieceNotice)
+		where rown=(select rown from(select pieceNotice.*, row_number() over(order by pieceNotice_seq) as rown from pieceNotice) where pieceNotice_seq=#{seq})+1
+	</select>
+	
+	<delete id="delete">
+		delete from pieceNotice where pieceNotice_seq = #{pieceNotice_seq}
+	</delete>
+	
+	<update id="update" parameterType="kh.picsell.dto.PieceNoticeDTO">
+		update pieceNotice set
+		pieceNotice_title = #{pieceNotice_title}, pieceNotice_contents = #{pieceNotice_contents}
+		where pieceNotice_seq = #{pieceNotice_seq}
+	</update>
+</mapper>

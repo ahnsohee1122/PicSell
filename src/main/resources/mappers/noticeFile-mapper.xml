@@ -16,10 +16,12 @@
 	<select id="getFileSysName" resultType="String">
 		select noticeFile_sysName from noticeFile where noticeFile_parentSeq =#{noticeFile_parentSeq}
 	</select>
+	
 	<delete id="delete">
 		delete from noticeFile where noticeFile_parentSeq = #{noticeFile_parentSeq}
 	</delete>
-		<delete id="deleteFile">
+	
+	<delete id="deleteFile">
 		delete from noticeFile where noticeFile_seq = #{noticeFile_seq}
 	</delete>
 </mapper>

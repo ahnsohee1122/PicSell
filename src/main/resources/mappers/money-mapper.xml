@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Charge">
+
+
+	<!-- 포인트 가져오기  -->
+	<select id="getPoint" parameterType="String" resultType="Integer">
+		select nvl(sum(point),0) from point where money_sort = '포인트' and nickname=#{nickname}
+	</select>
+	
+	<!-- 과거 사진 구매 이력 확인 -->
+	<select id="buyHistory" parameterType="java.util.Map" resultType="kh.picsell.dto.DealListDTO">
+		select * from deal_list where buyer_nickname=#{nickname} and deal_img_seq=#{deal_img_seq}
+	</select>
+	
+	<!-- 전환 가능 수익금 가져오기  -->
+	<select id="getProfit" parameterType="String" resultType="Integer">
+		select nvl(sum(point),0) from point where money_sort='수익금' and (nickname=#{nickname})
+	</select>
+	
+	<!-- 포인트 입출금 내역 확인하기  -->
+	<select id="getPointList" parameterType="String" resultType="kh.picsell.dto.PointDTO">
+		select * from point where nickname=#{nickname} and money_sort='포인트' order by point_seq desc
+	</select>
+
+	<!-- 사진 거래 내역 추가하기 -->
+	<insert id="insertBuyList" parameterType="java.util.Map">
+		insert into deal_list values(deal_seq.nextval, #{deal_date}, 500, #{deal_img_seq}, #{writer_nickname}, #{buyer_nickname})
+	</insert>
+	
+	<!-- 다운로드 수 추가하기  -->
+	<update id="downCountUp" parameterType="Integer">
+		update writer_img_up set downCount=downCount+1 where img_seq=#{deal_img_seq}  
+	</update>
+	
+	<!-- 충전하기 -->
+	
+	<!-- 1. 충전 내역을 insert한다  -->
+	<insert id="chargeComplete" parameterType="java.util.Map">
+		insert into charge_list values(#{charge_nickname}, #{receipt_id}, #{price}, #{payment_name}, #{requested_at})
+	</insert> 
+
+	<!-- 2. point 테이블에 등록한다 > 회원가입 포인트 지급, 충전, 환급, 사진 구매하기  -->
+	<insert id="pointUpdate" parameterType="java.util.Map">
+		insert into point values(point_seq.nextval, #{nickname}, #{deal_sort}, #{point_date}, #{point}, #{money_sort})
+	</insert>
+	
+	<!-- 3. 충전내역을 화면에 뿌린다 SelectOne -->
+	<select id="chargeList" resultType="kh.picsell.dto.ChargeListDTO">
+		select * from charge_list where receipt_id=#{receipt_id}
+	</select>
+	
+	<!-- 구매 내역 확인하기 -->
+	
+	<!-- 구매 내역 map 만들기 -->
+	<resultMap type="map" id="buy_map">
+		<result column="deal_date" property="dealDate"></result>
+		<result column="deal_price" property="dealPrice"></result>
+		<result column="deal_img_seq" property="dealImgSeq"></result>
+		<result column="writer_nickname" property="writerNickname"></result>
+		<result column="sysname" property="sysName"></result>
+	</resultMap>
+	
+	<!-- 구매 내역 확인하기  -->
+	<select id="buy_list" parameterType="String" resultMap="buy_map">
+		Select d.deal_date, d.deal_price, d.deal_img_seq, d.buyer_nickname, w.sysname from deal_list d, writer_image_up w where d.deal_img_seq = w.img_seq and buyer_nickname=#{nickname} order by d.deal_date desc
+	</select>
+	
+	<!-- 판매 내역 확인하기 -->
+	
+	<!-- 판매 내역 map 만들기 -->
+	<resultMap type="map" id="sell_map">
+		<result column="deal_date" property="dealDate"></result>
+		<result column="deal_price" property="dealPrice"></result>
+		<result column="deal_img_seq" property="dealImgSeq"></result>
+		<result column="buyer_nickname" property="buyerNickname"></result>
+		<result column="sysname" property="sysName"></result>
+	</resultMap>
+	
+	<!-- 판매 내역 확인하기  -->
+	<select id="sell_list" parameterType="String" resultMap="sell_map">
+		Select d.deal_date, d.deal_price, d.deal_img_seq, d.buyer_nickname, w.sysname from deal_list d, writer_image_up w where d.deal_img_seq = w.img_seq and writer_nickname=#{nickname} order by d.deal_date desc
+	</select>
+	
+	<!-- 관리자 > 포인트 내역 확인하기 -->
+	<select id="admin_point" parameterType="String" resultType="kh.picsell.dto.PointDTO">
+		select * from point order by point_date desc
+	</select>
+	
+	<!-- 관리자 거래 내역 map 만들기 -->
+	<resultMap type="map" id="deal_map">
+		<result column="deal_date" property="dealDate"></result>
+		<result column="deal_price" property="dealPrice"></result>
+		<result column="buyer_nickname" property="buyerNickname"></result>
+		<result column="writer_nickname" property="writerNickname"></result>
+		<result column="deal_img_seq" property="dealImgSeq"></result>
+		<result column="sysname" property="sysName"></result>
+	</resultMap>
+	
+	<!-- 관리자 > 거래 내역 확인하기 -->
+	<select id="admin_deal" resultMap="deal_map">
+		Select d.deal_date, d.deal_price, d.buyer_nickname, d.writer_nickname, d.deal_img_seq, w.sysname from deal_list d, writer_image_up w where d.deal_img_seq = w.img_seq order by d.deal_date desc
+	</select>
+
+</mapper>

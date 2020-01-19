@@ -1,11 +1,8 @@
-<%@ page import="kh.picsell.dto.MemberDTO" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <title>Home | PicSell</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -13,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet"> <!-- BestPic 글씨체 -->
 <style>
 /*    글씨체 css */
-	@font-face {font-family: 'Cafe24Oneprettynight'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff'); font-weight: normal; font-style: normal; }
-	
+   @font-face {font-family: 'Cafe24Oneprettynight'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff'); font-weight: normal; font-style: normal; }
+   
 /*    메인 이미지 css */
     .main {width: 100%; height: 600px; background-image: url('${pageContext.request.contextPath}/img/main_banner.jpg'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;}
     
@@ -48,119 +45,113 @@
     .lead {font-weight: 500; font-family: 'Cafe24Oneprettynight'; font-size: 26px;}
 </style>
 <script>
-	// === 베스트 공모전 캐러셀 ===
-	$(document).ready(function () {
-	    var itemsMainDiv = ('.MultiCarousel');
-	    var itemsDiv = ('.MultiCarousel-inner');
-	    var itemWidth = "";
-	
-	    $('.leftLst, .rightLst').click(function () {
-	        var condition = $(this).hasClass("leftLst");
-	        if (condition)
-	            click(0, this);
-	        else
-	            click(1, this)
-	    });
-	    ResCarouselSize();
-	
-	    $(window).resize(function () {
-	        ResCarouselSize();
-	    });
-	
-	    //this function define the size of the items
-	    function ResCarouselSize() {
-	        var incno = 0;
-	        var dataItems = ("data-items");
-	        var itemClass = ('.item');
-	        var id = 0;
-	        var btnParentSb = '';
-	        var itemsSplit = '';
-	        var sampwidth = $(itemsMainDiv).width();
-	        var bodyWidth = $('body').width();
-	        $(itemsDiv).each(function () {
-	            id = id + 1;
-	            var itemNumbers = $(this).find(itemClass).length;
-	            btnParentSb = $(this).parent().attr(dataItems);
-	            itemsSplit = btnParentSb.split(',');
-	            $(this).parent().attr("id", "MultiCarousel" + id);
-	
-	
-	            if (bodyWidth >= 1200) {
-	                incno = itemsSplit[3];
-	                itemWidth = sampwidth / incno;
-	            }
-	            else if (bodyWidth >= 992) {
-	                incno = itemsSplit[2];
-	                itemWidth = sampwidth / incno;
-	            }
-	            else if (bodyWidth >= 768) {
-	                incno = itemsSplit[1];
-	                itemWidth = sampwidth / incno;
-	            }
-	            else {
-	                incno = itemsSplit[0];
-	                itemWidth = sampwidth / incno;
-	            }
-	            $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
-	            $(this).find(itemClass).each(function () {
-	                $(this).outerWidth(itemWidth);
-	            });
-	
-	            $(".leftLst").addClass("over");
-	            $(".rightLst").removeClass("over");
-	        });
-	    }
-	
-	    //this function used to move the items
-	    function ResCarousel(e, el, s) {
-	        var leftBtn = ('.leftLst');
-	        var rightBtn = ('.rightLst');
-	        var translateXval = '';
-	        var divStyle = $(el + ' ' + itemsDiv).css('transform');
-	        var values = divStyle.match(/-?[\d\.]+/g);
-	        var xds = Math.abs(values[4]);
-	        if (e == 0) {
-	            translateXval = parseInt(xds) - parseInt(itemWidth * s);
-	            $(el + ' ' + rightBtn).removeClass("over");
-	
-	            if (translateXval <= itemWidth / 2) {
-	                translateXval = 0;
-	                $(el + ' ' + leftBtn).addClass("over");
-	            }
-	        }
-	        else if (e == 1) {
-	            var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
-	            translateXval = parseInt(xds) + parseInt(itemWidth * s);
-	            $(el + ' ' + leftBtn).removeClass("over");
-	
-	            if (translateXval >= itemsCondition - itemWidth / 2) {
-	                translateXval = itemsCondition;
-	                $(el + ' ' + rightBtn).addClass("over");
-	            }
-	        }
-	        $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
-	    }
-	
-	    //It is used to get some elements from btn
-	    function click(ell, ee) {
-	        var Parent = "#" + $(ee).parent().attr("id");
-	        var slide = $(Parent).attr("data-slide");
-	        ResCarousel(ell, Parent, slide);
-	    }
-	
-	});
-	// === 베스트 공모전 캐러셀 끝 ===
+   // === 베스트 공모전 캐러셀 ===
+   $(document).ready(function () {
+       var itemsMainDiv = ('.MultiCarousel');
+       var itemsDiv = ('.MultiCarousel-inner');
+       var itemWidth = "";
+   
+       $('.leftLst, .rightLst').click(function () {
+           var condition = $(this).hasClass("leftLst");
+           if (condition)
+               click(0, this);
+           else
+               click(1, this)
+       });
+       ResCarouselSize();
+   
+       $(window).resize(function () {
+           ResCarouselSize();
+       });
+   
+       //this function define the size of the items
+       function ResCarouselSize() {
+           var incno = 0;
+           var dataItems = ("data-items");
+           var itemClass = ('.item');
+           var id = 0;
+           var btnParentSb = '';
+           var itemsSplit = '';
+           var sampwidth = $(itemsMainDiv).width();
+           var bodyWidth = $('body').width();
+           $(itemsDiv).each(function () {
+               id = id + 1;
+               var itemNumbers = $(this).find(itemClass).length;
+               btnParentSb = $(this).parent().attr(dataItems);
+               itemsSplit = btnParentSb.split(',');
+               $(this).parent().attr("id", "MultiCarousel" + id);
+   
+   
+               if (bodyWidth >= 1200) {
+                   incno = itemsSplit[3];
+                   itemWidth = sampwidth / incno;
+               }
+               else if (bodyWidth >= 992) {
+                   incno = itemsSplit[2];
+                   itemWidth = sampwidth / incno;
+               }
+               else if (bodyWidth >= 768) {
+                   incno = itemsSplit[1];
+                   itemWidth = sampwidth / incno;
+               }
+               else {
+                   incno = itemsSplit[0];
+                   itemWidth = sampwidth / incno;
+               }
+               $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+               $(this).find(itemClass).each(function () {
+                   $(this).outerWidth(itemWidth);
+               });
+   
+               $(".leftLst").addClass("over");
+               $(".rightLst").removeClass("over");
+           });
+       }
+   
+       //this function used to move the items
+       function ResCarousel(e, el, s) {
+           var leftBtn = ('.leftLst');
+           var rightBtn = ('.rightLst');
+           var translateXval = '';
+           var divStyle = $(el + ' ' + itemsDiv).css('transform');
+           var values = divStyle.match(/-?[\d\.]+/g);
+           var xds = Math.abs(values[4]);
+           if (e == 0) {
+               translateXval = parseInt(xds) - parseInt(itemWidth * s);
+               $(el + ' ' + rightBtn).removeClass("over");
+   
+               if (translateXval <= itemWidth / 2) {
+                   translateXval = 0;
+                   $(el + ' ' + leftBtn).addClass("over");
+               }
+           }
+           else if (e == 1) {
+               var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+               translateXval = parseInt(xds) + parseInt(itemWidth * s);
+               $(el + ' ' + leftBtn).removeClass("over");
+   
+               if (translateXval >= itemsCondition - itemWidth / 2) {
+                   translateXval = itemsCondition;
+                   $(el + ' ' + rightBtn).addClass("over");
+               }
+           }
+           $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+       }
+   
+       //It is used to get some elements from btn
+       function click(ell, ee) {
+           var Parent = "#" + $(ee).parent().attr("id");
+           var slide = $(Parent).attr("data-slide");
+           ResCarousel(ell, Parent, slide);
+       }
+   
+   });
+   // === 베스트 공모전 캐러셀 끝 ===
 </script>
 </head>
 <body>
-          <div id="foreach">
-<input type="hidden" id="hi1">
-<script>
-var first = ${dto1}
-</script>
-            </div>
-	<jsp:include page="key/top.jsp" flush="false"/>
-	
+   <jsp:include page="key/top.jsp" flush="false"/>
+   
 <!--  Main -->
     <div class="container-fluid p-0">
         <div class="main text-center">
@@ -171,14 +162,13 @@ var first = ${dto1}
                     <div class="container h-100">
                       <div class="d-flex justify-content-center h-100">
                         <div class="searchbar">
-                          	<input class="search_input" type="text" name="" placeholder="이미지 검색 / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
-<!--                        <button class="search_icon" style="border: 0px; background-color: #353535;"><i class="fas fa-search"></i></button>-->
-                        	<a href="#" class="search_icon"><i class="fas fa-search"></i></a> <!-- 검색 버튼 : a 태그 대신 위에 버튼으로 바꿀 수 있음-->
-	                        <div class="hashTag m-3">
-	                        	<span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#겨울</a></span>
-	                            <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#웨딩</a></span>
-	                            <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#인테리어</a></span>
-	                      	</div>
+                             <input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
+                           <button id="searchBtn" class="search_icon" style="border: 0px; background-color: white !important;"><i class="fas fa-search"></i></button>
+                           <div class="hashTag m-3">
+                              <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#겨울</a></span>
+                               <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#웨딩</a></span>
+                               <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#인테리어</a></span>
+                            </div>
                         </div>
                       </div>
                     </div>
@@ -190,7 +180,7 @@ var first = ${dto1}
 <!--  Best Pic -->
     <div class="container-fluid p-0">
         <div class="row mt-4 mb-0 mx-auto px-3">
-        	<span style="font-family: 'Cafe24Oneprettynight'; font-size: 30px;">BEST PIC</span>
+           <span style="font-family: 'Cafe24Oneprettynight'; font-size: 30px;">BEST PIC</span>
         </div>
         <hr class="p-0 m-0">
         <div class="row m-auto" style="height: 1000px;">
@@ -200,13 +190,13 @@ var first = ${dto1}
     <hr class="p-0 m-0">
     
 <!--  이달의 작가님 -->
-   
     <div class="container-fluid" style="background-color: white;">
         <div class="container px-0 py-5">
             <div class="row">
-            
-                <a href="${pageContext.request.contextPath}/honor/honorlist.do" style="text-align:center"><p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>
-            </a></div>
+                <p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>
+                <a href="${pageContext.request.contextPath}/honor/mainlist.do">ㄱㄱ</a><br>
+                <a href="${pageContext.request.contextPath}/honor/honorlist.do">고고</a>
+            </div>
             <div class="row">
                 <div class="col-12 col-xl-3">
                     <div class="card m-auto" style="width: 15rem;">
@@ -254,51 +244,18 @@ var first = ${dto1}
             <div class="row">
                 <div class="MultiCarousel" data-items="1,2,3,3" data-slide="1" id="MultiCarousel"  data-interval="1000">
                     <div class="MultiCarousel-inner">
+                        <c:forEach items="${list }" var="list">
                         <div class="item">
                             <div class="pad15">
                                 <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
-                                <p class="lead">웨딩사진 공모전</p>
-                                <p class="text-danger">모집중</p>
-                                <p>~ 20/01/30</p>
-                                <p><a href="contest" class="btn btn-outline-dark btn-sm">참여하기</a></p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
-                                <p class="lead">웨딩사진 공모전</p>
+                                <p class="lead">${list.title }</p>
                                 <p class="text-danger">집계중</p>
-                                <p>19/12/30 ~ 20/01/30</p>
+                                <p>${list.enddate }</p>
                                 <p><a href="contest" class="btn btn-outline-dark btn-sm">참여하기</a></p>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
-                                <p class="lead">웨딩사진 공모전</p>
-                                <p class="text-danger">집계중</p>
-                                <p>19/12/30 ~ 20/01/30</p>
-                                <p><a href="contest" class="btn btn-outline-dark btn-sm">참여하기</a></p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
-                                <p class="lead">웨딩사진 공모전</p>
-                                <p class="text-danger">집계중</p>
-                                <p>19/12/30 ~ 20/01/30</p>
-                                <p><a href="contest" class="btn btn-outline-dark btn-sm">참여하기</a></p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
-                                <p class="lead">웨딩사진 공모전</p>
-                                <p class="text-danger">집계중</p>
-                                <p>19/12/30 ~ 20/01/30</p>
-                                <p><a href="contest" class="btn btn-outline-dark btn-sm">참여하기</a></p>
-                            </div>
-                        </div>
+                        </c:forEach>
+                        
                     </div>
                     <button class="btn border-0 leftLst"><img src="${pageContext.request.contextPath}/img/previous01.png" style="width: 17px; height: 17px;"></button>
                     <button class="btn border-0 rightLst"><img src="${pageContext.request.contextPath}/img/next01.png" style="width: 17px; height: 17px;"></button>
@@ -306,7 +263,36 @@ var first = ${dto1}
             </div>
         </div>
     </div>
-	
-	<jsp:include page="key/bottom.jsp" flush="false"/>
+    
+    <script>
+    $("#searchBtn").on("click",function(){
+       var tag = $("#search").val();
+       var writer = tag.substr(1);
+       
+       if(tag == ""){
+          alert("키워드를 입력하세요");
+          return;
+       }else if(tag.charAt(0) == '@'){
+          $.ajax({
+             url:"/WriterExist.do",
+             type:"post",
+             data:{writer:writer}
+          }).done(function(resp){
+             console.log(resp);
+             if(resp == "yes"){
+                location.href = "/writer/writerpage";
+             }else if(resp == "no"){
+                alert("존재하는 작가가 아닙니다.");
+             }
+          }).fail(function(){
+             
+          });
+       }else{
+          location.href = "/Search.do?tag=" + tag;
+       }
+    })
+    </script>
+   
+   <jsp:include page="key/bottom.jsp" flush="false"/>
 </body>
 </html>

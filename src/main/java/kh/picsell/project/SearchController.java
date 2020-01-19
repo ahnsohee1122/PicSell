@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kh.picsell.dto.DealListDTO;
 import kh.picsell.dto.WriterImageUpDTO;
+import kh.picsell.service.MoneyService;
 import kh.picsell.service.SearchService;
 
 @Controller
@@ -20,6 +22,9 @@ public class SearchController {
 
 	@Autowired
 	private SearchService service;
+	
+	@Autowired
+	private MoneyService money_service;
 
 	@Autowired
 	private HttpServletRequest request;
@@ -33,7 +38,7 @@ public class SearchController {
 			return "writer/writerpage"; // 작가 페이지로
 		}else {
 			request.setAttribute("searchKeyword", tag);
-			return "searchList";
+			return "/search/searchList";
 		}
 	}
 
@@ -94,34 +99,94 @@ public class SearchController {
 		System.out.println("도착!!!!!!!!!!!!!!!!!!");
 		System.out.println(img_seq);
 		System.out.println(nickname);
+		System.out.println("봅시단");
 
 		// 조회수 증가
 
-		try { // loginInfo 가 null 이 아니면(즉 로그인한 상태라면) 
-			String loginInfo = (String)session.getAttribute("loginInfo");
-			if(!nickname.contentEquals(loginInfo)) {// 그리고 클릭한 사람이 글쓴이가 아니라면
-				service.updateViewCount(img_seq); // 조회수 증가
-			}
-		}catch(Exception e) { // loginInfo 가 null 이면(즉 비회원이라면)
-			e.printStackTrace();
-			System.out.println("비회원");
-			service.updateViewCount(img_seq); // 조회수 증가
+//		try { // loginInfo 가 null 이 아니면(즉 로그인한 상태라면) 
+//			String loginInfo = (String)session.getAttribute("loginInfo");
+//			String adminInfo = (String)session.getAttribute("adminInfo");
+//			
+//			if(!nickname.contentEquals(loginInfo)) {// 그리고 클릭한 사람이 글쓴이가 아니라면
+//				service.updateViewCount(img_seq); // 조회수 증가
+//			}
+//		}catch(Exception e) { // loginInfo 가 null 이면(즉 비회원이라면)
+////			e.printStackTrace();
+//			System.out.println("비회원");
+//			service.updateViewCount(img_seq); // 조회수 증가
+//		}
+		
+		Object loginInfo = session.getAttribute("loginInfo");
+		Object adminInfo = session.getAttribute("adminInfo");
+		
+		// 조회수 증가 대상
+		// 1. 비회원
+		// 2. 회원 & 글쓴이 아닌 사람
+		// 3. 회원 & 관리자 아닌 사람
+		
+		// 조회수 증가 대상 아닌 사람
+		// 1. 회원 & 글쓴이 : loginInfo != null && nickname.contentEquals((String)loginInfo)
+		// 2. 회원 & 관리자 : adminInfo != null
+		if(!((loginInfo != null && nickname.contentEquals((String)loginInfo))|(adminInfo != null))) {
+			service.updateViewCount(img_seq);
 		}
-
+		
 		// 이까지 조회수 증가
 
 
-		WriterImageUpDTO dto = service.getDetailImage(img_seq);
-		int likepoint = service.getLikepoint(nickname);
+		// ****************************이 밑줄부터
+		// like_list 테이블에 이미지 좋아요 기록 있는지 여부
+		WriterImageUpDTO dto = service.getDetailImage(img_seq); 
+		int likepoint = service.getLikepoint(nickname); 
+		
+		String viewer = null; 
+		if(loginInfo != null) { 
+			viewer = (String)loginInfo; 
+		}else if(loginInfo == null) { // 여기 관리자도 포함됨
+			viewer = " ";
+		}
+		int likestatus = service.likeStatus(img_seq, viewer);
+		
+		int writerlikestatus = service.writerLikeStatus(nickname, viewer);
+		// ****************************이까지
 
 		System.out.println(dto);
 		System.out.println(likepoint);
 
 		request.setAttribute("dto", dto);
 		request.setAttribute("likepoint", likepoint);
-		return "detailImageView";
+		request.setAttribute("likestatus", likestatus); // 이 줄*********************
+		request.setAttribute("writerlikestatus", writerlikestatus); // 이 줄*********************
+		
+		// 다운로드 버튼 제어 
+		
+		// 로그인 안한 경우 
+		if(loginInfo==null) {
+				
+				// 로그인 한 경우 
+				}else {
+				// 사진 구매 가능 여부 알기 위해서 point 받아옴 
+				int point = money_service.getPoint((String)loginInfo);
+				System.out.println("내 닉네임은" + (String)loginInfo);
+				System.out.println("포인트는 :" + point);
+				request.setAttribute("point", point);
+				// 이미 구매한 사용자는 '구매'버튼이 아닌 '다운로드'버튼을 보게된다
+				// 구매 이력을 가져온다 
+				DealListDTO dto2 = money_service.buyHistory(nickname, dto.getImg_seq()); 
+					// 구매 이력이 없는 경우 
+					if(dto2==null) {
+						request.setAttribute("history", 0);
+					// 구매 이력이 있는 경우 
+					}else {
+						request.setAttribute("history", 1);
+					}
+					
+				}
+		return "/search/detailImageView";
 	}
 
+
+	//******************************************************************************
 	@RequestMapping(value="/PhotoLike.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String photolike(int img_seq, int count) {
@@ -129,11 +194,28 @@ public class SearchController {
 		System.out.println("좋아요 도착");
 		System.out.println("count: " + count);
 
-		int result = service.photolike(img_seq, count);
-		if(result > 0) {return "ok";}
+		String viewer = null;
+		if(session.getAttribute("loginInfo") != null) {
+			viewer = (String)session.getAttribute("loginInfo");
+		}else if(session.getAttribute("adminInfo") != null) {
+			viewer = (String)session.getAttribute("adminInfo");
+		}
+		
+		int result1 = 0;
+		
+		// like_list 테이블
+		if(count == 1) { // 좋아요 눌렀을 경우
+			result1 = service.insertLikeList(img_seq, viewer);
+		}else if(count == -1) { // 좋아요 취소 눌렀을 경우
+			result1 = service.deleteLikeList(img_seq, viewer);
+		}
+		
+		// writer_image_up 테이블
+		int result2 = service.photolike(img_seq, count); 
+		
+		if(result1 > 0 && result2 > 0) {return "ok";}
 		else {return "fail";}
 	}
-
 
 	@RequestMapping(value="/WriterLike.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
@@ -141,11 +223,30 @@ public class SearchController {
 		System.out.println("nickname: " + nickname);
 		System.out.println("작가좋아요 도착");
 		System.out.println("count: " + count);
-
-		int result = service.writerlike(nickname, count);
-		if(result > 0) {return "ok";}
+		
+		String viewer = null;
+		if(session.getAttribute("loginInfo") != null) {
+			viewer = (String)session.getAttribute("loginInfo");
+		}else if(session.getAttribute("adminInfo") != null) {
+			viewer = (String)session.getAttribute("adminInfo");
+		}
+		
+		int result1 = 0;
+		
+		// like_list 테이블
+		if(count == 1) { // 좋아요 눌렀을 경우
+			result1 = service.insertWriterLikeList(nickname, viewer);
+		}else if(count == -1) { // 좋아요 취소 눌렀을 경우
+			result1 = service.deleteWriterLikeList(nickname, viewer);
+		}
+		
+		// member 테이블
+		int result2 = service.writerlike(nickname, count);
+		if(result1 > 0 && result2 > 0) {return "ok";}
 		else {return "fail";}
 	}
+	
+	//******************************************************************************
 	
 	@RequestMapping(value="/WriterExist.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
@@ -159,8 +260,10 @@ public class SearchController {
 		}
 	}
 	
-	@RequestMapping("/GoToLogin.do")
-	public String gotologin() {
-		return "member/login";
-	}
+	/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */	
+//	@RequestMapping("/GoToLogin.do")
+//	public String gotologin() {
+//		return "member/login.do";
+//	}
+	/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 }

@@ -19,11 +19,14 @@
 	<mvc:resources mapping="/img/**" location="/resources/img/" />
 	<mvc:resources mapping="/notice_summernote_files/**" location="/notice_summernote_files/" />
 	<mvc:resources mapping="/notice_files/**" location="/notice_files/" />
+	<mvc:resources mapping="/pieceNotice_summernote_files/**" location="/pieceNotice_summernote_files/" />
+	<mvc:resources mapping="/pieceNotice_files/**" location="/pieceNotice_files/" />
 	<mvc:resources mapping="/writeruploadfiles/**" location="/writeruploadfiles/" />
 	<mvc:resources mapping="/contestfiles/**" location="/contestfiles/" />
 	<mvc:resources mapping="/css/**" location="/resources/css/" />
 	<mvc:resources mapping="/js/**" location="/resources/js/" />
 	<mvc:resources mapping="/watermarkfiles/**" location="/watermarkfiles/" />
+	<mvc:resources mapping="/profileimage/**" location="/profileimage/" />
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
