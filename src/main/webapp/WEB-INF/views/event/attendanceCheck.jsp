@@ -26,8 +26,10 @@
 	.fc-custom2-button {width: 100px; border: 1px solid #A6C14C; background-color: #FFFEEA; color: #A6C14C; font-family: 'Arita-dotum-Medium';}
 	.fc-custom2-button:hover {width: 100px; border: 1px solid #FFFEEA; background-color: #A6C14C; color: white; font-family: 'Arita-dotum-Medium';}
 		
-	.fc-content {margin: auto; width: 100px !important; text-align: center; height: 100px; background-image: url('${pageContext.request.contextPath}/img/check.PNG'); background-size: 100px; background-repeat: no-repeat;}
+	.fc-content {margin: auto; width: 100px !important; text-align: center; height: 100px; background-image: url('${pageContext.request.contextPath}/img/pass.png'); background-size: 100px; background-repeat: no-repeat;}
 	.fc-title{font-family: 'Cafe24Dongdong';}
+	.fc-day-grid-event{margin:auto; height:1px;padding:0px; width:1px;}
+	.fc-content{margin-top:-5px; margin-left:-50px; width:100px; height:100px;}
 </style>
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
@@ -76,6 +78,7 @@
 				                 	// $(".fc-today ").append($('<span>'+'출석완료'+'</span>'));
 				                    alert('오늘의 출석이 완료되었습니다. 10포인트가 지급되었습니다!');
 				                    calendar.addEvent({
+				                    	
                          				"start": date,
                          				"color" : "#FCF8E3",
                          				"textColor" : "white"
@@ -87,8 +90,10 @@
         		});
     	 	}else if("${event}"==1){
     		 	console.log("출석이력이 있음");
+    		 //var date = $(".fc-today").attr("data-date");
     		 	var calendarEl = document.getElementById('calendar');
     	        var calendar = new FullCalendar.Calendar(calendarEl, {
+    	         	
     	        	plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ],
     	            header:{
     	            	left:'title',
@@ -100,7 +105,18 @@
     	            	custom2: {
     	                	text:'출석완료' 
     	                }
-    	            }
+    	            },
+    	       
+    	            	events : [{
+    	            	//	"id" : "ddd",
+    	            	//	"start":"2020-01-19",
+             			//	"color" : "#FCF8E3",
+             			//	"textColor" : "black"
+    	            	}]
+    	
+    	        		//eventRender:function(event) {    
+    	            	//	$("td.fc-today").prepend("<img src="${pageContext.request.contextPath}/img/check.PNG">"); 
+    	         		//}  
     	        })
     	 	}
     	 	// 가져온 달력 정보를 캘린더에 뿌린다 
