@@ -28,7 +28,7 @@
 	
 	img {margin: auto; width: 100px; height: 100px;}
 	
-	.fc-content {margin: auto; width: 150px !important; text-align: center; height: 100px; background-image: url('${pageContext.request.contextPath}/img/check.PNG'); background-size: 100px; background-repeat: no-repeat;}
+	.fc-content {margin: auto; width: 100px !important; text-align: center; height: 100px; background-image: url('${pageContext.request.contextPath}/img/check.PNG'); background-size: 100px; background-repeat: no-repeat;}
 	.fc-title{font-family: 'Cafe24Dongdong';}
 </style>
 <script>
@@ -79,7 +79,7 @@
 				                    alert('오늘의 출석이 완료되었습니다. 10포인트가 지급되었습니다!');
 				                    calendar.addEvent({
                          				"start": date,
-                         				"color" : "white",
+                         				"color" : "#FCF8E3",
                          				"textColor" : "white"
                      				})
                  				});
