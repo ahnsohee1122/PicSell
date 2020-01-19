@@ -66,7 +66,7 @@
 	
 	<!-- 구매 내역 확인하기  -->
 	<select id="buy_list" parameterType="String" resultMap="buy_map">
-		Select d.deal_date, d.deal_price, d.deal_img_seq, d.buyer_nickname, w.sysname from deal_list d, writer_image_up w where d.deal_img_seq = w.img_seq and buyer_nickname=#{nickname} order by d.deal_date desc
+		Select d.deal_date, d.deal_price, d.deal_img_seq, d.writer_nickname, w.sysname from deal_list d, writer_image_up w where d.deal_img_seq = w.img_seq and buyer_nickname=#{nickname} order by d.deal_date desc
 	</select>
 	
 	<!-- 판매 내역 확인하기 -->

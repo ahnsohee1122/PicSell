@@ -98,7 +98,7 @@
 											<td>${list.dealDate}</td>
 											<td>${list.dealPrice}<span class="mx-1">원</span></td>
 											<td>${list.dealImgSeq}</td>
-											<td>${list.buyNickname}</td>
+											<td>${list.buyerNickname}</td>
 											<td><img src="/writeruploadfiles/${list.sysName}"></td>
 										</tr>
 									</c:forEach>
