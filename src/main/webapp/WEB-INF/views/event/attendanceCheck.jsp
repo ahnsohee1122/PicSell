@@ -28,7 +28,7 @@
 	
 	img {margin: auto; width: 100px; height: 100px;}
 	
-	.fc-content {text-align: center; }
+	.fc-content {text-align: center; background-image: url('${pageContext.request.contextPath}/img/main_banner.jpg');}
 	.fc-title{font-family: 'Cafe24Dongdong';}
 </style>
 <script>

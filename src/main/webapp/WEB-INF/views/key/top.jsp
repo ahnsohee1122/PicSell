@@ -567,13 +567,8 @@ $(function(){
 													<a href="${pageContext.request.contextPath}/event/attendance_check.do" style="color: black; text-decoration: none;">출석체크</a>
 												</div>
 											</div>
-											<hr>
-<<<<<<< HEAD
-											
+											<hr>											
 											<div class="row my-4 text-center" style="font-size: 20px;">
-=======
-											<div class="row mt-4 text-center" style="font-size: 20px;">
->>>>>>> 35170287338d3c2e3e67bab148dc99e06b468d7e
 												<div class="col-12">
 													<a href="#" class="btn" id="logout1" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
 												</div>
