@@ -10,7 +10,7 @@
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <style>
 /*    작가페이지 Main */
-	.writer {width: 100%; min-height: 250px; background-image: url('${pageContext.request.contextPath}/img/banner55.jpg'); background-repeat: no-repeat;}
+	.writer {width: 100%; min-height: 250px; background-color: #FFA873; background-repeat: no-repeat;}
 	.explanation {margin-top: 5px; padding: 0px; background: none; border: 0; color: white; border-bottom: 1px solid white;}
 	
 	.modal-open {padding: 0;}
@@ -37,10 +37,11 @@
 	
 	.dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {color: black!important;}
 	.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover {color: black!important;}
-    
-	.imgtd{width:250px; height:150px}
-	.imgtd>img{width:100%;}
-	.state{ float:left; width: 200px; height:100px; margin: 3px;}
+	
+	.odd {background-color: white !important;}
+	.odd:hover {background-color: #f4f2f5 !important;}
+	
+	img {max-width: 100%; max-height: 200px;}
 </style>
 </head>
 <body>
@@ -78,17 +79,17 @@
     		<table id="imageAccept" class="display text-center">
 				<thead>
 					<tr>
-						<th>등록번호</th>
-						<th>사진</th>
-						<th>심사진행</th>
-						<th>승인여부</th>
-						<th>등록일</th>
-						<th>삭제</th>
+						<th style="width: 10%;">등록번호</th>
+						<th style="width: 30%;">사진</th>
+						<th style="width: 15%;">심사진행</th>
+						<th style="width: 15%;">승인여부</th>
+						<th style="width: 20%;">등록일</th>
+						<th style="width: 10%;">비고</th>
 					</tr>
 				</thead>
 				<tbody>
 				<c:forEach items="${list}" var="dto">
-					<tr style="height:100px;" >
+					<tr style="height:100px;">
 						<td>${dto.img_seq}</td>
 						<td class="imgtd"><img src='/writeruploadfiles/${dto.sysname}'></td>
 						<td id="checking${dto.img_seq}"></td>
