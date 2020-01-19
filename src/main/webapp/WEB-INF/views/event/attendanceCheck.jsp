@@ -25,9 +25,7 @@
 	
 	.fc-custom2-button {width: 100px; border: 1px solid #A6C14C; background-color: #FFFEEA; color: #A6C14C; font-family: 'Arita-dotum-Medium';}
 	.fc-custom2-button:hover {width: 100px; border: 1px solid #FFFEEA; background-color: #A6C14C; color: white; font-family: 'Arita-dotum-Medium';}
-	
-	img {margin: auto; width: 100px; height: 100px;}
-	
+		
 	.fc-content {margin: auto; width: 100px !important; text-align: center; height: 100px; background-image: url('${pageContext.request.contextPath}/img/check.PNG'); background-size: 100px; background-repeat: no-repeat;}
 	.fc-title{font-family: 'Cafe24Dongdong';}
 </style>
