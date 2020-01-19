@@ -125,7 +125,6 @@ $(function(){
 		
     	
 			$("#login").on("click",function(){
-				var link = document.location.href;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 				
 				var login_id = $("#loginId").val();
         		var login_pw = $("#loginPw").val();
@@ -144,26 +143,23 @@ $(function(){
 					type:"post",
 					data:{ id:$("#loginId").val(),
 						pw:$("#loginPw").val(),
-						link:link/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-					},
-					dataType:"JSON"/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+					}
 				}).done(function(res){
-					
-					console.log(res);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-					console.log(res.link);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-					
-					if(res.status == "로그인성공"){/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+
+					if(res == "로그인성공"){
 							alert("로그인에 성공했습니다!");
-							/* location.href="/home.do"; */
-							location.href=res.link;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+							$("#Login").modal("hide");
+							location.reload();
 						}else if(res=="관리자로그인성공"){
 							
 							alert("관리자로 로그인했습니다");
-							location.href="/home.do";
+							$("#Login").modal("hide");
+							location.reload();
 						}else if(res=="블랙1"){
 							
 							alert("로그인에 성공했습니다!\n블랙리스트 1회경고 회원입니다. 한번더 경고를받을시 블랙리스트에 등록됩니다.");
-							location.href="/home.do";
+							$("#Login").modal("hide");
+							location.reload();
 						}else if(res=="블랙2"){
 							alert("블랙리스트 회원입니다 관리자에게 문의바랍니다.");
 				}else if(res == "로그인실패!"){
@@ -179,7 +175,7 @@ $(function(){
 					alert("서버에러입니다 관리자에게 문의하세요");}
 				});
 			});
-	        $(document).on("keyup", function(e){
+	        $("#loginPw").on("keyup", function(e){
 
 	            if(e.keyCode == 13){
 	            	var login_id = $("#loginId").val();
@@ -457,6 +453,7 @@ $(function(){
 												</div>
 											</div>
 											<hr>
+<<<<<<< HEAD
 											<div class="row my-2" style="font-size: 20px;">
 												<div class="col-12">
 													<a href="#" style="color: black; text-decoration: none;">출석체크</a>
@@ -467,6 +464,8 @@ $(function(){
 												<hr>
 											</div>
 											<hr>
+=======
+>>>>>>> 35170287338d3c2e3e67bab148dc99e06b468d7e
 											<div class="row my-4 text-center" style="font-size: 20px;">
 												<div class="col-12">
 													<a id="logout" href="#" class="btn" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
@@ -496,7 +495,7 @@ $(function(){
 							<div class="modal-dialog modal-dialog-slideout" role="document" style="max-width: 350px; left: 17px;">
 								<div class="modal-content px-2">
 									<div class="modal-body m-0">
-										<div class="w-100" style="height: 50px;">
+										<div class="w-100" style="height: 45px;">
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">×</span>
 											</button>
@@ -525,26 +524,29 @@ $(function(){
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/myInfo/myInfo.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a>
 												</div>
-												<div class="col-12 sideMenu">
-													<a href="${pageContext.request.contextPath}/myInfo/modiPage.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 수정</a>
-												</div>
-												<div class="col-12 sideMenu">
-													<a href="${pageContext.request.contextPath}/contest/contestchecking.do" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/승인 내역</a>
-												</div>
 											</div>
 											<hr>
 											<div class="row my-2" style="font-size: 20px;">
 												<div class="col-12 mb-2">
-													<a href="#" style="color: black; text-decoration: none;">나의 작가 페이지</a>
+													<a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; text-decoration: none;">작가 페이지</a>
 												</div>
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
+													<a href="${pageContext.request.contextPath}/money/profit_list.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 내역 조회</a>
+												</div>
+											</div>
+											<hr>
+											<div class="row my-2" style="font-size: 20px;">
+												<div class="col-12 mb-2">
+													<a href="${pageContext.request.contextPath}/img_up/acceptpage.do" style="color: black; text-decoration: none;">심사/승인 내역</a>
+												</div>
+												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/img_up/acceptpage.do" style="color: black; font-size: 16px; text-decoration: none;">이미지 심사/승인 내역</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">수익금 내역 조회</a>
+													<a href="${pageContext.request.contextPath}/contest/contestchecking.do" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/승인 내역</a>
 												</div>
 											</div>
 											<hr>
@@ -565,12 +567,16 @@ $(function(){
 											<hr>
 											<div class="row my-2" style="font-size: 20px;">
 												<div class="col-12">
-													<a href="#" style="color: black; text-decoration: none;">출석체크</a>
+													<a href="${pageContext.request.contextPath}/event/attendance_check.do" style="color: black; text-decoration: none;">출석체크</a>
 												</div>
 											</div>
 											<hr>
+<<<<<<< HEAD
 											
 											<div class="row my-4 text-center" style="font-size: 20px;">
+=======
+											<div class="row mt-4 text-center" style="font-size: 20px;">
+>>>>>>> 35170287338d3c2e3e67bab148dc99e06b468d7e
 												<div class="col-12">
 													<a href="#" class="btn" id="logout1" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
 												</div>

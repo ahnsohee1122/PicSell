@@ -89,6 +89,12 @@
 		//실제 복사하여 사용시에는 모든 주석을 지운 후 사용하세요
 		$("#charge").on("click", function(){
 			  var radioVal = $('input[name="money"]:checked').val();
+			  
+			  // 아무것도 선택을 하지 않고 충전버튼을 누른 경우 
+			  if(radioVal == null){
+				  alert("충전할 금액을 선택해주세요.");
+			  }else if(radioVal != null){
+			  
 			BootPay.request({
 				
 				price: radioVal, //실제 결제되는 가격
@@ -142,6 +148,8 @@
 				$("#btn").trigger("click");
 		
 			});
+		
+			  }
 		})
 
 	</script>

@@ -17,10 +17,10 @@
 	.data_title {width: 400px;}
 	.data_date {width: 120px;}
 	.data_count {width: 50px;}
-	th, td {border: 1px solid gray;}
-	tfoot {min-height: 500px;}
+	.title, .data {border: 1px solid gray;}
 	.viewBtn {width: 100px; border: 1px solid gray; background-color: #f4f2f5;}
 	.noBtn {width: 120px; border: 1px solid gray; background-color: #f4f2f5;}
+	#contentsP
 </style>
 </head>
 <body>
@@ -42,77 +42,59 @@
 				<thead>
 					<tr>
 						<th class="title px-2">제목</th>
-						<td class="data_title">${map.pieceNotice.pieceNotice_title}</td>
+						<td class="data data_title">${map.pieceNotice.pieceNotice_title}</td>
 						<th class="title px-2 text-center">날짜</th>
-						<td class="data_date">${map.pieceNotice.pieceNotice_write_date}</td>
+						<td class="data data_date">${map.pieceNotice.pieceNotice_write_date}</td>
 						<th class="title px-2 text-center">조회수</th>
-						<td class="data_count">${map.pieceNotice.pieceNotice_view_count}</td>
+						<td class="data data_count">${map.pieceNotice.pieceNotice_view_count}</td>
 					</tr>
 					<tr>
 						<th class="title px-2">첨부파일</th>
-						<td colspan="5" class="data_file text-left px-2">
+						<td colspan="5" class="data data_file text-left px-2">
 							<c:forEach var="pieceFileDto" items="${map.pieceFileDto }">
 								<a style="color: black;" href="${pageContext.request.contextPath}/pieceNotice/fileDownLoad.do?sysName=${pieceFileDto.pieceNoticeFile_sysName}&oriName=${pieceFileDto.pieceNoticeFile_oriName}"> ${pieceFileDto.pieceNoticeFile_oriName }</a>
 							</c:forEach>
 						</td>
 					</tr>
-				</thead>
-				<tfoot  style="border: 1px solid gray;">
 					<tr>
-						<td colspan="6" class="text-left m-0 px-2">${map.pieceNotice.pieceNotice_contents }</td>
-					</tr>
-				
-				
-				
-				
-				
-				
-					<!-----comment code----------------------------  -->
-					<tr>
-						<td colspan="6" class="text-left m-0 px-2">
-						<div>댓글목록</div>
-						<div id="comment_box" style="height:100px; overflow:auto; overflow-x:hidden;">
-							<c:forEach var="commentDto" items="${map.commentDto }">
-								<div>${commentDto.writer} : ${commentDto.notice_comment} : ${commentDto.write_date }
-									
-									<input type="button" value="삭제" style="display:none;"
-									id="a${commentDto.comment_seq }" 
-									onclick="commentDelete(${commentDto.comment_seq })">
-									
-									<input type="button" value="수정" 
-									id="b${commentDto.comment_seq }" 
-									onclick="commentModify(${commentDto.comment_seq })"><br>
-									
-									<textarea id="c${commentDto.comment_seq }" style="display:none;"></textarea>
-									<input id="d${commentDto.comment_seq }" style="display:none;" 
-									type="button" value="수정완료"
-									onclick="commentModifyComplete(${commentDto.comment_seq })">
-								</div>
-							</c:forEach>
-							
-						<div>
+						<td id="contentsP" style="height: 200px;" colspan="6" class="data text-left m-0 px-2">
+							${map.pieceNotice.pieceNotice_contents }
 						</td>
 					</tr>
 					<tr>
-						<td colspan="1" class="text-left m-0 px-2">
-						<div>댓글</div>
-						<td colspan="4" class="">
-						<div><textarea style="width:100%; height:100%;" id="comment"></textarea></div>
-						<td colspan="1">
-						<div><input type="button" id="commentBtn" value="작성"></div>
-					</td>
+						<th class="title px-2 text-center">댓글 목록</th>
+						<td colspan="5" class="data">
+							<table class="w-100">
+								<c:forEach var="commentDto" items="${map.commentDto }">
+								<tr id="comment_box">
+									<td id="e${commentDto.comment_seq}" class="p-2 text-left" style="width: 55%">
+										${commentDto.notice_comment}
+										<textarea id="c${commentDto.comment_seq }" style="display: none; resize: none;" rows="2" cols="80"></textarea>
+										<input id="d${commentDto.comment_seq }" type="button" value="수정완료" onclick="commentModifyComplete(${commentDto.comment_seq })" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
+									</td>
+									<td class="p-2" style="width: 20%">${commentDto.write_date }</td>
+									<td class="p-2" style="width: 15%">${commentDto.writer}</td>
+									<td class="p-2" style="width: 8%">
+										<input type="button" value="삭제" id="a${commentDto.comment_seq }" onclick="commentDelete(${commentDto.comment_seq })" style="display: none;">
+										<input type="button" value="수정" id="b${commentDto.comment_seq }" onclick="commentModify(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
+									</td>
+								</tr>
+								</c:forEach>
+							</table>
+						</td>
 					</tr>
-					<!-- ---------comment code---------------------------------------------------- -->
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				</tfoot>
+					<tr>
+						<th class="title px-2 py-0 text-center">댓글</th>
+						<td class="data px-2 m-auto py-2" colspan="4">
+							<div class="row align-items-center w-100 m-auto">
+								<textarea id="comment" class="col align-self-center" style="width: 100%; resize: none;"></textarea>	
+							</div>
+						</td>
+						<td class="data p-2">
+							<input type="button" id="commentBtn" value="작성" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">	
+						</td>
+					</tr>
+				</thead>
 			</table>
 		</div>
 		<div class="container text-center">
@@ -124,16 +106,16 @@
 		<div class="container mx-auto mt-5 mb-4 text-center">
 			<table id="example" class="row-border" style="width: 100%;">
 				<tr style="height: 50px;">
-					<th class="title2 px-2">이전글</th>
-					<td class="text-left px-4">
+					<th class="title title2 px-2">이전글</th>
+					<td class="data text-left px-4">
 						<c:if test="${map.beforeNotice.pieceNotice_seq != null }">
 							<a style="color: black;" href="${pageContext.request.contextPath}/pieceNotice/detail.do?pieceNotice_seq=${map.beforeNotice.pieceNotice_seq}">${map.beforeNotice.pieceNotice_title}</a>
 						</c:if>
 					</td>
 				</tr>
 				<tr style="height: 50px;">
-					<th class="title2 px-2">다음글</th>
-					<td class="text-left px-4">
+					<th class="title title2 px-2">다음글</th>
+					<td class="data text-left px-4">
 						<c:if test="${map.afterNotice.pieceNotice_seq != null }">
 							<a style="color: black;" href="${pageContext.request.contextPath}/pieceNotice/detail.do?pieceNotice_seq=${map.afterNotice.pieceNotice_seq}">${map.afterNotice.pieceNotice_title}</a>
 						</c:if>
@@ -210,16 +192,7 @@
 					console.log(res);
 				})
 			}
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		}		
 	</script>
 	
 	<jsp:include page="../key/bottom.jsp" flush="false"/>

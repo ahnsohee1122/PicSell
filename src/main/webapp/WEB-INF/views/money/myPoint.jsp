@@ -106,7 +106,7 @@
 									<div class="row mx-auto my-4">
 										<label for="selectId" class="col-4">작가 수익금</label>
 									    <div class="col-8" style="border-bottom: 1px solid darkgray;">
-									    	${point}<span class="mx-1">원</span>
+									    	${profit}<span class="mx-1">원</span>
 									    </div>
 									</div>
 								</div>

@@ -117,7 +117,7 @@ public class ContestController {
          request.setAttribute("notyet", notyet);
          list = service.contestchecking(host);
          request.setAttribute("list", list);
-         return "myPage/contestaccpet";
+         return "myPage/contestaccept";
       }catch(Exception e) {
          e.printStackTrace();
          return "error";
@@ -130,16 +130,52 @@ public class ContestController {
    public String newContestform(MultipartFile[] files, ContestDTO dto) {
       String path = session.getServletContext().getRealPath("contestfiles");
       String nickname = (String)session.getAttribute("loginInfo");
-      System.out.println(nickname);
       service.newcontest(files, dto, path, nickname);
       return "redirect:contest.do";
 
    }
    
+  @RequestMapping("detail")
+   public String detail(ContestDTO dto, HttpServletRequest request) {
+	  try {
+	  ContestDTO contestDto = service.detailcheck(dto.getContest_seq());
+	  request.setAttribute("contestDto", contestDto);
+	  }catch(Exception e) {
+		  e.printStackTrace();
+	  }
+	   return "contest/contestdetail";
+   }
   
+  @RequestMapping("upload")
+  public String contestupload(ContestDTO dto, HttpServletRequest request) {
+	  request.setAttribute("title", dto.getTitle());
+	  request.setAttribute("contest_seq", dto.getContest_seq());
+	  return "contest/imageupload";
+  }
+  
+  //이미지 업로드
+  @RequestMapping("enroll")
+  public String imageupload(MultipartFile[] files, ContestDTO dto,HttpServletRequest request) {
+	  try {
+	  String contestpath = session.getServletContext().getRealPath("contestenroll");
+	  String nickname = (String)session.getAttribute("loginInfo");
+	  dto.setEnroll_nickname(nickname);
+	  service.enrollimg(files, dto, contestpath);
+	  ContestDTO contestDto = service.detailcheck(dto.getContest_seq());
+	  request.setAttribute("contestDto", contestDto);
+	  }catch(Exception e) {
+		  e.printStackTrace();
+	  }
+	  return "contest/contestdetail";
+  }
    
-   
-   
+  //출품한리스트보기
+  @RequestMapping("enrollList")
+ public String enrollList(int contest_seq,HttpServletRequest request) {
+	 List<ContestDTO> list = service.enrollList(contest_seq);
+	 request.setAttribute("list", list);
+	 return "contest/enrollimagelist";
+ }
    
    
    

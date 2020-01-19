@@ -166,23 +166,23 @@ li{text-decoration:none; list-style-type : none }
 				    	<label class="col-form-label col-3 col-md-2 pt-0">주최이유<strong> * </strong></label>
 				      	<div class="col-9 col-md-10">
 					        <div class="form-check my-1">
-					          	<input class="form-check-input" type="radio" name="reason" id="gridRadios1" value="option1">
+					          	<input class="form-check-input" type="radio" name="reason" id="gridRadios1" value="기업 사진 대회 공모전">
 					          	<label class="form-check-label" for="gridRadios1">기업 사진 대회 공모전</label>
 					        </div>
 					        <div class="form-check my-1">
-					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios2" value="option2">
+					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios2" value="공공기관 사진 대회 공모전">
 					          	<label class="form-check-label" for="gridRadios2">공공기관 사진 대회 공모전</label>
 					        </div>
 					        <div class="form-check my-1">
-					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios3" value="option3">
+					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios3" value="AI 이미지 데이터 수집 공모전">
 					          	<label class="form-check-label" for="gridRadios3">AI 이미지 데이터 수집 공모전</label>
 					        </div>
 					        <div class="form-check my-1">
-					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios4" value="option4">
+					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios4" value="원하는 특정 이미지를 직접 공모 or 요청">
 					          	<label class="form-check-label" for="gridRadios4">원하는 특정 이미지를 직접 공모 or 요청</label>
 					        </div>
 					        <div class="form-check my-1">
-					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios5" value="option5">
+					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios5" value="";>
 					          	<label class="form-check-label" for="gridRadios5">기타 :<input type="text" id="others" class="mx-2" style="width: 200px; height: 15px; background: 0; border: 0; border-bottom: 1px solid darkgray;"></label>
 					        </div>
 				    	</div>
@@ -285,9 +285,14 @@ li{text-decoration:none; list-style-type : none }
 	</div>
 	
 	<script>
+	
 		// 주최이유 기타 내용 적는 부분 클릭하면 라디오버튼이 기타에 찍힘
 		$("#others").on("click", function() {
 			$("input[id=gridRadios5]").prop("checked", true);
+			$("#gridRadios5").val($("#others").val());
+		})
+		$("#others").on("change", function() {
+			$("#gridRadios5").val($("#others").val());
 		})
 		
 		

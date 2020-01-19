@@ -62,7 +62,7 @@
     <div class="container-fluid p-0" style="background-color: #f4f2f5;">
     	<div class="pt-5 p-0 m-auto w-80" style="max-width: 1040px;">
     		<div class="row p-0 m-0 text-right">
-    			<div class="col-8 col-xs-4 col-sm-7 col-md-10 col-lg-9 col-xl-12 m-auto px-2 px-md-0 px-lg-1 px-xl-0"><a href="newOpen.do" class="btn text-primary border border-primary" style="font-size: 13px;">새로운 공모전 열기</a></div>
+    			<div class="col-8 col-xs-4 col-sm-7 col-md-10 col-lg-9 col-xl-12 m-auto px-2 px-md-0 px-lg-1 px-xl-0"><a id="contestopen" class="btn text-primary border border-primary" style="font-size: 13px;">새로운 공모전 열기</a></div>
     		</div>
     	</div>
     	<div class="container pb-5">
@@ -76,7 +76,7 @@
 				<div class="col-12 col-md-6 col-xl-4 mt-2 mb-4" id="contest${dto.contest_seq}">
     				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
     					<p><img src="${pageContext.request.contextPath}/img/contest01.jpg" style="width: 300px; height: 170px;"></p>
-    					<p class="px-2 pb-2" style="font-size: 20px;"><a href="#" style="color: black;">${dto.title }</a></p>
+    					<p class="px-2 pb-2" style="font-size: 20px;"><a href="${pageContext.request.contextPath}/contest/detail?title=${dto.title }&contest_seq=${dto.contest_seq}" style="color: black;">${dto.title }</a></p>
     					<p class="px-2 py-0" style="font-size: 17px;" id="price${dto.contest_seq}"></p>
     					<p class="px-2 py-0" style="font-size: 17px;" id="date${dto.enddate }">기간  ${dto.enddate}</p>
     					<p class="px-2 py-0" style="font-size: 17px; color:red; display:none;" id="time${dto.contest_seq }">기간  지남</p>
@@ -159,7 +159,8 @@
     
     
     <script>
-    var loginInfo = "${sessionScope.loginInfo}"
+    var loginInfo = "${sessionScope.loginInfo}";
+    
     	$("#contestopen").on("click",function(){
     		if(loginInfo==""){
     			alert("로그인 후 이용해주세요");
