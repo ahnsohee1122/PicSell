@@ -26,6 +26,7 @@
 </form>
 
 <script>
+
 var loginInfo = "${loginInfo}"
 $("#upload").on("click",function(){
 	if(loginInfo == null){
@@ -33,12 +34,11 @@ $("#upload").on("click",function(){
 		$("#gotologin").click(); 
 	}else{
 		location.href = "${pageContext.request.contextPath}/contest/upload?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}" 
-	}
-})
+	});
 
 $("#enrollimage").on("click",function(){
 	location.href="${pageContext.request.contextPath}/contest/enrollList?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}" 
-})
+});
 </script>
 </body>
 </html>
