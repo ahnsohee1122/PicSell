@@ -453,19 +453,13 @@ $(function(){
 												</div>
 											</div>
 											<hr>
-<<<<<<< HEAD
 											<div class="row my-2" style="font-size: 20px;">
 												<div class="col-12">
-													<a href="#" style="color: black; text-decoration: none;">출석체크</a>
-												</div>
-											<div class="col-12">
 													<a href="${pageContext.request.contextPath}/honor/inserthonor.do" style="color: black; text-decoration: none;">명예의전당 등록</a>
 												</div>
 												<hr>
 											</div>
 											<hr>
-=======
->>>>>>> 35170287338d3c2e3e67bab148dc99e06b468d7e
 											<div class="row my-4 text-center" style="font-size: 20px;">
 												<div class="col-12">
 													<a id="logout" href="#" class="btn" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
