@@ -62,10 +62,10 @@ public class EventController {
 			JsonArray arr = new JsonArray();
 			for(EventDTO go : list) {
 				JsonObject obj = new JsonObject();
-				//obj.addProperty("title", go.getTitle());
+				obj.addProperty("title", go.getTitle());
 				obj.addProperty("date", go.getEvent_date());
 				//obj.addProperty("imageurl", go.getImageurl());
-				obj.addProperty("color", "white");
+				obj.addProperty("color", "#A6C14C");
 				arr.add(obj);
 			}
 			String jstring = arr.toString();
