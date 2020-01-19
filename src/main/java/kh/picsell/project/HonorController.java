@@ -242,7 +242,8 @@ public String insertcheck(String nickname) {
 public String delete() {
 	try {
 		int result = service.delete();
-		if(result>0) {
+		int re = service.votedelete();
+		if(result>0 &&  re>0) {
 			return "삭제";
 		}else {
 			return "실패";

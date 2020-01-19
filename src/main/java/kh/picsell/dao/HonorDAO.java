@@ -54,6 +54,9 @@ public int insertcheck(String nickname) throws Exception{ //이미 등록된사�
 public int votecheck(String nick) throws Exception{
 	return jdbc.selectOne("Honor.votecheck",nick);
 }
+public int deletevote() throws Exception{
+	return jdbc.delete("Honor.votedelete");
+}
 public List<MemberDTO> manlike(MemberDTO dto){
 	return jdbc.selectList("Honor.manlike",dto);
 }

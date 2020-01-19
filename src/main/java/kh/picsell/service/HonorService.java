@@ -46,6 +46,9 @@ public int insertcheck(String nickname) throws Exception{
 public int votecheck(String nick) throws Exception{
 	return dao.votecheck(nick);
 }
+public int votedelete() throws Exception{
+	return dao.deletevote();
+}
 public List<MemberDTO> manlike(MemberDTO dto){
 	return dao.manlike(dto);
 }
