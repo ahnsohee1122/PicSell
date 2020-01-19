@@ -125,7 +125,6 @@ $(function(){
 		
     	
 			$("#login").on("click",function(){
-				var link = document.location.href;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 				
 				var login_id = $("#loginId").val();
         		var login_pw = $("#loginPw").val();
@@ -144,26 +143,23 @@ $(function(){
 					type:"post",
 					data:{ id:$("#loginId").val(),
 						pw:$("#loginPw").val(),
-						link:link/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-					},
-					dataType:"JSON"/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+					}
 				}).done(function(res){
-					
-					console.log(res);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-					console.log(res.link);/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-					
-					if(res.status == "로그인성공"){/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+
+					if(res == "로그인성공"){
 							alert("로그인에 성공했습니다!");
-							/* location.href="/home.do"; */
-							location.href=res.link;/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+							$("#Login").modal("hide");
+							location.reload();
 						}else if(res=="관리자로그인성공"){
 							
 							alert("관리자로 로그인했습니다");
-							location.href="/home.do";
+							$("#Login").modal("hide");
+							location.reload();
 						}else if(res=="블랙1"){
 							
 							alert("로그인에 성공했습니다!\n블랙리스트 1회경고 회원입니다. 한번더 경고를받을시 블랙리스트에 등록됩니다.");
-							location.href="/home.do";
+							$("#Login").modal("hide");
+							location.reload();
 						}else if(res=="블랙2"){
 							alert("블랙리스트 회원입니다 관리자에게 문의바랍니다.");
 				}else if(res == "로그인실패!"){
@@ -179,7 +175,7 @@ $(function(){
 					alert("서버에러입니다 관리자에게 문의하세요");}
 				});
 			});
-	        $(document).on("keyup", function(e){
+	        $("#loginPw").on("keyup", function(e){
 
 	            if(e.keyCode == 13){
 	            	var login_id = $("#loginId").val();
