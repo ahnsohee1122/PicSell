@@ -515,13 +515,13 @@ $(function(){
 											<hr>
 											<div class="row my-2" style="font-size: 20px;">
 												<div class="col-12 mb-2">
-													<a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; text-decoration: none;">나의 작가 페이지</a>
+													<a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; text-decoration: none;">작가 페이지</a>
 												</div>
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">수익금 내역 조회</a>
+													<a href="${pageContext.request.contextPath}/money/profit_list.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 내역 조회</a>
 												</div>
 											</div>
 											<hr>
