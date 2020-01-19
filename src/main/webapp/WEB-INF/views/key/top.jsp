@@ -486,7 +486,7 @@ $(function(){
 							<div class="modal-dialog modal-dialog-slideout" role="document" style="max-width: 350px; left: 17px;">
 								<div class="modal-content px-2">
 									<div class="modal-body m-0">
-										<div class="w-100" style="height: 50px;">
+										<div class="w-100" style="height: 45px;">
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">×</span>
 											</button>
@@ -515,14 +515,11 @@ $(function(){
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/myInfo/myInfo.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a>
 												</div>
-												<div class="col-12 sideMenu">
-													<a href="${pageContext.request.contextPath}/myInfo/modiPage.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 수정</a>
-												</div>
 											</div>
 											<hr>
 											<div class="row my-2" style="font-size: 20px;">
 												<div class="col-12 mb-2">
-													<a href="#" style="color: black; text-decoration: none;">나의 작가 페이지</a>
+													<a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; text-decoration: none;">나의 작가 페이지</a>
 												</div>
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a>
@@ -533,10 +530,13 @@ $(function(){
 											</div>
 											<hr>
 											<div class="row my-2" style="font-size: 20px;">
-												<div class="col-12">
+												<div class="col-12 mb-2">
+													<a href="${pageContext.request.contextPath}/img_up/acceptpage.do" style="color: black; text-decoration: none;">심사/승인 내역</a>
+												</div>
+												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/img_up/acceptpage.do" style="color: black; font-size: 16px; text-decoration: none;">이미지 심사/승인 내역</a>
 												</div>
-												<div class="col-12">
+												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/contest/contestchecking.do" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/승인 내역</a>
 												</div>
 											</div>
@@ -562,7 +562,7 @@ $(function(){
 												</div>
 											</div>
 											<hr>
-											<div class="row my-4 text-center" style="font-size: 20px;">
+											<div class="row mt-4 text-center" style="font-size: 20px;">
 												<div class="col-12">
 													<a href="#" class="btn" id="logout1" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
 												</div>
