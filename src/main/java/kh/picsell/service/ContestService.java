@@ -90,10 +90,9 @@ public class ContestService {
 		return dao.lastContest();
 	}
 	@Transactional("txManager")
-	public void enrollimg(MultipartFile[] files, ContestDTO dto, String contestpath, String nickname ) {
+	public void enrollimg(MultipartFile[] files, ContestDTO dto, String contestpath) {
 		System.out.println("contestseq" + dto.getContest_seq());
 		System.out.println("title" + dto.getTitle());
-		System.out.println("nickname" + nickname);
 		File filepath = new File(contestpath);
 
 		if(!filepath.exists()) {
@@ -111,12 +110,15 @@ public class ContestService {
 				f.transferTo(new File(contestpath+"/"+sysName));
 				dto.setEnroll_sysname(sysName);
 				map.put("dto", dto);
-				map.put("nickname", nickname);
 				dao.enrollimg(map);
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 
 		}
+	}
+	
+	public List<ContestDTO> enrollList(int Contest_seq) {
+		return dao.enrollList(Contest_seq);
 	}
 }

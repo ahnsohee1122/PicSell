@@ -46,6 +46,9 @@
    		select * from (select contest.*, row_number() over(order by accept_date desc ) as rown from contest) where rown between 1 and 5 and accept='Y' and (enddate > sysdate)
    </select>
    <insert id="enrollimg" parameterType="java.util.Map">
-      insert into contestimage values(contest_img_seq.nextval, #{dto.contest_seq}, #{nickname},#{dto.title},#{dto.enroll_sysname},sysdate)
+      insert into contestimage values(contest_img_seq.nextval, #{dto.contest_seq}, #{dto.enroll_nickname},#{dto.title},#{dto.enroll_sysname},sysdate)
 	</insert>
+	<select id="enrollList" parameterType="Integer" resultType="kh.picsell.dto.ContestDTO">
+		select * from contestimage where contest_seq = #{contest_seq}
+	</select>
 </mapper>

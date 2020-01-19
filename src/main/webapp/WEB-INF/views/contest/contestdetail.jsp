@@ -8,7 +8,7 @@
 </head>
 <body>
 <jsp:include page="../key/top.jsp" flush="false"/>
-<form id="contestuploadform" action="${pageContext.request.contextPath}/contest/upload?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}" method="post" enctype="multipart/form-data">
+<form id="contestuploadform" method="post" enctype="multipart/form-data">
 	<div>${contestDto.reason }</div>
 	<div>${contestDto.title }</div>
 	<div>${contestDto.detail }</div>
@@ -20,8 +20,25 @@
 	
 	
 	
-	<input type="submit" value="이미지업로드">
+	<input type="button" value="이미지업로드" id="upload">
+	<input type="button" value="출품작보기" id="enrollimage">
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
 </form>
+
+<script>
+var loginInfo = "${loginInfo}"
+$("#upload").on("click",function(){
+	if(loginInfo == null){
+		alert("로그인 후 이용해주세요")
+		$("#gotologin").click(); 
+	}else{
+		location.href = "${pageContext.request.contextPath}/contest/upload?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}" 
+	}
+})
+
+$("#enrollimage").on("click",function(){
+	location.href="${pageContext.request.contextPath}/contest/enrollList?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}" 
+})
+</script>
 </body>
 </html>
