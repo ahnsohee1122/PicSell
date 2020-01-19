@@ -28,7 +28,7 @@
 	
 	img {margin: auto; width: 100px; height: 100px;}
 	
-	.fc-content {text-align: center; background-image: url('${pageContext.request.contextPath}/img/main_banner.jpg');}
+	.fc-content {margin: auto; width: 150px !important; text-align: center; height: 100px; background-image: url('${pageContext.request.contextPath}/img/check.PNG'); background-size: 100px; background-repeat: no-repeat;}
 	.fc-title{font-family: 'Cafe24Dongdong';}
 </style>
 <script>
@@ -80,16 +80,12 @@
 				                    calendar.addEvent({
                          				"start": date,
                          				"color" : "white",
-                         				"textColor" : "white",
-                          				imageurl : "/img/check.PNG"
+                         				"textColor" : "white"
                      				})
                  				});
              				}
                 		}
-            		}, 
-            		eventRender:function(event, eventElement) {
-		            	$("td.fc-today").html("<span><img src="+event.event.extendedProps.imageurl+"></span>");
-             		}
+            		}
         		});
     	 	}else if("${event}"==1){
     		 	console.log("출석이력이 있음");
@@ -106,9 +102,6 @@
     	            	custom2: {
     	                	text:'출석완료' 
     	                }
-    	            },
-    	            eventRender:function(event, eventElement) {
-    	            	$("td.fc-today").html("<img src=/img/check.PNG>");
     	            }
     	        })
     	 	}

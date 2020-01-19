@@ -65,7 +65,7 @@ public class EventController {
 				obj.addProperty("title", go.getTitle());
 				obj.addProperty("date", go.getEvent_date());
 				//obj.addProperty("imageurl", go.getImageurl());
-				obj.addProperty("color", "#A6C14C");
+				obj.addProperty("color", "white");
 				arr.add(obj);
 			}
 			String jstring = arr.toString();
