@@ -232,6 +232,19 @@ public class MoneyController {
 		return "money/Sell_List_Check";
 	}
 	
+	// 수익금 내역 확인하기 
+	@RequestMapping("/profit_list.do")
+	public String profit_list() {
+		System.out.println("도착");
+		String nickname = (String)session.getAttribute("loginInfo");
+		List<Map<String, Object>> list = money_sv.profit_list(nickname);
+		System.out.println(list.size());
+		System.out.println();
+		request.setAttribute("list", list);
+		return "money/Sell_List_Check";
+		
+	}
+	
 	//////////////////////////////////////////////////////////////////
 	
 	// 관리자 > 포인트 내역 확인하기

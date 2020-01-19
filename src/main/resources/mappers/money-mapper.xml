@@ -85,6 +85,24 @@
 		Select d.deal_date, d.deal_price, d.deal_img_seq, d.buyer_nickname, w.sysname from deal_list d, writer_image_up w where d.deal_img_seq = w.img_seq and writer_nickname=#{nickname} order by d.deal_date desc
 	</select>
 	
+		<!-- 수익금 및 판매 내역 map 만들기 -->
+	<resultMap type="map" id="profit_map">
+		<result column="point_seq" property="pointSeq"></result>
+		<result column="deal_sort" property="dealSort"></result>
+		<result column="point_date" property="pointDate"></result>
+		<result column="point" property="point"></result>
+		<result column="sysname" property="sysName"></result>
+	</resultMap>
+	
+	<!-- 수익금 및 판매 내역 확인하기  -->
+	<select id="profit_list" parameterType="String" resultMap="profit_map">
+		select point_seq, deal_sort, point_date, point, nvl(o.sysname,'none') sysname 
+		from (Select d.deal_date , w.sysname sysname from deal_list d, writer_image_up w where d.deal_img_seq = w.img_seq order by d.deal_date desc) o, point p 
+		where p.point_date=o.deal_date(+) and nickname=#{nickname} and money_sort='수익금' order by point_date desc
+	</select>
+	
+
+	
 	<!-- 관리자 > 포인트 내역 확인하기 -->
 	<select id="admin_point" parameterType="String" resultType="kh.picsell.dto.PointDTO">
 		select * from point order by point_date desc
