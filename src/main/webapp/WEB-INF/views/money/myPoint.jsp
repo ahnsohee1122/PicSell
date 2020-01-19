@@ -73,7 +73,7 @@
 						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/money/myPoint.do" style="color: black; font-size: 22px; text-decoration: none;">내 포인트</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/myPoint.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 조회하기</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/buy_list.do" style="color: black; font-size: 16px; text-decoration: none;">구매내역 확인하기</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/sell_list.do" style="color: black; font-size: 16px; text-decoration: none;">판매내역 확인하기</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/profit_list.do" style="color: black; font-size: 16px; text-decoration: none;">판매내역 확인하기</a></div>
 					</div>
 				</div>
 				<div class="col-12 col-md-9 col-xl-10 px-0 px-md-3 text-center">
