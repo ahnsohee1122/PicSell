@@ -457,12 +457,6 @@ $(function(){
 												</div>
 											</div>
 											<hr>
-											<div class="row my-2" style="font-size: 20px;">
-												<div class="col-12">
-													<a href="#" style="color: black; text-decoration: none;">출석체크</a>
-												</div>
-											</div>
-											<hr>
 											<div class="row my-4 text-center" style="font-size: 20px;">
 												<div class="col-12">
 													<a id="logout" href="#" class="btn" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
@@ -524,9 +518,6 @@ $(function(){
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/myInfo/modiPage.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 수정</a>
 												</div>
-												<div class="col-12 sideMenu">
-													<a href="${pageContext.request.contextPath}/contest/contestchecking.do" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/승인 내역</a>
-												</div>
 											</div>
 											<hr>
 											<div class="row my-2" style="font-size: 20px;">
@@ -537,10 +528,16 @@ $(function(){
 													<a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
+													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">수익금 내역 조회</a>
+												</div>
+											</div>
+											<hr>
+											<div class="row my-2" style="font-size: 20px;">
+												<div class="col-12">
 													<a href="${pageContext.request.contextPath}/img_up/acceptpage.do" style="color: black; font-size: 16px; text-decoration: none;">이미지 심사/승인 내역</a>
 												</div>
-												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">수익금 내역 조회</a>
+												<div class="col-12">
+													<a href="${pageContext.request.contextPath}/contest/contestchecking.do" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/승인 내역</a>
 												</div>
 											</div>
 											<hr>
@@ -561,7 +558,7 @@ $(function(){
 											<hr>
 											<div class="row my-2" style="font-size: 20px;">
 												<div class="col-12">
-													<a href="#" style="color: black; text-decoration: none;">출석체크</a>
+													<a href="${pageContext.request.contextPath}/event/attendance_check.do" style="color: black; text-decoration: none;">출석체크</a>
 												</div>
 											</div>
 											<hr>
