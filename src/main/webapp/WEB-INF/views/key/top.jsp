@@ -453,6 +453,13 @@ $(function(){
 												</div>
 											</div>
 											<hr>
+											<div class="row my-2" style="font-size: 20px;">
+												<div class="col-12">
+													<a href="${pageContext.request.contextPath}/honor/inserthonor.do" style="color: black; text-decoration: none;">명예의전당 등록</a>
+												</div>
+												<hr>
+											</div>
+											<hr>
 											<div class="row my-4 text-center" style="font-size: 20px;">
 												<div class="col-12">
 													<a id="logout" href="#" class="btn" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
@@ -500,7 +507,7 @@ $(function(){
 											</div>
 											<div class="row my-3 text-center" style="font-size: 20px;">
 												<div class="col-12">
-													<a href="#" class="btn py-0" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">충전/환급하기</a>
+													<a href="#" class="btn py-0" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">My Point</a>
 												</div>
 											</div>
 											<hr>
@@ -519,9 +526,6 @@ $(function(){
 												</div>
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a>
-												</div>
-												<div class="col-12 sideMenu">
-													<a href="${pageContext.request.contextPath}/money/profit_list.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 내역 조회</a>
 												</div>
 											</div>
 											<hr>
@@ -557,8 +561,8 @@ $(function(){
 													<a href="${pageContext.request.contextPath}/event/attendance_check.do" style="color: black; text-decoration: none;">출석체크</a>
 												</div>
 											</div>
-											<hr>
-											<div class="row mt-4 text-center" style="font-size: 20px;">
+											<hr>											
+											<div class="row my-4 text-center" style="font-size: 20px;">
 												<div class="col-12">
 													<a href="#" class="btn" id="logout1" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
 												</div>

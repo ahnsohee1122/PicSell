@@ -19,6 +19,17 @@ private int contestfiles_seq;
 private String rejection;
 private String contest_img_seq;
 private String enroll_sysname;
+private String enroll_nickname;
+
+
+public String getEnroll_nickname() {
+	return enroll_nickname;
+}
+
+
+public void setEnroll_nickname(String enroll_nickname) {
+	this.enroll_nickname = enroll_nickname;
+}
 
 
 public ContestDTO() {
