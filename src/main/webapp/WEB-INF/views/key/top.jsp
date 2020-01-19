@@ -513,7 +513,7 @@ $(function(){
 											</div>
 											<div class="row my-3 text-center" style="font-size: 20px;">
 												<div class="col-12">
-													<a href="#" class="btn py-0" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">충전/환급하기</a>
+													<a href="#" class="btn py-0" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">My Point</a>
 												</div>
 											</div>
 											<hr>
@@ -532,9 +532,6 @@ $(function(){
 												</div>
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a>
-												</div>
-												<div class="col-12 sideMenu">
-													<a href="${pageContext.request.contextPath}/money/profit_list.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 내역 조회</a>
 												</div>
 											</div>
 											<hr>
@@ -570,13 +567,8 @@ $(function(){
 													<a href="${pageContext.request.contextPath}/event/attendance_check.do" style="color: black; text-decoration: none;">출석체크</a>
 												</div>
 											</div>
-											<hr>
-<<<<<<< HEAD
-											
+											<hr>											
 											<div class="row my-4 text-center" style="font-size: 20px;">
-=======
-											<div class="row mt-4 text-center" style="font-size: 20px;">
->>>>>>> 35170287338d3c2e3e67bab148dc99e06b468d7e
 												<div class="col-12">
 													<a href="#" class="btn" id="logout1" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">로그아웃</a>
 												</div>
