@@ -75,4 +75,7 @@ public List<ContestDTO> lastContest(){
 public int enrollimg(HashMap<String,Object> map) {
 	return jdbc.insert("Contest.enrollimg", map);
 }
+public List<ContestDTO> enrollList(int contest_seq){
+	return jdbc.selectList("Contest.enrollList", contest_seq);
+}
 }
