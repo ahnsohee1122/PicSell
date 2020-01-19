@@ -37,11 +37,23 @@
 							<h6 class="text-left">- 작가 수익금만 출금 가능합니다.</h6>
 							<h6 class="text-left">- 작가 수익금 5000원 이상인 경우에만 출금 가능합니다.</h6>
 						</form>
-						<form class="mx-auto mt-4 px-2 px-ml-0" action="${pageContext.request.contextPath}/money/moneyBackProc.do" method="post" style="max-width: 400px;">
+						<form class="mx-auto mt-4 px-2 px-ml-0" id="frm" action="${pageContext.request.contextPath}/money/moneyBackProc.do" method="post" style="max-width: 400px;">
 							<h4 class="text-left text-warning">작가 수익금 : ${profit}<span class="mx-1">원</span></h4>
-							<h4 class="text-left text-warning">환급 할 포인트 : <input type="text" name="back_point" class="border-bottom border-warning text-warning text-right" style="width: 130px; border: 0; background-color: #f4f2f5;"><span class="mx-1">원</span></h4>
-							<button class="mt-5 btn" style="width: 100px; border: 1px solid darkgray; border-radius: 10px; background-color: #f4f2f5;">환급하기</button>
+							<h4 class="text-left text-warning">환급 할 포인트 : <input type="text" id="back_point" name="back_point" class="border-bottom border-warning text-warning text-right" style="width: 130px; border: 0; background-color: #f4f2f5;"><span class="mx-1">원</span></h4>
+							<input type=button id="btn" class="mt-5 btn" style="width: 100px; border: 1px solid darkgray; border-radius: 10px; background-color: #f4f2f5;" value="환급하기">
 						</form>
+						<script>
+						$("#btn").on("click", function(){
+							var back_point = $("#back_point").val();
+							if("${profit}"<back_point){
+								alert("출금하시려는 포인트가 가지고 계신 포인트보다 많습니다.");
+							}else if(back_point<10){
+								alert("10원 미만은 출금할 수 없습니다.");
+							}else{
+								$("#frm").submit();		
+							}
+						})
+						</script>
 						<c:choose>
 							<c:when test="${msg==null}">
 							</c:when>
