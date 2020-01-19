@@ -10,7 +10,7 @@
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <style>
 /*    작가페이지 Main */
-	.writer {width: 100%; min-height: 250px; background-color: #FFA873; background-repeat: no-repeat;}
+	.writer {width: 100%; min-height: 250px; background-image: url('${pageContext.request.contextPath}/img/accept_banner.jpg'); background-repeat: no-repeat;}
 	.explanation {margin-top: 5px; padding: 0px; background: none; border: 0; color: white; border-bottom: 1px solid white;}
 	
 	.modal-open {padding: 0;}
@@ -39,9 +39,10 @@
 	.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover {color: black!important;}
 	
 	.odd {background-color: white !important;}
-	.odd:hover {background-color: #f4f2f5 !important;}
 	
-	img {max-width: 100%; max-height: 200px;}
+	.dataTables_filter label input {width: 150px !important; border: 1px solid darkgray !important; border-radius: 5px !important;}
+	
+	img {max-width: 100%; max-height: 150px;}
 </style>
 </head>
 <body>
@@ -62,15 +63,15 @@
     	<div class="container mb-5 px-2" style="max-width: 1500px; font-family: 'Cafe24Oneprettynight';">
     		<div class="row align-items-center w-100 m-auto text-center" style="height: 130px; border-top: 1px solid darkgray; border-bottom: 1px solid darkgray;">
     			<div class="col-4">
-    				<h5>승인된 사진</h5>
+    				<h5>승인된 이미지</h5>
     				<h5>${ok }<span>개</span></h5>
     			</div>
     			<div class="col-4">
-    				<h5>심사중인 사진</h5>
+    				<h5>심사중인 이미지</h5>
     				<h5>${notyet }<span>개</span></h5>
     			</div>
     			<div class="col-4">
-    				<h5>승인거절된 사진</h5>
+    				<h5>승인거절된 이미지</h5>
     				<h5>${no }<span>개</span></h5>
     			</div>
     		</div>

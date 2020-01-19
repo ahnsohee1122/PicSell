@@ -117,7 +117,7 @@ public class ContestController {
          request.setAttribute("notyet", notyet);
          list = service.contestchecking(host);
          request.setAttribute("list", list);
-         return "myPage/contestaccpet";
+         return "myPage/contestaccept";
       }catch(Exception e) {
          e.printStackTrace();
          return "error";
