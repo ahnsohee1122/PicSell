@@ -127,7 +127,7 @@
 			<input type="button" id="listGo" class="noBtn" value="목록보기">
 		</div>
 	</div>
-	
+	<!--zzz  -->
 	<script>
 		$("#delete").on("click", function(){
 			location.href="${pageContext.request.contextPath}/editNotice/delete.do?seq=${map.editNotice.editNotice_seq}";
@@ -208,11 +208,11 @@
 					}
 				}).done(function(res){
 					console.log(res);
-					var comment = $("#c" + seq).val();
-					console.log(comment);
-					$("#e" + seq).html(comment);
-					$("#c" + seq).toggle();
-					$("#d" + seq).toggle();
+					 var comment = 
+		            	   $("#c" + seq).val()
+		            	   + '<textarea id="c' + seq +'" style="display: none; resize: none;" rows="2" cols="80"></textarea>'
+		            	   + '<input id="d' + seq +'" type="button" value="수정완료" onclick="commentModifyComplete(' + seq + ')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">';
+		               $("#e" + seq).html(comment)
 				})
 			}
 		}		
