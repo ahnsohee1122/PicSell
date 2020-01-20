@@ -175,7 +175,7 @@ $(function(){
 					alert("서버에러입니다 관리자에게 문의하세요");}
 				});
 			});
-	        $("#loginPw").on("keyup", function(e){
+	        $(".loginInput").on("keyup", function(e){
 
 	            if(e.keyCode == 13){
 	            	var login_id = $("#loginId").val();
@@ -359,9 +359,9 @@ $(function(){
 									            </g>
 		            							<path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#fff" />
         									</svg>
-											<input type="text" placeholder="Input Your ID" name="loginId" id="loginId" style="font-family: 'Dovemayo-Medium';">
+											<input type="text" class ="loginInput" placeholder="Input Your ID" name="loginId" id="loginId" style="font-family: 'Dovemayo-Medium';">
 											<br>
-											<input type="password" placeholder="Input Your PW" name="loginPw" id="loginPw" style="font-family: 'Dovemayo-Medium';">
+											<input type="password" class ="loginInput" placeholder="Input Your PW" name="loginPw" id="loginPw" style="font-family: 'Dovemayo-Medium';">
 											<br>
 											<div id="info" class="pt-2" style="font-size: 16px; display: none">잘못된 아이디 또는 잘못된 패스워드입니다.</div>
 											<div class="form-group p-0 save" style="width: 300px;">
