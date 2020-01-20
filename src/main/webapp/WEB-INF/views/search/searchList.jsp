@@ -174,7 +174,7 @@
 	        var result = regex.exec(tag);
 	    	
 	    	if(result){
-	    		alert("키워드를 입력하세요");
+	    		alert("키워드를 입력해주세요.");
 	    		return;
 	    	}else if(tag.charAt(0) == '@'){
 	    		$.ajax({
@@ -209,9 +209,13 @@
 	    function input_keyword2(){
         	var name = "keyword2";
             var value = $("#keyword2").val();
+            
+            var regex = /^\s*$/;
+            var result = regex.exec(value);
                 
-            if(value == ""){
+            if(result){
             	alert("키워드를 입력해주세요.");
+            	return;
             }else{
                 var filter2 = $("#historyBox span input[name="+name+"]");
                 if(filter2.length == 0){

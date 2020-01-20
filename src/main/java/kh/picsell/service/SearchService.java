@@ -1,6 +1,8 @@
 package kh.picsell.service;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,38 +16,63 @@ public class SearchService {
 	@Autowired
 	private SearchDAO dao;
 	
-	public List<WriterImageUpDTO> search(String tag) {
-		StringBuilder sb = new StringBuilder();
-		String[] arr = tag.split(" ");
-		for(String tmp : arr) {
-			sb.append("#"+tmp+"#|");
-		}
-		tag = sb.substring(0,sb.length()-1).toString();
-		System.out.println("tag!!!!!!!!!!!!!!!!!!!:" + tag);
-		List<WriterImageUpDTO> list = dao.search(tag);
-		return list;
-	}
+//	public List<WriterImageUpDTO> search(String tag) {
+//		StringBuilder sb = new StringBuilder();
+//		String[] arr = tag.split(" ");
+//		for(String tmp : arr) {
+//			sb.append("#"+tmp+"#|");
+//		}
+//		tag = sb.substring(0,sb.length()-1).toString();
+//		System.out.println("tag!!!!!!!!!!!!!!!!!!!:" + tag);
+//		List<WriterImageUpDTO> list = dao.search(tag);
+//		return list;
+//	}
 	
 	public List<WriterImageUpDTO> align(int start, int end, String tag, String file_extension, String usage, String orderBy, String keyword2){
-		StringBuilder sb = new StringBuilder();
-		String[] arr = tag.split(" ");
-		for(String tmp : arr) {
-			sb.append("#"+tmp+"#|");
+		
+		int checkTag = 0;
+		int checkKeyword2 = 0;
+		
+		Pattern p = Pattern.compile("^\\s+.*$"); // 태그가 "     ㅇㅇㅇ" 처럼 공백+문자일 경우
+		Matcher m = p.matcher(tag);
+		
+		if(m.find()) {
+			tag="# #";
+			checkTag = 1;
+			System.out.println("keyword: " + tag);
 		}
-		tag = sb.substring(0,sb.length()-1).toString();
-		System.out.println("keyword: " + tag);
 		
 		if(keyword2 != null) {
-			StringBuilder sb2 = new StringBuilder();
-			String[] arr2 = keyword2.split(" ");
-			for(String tmp : arr2) {
-				sb2.append("#"+tmp+"#|");
+			Matcher m2 = p.matcher(keyword2);
+			if(m2.find()){
+				keyword2="# #";
+				checkKeyword2 = 1;
+				System.out.println("keyword2: " + keyword2);
 			}
-			System.out.println(keyword2);
-			keyword2 = sb2.substring(0,sb2.length()-1).toString();
-			System.out.println("keyword2: " + keyword2);
 		}
-	
+		
+		if(checkTag != 1) {
+			StringBuilder sb = new StringBuilder();
+			String[] arr = tag.split(" ");
+			for(String tmp : arr) {
+				sb.append("#"+tmp+"#|");
+			}
+			tag = sb.substring(0,sb.length()-1).toString();
+			System.out.println("공백+문자 아닌 경우 keyword: " + tag);
+		}
+		
+		if(keyword2 != null) {
+			if(checkKeyword2 != 1) {
+				StringBuilder sb2 = new StringBuilder();
+				String[] arr2 = keyword2.split(" ");
+				for(String tmp : arr2) {
+					sb2.append("#"+tmp+"#|");
+				}
+				System.out.println(keyword2);
+				keyword2 = sb2.substring(0,sb2.length()-1).toString();
+				System.out.println("공백+문자 아닌 경우 keyword2: " + keyword2);
+			}
+		}
 		return dao.align(start, end, tag, file_extension, usage, orderBy, keyword2);
 	}
 	
