@@ -150,7 +150,7 @@
                             </tr>
                             <tr>
                                 <th class="text-left">용량</th>
-                                <td>${dto.img_size }MB</td>
+                                <td id="size${dto.img_seq}"></td>
                             </tr>
                             <tr>
                             	<td colspan="2"><hr class="p-0 m-0">
@@ -186,6 +186,13 @@
                             <tr>
                                 <th class="text-left">사용범위</td>
                                 <td>
+                                <script>
+                                var size = ${dto.img_size};
+                                var value = size/1048576;
+                                var showvalue = value.toFixed(3);
+                                $("#size${dto.img_seq}").html(showvalue+"MB")
+                               </script> 
+                               
                                     <c:choose>
                                         <c:when test="${dto.usage == '상업용' }">
                                             <span id=commercial style="color: dodgerblue;">상업적인 사용 가능</span>

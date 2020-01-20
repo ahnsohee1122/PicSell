@@ -6,44 +6,76 @@
 <head>
 <meta charset="UTF-8">
 <title>이미지 등록/심사</title>
-<jsp:include page="../key/top.jsp" flush="false"/>
+
 				<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
                <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"rel="stylesheet">
 <script	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <style>
-#container{height:800px;position:relative;min-width:1400px;}
-#manage{width:80%; float:right;text-align:center;min-width:860px;}
-#leftmenu{width:20%; float:left;height:100%;min-width:182px}
+/*    작가페이지 Main */
+	.writer {width: 100%; min-height: 250px; background-image: url('${pageContext.request.contextPath}/img/accept_banner.jpg'); background-repeat: no-repeat;}
+	.explanation {margin-top: 5px; padding: 0px; background: none; border: 0; color: white; border-bottom: 1px solid white;}
+	
+	.modal-open {padding: 0;}
+    .modal {padding: 0;}
+	
+/*    기본 글씨체 */
+    @font-face {font-family: 'Cafe24Oneprettynight'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff'); font-weight: normal; font-style: normal; }
+    
+    .dataTables_wrapper .dataTables_paginate {width: 100%!important; text-align: center!important; margin: auto!important; color: black!important;}
+		
+	.dataTables_wrapper .dataTables_paginate .paginate_button {
+	    border: 1px solid white!important;
+	    background-color: white!important;
+	    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, white))!important;
+	    background: -webkit-linear-gradient(top, white 0%, white 100%)!important;
+	    background: -moz-linear-gradient(top, white 0%, white 100%)!important;
+	    background: -ms-linear-gradient(top, white 0%, white 100%)!important;
+	    background: -o-linear-gradient(top, white 0%, white 100%)!important;
+	    background: linear-gradient(to bottom, white 0%, white 100%)!important;
+	}
+	
+	.dataTables_wrapper .dataTables_paginate span .paginate_button:hover {color: black!important;}
+	.dataTables_wrapper .dataTables_paginate span .paginate_button.current {font-weight: 900!important;}
+	
+	.dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {color: black!important;}
+	.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover {color: black!important;}
+	
+	.odd {background-color: white !important;}
+	
+	.dataTables_filter label input {width: 150px !important; border: 1px solid darkgray !important; border-radius: 5px !important;}
+	
+	img {max-width: 100%; max-height: 150px;}
 </style>
 </head>
 <body>
-<div style="text-align:center">
-<h1>이미지 등록/심사</h1>
-</div>
-<div id="container">
-<div id="leftmenu">
-<div style="height: 100px; width: 100%; padding-top: 30px;"><h3 style="margin-left:20px;">관리자 페이지</h3></div>
-                <p style="text-align:center;font-size:20px;width:160px;height:30px;line-height:30px;"><a href="" class=mya>관리자 정보 조회</a></p>
-                <p style="text-align:center;font-size:20px;width:160px;height:30px;line-height:30px;"><a href="${pageContext.request.contextPath}/member/manage.do" class=mya>회원정보</a></p>
-                <p style="text-align:center;font-size:20px;width:160px;height:30px;line-height:30px;background-color: #476491;"><a href="${pageContext.request.contextPath}/img_up/NoList" class=mya style="color:white;">이미지심사/승인 내역</a></p>
-                <p style="text-align:center;font-size:20px;width:160px;height:30px;line-height:30px;"><a href="${pageContext.request.contextPath}/contest/check.do" class=mya>공모전 심사/승인내역</a></p>
+<jsp:include page="../key/top.jsp" flush="false"/>
+ <div class="container-fluid m-0 p-0">
+        <div class="writer row m-0 p-0">
+	        <div class="m-auto" style="text-align: center;">
+	            <div class="text-white" style="font-size: 32px; font-family: 'Cafe24Oneprettynight';">이미지 심사/승인</div>
+	        </div>
+        </div>
+    </div>
+   <div class="container-fluid m-0 p-0" style="font-family: 'Cafe24Oneprettynight';">
+    	<div class="container mt-5 px-2" style="max-width: 1500px;">
+    		<h4>이미지 심사/승인</h4>
+    	</div>
 
-</div>
-<div id="manage">
 <c:choose>
 <c:when test = "${list.size() == 0}">
  등록신청된 이미지없음
 </c:when>
 <c:otherwise>
-<table id="example" class = "display" style="width:90%">
-<thead>
+<div class="container my-5 px-2" style="max-width: 1500px;">
+    		<table id="imageAccept" class="display text-center">
+    		<thead>
 <tr>
-<th>작성번호</th>
-<th>작성자</th>
-<th>용도</th>
-<th>승인여부</th>
-<th>태그</th>
-<th>컨트롤</th>
+<th style="width: 10%;">작성번호</th>
+<th style="width: 15%;">작성자</th>
+<th style="width: 10%;">용도</th>
+<th style="width: 10%;">승인여부</th>
+<th style="width: 30%;">태그</th>
+<th style="width: 25%;">컨트롤</th>
 </tr>
 </thead>
 <tbody>
@@ -68,19 +100,29 @@ $("#show${dto.img_seq}").on("click",function(){
 </c:forEach>
 </tbody>
 </table>
+</div>
 <script>
-$(document).ready(function() {
-	$('#example').DataTable();
-});
-$($.fn.dataTable.tables(true)).DataTable().columns.adjust();
-
-
-
-</script>
+	    $(document).ready(function() {
+			$('#imageAccept').DataTable({
+		        ordering:false,
+		        info:false,
+		        order:[[2,"desc"]],
+		        "language": {
+		             "emptyTable": "등록된 공지사항이 없습니다.",
+		              "paginate" :{
+		              "previous" : "<<",
+		              "next" : ">>"
+		                }
+		          },
+		        "pagingType": "simple_numbers"
+			});
+		});
+		$($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+    </script>
 </c:otherwise>
 </c:choose>
 </div>
-</div>
+
 <jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
 </html>

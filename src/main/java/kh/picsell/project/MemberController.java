@@ -189,7 +189,7 @@ public class MemberController {
 	public String logout() { //로그아웃
 		session.removeAttribute("adminInfo");
 		session.removeAttribute("loginInfo");
-		return "home";
+		return "redirect:/home";
 	}
 	
 	@RequestMapping(value="/pwchange.do", produces="text/html; charset=UTF-8")
