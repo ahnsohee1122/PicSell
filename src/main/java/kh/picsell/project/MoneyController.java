@@ -34,8 +34,10 @@ import com.google.gson.JsonObject;
 
 import kh.picsell.dto.ChargeListDTO;
 import kh.picsell.dto.DealListDTO;
+import kh.picsell.dto.MemberDTO;
 import kh.picsell.dto.PointDTO;
 import kh.picsell.service.MoneyService;
+import kh.picsell.service.WriterpageService;
 
 @Controller
 @RequestMapping("/money")
@@ -49,10 +51,33 @@ public class MoneyController {
 
 	@Autowired
 	private HttpServletRequest request;
+	
+	@Autowired
+	private WriterpageService writerservice;
 
+	
+	
+	// 오른쪽 바로 포인트랑 수익금 보내기 
+	@RequestMapping(value = "/top_money.do")
+	@ResponseBody
+	public Map<String, Integer> top_money() {
+		String nickname = (String)session.getAttribute("loginInfo");
+		Map<String, Integer> map = new HashMap<>(); 
+		int my_point = money_sv.getPoint(nickname);
+		int my_profit = money_sv.getProfit(nickname);
+		map.put("my_point", my_point);
+		map.put("my_profit", my_profit);
+		return map;
+	}
+	
 	// 충전 금액 선택 화면으로 가게하기 
 	@RequestMapping(value = "/charge.do")
 	public String plus() {
+		String nickname = (String)session.getAttribute("loginInfo");
+		MemberDTO writerinfo = writerservice.writerInfo(nickname);
+	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
+	    request.setAttribute("imginfo", imginfo);
+	    request.setAttribute("memberDto", writerinfo);
 		return "money/charge";
 	}
 
@@ -68,6 +93,10 @@ public class MoneyController {
 		// 3. 충전 내역을 가져와서 DTO에 담는다 
 		ChargeListDTO dto = money_sv.Charge(nickname, receipt_id, price, payment_name, requested_at, deal_sort, money_sort);
 		request.setAttribute("dto", dto);
+		MemberDTO writerinfo = writerservice.writerInfo(nickname);
+	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
+	    request.setAttribute("imginfo", imginfo);
+	    request.setAttribute("memberDto", writerinfo);
 		// 4. 충전 내역 화면으로 보낸다 
 		return "money/chargeComplete";
 	}
@@ -78,8 +107,6 @@ public class MoneyController {
 	@RequestMapping("/buy.do")
 	@ResponseBody
 	public String buy(String writer_nickname, int deal_img_seq) {
-		System.out.println(writer_nickname);
-		System.out.println(deal_img_seq);
 		String buyer_nickname = (String)session.getAttribute("loginInfo");
 		// 날짜
 		Date today = new Date();
@@ -114,6 +141,10 @@ public class MoneyController {
 		list = money_sv.getPointList(nickname);
 		request.setAttribute("list", list);
 		request.setAttribute("msg", msg);
+		MemberDTO writerinfo = writerservice.writerInfo(nickname);
+	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
+	    request.setAttribute("imginfo", imginfo);
+	    request.setAttribute("memberDto", writerinfo);
 		return "money/myPoint";
 	}
 
@@ -127,6 +158,10 @@ public class MoneyController {
 		System.out.println(profit);
 		request.setAttribute("msg", msg);
 		request.setAttribute("profit", profit);
+		MemberDTO writerinfo = writerservice.writerInfo(nickname);
+	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
+	    request.setAttribute("imginfo", imginfo);
+	    request.setAttribute("memberDto", writerinfo);
 		return "money/moneyBack";
 	}
 	
@@ -134,10 +169,9 @@ public class MoneyController {
 	@RequestMapping(value="/moneyBack_preCheck.do")
 	@ResponseBody
 	public String moneyBack_preCheck(int back_point) {
-		
-		
 		return "moneyBack";
 	}
+	
 	// 환급하기 
 	@RequestMapping(value="/moneyBackProc.do", produces="text/html; charset=UTF-8")
 	public String money_back(int back_point) {
@@ -158,6 +192,10 @@ public class MoneyController {
 			request.setAttribute("point", point);
 			int profit = money_sv.getProfit(nickname);
 			request.setAttribute("profit", profit);
+			MemberDTO writerinfo = writerservice.writerInfo(nickname);
+		    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
+		    request.setAttribute("imginfo", imginfo);
+		    request.setAttribute("memberDto", writerinfo);
 			return "money/myPoint";
 	}
 
@@ -170,6 +208,10 @@ public class MoneyController {
 		// 전환 가능 수익금을 가지고 감 
 		int profit = money_sv.getProfit(nickname);
 		request.setAttribute("profit", profit);
+		MemberDTO writerinfo = writerservice.writerInfo(nickname);
+	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
+	    request.setAttribute("imginfo", imginfo);
+	    request.setAttribute("memberDto", writerinfo);
 		return "money/change";
 	}
 	
@@ -179,6 +221,11 @@ public class MoneyController {
 		String nickname = (String)session.getAttribute("loginInfo");
 		int profit = money_sv.getProfit(nickname);
 		request.setAttribute("profit", profit);
+		MemberDTO writerinfo = writerservice.writerInfo(nickname);
+	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
+	    request.setAttribute("imginfo", imginfo);
+	    request.setAttribute("memberDto", writerinfo);
+	      
 		// 전환하려는 포인트가 1000원보다 적은 경우
 		if(money<100) {
 			String msg = "전환하려는 포인트가 1000원보다 작습니다.";
@@ -220,6 +267,10 @@ public class MoneyController {
 		String nickname = (String)session.getAttribute("loginInfo");
 		List<Map<String, Object>> list = money_sv.buy_list(nickname);
 		request.setAttribute("list", list);
+		MemberDTO writerinfo = writerservice.writerInfo(nickname);
+	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
+	    request.setAttribute("imginfo", imginfo);
+	    request.setAttribute("memberDto", writerinfo);
 		return "money/Buy_List_Check";
 	}
 	
@@ -229,6 +280,10 @@ public class MoneyController {
 		String nickname = (String)session.getAttribute("loginInfo");
 		List<Map<String, Object>> list = money_sv.sell_list(nickname);
 		request.setAttribute("list", list);
+		MemberDTO writerinfo = writerservice.writerInfo(nickname);
+	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
+	    request.setAttribute("imginfo", imginfo);
+	    request.setAttribute("memberDto", writerinfo);
 		return "money/Sell_List_Check";
 	}
 	
@@ -241,6 +296,10 @@ public class MoneyController {
 		System.out.println(list.size());
 		System.out.println();
 		request.setAttribute("list", list);
+		MemberDTO writerinfo = writerservice.writerInfo(nickname);
+	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
+	    request.setAttribute("imginfo", imginfo);
+	    request.setAttribute("memberDto", writerinfo);
 		return "money/Sell_List_Check";
 		
 	}

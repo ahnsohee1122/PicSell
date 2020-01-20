@@ -123,7 +123,7 @@ public class WriterUploadService {
 			taglist = request.getParameterValues("p"+i+"-tags[]");
 			String tag="";
 			for(int j = 0; j<taglist.length; j++) {
-				  tag += "{"+taglist[j]+"}";
+				  tag += "#"+taglist[j]+"#";
 				  dto.setTag(tag);
 			}
 			
