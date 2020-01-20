@@ -501,12 +501,12 @@ $(function(){
 											<h5 class="text-center" style="font-size: 22px;">${loginInfo }님<br>환영합니다 </h5>
 											<hr>
 											<div class="row my-2" style="font-size: 18px;">
-												<div class="col-6">내 포인트</div>
-												<div class="col-6" id="top_point"></div>
+												<div class="col-4">내 포인트</div>
+												<div class="col-3 text-right" id="top_point" style="border: 1px solid red;"></div>
 											</div>
 											<div class="row my-2" style="font-size: 18px;">
-												<div class="col-6">작가 수익금</div>
-												<div class="col-6" id="top_profit"></div>
+												<div class="col-4">작가 수익금</div>
+												<div class="col-3 text-right" id="top_profit"></div>
 											</div>
 											<div class="row my-3 text-center" style="font-size: 20px;">
 												<div class="col-12">

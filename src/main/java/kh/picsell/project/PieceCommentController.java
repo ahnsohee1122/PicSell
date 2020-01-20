@@ -1,11 +1,13 @@
 package kh.picsell.project;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 
 import kh.picsell.dto.PieceNoticeCommentDTO;
 import kh.picsell.service.PieceCommentService;
@@ -29,18 +31,16 @@ public class PieceCommentController {
 	@RequestMapping(value="/commentWrite.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String commentWrite(int pieceNotice_seq, String writer, String comment) {
-		System.out.println(pieceNotice_seq);
 		pieceCommentService.commentWrite(pieceNotice_seq, writer, comment);
 		
-		int comment_seq = pieceCommentService.getCommetSeq(pieceNotice_seq);
-		System.out.println("comment_seq: "+comment_seq);
-		PieceNoticeCommentDTO dto = pieceCommentService.commentSelect(comment_seq, writer);
-		System.out.println(dto);
+		int comment_seq = pieceCommentService.getCommetSeq(pieceNotice_seq, writer);
+		PieceNoticeCommentDTO dto = pieceCommentService.commentSelect(comment_seq);
+		System.out.println(dto.getWrite_date());
 		
 		String data = null;
-		ObjectMapper mapper = new ObjectMapper();
+		JSONObject obj = new JSONObject(dto);
 		try {
-			data = mapper.writeValueAsString(dto);
+			data = obj.toString();
 		} catch (Exception e) {
 			System.out.println("first() mapper   ::    " + e.getMessage());
 		}

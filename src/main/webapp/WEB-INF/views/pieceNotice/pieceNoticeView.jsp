@@ -8,8 +8,8 @@
 <title>PieceNotice Detail | PicSell</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<script	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script   src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script   src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style>
 	.li {margin: auto; width: 33%; float:left; text-align: center;}
 	.title {width: 60px; text-align: left;}
@@ -24,7 +24,7 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../key/top.jsp" flush="false"/>
+  <jsp:include page="../key/top.jsp" flush="false"/>
 	
 	<div class="container-fluid py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 		<div class="container m-auto">
@@ -33,8 +33,8 @@
 		<div class="container mx-auto mt-5 mb-4 text-center" style="height: 40px;">
 			<ul class="p-0 m-0 h-100" style="list-style-type: none; border: 1px solid gray; border-radius: 10px;">
 				<li class="li h-100"><a href="${pageContext.request.contextPath}/notice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">공지사항</a></li>
-				<li class="li h-100"><a href="#" style="font-size: 18px; line-height: 40px; color: black;">편집의뢰게시판</a></li>
-				<li class="li h-100"><a href="#" style="font-size: 18px; line-height: 40px; color: black;">작품의뢰게시판</a></li>
+				<li class="li h-100"><a href="${pageContext.request.contextPath}/pieceNotice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">작품의뢰게시판</a></li>
+				<li class="li h-100"><a href="${pageContext.request.contextPath}/pieceNotice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">작품의뢰게시판</a></li>
 			</ul>
 		</div>
 		<div class="container mx-auto mt-5 mb-4 text-center">
@@ -52,7 +52,7 @@
 						<th class="title px-2">첨부파일</th>
 						<td colspan="5" class="data data_file text-left px-2">
 							<c:forEach var="pieceFileDto" items="${map.pieceFileDto }">
-								<a style="color: black;" href="${pageContext.request.contextPath}/pieceNotice/fileDownLoad.do?sysName=${pieceFileDto.pieceNoticeFile_sysName}&oriName=${pieceFileDto.pieceNoticeFile_oriName}"> ${pieceFileDto.pieceNoticeFile_oriName }</a>
+								<a style="color: black;" href="${pageContext.request.contextPath}/pieceNotice/fileDownLoad.do?sysName=${pieceFileDto.pieceNoticeFile_sysName}&oriName=${pieceFileDto.pieceNoticeFile_oriName}">${pieceFileDto.pieceNoticeFile_oriName }</a>
 							</c:forEach>
 						</td>
 					</tr>
@@ -75,7 +75,7 @@
 									<td class="p-2" style="width: 20%">${commentDto.write_date }</td>
 									<td class="p-2" style="width: 15%">${commentDto.writer}</td>
 									<td class="p-2" style="width: 8%">
-										<input type="button" value="삭제" id="a${commentDto.comment_seq }" onclick="commentDelete(${commentDto.comment_seq })" style="display: none;">
+										<input type="button" value="삭제" id="a${commentDto.comment_seq }" onclick="commentDelete(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 										<input type="button" value="수정" id="b${commentDto.comment_seq }" onclick="commentModify(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 									</td>
 								</tr>
@@ -108,7 +108,7 @@
 				<tr style="height: 50px;">
 					<th class="title title2 px-2">이전글</th>
 					<td class="data text-left px-4">
-						<c:if test="${map.beforeNotice.pieceNotice_seq != null }">
+						<c:if test="${map.pieceNotice.pieceNotice_seq != null }">
 							<a style="color: black;" href="${pageContext.request.contextPath}/pieceNotice/detail.do?pieceNotice_seq=${map.beforeNotice.pieceNotice_seq}">${map.beforeNotice.pieceNotice_title}</a>
 						</c:if>
 					</td>
@@ -127,7 +127,7 @@
 			<input type="button" id="listGo" class="noBtn" value="목록보기">
 		</div>
 	</div>
-	
+	<!--zzz  -->
 	<script>
 		$("#delete").on("click", function(){
 			location.href="${pageContext.request.contextPath}/pieceNotice/delete.do?seq=${map.pieceNotice.pieceNotice_seq}";
@@ -154,27 +154,25 @@
 				},
 				dataType:"JSON"
 			}).done(function(res){
-				console.log(res);
+				$("#comment").val("");
 
 				var insertComment =
-				
-				'<tr id="comment_box">'
-				+'<td id="e"'+res.comment_seq+' class="p-2 text-left" style="width: 55%">'
-				+	res.notice_comment
-				+	'<textarea id="c"'+res.comment_seq+' style="display: none; resize: none;" rows="2" cols="80"></textarea>'
-				+	'<input id="d"'+res.comment_seq+' type="button" value="수정완료" onclick="commentModifyComplete("'+res.comment_seq+'")" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
-				+'</td>'
-				+'<td class="p-2" style="width: 20%">'+res.write_date+'</td>'
-				+'<td class="p-2" style="width: 15%">'+res.writer+'</td>'
-				+'<td class="p-2" style="width: 8%">'
-					+'<input type="button" value="삭제" id="a"'+res.comment_seq+' onclick="commentDelete("'+res.comment_seq+'")" style="display: none;">'
-					+'<input type="button" value="수정" id="b"'+res.comment_seq+' onclick="commentModify("'+res.comment_seq+'")" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
-				+'</td>'
-				+'</tr>';
-				
-				$("#commentTable").append(insertComment);
-				
-				
+					
+					'<tr id="comment_box">'
+					+'<td id="e' + res.comment_seq+'" class="p-2 text-left" style="width: 55%">'
+					+	res.notice_comment
+					+	'<textarea id="c' + res.comment_seq+'" style="display: none; resize: none;" rows="2" cols="80"></textarea>'
+					+	'<input id="d' + res.comment_seq+'" type="button" value="수정완료" onclick="commentModifyComplete('+res.comment_seq+')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+					+'</td>'
+					+'<td class="p-2" style="width: 20%">' + res.write_date+'</td>'
+					+'<td class="p-2" style="width: 15%">' + res.writer+'</td>'
+					+'<td class="p-2" style="width: 8%">'
+						+'<input type="button" class=repDelete value="삭제" id="a' + res.comment_seq + '"onclick="commentDelete('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+						+'<input type="button" class=repModify value="수정" id="b' + res.comment_seq + '"onclick="commentModify('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+					+'</td>'
+					+'</tr>'; 
+					
+					$("#commentTable").append(insertComment);
 			})
 		}) 
 		
@@ -187,13 +185,13 @@
 				}
 			}).done(function(res){
 				console.log(res);
-				$("#a" + seq).parent("div").remove();
+				$("#a" + seq).parent().parent().remove();
 			})
 		};
 		
 		function commentModify(seq){
-			$("#c" + seq).css("display","block");
-			$("#d" + seq).css("display","block");
+			$("#c" + seq).toggle();
+			$("#d" + seq).toggle();
 		};
 		
 		function commentModifyComplete(seq){
@@ -210,6 +208,11 @@
 					}
 				}).done(function(res){
 					console.log(res);
+					 var comment = 
+		            	   $("#c" + seq).val()
+		            	   + '<textarea id="c' + seq +'" style="display: none; resize: none;" rows="2" cols="80"></textarea>'
+		            	   + '<input id="d' + seq +'" type="button" value="수정완료" onclick="commentModifyComplete(' + seq + ')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">';
+		               $("#e" + seq).html(comment)
 				})
 			}
 		}		

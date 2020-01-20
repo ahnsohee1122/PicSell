@@ -11,33 +11,27 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style>
 	strong {color: crimson;}
-li{text-decoration:none; list-style-type : none }
- table{table-layout:fixed;width:100%;border-collapse:collapse;border-spacing:0}
-            caption{overflow:hidden;width:0;height:0;font-size:0;line-height:0;text-indent:-999em}
-            img,fieldset{border:0}
-            legend{height:0;visibility:hidden}
-            em,address{font-style:normal}
-            img{border:0 none;vertical-align:middle}
-            a{color:#555;text-decoration:none}
-            input,select{margin:0;padding:0;vertical-align:middle}
-            button{margin:0;padding:0;font-family:inherit;border:0 none;background:transparent;cursor:pointer}
-            button::-moz-focus-inner{border:0;padding:0}
-            header,footer,aside,nav,section,article{display:block}
+	li{text-decoration:none; list-style-type : none }
+ 	table{table-layout:fixed;width:100%;border-collapse:collapse;border-spacing:0}
+	caption{overflow:hidden;width:0;height:0;font-size:0;line-height:0;text-indent:-999em}
+    img,fieldset{border:0}
+    legend{height:0;visibility:hidden}
+    em,address{font-style:normal}
+    img{border:0 none;vertical-align:middle}
+    a{color:#555;text-decoration:none}
+    input,select{margin:0;padding:0;vertical-align:middle}
+    button{margin:0;padding:0;font-family:inherit;border:0 none;background:transparent;cursor:pointer}
+    button::-moz-focus-inner{border:0;padding:0}
+    header,footer,aside,nav,section,article{display:block}
 
-            .clearfix{*zoom:1}
-            .clearfix:after{content:"";display:block;clear:both;overflow:hidden}
+    .clearfix{*zoom:1}
+    .clearfix:after{content:"";display:block;clear:both;overflow:hidden}
 
-            /* Search */
-            .searchBox{border:none}
-            .searchBox tbody th{padding:20px 10px 20px 35px;font-size:14px;font-weight:bold;text-align:left;vertical-align:top;border:none;background:#e6e6e6 }
-            .searchBox tbody td{padding:12px 10px 12px 25px;border:none;background-color:#e6e6e6;}
-        
-            .searchDate{overflow:hidden;margin-bottom:10px;*zoom:1}
-            .searchDate:after{display:block;clear:both;content:''}
-        
-            .demi{display:inline-block;margin:0 1px;vertical-align:middle}
-            .inpType{padding-left:6px;height:24px;line-height:24px;border:1px solid #dbdbdb}
-            .btncalendar{display:inline-block;width:22px;height:22px;background:url(images/btn_calendar.gif) center center no-repeat;text-indent:-999em}
+/*  Search */
+    #ui-datepicker-div {font-family: 'Cafe24Oneprettynight';}
+    .ui-datepicker-header {background: none !important;}
+	.ui-datepicker-next:hover, .ui-datepicker-prev:hover {background-color: white !important; border: 1px solid white;}
+	.ui-state-hover {background-color: white !important; border: 1px solid white;}
 
 /*    기본 글씨체 */
     @font-face {font-family: 'Cafe24Oneprettynight'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff'); font-weight: normal; font-style: normal; }
@@ -47,11 +41,12 @@ li{text-decoration:none; list-style-type : none }
 </head>
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
+	
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-        <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-	 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
-	 <script>                
-
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
+	
+	<script>                
         $(document).ready(function() {
 
             //datepicker 한국어로 사용하기 위한 언어설정
@@ -150,9 +145,7 @@ li{text-decoration:none; list-style-type : none }
             $("#searchStartDate").datepicker( "option", "maxDate", endDate );
 
         }
-
-            
-        </script>
+    </script>
 	 
 	<div class="container-fluid px-0 py-3" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 		<div class="container p-0">
@@ -213,52 +206,21 @@ li{text-decoration:none; list-style-type : none }
 				    </div>
 				    <hr>
 				    <div class="row my-4 was-validated">
-     					<label class="col-form-label col-3 col-md-2 pt-0">파일첨부<strong> * </strong></label>
-	      				<div class="col-9 col-md-10">
-	      					<input type="file" class="form-control p-1" id="validationFile" name="files" multiple="multiple" required>
-						    <div class="invalid-feedback">주최하실 공모전의 예시 사진을 첨부해주세요! (이미지 업로드에 도움이 됩니다.)</div>
-						</div>
-				    </div>
-  					<hr>
-				    <div class="row my-4 was-validated">
-     					<label class="col-form-label col-3 col-md-2 pt-0">기간<strong> * </strong></label>
-	      				<div class="col-9 col-md-10">
-	      					<table class="searchBox">
-            <caption>조회</caption>
-            <colgroup>
-                <col width="123px">
-                <col width="*">
-            </colgroup>
-            <tbody>
-                <tr>
-                    <th>조회기간</th>
-                    <td>
-                        
-                        
-                        <div class="clearfix">
-                            <!-- 시작일 -->
-                            
-                            <span class="demi">종료일 : </span>
-                            <!-- 종료일 -->
-                            <span class="dset">
+				    	<label class="col-form-label col-3 col-md-2 pt-0">기간<strong> * </strong></label>
+				    	<div class="col-9 col-md-10">
+				    		<span class="demi">종료일 : </span>
+				    		<span class="dset">
                                 <input type="text" class="datepicker inpType" name="enddate" id="datepicker" readonly >
                                
                             </span>
-                        </div>    
-                    </td>
-                </tr>
-
-            <tbody>
-        </table>
-						</div>
-                            <div class="invalid-feedback">심사 및 등록까지 최대 1주일이 걸릴수 있습니다.</div>
+				    	</div>
 				    </div>
-				    <hr>
+  					<hr>
 				    <div class="row my-4 was-validated">
      					<label class="col-form-label col-3 col-md-2 pt-0">상금<strong> * </strong></label>
 	      				<div class="col-9 col-md-10">
 	      					<input type="number" class="form-control" name="price" id="validation02" placeholder="예) 1,000,000원" style="font-size: 15px;" required step="10000">
-	      					<div class="invalid-feedback">주최하실 공모전의 상금을 걸어주세요! (장난으로 작성하실 경우 심사에서 거절 처리 됩니다.)</div>
+	      					<div class="invalid-feedback">주최하실 공모전의 상금을 걸어주세요! (최소금액은 10,000원으로, 장난으로 작성하실 경우 심사에서 거절 처리 됩니다.)</div>
 						</div>
 				    </div>
 				    <hr>
