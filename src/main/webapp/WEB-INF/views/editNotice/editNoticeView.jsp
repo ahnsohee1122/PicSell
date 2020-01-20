@@ -127,7 +127,7 @@
 			<input type="button" id="listGo" class="noBtn" value="목록보기">
 		</div>
 	</div>
-	
+	<!--zzz  -->
 	<script>
 		$("#delete").on("click", function(){
 			location.href="${pageContext.request.contextPath}/editNotice/delete.do?seq=${map.editNotice.editNotice_seq}";
