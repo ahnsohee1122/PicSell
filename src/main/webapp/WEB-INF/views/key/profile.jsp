@@ -19,20 +19,20 @@ input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1p
 			<form method="post" enctype="multipart/form-data" id="fileform">
 			<c:choose>
 			<c:when test="${memberDto.profileimg == null }">
-					<img id="profile"  src="${pageContext.request.contextPath}/img/user.png"class="img-thumbnail" style="width: 150px; height: 140px; border-radius: 50%;"><br>
+					<img id="profile"  src="${pageContext.request.contextPath}/img/user.png" class="img-thumbnail mb-2" style="width: 150px; height: 140px; border-radius: 50%;"><br>
 					<label for="profileimg" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">대표이미지설정</label>
-					<input type="file" id="profileimg" name="file" class="mt-3" value="대표 이미지 설정" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
+					<input type="file" id="profileimg" name="file" value="대표 이미지 설정" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 				</c:when>
 				<c:otherwise>
-					<img id="profile"  src="/profileimage/${memberDto.profileimg }"class="img-thumbnail" style="width: 150px; height: 140px; border-radius: 50%;"><br>
+					<img id="profile" src="/profileimage/${memberDto.profileimg }" class="img-thumbnail mb-2" style="width: 150px; height: 140px; border-radius: 50%;"><br>
 					<label for="profileimg" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">대표이미지설정</label>
-					<input type="file" id="profileimg" name="file" class="mt-3" value="대표 이미지 설정" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
+					<input type="file" id="profileimg" name="file" value="대표 이미지 설정" style="width: 150px; border: 1px solid darkgray; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 				</c:otherwise>
 				</c:choose>
 				</form>
 				</div>
 				<div class="col-7 col-md-9 col-xl-10 text-center">
-					<div class="m-auto w-100 h-100" style="border-radius: 10px; background-color: #B0B0B0; color: white;">
+					<div class="m-auto w-100 h-100" style="border-radius: 10px; background-color: #CFCFCF; color: white;">
 						<div class="row m-auto h-50 px-3 align-items-end">
 							<div style="font-size: 30px; font-family: 'Cafe24Oneprettynight';">@${memberDto.nickname }</div>
 						</div>

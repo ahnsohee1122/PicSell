@@ -8,6 +8,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> <!-- 검색 스타일시트 -->
 <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet"> <!-- BestPic 글씨체 -->
+<link rel="stylesheet" href="/css/justifiedGallery.css" />
 <style>
 /*    글씨체 css */
    @font-face {font-family: 'Cafe24Oneprettynight'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff'); font-weight: normal; font-style: normal; }
@@ -151,6 +152,7 @@
 </head>
 <body>
    <jsp:include page="key/top.jsp" flush="false"/>
+   <script src="/js/jquery.justifiedGallery.js"></script>
    
 <!--  Main -->
     <div class="container-fluid p-0">
@@ -165,9 +167,9 @@
                              <input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
                            <button id="searchBtn" class="search_icon" style="border: 0px; background-color: white !important;"><i class="fas fa-search"></i></button>
                            <div class="hashTag m-3">
-                              <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#겨울</a></span>
-                               <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#웨딩</a></span>
-                               <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#인테리어</a></span>
+                              <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag='겨울'" style="color: white;">#겨울</a></span>
+                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag='웨딩'" style="color: white;">#웨딩</a></span>
+                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag='인테리어'" style="color: white;">#인테리어</a></span>
                             </div>
                         </div>
                       </div>
@@ -184,7 +186,12 @@
         </div>
         <hr class="p-0 m-0">
         <div class="row m-auto" style="height: 1000px;">
-            여기는 베스트사진
+           <div class="col-12 col-md-12 col-xl-12 text-center px-0 py-3" id="gallery">
+        	<c:forEach items="${imagelist }" var="imagelist">
+           		 <div><a href='${pageContext.request.contextPath}/DetailImage.do?img_seq=${imagelist.img_seq }&nickname=${imagelist.nickname }'><img src="/watermarkfiles/xsmarked_${imagelist.sysname }"></a></div>
+         	</c:forEach>
+            </div>
+           
         </div>
     </div>
     <hr class="p-0 m-0">
@@ -265,32 +272,50 @@
     </div>
     
     <script>
+    $("#gallery").justifiedGallery({
+		rowHeight : 200,
+	    lastRow : 'nojustify',
+	    margins : 10
+	}); 
+    
+    
     $("#searchBtn").on("click",function(){
-       var tag = $("#search").val();
-       var writer = tag.substr(1);
-       
-       if(tag == ""){
-          alert("키워드를 입력하세요");
-          return;
-       }else if(tag.charAt(0) == '@'){
-          $.ajax({
-             url:"/WriterExist.do",
-             type:"post",
-             data:{writer:writer}
-          }).done(function(resp){
-             console.log(resp);
-             if(resp == "yes"){
-                location.href = "/writer/writerpage";
-             }else if(resp == "no"){
-                alert("존재하는 작가가 아닙니다.");
-             }
-          }).fail(function(){
-             
-          });
-       }else{
-          location.href = "/Search.do?tag=" + tag;
-       }
+		search();
     })
+    
+    $("#search").on("keyup",function(e){
+    	if(e.keyCode == 13){
+    		search();
+    	}
+    })
+    
+    function search(){
+    	var tag = $("#search").val();
+    	var writer = tag.substr(1);
+    	
+    	if(tag == ""){
+    		alert("키워드를 입력하세요");
+    		return;
+    	}else if(tag.charAt(0) == '@'){
+    		$.ajax({
+    			url:"/WriterExist.do",
+    			type:"post",
+    			data:{writer:writer}
+    		}).done(function(resp){
+    			console.log(resp);
+    			if(resp == "yes"){
+    				location.href = "/writer/writerpage?nickname="+writer;
+    			}else if(resp == "no"){
+    				alert("존재하는 작가가 아닙니다.");
+    			}
+    		}).fail(function(){
+    			
+    		});
+    	}else{
+    		location.href = "/Search.do?tag=" + tag;
+    	}
+    }
+    
     </script>
    
    <jsp:include page="key/bottom.jsp" flush="false"/>

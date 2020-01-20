@@ -38,4 +38,16 @@ public class PieceNoticeCommentDAO {
 		map.put("comment", comment);
 		jdbc.update("PieceNoticeComment.modify", map);
 	}
+	
+	
+	public int getCommetSeq(int pieceNotice_seq) {
+		return jdbc.selectOne("PieceNoticeComment.getCommetSeq", pieceNotice_seq);
+	}
+	
+	public PieceNoticeCommentDTO commentSelect(int comment_seq, String writer) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("comment_seq", comment_seq);
+		map.put("writer", writer);
+		return jdbc.selectOne("PieceNoticeComment.commentSelect", map);
+	}
 }

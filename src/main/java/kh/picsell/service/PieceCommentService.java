@@ -24,4 +24,12 @@ public class PieceCommentService {
 	public void commentModify(int comment_seq, String comment) {
 		commentDao.commentModify(comment_seq, comment);
 	}
+	
+	public int getCommetSeq(int pieceNotice_seq) {
+		return commentDao.getCommetSeq(pieceNotice_seq);
+	}
+	
+	public PieceNoticeCommentDTO commentSelect(int comment_seq, String writer) {
+		return commentDao.commentSelect(comment_seq, writer);
+	}
 }
