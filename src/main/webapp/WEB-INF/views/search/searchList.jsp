@@ -143,9 +143,10 @@
 	    }
 	
 	    let renderList = function(sysname, tag, img_seq, nickname){
-	    	tags = tag.replace(/{/gi,"").replace(/}/gi,"");
-	
-	        var html = "<div class='image'><a href='/DetailImage.do?img_seq="+img_seq+"&nickname="+nickname+"' onclick=\"window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;\" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src=/watermarkfiles/xsmarked_"+sysname+" alt="+tags+"></a></div>"
+	    	var tags = tag.replace(/##/g," #");
+	    	tags = tags.substr(0,tags.length-1).toString();
+
+	        var html = "<div class='image'><a href='/DetailImage.do?img_seq="+img_seq+"&nickname="+nickname+"' onclick=\"window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;\" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src=/watermarkfiles/xsmarked_"+sysname+" alt='"+tags+"'></a></div>"
 	        $("#gallery").append(html);
 	        $("#gallery").justifiedGallery({
 	        	rowHeight : 200,
@@ -173,7 +174,7 @@
 	        var result = regex.exec(tag);
 	    	
 	    	if(result){
-	    		alert("키워드를 입력하세요");
+	    		alert("키워드를 입력해주세요.");
 	    		return;
 	    	}else if(tag.charAt(0) == '@'){
 	    		$.ajax({
@@ -208,9 +209,13 @@
 	    function input_keyword2(){
         	var name = "keyword2";
             var value = $("#keyword2").val();
+            
+            var regex = /^\s*$/;
+            var result = regex.exec(value);
                 
-            if(value == ""){
+            if(result){
             	alert("키워드를 입력해주세요.");
+            	return;
             }else{
                 var filter2 = $("#historyBox span input[name="+name+"]");
                 if(filter2.length == 0){

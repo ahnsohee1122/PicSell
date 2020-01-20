@@ -81,7 +81,7 @@
 <c:forEach items="${hlist1}" var="hfir">
     	<div class="card m-auto col-3" style="width: 15rem;border:3px solid gold;border-style: outset;margin-left:30px;">
     	<h5 style="text-align:center">1위 ${hfir.nickname} 작가님</h5>
-                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <img src="/profileimage/${img1.profileimg }" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
                         
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">현재 투표수 ${hfir.honorpoint}</p>
@@ -105,7 +105,7 @@
     	<c:forEach items="${hlist2}" var="sfir">
     	<div class="card m-auto col-3" style="width: 15rem;border:3px solid silver;border-style: outset;margin-left:30px;">
     	<h5 style="text-align:center">2위 ${sfir.nickname} 작가님</h5>
-                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <img src="/profileimage/${img2.profileimg }" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
                         
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">현재 투표수 ${sfir.honorpoint}</p>
@@ -129,7 +129,7 @@
     	<c:forEach items="${hlist3}" var="tfir">
     	<div class="card m-auto col-3" style="width: 15rem;border:3px solid #e39e66;border-style: outset;margin-left:30px;">
     	<h5 style="text-align:center">3위 ${tfir.nickname} 작가님</h5>
-                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <img src="/profileimage/${img3.profileimg }" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
                         
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">현재 투표수 ${tfir.honorpoint}</p>
@@ -163,7 +163,8 @@
     	<c:forEach items="${list1}" var="firdto">
     	<h3>1위 ${firdto.nickname} 작가님</h3>
     	<div class="card m-auto" style="width: 15rem;border:3px solid gold;border-style: outset;">
-                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <img src="/profileimage/${img1.profileimg }" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      
                       <div class="card-body">
                         
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">LIKE ${firdto.likepoint }</p>
@@ -189,7 +190,7 @@
     	<c:forEach items="${list2}" var="secdto">
     	<h3>2위 ${secdto.nickname} 작가님</h3>
     	<div class="card m-auto" style="width: 15rem;border:3px solid silver;border-style: outset;">
-                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <img src="/profileimage/${img2.profileimg }" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
                         
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">LIKE ${secdto.likepoint }</p>
@@ -212,7 +213,7 @@
     	<c:forEach items="${list3}" var="thirdto">
     	<h3>3위 ${thirdto.nickname} 작가님</h3>
     	<div class="card m-auto" style="width: 15rem;border:3px solid #e39e66;border-style:outset;">
-                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                       <img src="/profileimage/${img3.profileimg }" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
                         
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">LIKE ${thirdto.likepoint }</p>
@@ -239,24 +240,24 @@
 <h5>이번달 명예의전당후보 작가님들입니다</h5><br>
 <h5>투표해주세요!</h5>
 <div class="row">
-<c:forEach items="${list}" var="dto">
+<c:forEach begin="0" end="2" step="1" var="i">
 <div class="card m-auto col-2" style="width: 15rem;border:3px solid black;border-style:outset;margin-left:30px;">
-                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <img src="/profileimage/${mList[i].profileimg }" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
                         
-                        <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${dto.nickname} 작가님</p>
-                        <p class="text-center"><input type="button" class="detailpic" id="sshowpic${dto.honor_seq}" value="사진보기"></p>
+                        <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${list[i].nickname} 작가님</p>
+                        <p class="text-center"><input type="button" class="detailpic" id="sshowpic${list[i].honor_seq}" value="사진보기"></p>
                         
                         <script>
                         
                         	
-                        	$("#sshowpic${dto.honor_seq}").on("click",function(){
-                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${dto.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
+                        	$("#sshowpic${list[i].honor_seq}").on("click",function(){
+                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${list[i].nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
                         	});
                         </script>
                       </div>
                     <div style="text-align:center">
-                    <input type="radio" name="who" value="${dto.nickname}" style="text-align:center">
+                    <input type="radio" name="who" value="${list[i].nickname}" style="text-align:center">
                     </div>
                     </div>
                     <br>

@@ -70,6 +70,9 @@ delete honorvote
 	<select id="list" parameterType="String" resultType="kh.picsell.dto.HonorDTO">
 	select * from Honor
 	</select>
+	<select id="getpicture" parameterType="String" resultType="kh.picsell.dto.MemberDTO">
+	select * from member where nickname = #{nickname}
+	</select>
 	<select id="mainlist" parameterType="String" resultType="kh.picsell.dto.MemberDTO">
 	select * from member where nickname = #{nickname}
 	</select>
