@@ -24,10 +24,10 @@
 	<div class="container-fluid py-5" style="font-family: 'Cafe24Oneprettynight';">
 		<div class="container m-auto text-center">
 			<h2 class="mx-auto my-0 text-center">검색 결과</h2>
-			<form action="/Search.do" method="get" id="frm" class="mx-auto mt-5">
+			
 	            <input type="text" id="search" name="tag" value="${searchKeyword }" class="px-2" style="width: 350px; height: 40px; border: 1px solid darkgray;">
-	            <button style="width: 50px; height: 41px; border: 1px solid darkgray; background-color: white;">검색</button>
-	        </form>
+	            <button type="button" id="searchBtn" style="width: 50px; height: 41px; border: 1px solid darkgray; background-color: white;">검색</button>
+	        
 		</div>
 	</div>
     <div class="container-fluid py-2" style="border-top: 1px solid darkgray; border-bottom: 1px solid darkgray; font-family: 'Cafe24Oneprettynight';"> 
@@ -151,18 +151,58 @@
 	        	rowHeight : 200,
 	            lastRow : 'nojustify',
 	            margins: 10
-	        }); 
+	        });
+	        $("#gallery").justifiedGallery('norewind');
 	    }
 	        
-	    $("#frm").on("submit",function(){
-	    	var keyword = $("#search").val();
-	    	if(keyword == ""){
-	    		alert("키워드를 입력해주세요.");
-	    		return false;
+	    $("#searchBtn").on("click",function(){
+			search();
+	    })
+	    
+	    $("#search").on("keyup",function(e){
+	    	if(e.keyCode == 13){
+	    		search();
 	    	}
 	    })
-	        
+	    
+	    function search(){
+	    	var tag = $("#search").val();
+	    	var writer = tag.substr(1);
+	    	
+	    	if(tag == ""){
+	    		alert("키워드를 입력하세요");
+	    		return;
+	    	}else if(tag.charAt(0) == '@'){
+	    		$.ajax({
+	    			url:"/WriterExist.do",
+	    			type:"post",
+	    			data:{writer:writer}
+	    		}).done(function(resp){
+	    			console.log(resp);
+	    			if(resp == "yes"){
+	    				location.href = "/writer/writerpage?nickname="+writer;
+	    			}else if(resp == "no"){
+	    				alert("존재하는 작가가 아닙니다.");
+	    			}
+	    		}).fail(function(){
+	    			
+	    		});
+	    	}else{
+	    		location.href = "/Search.do?tag=" + tag;
+	    	}
+	    }
+	       
         $("#keyword2Btn").on("click",function(){
+        	input_keyword2();
+        })
+        
+        $("#keyword2").on("keyup",function(e){
+	    	if(e.keyCode == 13){
+	    		input_keyword2();
+	    	}
+	    })
+	    
+	    function input_keyword2(){
         	var name = "keyword2";
             var value = $("#keyword2").val();
                 
@@ -182,8 +222,8 @@
     			isEnd = false;
     			count = 2;
                 fetchList(1);
-            }
-        })
+            }	
+        }
 
         $(".dropdown-item").on("click",function(){
         	var name = $(this).data("category");
