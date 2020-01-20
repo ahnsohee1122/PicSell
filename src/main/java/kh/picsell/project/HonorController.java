@@ -31,6 +31,8 @@ public String insertgo(MemberDTO dto, HttpServletRequest request) {
 	
 	List<MemberDTO> memlist;
 	try {
+		HonorDTO hdto = service.top();
+		request.setAttribute("top", hdto);
 		memlist = service.manlike(dto);
 		request.setAttribute("memlist", memlist);
 
@@ -39,21 +41,7 @@ public String insertgo(MemberDTO dto, HttpServletRequest request) {
 	}
 	return"Honor/inserthonor";
 }
-@RequestMapping(value="/enter.do", produces="text/html; charset=UTF-8")
-@ResponseBody
-public String enter(HonorListDTO dto, HttpServletRequest request) {
-	try {
-		int result = service.enter(dto);
-		if(result>0) {
-			return"등록";
-		}else {
-			return"실패";
-		}
-	}catch(Exception e) {
-		e.printStackTrace();
-		return"서버";
-	}
-}
+
 @RequestMapping("/honorlist.do")
 public String honorlist(MemberDTO mdto, String nickname, HttpServletRequest request) {
 	List<MemberDTO> memlist;
@@ -241,9 +229,19 @@ public String insertcheck(String nickname) {
 @ResponseBody
 public String delete() {
 	try {
+		HonorDTO hdto = service.top();
+		System.out.println("hdto:"+hdto);
+		int honorpoint = hdto.getHonorpoint();
+		String nickname = hdto.getNickname();
+		System.out.println(honorpoint+"(명예점수), "+nickname);
+		
+		session.setAttribute("nickname", nickname);
+		session.setAttribute("honorpoint", honorpoint);
+		
 		int result = service.delete();
 		int re = service.votedelete();
-		if(result>0 &&  re>0) {
+		int enter = service.enter(nickname, honorpoint);
+		if(result>0 &&  re>0 && enter>0) {
 			return "삭제";
 		}else {
 			return "실패";

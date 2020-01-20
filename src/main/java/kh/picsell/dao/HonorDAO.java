@@ -20,7 +20,10 @@ private SqlSessionTemplate jdbc;
 public int insert(HonorDTO dto) throws Exception{
 	return jdbc.insert("Honor.insert",dto);
 }
-public int enter(HonorListDTO dto) throws Exception{
+public int enter(String nickname, int honorpoint) throws Exception{
+	HonorListDTO dto = new HonorListDTO();
+	dto.setNickname(nickname);
+	dto.setHonorpoint(honorpoint);
 	return jdbc.insert("Honor.enter",dto);
 }
 public List<HonorDTO> honorlist() throws Exception{ //명예의전당 전체리스트
@@ -83,6 +86,9 @@ public MemberDTO dthird(){
 }
 public List<HonorDTO> hfirst() {
 	return jdbc.selectList("Honor.honorfirst");
+}
+public HonorDTO top() {
+	return jdbc.selectOne("Honor.honorfirst");
 }
 public List<HonorDTO> hsecond() {
 	return jdbc.selectList("Honor.honorsecond");

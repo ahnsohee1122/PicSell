@@ -8,6 +8,35 @@
 <head>
 <meta charset="UTF-8">
 <title>명예의 전당</title>
+<style>
+.honorlist {
+			min-width:230px;
+			border: solid 5px gold;
+			-webkit-animation-name: movingPara;
+			-webkit-animation-duration: 2s;
+			animation-name: movingPara;
+			animation-duration: 2s;
+		 animation-iteration-count: infinite;
+		}
+		@-webkit-keyframes movingPara {
+			0% { border-color: gold; }
+			20% { border-color: #fffccc; }
+			40% { border-color: yellow; }
+			50% { border-color: #fffccc; }
+			60% { border-color: gold; }
+			80% { border-color: #fffccc; }
+			100% { border-color: yellow; }
+		}
+		@keyframes movingPara {
+			0% { border-color: gold; }
+			20% { border-color: #fffccc; }
+			40% { border-color: yellow; }
+			50% { border-color: #fffccc; }
+			60% { border-color: gold; }
+			80% { border-color: #fffccc; }
+			100% { border-color: yellow; }
+		}
+</style>
 <jsp:include page="../key/top.jsp" flush="false"/>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
@@ -16,9 +45,35 @@
 
 
 <c:when test="${list.size()==0}">
-<h6>명예의전당이 시작되지 않았습니다</h6>
+<h6>역대 명예의전당 수상자목록</h6>
+<div class="row" style="margin-left:30px;">
+<c:forEach items = "${enterlist}" var="top">
+<div class="card m-auto col-3 honorlist" style="width: 15rem;margin-left:30px;">
+    	<h5 style="text-align:center">${top.nickname} 작가님</h5>
+                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <div class="card-body">
+                        
+                        <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">받은 득표수 ${top.honorpoint}</p>
+                        <p class="text-center"><input type="button" class="detailpic" id="showpic${top.honorlist_seq}" value="사진보기"></p>
+                       
+                        <script>
+
+
+                        	//$("#showpic${firdto.id}").on("click",function(){                        		
+                      //  window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nickname ,"Best3사진", "width=800,height=600,resizable=no");
+                        //	})
+                        	
+						$("body").on("click","#showpic${top.honorlist_seq}",function(){
+                            window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${top.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
+                        })
+                        </script>
+                      </div>
+                    </div>
+</c:forEach>
+</div>
 </c:when>
 <c:otherwise>
+<hr>
 <h3>현재 투표순위</h3>
 <div class="row">
 <c:forEach items="${hlist1}" var="hfir">
@@ -99,7 +154,7 @@
 <c:choose>
 <c:when test="${list.size()==0}">
     	<h4>작가별 대표사진</h4>
-
+<div class="row">
     	<div class="imglist col-3">
     	<c:forEach items="${list1}" var="firdto">
     	<h3>1위 ${firdto.nickname} 작가님</h3>
@@ -172,6 +227,7 @@
                      
     	</c:forEach>
     	</div>
+    	</div>
 </c:when>
 
 <c:otherwise>
@@ -185,14 +241,14 @@
                       <div class="card-body">
                         
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${dto.nickname} 작가님</p>
-                        <p class="text-center"><input type="button" class="detailpic" id="showpic${dto.honor_seq}" value="사진보기"></p>
+                        <p class="text-center"><input type="button" class="detailpic" id="sshowpic${dto.honor_seq}" value="사진보기"></p>
                         
                         <script>
                         
-                        	var nickname4 = "${dto.nickname}";
-                        	$("#showpic${dto.honor_seq}").on("click",function(){                        		
-                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nickname4 ,"Best3사진", "width=900,height=400,resizable=no");
-                        	})
+                        	
+                        	$("#sshowpic${dto.honor_seq}").on("click",function(){
+                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${dto.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
+                        	});
                         </script>
                       </div>
                     <div style="text-align:center">

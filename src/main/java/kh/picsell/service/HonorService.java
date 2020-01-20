@@ -91,10 +91,13 @@ public int man(String nickname) throws Exception{
 public List<HonorDTO> honormember() throws Exception{
 	return dao.honormember();
 }
-public int enter(HonorListDTO dto) throws Exception {
-	return dao.enter(dto);
+public int enter(String nickname, int honorpoint) throws Exception {
+	return dao.enter(nickname, honorpoint);
 }
 public List<HonorListDTO> enterhonorlist() throws Exception{
 	return dao.enterhonorlist();
+}
+public HonorDTO top() throws Exception {
+	return dao.top();
 }
 }
