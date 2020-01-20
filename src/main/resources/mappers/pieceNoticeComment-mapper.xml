@@ -19,4 +19,12 @@
 	<update id="modify">
 		update pieceNoticeComment set notice_comment = #{comment} where comment_seq = #{comment_seq}
 	</update>
+	
+	<select id="getCommetSeq" resultType='integer'>
+		select max(comment_seq) from pieceNoticeComment where pieceNotice_seq = #{pieceNotice_seq}
+	</select>
+	
+	<select id="commentSelect" resultType="kh.picsell.dto.PieceNoticeCommentDTO" parameterType="java.util.Map">
+		select * from pieceNoticeComment where comment_seq = #{comment_seq} and writer = #{writer}
+	</select>
 </mapper>
