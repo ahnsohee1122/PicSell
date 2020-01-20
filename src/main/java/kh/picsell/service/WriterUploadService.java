@@ -123,7 +123,7 @@ public class WriterUploadService {
 			taglist = request.getParameterValues("p"+i+"-tags[]");
 			String tag="";
 			for(int j = 0; j<taglist.length; j++) {
-				  tag += "#"+taglist[j]+"#";
+				  tag += "{"+taglist[j]+"}";
 				  dto.setTag(tag);
 			}
 			
@@ -147,29 +147,5 @@ public class WriterUploadService {
 
 	}
     
-   public void download(String path, int img_seq, String sysname) {
-	   String fullpath = path + "/" + sysname;
-	   File f = new File(fullpath);
-	   
-	   try(
-			FileInputStream fis = new FileInputStream(f);
-			 DataInputStream fileDis = new DataInputStream(fis);
-			   ){
-		   byte[] fileContents = new byte[(int)f.length()];
-		   fileDis.readFully(fileContents);
-		   
-		   response.reset();
-		   response.setContentType("application/octet-stream");
-		   String encFileName = new String(sysname.getBytes("utf8"),"iso-8859-1");
-		   response.setHeader("Content-Disposition", "attachment; filename=\"" + encFileName + "\""); 
-		   response.setHeader("Content-Length", String.valueOf(f.length()));
-		   ServletOutputStream sos = response.getOutputStream();
-		   sos.write(fileContents);
-		   sos.flush();
-	   }catch(Exception e) {
-		   e.printStackTrace();
-	   }
-			   
-	   ;
-   }
+  
 }
