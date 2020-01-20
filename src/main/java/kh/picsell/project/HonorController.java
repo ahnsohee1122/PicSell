@@ -1,5 +1,6 @@
 package kh.picsell.project;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,12 +31,21 @@ private HttpSession session;
 public String insertgo(MemberDTO dto, HttpServletRequest request) {
 	
 	List<MemberDTO> memlist;
+
 	try {
+
 		HonorDTO hdto = service.top();
 		request.setAttribute("top", hdto);
 		memlist = service.manlike(dto);
 		request.setAttribute("memlist", memlist);
+		
+		for(int i=0; i<memlist.size(); i++) {
+			
+			MemberDTO img = service.getpicture(memlist.get(i).getNickname());
+			request.setAttribute("img", img);
 
+		}
+		
 	}catch(Exception e) {
 		e.printStackTrace();
 	}
@@ -64,6 +74,7 @@ public String honorlist(MemberDTO mdto, String nickname, HttpServletRequest requ
 		list1 = service.first(mdto);
 		list2 = service.second(mdto);
 		list3 = service.third(mdto);
+		
 		request.setAttribute("memlist", memlist);
 		request.setAttribute("list1", list1);
 		request.setAttribute("list2", list2);
@@ -109,7 +120,7 @@ public String mainlist(HonorDTO hdto, HttpServletRequest request) {
 		list3 = service.third(mdto);
 		request.setAttribute("list1", list1);
 		request.setAttribute("list2", list2);
-		request.setAttribute("list3", list3);
+		request.setAttribute("list3", list3);		
 		List<WriterImageUpDTO> imglist1;
 		List<WriterImageUpDTO> imglist2;
 		List<WriterImageUpDTO> imglist3;
@@ -119,15 +130,43 @@ public String mainlist(HonorDTO hdto, HttpServletRequest request) {
 		request.setAttribute("imglist1", imglist1);
 		request.setAttribute("imglist2", imglist2);
 		request.setAttribute("imglist3", imglist3);
+		
 		List<HonorDTO> list;
 		list = service.list(hdto);
 		request.setAttribute("list", list);
+//		List<MemberDTO> mem = new ArrayList<>();	
+//for(int i=0; i<list.size(); i++) {
+//			
+//			//MemberDTO img = service.getpicture(list.get(i).getNickname());
+//			//request.setAttribute("img", mem);
+//			//System.out.println(img.getNickname());
+//	mem.add(service.getpicture(list.get(i).getNickname()));
+//		}
+//request.setAttribute("img",mem);
+//System.out.println(mem.size());
+//System.out.println(mem.get(0).getProfileimg());
+		
+		List<MemberDTO> mList = new ArrayList<>();
+		
+		for(int i=0; i<list.size(); i++) {			
+			mList.add(service.getpicture(list.get(i).getNickname()));
+		}
+		request.setAttribute("mList", mList);
+
+		
 		List<HonorDTO> hlist1 = service.hfirst();
 		List<HonorDTO> hlist2 = service.hsecond();
 		List<HonorDTO> hlist3 = service.hthird();
 		request.setAttribute("hlist1", hlist1);
 		request.setAttribute("hlist2", hlist2);
 		request.setAttribute("hlist3", hlist3);
+		
+		MemberDTO img1 = service.getpicture(hlist1.get(0).getNickname());
+		MemberDTO img2 = service.getpicture(hlist2.get(0).getNickname());
+		MemberDTO img3 = service.getpicture(hlist3.get(0).getNickname());
+		request.setAttribute("img1", img1);
+		request.setAttribute("img2", img2);
+		request.setAttribute("img3", img3);
 	}catch(Exception e) {
 		e.printStackTrace();
 		
