@@ -85,8 +85,9 @@ public class EventController {
 		/////////////////////////////////////////////////////
 		
 		// 1. 룰렛페이지로 넘어가기 
+		@RequestMapping("/rulet.do")
 		public String rulet() {
-			return "rulet";
+			return "/event/rulet";
 		}
 	
 

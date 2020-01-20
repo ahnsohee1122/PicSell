@@ -107,8 +107,6 @@ public class MoneyController {
 	@RequestMapping("/buy.do")
 	@ResponseBody
 	public String buy(String writer_nickname, int deal_img_seq) {
-		System.out.println(writer_nickname);
-		System.out.println(deal_img_seq);
 		String buyer_nickname = (String)session.getAttribute("loginInfo");
 		// 날짜
 		Date today = new Date();
