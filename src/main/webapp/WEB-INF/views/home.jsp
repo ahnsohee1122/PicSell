@@ -167,9 +167,9 @@
                              <input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
                            <button id="searchBtn" class="search_icon" style="border: 0px; background-color: white !important;"><i class="fas fa-search"></i></button>
                            <div class="hashTag m-3">
-                              <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag='겨울'" style="color: white;">#겨울</a></span>
-                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag='웨딩'" style="color: white;">#웨딩</a></span>
-                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag='인테리어'" style="color: white;">#인테리어</a></span>
+                              <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=겨울" style="color: white;">#겨울</a></span>
+                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=웨딩" style="color: white;">#웨딩</a></span>
+                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=인테리어" style="color: white;">#인테리어</a></span>
                             </div>
                         </div>
                       </div>
@@ -188,7 +188,7 @@
         <div class="row m-auto" style="height: 1000px;">
            <div class="col-12 col-md-12 col-xl-12 text-center px-0 py-3" id="gallery">
         	<c:forEach items="${imagelist }" var="imagelist">
-           		 <div><a href='${pageContext.request.contextPath}/DetailImage.do?img_seq=${imagelist.img_seq }&nickname=${imagelist.nickname }' onclick="window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src="/watermarkfiles/xsmarked_${imagelist.sysname }"></a></div>
+           		 <div><a href='${pageContext.request.contextPath}/DetailImage.do?img_seq=${imagelist.img_seq }&nickname=${imagelist.nickname }' onclick="window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src="/watermarkfiles/xsmarked_${imagelist.sysname }" ></a></div>
          	</c:forEach>
             </div>
            
