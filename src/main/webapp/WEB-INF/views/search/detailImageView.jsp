@@ -94,7 +94,7 @@
 			            <span class="mx-1">좋아요</span>
 			        </div>
 		        	<hr>
-		            <div id="info" class="text-left px-3 mt-3">
+		            <div class="text-left px-3 mt-3">
 		                <span class="mx-1">크리에이터</span>
 		            	<a class="mx-1" href='/writer/writerpage?nickname=${dto.nickname }' style='text-decoration:none' onclick='window.open("about:blank").location.href=this.href; return false;'>@${dto.nickname }</a>
 		                <span class="mx-1">                            
@@ -508,6 +508,7 @@
     			});
     	        
     	        $(".loginInput").on("keyup", function(e){
+    	        	console.log("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
     	        	if(e.keyCode == 13){
     	        		loginProcess();
     	        	}	
