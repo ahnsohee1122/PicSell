@@ -20,11 +20,11 @@
 		update pieceNoticeComment set notice_comment = #{comment} where comment_seq = #{comment_seq}
 	</update>
 	
-	<select id="getCommetSeq" resultType='integer'>
-		select max(comment_seq) from pieceNoticeComment where pieceNotice_seq = #{pieceNotice_seq}
+	<select id="getCommetSeq" resultType='integer' parameterType="java.util.Map">
+		select max(comment_seq) from pieceNoticeComment where pieceNotice_seq = #{pieceNotice_seq} and writer = #{writer}
 	</select>
 	
-	<select id="commentSelect" resultType="kh.picsell.dto.PieceNoticeCommentDTO" parameterType="java.util.Map">
-		select * from pieceNoticeComment where comment_seq = #{comment_seq} and writer = #{writer}
+	<select id="commentSelect" resultType="kh.picsell.dto.PieceNoticeCommentDTO">
+		select * from pieceNoticeComment where comment_seq = #{comment_seq}
 	</select>
 </mapper>

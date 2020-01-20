@@ -94,7 +94,7 @@
 			            <span class="mx-1">좋아요</span>
 			        </div>
 		        	<hr>
-		            <div id="info" class="text-left px-3 mt-3">
+		            <div class="text-left px-3 mt-3">
 		                <span class="mx-1">크리에이터</span>
 		            	<a class="mx-1" href='/writer/writerpage?nickname=${dto.nickname }' style='text-decoration:none' onclick='window.open("about:blank").location.href=this.href; return false;'>@${dto.nickname }</a>
 		                <span class="mx-1">                            
@@ -150,7 +150,7 @@
                             </tr>
                             <tr>
                                 <th class="text-left">용량</th>
-                                <td>${dto.img_size }MB</td>
+                                <td id="size${dto.img_seq}"></td>
                             </tr>
                             <tr>
                             	<td colspan="2"><hr class="p-0 m-0">
@@ -186,6 +186,13 @@
                             <tr>
                                 <th class="text-left">사용범위</td>
                                 <td>
+                                <script>
+                                var size = ${dto.img_size};
+                                var value = size/1048576;
+                                var showvalue = value.toFixed(3);
+                                $("#size${dto.img_seq}").html(showvalue+"MB")
+                               </script> 
+                               
                                     <c:choose>
                                         <c:when test="${dto.usage == '상업용' }">
                                             <span id=commercial style="color: dodgerblue;">상업적인 사용 가능</span>
@@ -508,6 +515,7 @@
     			});
     	        
     	        $(".loginInput").on("keyup", function(e){
+    	        	console.log("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
     	        	if(e.keyCode == 13){
     	        		loginProcess();
     	        	}	
@@ -647,10 +655,8 @@
             /*************************** 여기까지 로그인 모달창 *********************************/
 
 			var tag = "${dto.tag}";
-            tags = tag.replace(/#/gi,"").replace(/#/gi,",");
+            tags = tag.replace(/##/gi,",").replace(/#/gi,"");
             var arr = tags.split(",");
-            console.log(arr);
-            console.log(arr.length-1);
 
             for(var i=0; i<arr.length-1; i++){
             	var span = "<a href='/Search.do?tag="+arr[i]+"' class='mx-1' style='text-decoration:none; padding: 5px;' onclick='opener.location.href=this.href; window.close();'>"+"#"+arr[i]+"</a>";/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */

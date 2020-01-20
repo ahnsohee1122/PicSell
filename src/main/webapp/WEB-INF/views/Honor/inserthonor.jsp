@@ -27,7 +27,7 @@
 
 <div class="card m-auto pics col-3" style="width: 15rem;margin-left:20px;">
 
-                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <img src="/profileimage/${dto.profileimg }" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body" style="text-align:center">
                         
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';">${dto.nickname} 작가님</p>
