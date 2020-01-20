@@ -29,38 +29,10 @@ width:100%;
 					<div class="row my-4">
 				    	<label class="col-form-label col-3 col-md-2 pt-0">주최이유<strong> * </strong></label>
 				      	<div class="col-9 col-md-10">
-				      	<c:choose>
-				    	<c:when test="${dto.reason == 'option1'}">
 					        <div class="form-check my-1">
 					          	<input class="form-check-input" type="radio" name="reason" id="gridRadios1" value="option1" checked readonly>
-					          	<label class="form-check-label" for="gridRadios1">기업 사진 대회 공모전</label>
+					          	<label class="form-check-label" for="gridRadios1">${dto.reason}</label>
 					        </div>
-				    	</c:when>
-				    	<c:when test="${dto.reason == 'option2'} ">
-					        <div class="form-check my-1">
-					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios2" value="option2" checked readonly>
-					          	<label class="form-check-label" for="gridRadios2">공공기관 사진 대회 공모전</label>
-					        </div>
-					      </c:when>
-					     <c:when test="${dto.reason == 'option3'} ">
-					        <div class="form-check my-1">
-					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios3" value="option3" checked readonly>
-					          	<label class="form-check-label" for="gridRadios3">AI 이미지 데이터 수집 공모전</label>
-					        </div>
-					      </c:when>
-					     <c:when test="${dto.reason =='option4'} ">
-					        <div class="form-check my-1">
-					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios4" value="option4" checked readonly>
-					          	<label class="form-check-label" for="gridRadios4">원하는 특정 이미지를 직접 공모 or 요청</label>
-					        </div>
-					      </c:when>
-					      <c:when test="${dto.reason == 'option5'} ">
-					        <div class="form-check my-1">
-					        	<input class="form-check-input" type="radio" name="reason" id="gridRadios5" value="option5" checked readonly>
-					          	<label class="form-check-label" for="gridRadios5">기타 :<input type="text" id="others" class="mx-2" style="width: 200px; height: 15px; background: 0; border: 0; border-bottom: 1px solid darkgray;"></label>
-					        </div>
-					       </c:when>
-					       </c:choose>
 				    	</div>
 				    </div>
 				    <hr>
@@ -143,7 +115,7 @@ width:100%;
 				    </div>
 				    <hr>
 				  	<div class="row mt-5 mb-3">
-				  		<button id="accept" class="m-auto btn border border-danger rounded-lg text-black" type="submit" style="width: 150px;" id="accept">승인</button>
+				  		<button id="accept" class="m-auto btn border border-danger rounded-lg text-black" type="button" style="width: 150px;" id="accept">승인</button>
 				  		<button id="nono" class="m-auto btn border border-danger rounded-lg text-black" type="button" style="width: 150px;" id="nono">승인거절</button>
 				  	</div>
 				</fieldset>
@@ -173,7 +145,9 @@ width:100%;
 		$.ajax({
 			url:"accept.do",
 			type:"post",
-			data:{contest_seq:'${dto.contest_seq}',accept_date:sysdate}
+			data:{contest_seq:${dto.contest_seq},
+				accept_date:sysdate
+				}
 		}).done(function(res){
 			if(res=="승인"){
 				alert("승인되었습니다");
@@ -188,28 +162,28 @@ width:100%;
 	});
 	$("#nono").on("click",function(){
 		var msg = prompt("승인 거절이유를 입력하세요");
-	$("#why").val(msg);
-	if(msg==null){alert("취소되었습니다.");return false;}
-	if(msg!=""){
-			$.ajax({
-				url:"acceptno.do",
-				type:"post",
-				data:{contest_seq:'${dto.contest_seq}',rejection:msg}
-			}).done(function(res){
-				if(res=="거절"){
-					alert("거절되었습니다");
-					location.href="check.do";
-				}else if(res=="취소"){
-					alert("취소되었습니다");
-				}
-			}).fail(function(res){
-				if(res=="서버"){
-					alert("서버에러입니다");
-				}
-			});
-	}else{
-		alert("거절이유를 입력해주세요");
-	}
+		$("#why").val(msg);
+		if(msg==null){alert("취소되었습니다.");return false;}
+			if(msg!=""){
+					$.ajax({
+						url:"acceptno.do",
+						type:"post",
+						data:{contest_seq:'${dto.contest_seq}',rejection:msg}
+					}).done(function(res){
+						if(res=="거절"){
+							alert("거절되었습니다");
+							location.href="check.do";
+						}else if(res=="취소"){
+							alert("취소되었습니다");
+						}
+					}).fail(function(res){
+						if(res=="서버"){
+							alert("서버에러입니다");
+						}
+					});
+			}else{
+				alert("거절이유를 입력해주세요");
+			}
 	});
 	</script>
 </body>

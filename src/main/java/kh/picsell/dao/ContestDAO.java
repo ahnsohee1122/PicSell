@@ -71,7 +71,6 @@ public int notyet(String host)throws Exception{
 public List<ContestDTO> lastContest(){
 	return jdbc.selectList("Contest.lastcontest");
 }
-
 public int enrollimg(HashMap<String,Object> map) {
 	return jdbc.insert("Contest.enrollimg", map);
 }

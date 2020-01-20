@@ -108,5 +108,7 @@ public List<HonorDTO> honormember(){
 public int voteinsert(String nickname) throws Exception{
 	return jdbc.insert("Honor.voteinsert",nickname);
 }
-	
+public MemberDTO getpicture(String nickname) throws Exception{
+	return jdbc.selectOne("Honor.getpicture", nickname);
+}
 }

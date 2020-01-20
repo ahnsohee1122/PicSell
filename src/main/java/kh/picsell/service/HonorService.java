@@ -100,4 +100,7 @@ public List<HonorListDTO> enterhonorlist() throws Exception{
 public HonorDTO top() throws Exception {
 	return dao.top();
 }
+public MemberDTO getpicture(String nickname) throws Exception{
+	return dao.getpicture(nickname);
+}
 }

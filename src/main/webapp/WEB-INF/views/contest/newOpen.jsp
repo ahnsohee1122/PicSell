@@ -205,6 +205,14 @@
 						</div>
 				    </div>
 				    <hr>
+				     <div class="row my-4 was-validated">
+                    	<label class="col-form-label col-3 col-md-2 pt-0">파일첨부<strong> * </strong></label>
+                     	<div class="col-9 col-md-10">
+                        	<input type="file" class="form-control p-1" id="validationFile" name="files" multiple="multiple" required>
+                      	<div class="invalid-feedback">주최하실 공모전의 예시 사진을 첨부해주세요! (이미지 업로드에 도움이 됩니다.)</div>
+                  		</div>
+                	</div>
+                	<hr>
 				    <div class="row my-4 was-validated">
 				    	<label class="col-form-label col-3 col-md-2 pt-0">기간<strong> * </strong></label>
 				    	<div class="col-9 col-md-10">
