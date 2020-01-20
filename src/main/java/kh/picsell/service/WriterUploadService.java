@@ -148,7 +148,9 @@ public class WriterUploadService {
 	}
     
    public void download(String path, int img_seq, String sysname) {
+	   System.out.println("다운로드서비시ㅡ");
 	   String fullpath = path + "/" + sysname;
+	   System.out.println("fullpath : " + fullpath);
 	   File f = new File(fullpath);
 	   
 	   try(

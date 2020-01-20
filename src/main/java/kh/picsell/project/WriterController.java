@@ -1,10 +1,15 @@
 package kh.picsell.project;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +64,7 @@ public class WriterController {
 	//작가페이지로 이동
 	@RequestMapping("writerpage")
 	public String view(HttpServletRequest request, String nickname) {
-//		String nickname = (String)session.getAttribute("loginInfo");
+		//		String nickname = (String)session.getAttribute("loginInfo");
 		MemberDTO writerinfo = writerservice.writerInfo(nickname);
 		Map<String,Integer> imginfo = writerservice.imginfo(nickname);
 		request.setAttribute("imginfo", imginfo);
@@ -72,7 +77,7 @@ public class WriterController {
 	@ResponseBody
 	public List<WriterImageUpDTO> list(int currentPage, String nickname) {
 		System.out.println("hi");
-//		String nickname = (String)session.getAttribute("loginInfo");
+		//		String nickname = (String)session.getAttribute("loginInfo");
 		int start = 0;
 		int end = 0 ;
 		Map<String,Object> param = new HashMap<>();
@@ -82,7 +87,7 @@ public class WriterController {
 			param.put("end", 20);
 			param.put("nickname",nickname);
 			list = writerservice.writerview(param);
-			
+
 			return list;
 		}else {
 			System.out.println(currentPage);
@@ -95,16 +100,41 @@ public class WriterController {
 			return list;
 		}
 	}
-	
+
 	//사진다운로드
 	@RequestMapping("down")
 	@ResponseBody
-	public String download(int img_seq, String sysname) {
+	public String download(int img_seq, String sysname, HttpServletResponse response) {
 		System.out.println("다운로드");
+		System.out.println(img_seq);
+		System.out.println(sysname);
 		String path = session.getServletContext().getRealPath("writeruploadfiles");
-		service.download(path, img_seq, sysname);
+
+		String fullpath = path + "/" + sysname;
+
+		File f = new File(fullpath);
+
+		try(
+				FileInputStream fis = new FileInputStream(f);
+				DataInputStream fileDis = new DataInputStream(fis);
+				){
+			byte[] fileContents = new byte[(int)f.length()];
+			fileDis.readFully(fileContents);
+
+			response.reset();
+			response.setContentType("application/octet-stream");
+			String encFileName = new String(sysname.getBytes("utf8"),"iso-8859-1");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + encFileName + "\""); 
+			response.setHeader("Content-Length", String.valueOf(f.length()));
+			ServletOutputStream sos = response.getOutputStream();
+			sos.write(fileContents);
+			sos.flush();
+		}catch(Exception e) {
+			e.printStackTrace();
+		};
+
 		return "다운완료";
 	}
-	
-	
+
+
 }
