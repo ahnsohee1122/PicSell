@@ -48,5 +48,8 @@ public class WriterImageUpDAO {
 	public int likepoint(String nickname) {
 		return jdbc.selectOne("imageup.likepoint",nickname);
 	}
+	public List<WriterImageUpDTO> bestImage(){
+		return jdbc.selectList("imageup.bestImage");
+	}
 	
 }

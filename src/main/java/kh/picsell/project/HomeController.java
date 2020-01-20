@@ -1,6 +1,5 @@
 package kh.picsell.project;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.picsell.dto.ContestDTO;
 import kh.picsell.dto.MemberDTO;
+import kh.picsell.dto.WriterImageUpDTO;
 import kh.picsell.service.ContestService;
 import kh.picsell.service.MemberService;
+import kh.picsell.service.WriterpageService;
 
 @Controller
 public class HomeController {
@@ -27,6 +28,9 @@ public class HomeController {
 
    @Autowired
    private ContestService contestservice;
+   
+   @Autowired
+   private WriterpageService imageservice;
 
    @RequestMapping("/index")
    public String index() {
@@ -39,6 +43,8 @@ public class HomeController {
       System.out.println("공모전");
       List<ContestDTO> list =  contestservice.lastContest();
       request.setAttribute("list", list);
+      List<WriterImageUpDTO> imagelist = imageservice.bestImage();
+      request.setAttribute("imagelist", imagelist);
 //      List<Integer> seq = new ArrayList<>();
       
 //      for(ContestDTO c : list) {

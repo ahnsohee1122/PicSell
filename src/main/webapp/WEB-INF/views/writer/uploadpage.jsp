@@ -178,7 +178,7 @@
 			xscw = xstempCanvas.width = img.naturalWidth;
 			xsch = xstempCanvas.height = img.naturalHeight;
 			xstempCtx.drawImage(img, 10, 10);
-			xstempCtx.font = "30px verdana";
+			xstempCtx.font = "40px verdana";
 			var xstextWidth = xstempCtx.measureText(text).width;
 			xstempCtx.globalAlpha = .50;
 			xstempCtx.fillStyle = 'white'

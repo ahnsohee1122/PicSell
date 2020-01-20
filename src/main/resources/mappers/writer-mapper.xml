@@ -39,4 +39,8 @@
 		<select id="likepoint"  resultType="Integer">
 			select sum(likepoint) from member where nickname = #{nickname}
 		</select>
+		
+		<select id="bestImage" resultType="kh.picsell.dto.WriterImageUpDTO">
+			select * from (select writer_image_Up.*, row_number() over(order by img_like) as rown from writer_image_Up) where accept='Y'
+		</select>
 </mapper>
