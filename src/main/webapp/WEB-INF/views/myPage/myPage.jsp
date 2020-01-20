@@ -22,13 +22,13 @@
 	<div class="container-fluid m-0 py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 		<div class="container m-auto" style="max-width: 1500px;">
 			<div class="row">
-				<div id="floatMenu" class="col-5 col-md-3 col-xl-2 py-2 text-center p-0 d-none d-md-block" style="height: 310px; border: 1px solid gray; box-sizing: border-box; border-radius: 10px;">
+				<div id="floatMenu" class="col-5 col-md-3 col-xl-2 py-2 text-center p-0 d-none d-md-block" style="height: 410px; border: 1px solid gray; box-sizing: border-box; border-radius: 10px;">
 					<div class="row m-0 px-0 w-100 text-left">
 						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/myInfo/myInfo.do" style="color: black; font-size: 22px; text-decoration: none;">My Page</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/myInfo/myInfo.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">구매 내역 확인</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">포인트 입출금 내역 확인</a></div>
-						<div class="px-3 py-1 mb-3 w-100 quickMenu"><a href="#" style="color: black; font-size: 16px; text-decoration: none;">포인트 충전</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/buy_list.do" style="color: black; font-size: 16px; text-decoration: none;">구매 내역 확인</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/myPoint.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 입출금 내역 확인</a></div>
+						<div class="px-3 py-1 mb-3 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/charge.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 충전</a></div>
 					</div>
 					<hr class="py-1 m-auto" style="max-width: 220px;">
 					<div class="row m-0 px-0 w-100 text-left">
