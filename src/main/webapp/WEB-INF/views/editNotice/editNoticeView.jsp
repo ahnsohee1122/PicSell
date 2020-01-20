@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,7 @@
 			<ul class="p-0 m-0 h-100" style="list-style-type: none; border: 1px solid gray; border-radius: 10px;">
 				<li class="li h-100"><a href="${pageContext.request.contextPath}/notice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">공지사항</a></li>
 				<li class="li h-100"><a href="${pageContext.request.contextPath}/editNotice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">편집의뢰게시판</a></li>
-				<li class="li h-100"><a href="${pageContext.request.contextPath}/pieceNotice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">작품의뢰게시판</a></li>
+				<li class="li h-100"><a href="${pageContext.request.contextPath}/editNotice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">작품의뢰게시판</a></li>
 			</ul>
 		</div>
 		<div class="container mx-auto mt-5 mb-4 text-center">
@@ -51,7 +52,7 @@
 						<th class="title px-2">첨부파일</th>
 						<td colspan="5" class="data data_file text-left px-2">
 							<c:forEach var="editFileDto" items="${map.editFileDto }">
-								<a style="color: black;" href="${pageContext.request.contextPath}/editNotice/fileDownLoad.do?sysName=${editFileDto.editNoticeFile_sysName}&oriName=${editFileDto.editNoticeFile_oriName}"> ${editFileDto.editNoticeFile_oriName }</a>
+								<a style="color: black;" href="${pageContext.request.contextPath}/editNotice/fileDownLoad.do?sysName=${editFileDto.editNoticeFile_sysName}&oriName=${editFileDto.editNoticeFile_oriName}">${editFileDto.editNoticeFile_oriName }</a>
 							</c:forEach>
 						</td>
 					</tr>
@@ -63,7 +64,7 @@
 					<tr>
 						<th class="title px-2 text-center">댓글 목록</th>
 						<td colspan="5" class="data">
-							<table class="w-100">
+							<table class="w-100" id="commentTable">
 								<c:forEach var="commentDto" items="${map.commentDto }">
 								<tr id="comment_box">
 									<td id="e${commentDto.comment_seq}" class="p-2 text-left" style="width: 55%">
@@ -74,7 +75,7 @@
 									<td class="p-2" style="width: 20%">${commentDto.write_date }</td>
 									<td class="p-2" style="width: 15%">${commentDto.writer}</td>
 									<td class="p-2" style="width: 8%">
-										<input type="button" value="삭제" id="a${commentDto.comment_seq }" onclick="commentDelete(${commentDto.comment_seq })" style="display: none;">
+										<input type="button" value="삭제" id="a${commentDto.comment_seq }" onclick="commentDelete(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 										<input type="button" value="수정" id="b${commentDto.comment_seq }" onclick="commentModify(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 									</td>
 								</tr>
@@ -147,13 +148,31 @@
 				url:"${pageContext.request.contextPath}/editComment/commentWrite.do",
 				type:"post",
 				data:{
-					pieceNotice_seq:"${map.pieceNotice.editNotice_seq}",
+					editNotice_seq:"${map.editNotice.editNotice_seq}",
 					writer:"회원",
 					comment:$("#comment").val()
-				}
+				},
+				dataType:"JSON"
 			}).done(function(res){
-				console.log(res);
-				$("#comment_box").append("<div>" + $("#comment").val() + "</div>");
+				$("#comment").val("");
+
+				var insertComment =
+					
+					'<tr id="comment_box">'
+					+'<td id="e' + res.comment_seq+'" class="p-2 text-left" style="width: 55%">'
+					+	res.notice_comment
+					+	'<textarea id="c' + res.comment_seq+'" style="display: none; resize: none;" rows="2" cols="80"></textarea>'
+					+	'<input id="d' + res.comment_seq+'" type="button" value="수정완료" onclick="commentModifyComplete('+res.comment_seq+')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+					+'</td>'
+					+'<td class="p-2" style="width: 20%">' + res.write_date+'</td>'
+					+'<td class="p-2" style="width: 15%">' + res.writer+'</td>'
+					+'<td class="p-2" style="width: 8%">'
+						+'<input type="button" class=repDelete value="삭제" id="a' + res.comment_seq + '"onclick="commentDelete('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+						+'<input type="button" class=repModify value="수정" id="b' + res.comment_seq + '"onclick="commentModify('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+					+'</td>'
+					+'</tr>'; 
+					
+					$("#commentTable").append(insertComment);
 			})
 		}) 
 		
@@ -166,13 +185,13 @@
 				}
 			}).done(function(res){
 				console.log(res);
-				$("#a" + seq).parent("div").remove();
+				$("#a" + seq).parent().parent().remove();
 			})
 		};
 		
 		function commentModify(seq){
-			$("#c" + seq).css("display","block");
-			$("#d" + seq).css("display","block");
+			$("#c" + seq).toggle();
+			$("#d" + seq).toggle();
 		};
 		
 		function commentModifyComplete(seq){
@@ -189,6 +208,11 @@
 					}
 				}).done(function(res){
 					console.log(res);
+					var comment = $("#c" + seq).val();
+					console.log(comment);
+					$("#e" + seq).html(comment);
+					$("#c" + seq).toggle();
+					$("#d" + seq).toggle();
 				})
 			}
 		}		

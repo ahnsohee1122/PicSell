@@ -115,6 +115,8 @@ public class EditNoticeService {
 		EditNoticeDTO beforeNotice = dao.previousRow(editNotice_seq);
 		EditNoticeDTO afterNotice = dao.nextRow(editNotice_seq); 
 		List<EditNoticeFileDTO> editFileDto = fileDao.selectAll(editNotice_seq);
+		System.out.println("여기");
+		System.out.println(editFileDto.size());
 		List<EditNoticeCommentDTO> commentDto = commentDao.selectAll(editNotice_seq);
 
 		Map map = new HashMap();
