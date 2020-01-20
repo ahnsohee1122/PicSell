@@ -67,7 +67,7 @@
 							<table class="w-100" id="commentTable">
 								<c:forEach var="commentDto" items="${map.commentDto }">
 								<tr id="comment_box">
-									<td id="e${commentDto.comment_seq}" class="p-2 text-left" style="width: 55%">
+									<td id="e${commentDto.comment_seq}" class="p-2 text-left" style="width: 55%;">
 										${commentDto.notice_comment}
 										<textarea id="c${commentDto.comment_seq }" style="display: none; resize: none;" rows="2" cols="80"></textarea>
 										<input id="d${commentDto.comment_seq }" type="button" value="수정완료" onclick="commentModifyComplete(${commentDto.comment_seq })" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
@@ -75,7 +75,7 @@
 									<td class="p-2" style="width: 20%">${commentDto.write_date }</td>
 									<td class="p-2" style="width: 15%">${commentDto.writer}</td>
 									<td class="p-2" style="width: 8%">
-										<input type="button" value="삭제" id="a${commentDto.comment_seq }" onclick="commentDelete(${commentDto.comment_seq })" style="display: none;">
+										<input type="button" value="삭제" id="a${commentDto.comment_seq }" onclick="commentDelete(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 										<input type="button" value="수정" id="b${commentDto.comment_seq }" onclick="commentModify(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 									</td>
 								</tr>
@@ -129,6 +129,8 @@
 	</div>
 	
 	<script>
+
+	
 		$("#delete").on("click", function(){
 			location.href="${pageContext.request.contextPath}/pieceNotice/delete.do?seq=${map.pieceNotice.pieceNotice_seq}";
 		})
@@ -154,23 +156,23 @@
 				},
 				dataType:"JSON"
 			}).done(function(res){
-				console.log(res);
+				$("#comment").val("");
 
 				var insertComment =
 				
 				'<tr id="comment_box">'
-				+'<td id="e"'+res.comment_seq+' class="p-2 text-left" style="width: 55%">'
+				+'<td id="e' + res.comment_seq+'" class="p-2 text-left" style="width: 55%">'
 				+	res.notice_comment
-				+	'<textarea id="c"'+res.comment_seq+' style="display: none; resize: none;" rows="2" cols="80"></textarea>'
-				+	'<input id="d"'+res.comment_seq+' type="button" value="수정완료" onclick="commentModifyComplete("'+res.comment_seq+'")" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+				+	'<textarea id="c' + res.comment_seq+'" style="display: none; resize: none;" rows="2" cols="80"></textarea>'
+				+	'<input id="d' + res.comment_seq+'" type="button" value="수정완료" onclick="commentModifyComplete('+res.comment_seq+')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
 				+'</td>'
-				+'<td class="p-2" style="width: 20%">'+res.write_date+'</td>'
-				+'<td class="p-2" style="width: 15%">'+res.writer+'</td>'
+				+'<td class="p-2" style="width: 20%">' + res.write_date+'</td>'
+				+'<td class="p-2" style="width: 15%">' + res.writer+'</td>'
 				+'<td class="p-2" style="width: 8%">'
-					+'<input type="button" value="삭제" id="a"'+res.comment_seq+' onclick="commentDelete("'+res.comment_seq+'")" style="display: none;">'
-					+'<input type="button" value="수정" id="b"'+res.comment_seq+' onclick="commentModify("'+res.comment_seq+'")" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+					+'<input type="button" class=repDelete value="삭제" id="a' + res.comment_seq + '"onclick="commentDelete('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+					+'<input type="button" class=repModify value="수정" id="b' + res.comment_seq + '"onclick="commentModify('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
 				+'</td>'
-				+'</tr>';
+				+'</tr>'; 
 				
 				$("#commentTable").append(insertComment);
 				
@@ -187,17 +189,20 @@
 				}
 			}).done(function(res){
 				console.log(res);
-				$("#a" + seq).parent("div").remove();
+				$("#a" + seq).parent().parent().remove();
 			})
 		};
 		
 		function commentModify(seq){
-			$("#c" + seq).css("display","block");
-			$("#d" + seq).css("display","block");
+			console.log("q");
+			console.log(seq + "zz");
+			$("#c" + seq).toggle();
+			$("#d" + seq).toggle();
+
 		};
 		
 		function commentModifyComplete(seq){
-			console.log("zz");
+
 			if($("#c" + seq).val() == ""){
 				alert("변경할 내용을 작성해주세요.");
 			}else{
@@ -210,6 +215,9 @@
 					}
 				}).done(function(res){
 					console.log(res);
+					var comment = $("#c" + seq).val();
+					$("#e" + seq).html(comment)
+
 				})
 			}
 		}		

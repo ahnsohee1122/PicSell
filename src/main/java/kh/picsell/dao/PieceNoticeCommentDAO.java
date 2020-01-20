@@ -40,14 +40,14 @@ public class PieceNoticeCommentDAO {
 	}
 	
 	
-	public int getCommetSeq(int pieceNotice_seq) {
-		return jdbc.selectOne("PieceNoticeComment.getCommetSeq", pieceNotice_seq);
+	public int getCommetSeq(int pieceNotice_seq, String writer) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("pieceNotice_seq", pieceNotice_seq);
+		map.put("writer", writer);
+		return jdbc.selectOne("PieceNoticeComment.getCommetSeq", map);
 	}
 	
-	public PieceNoticeCommentDTO commentSelect(int comment_seq, String writer) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("comment_seq", comment_seq);
-		map.put("writer", writer);
-		return jdbc.selectOne("PieceNoticeComment.commentSelect", map);
+	public PieceNoticeCommentDTO commentSelect(int comment_seq) {
+		return jdbc.selectOne("PieceNoticeComment.commentSelect", comment_seq);
 	}
 }
