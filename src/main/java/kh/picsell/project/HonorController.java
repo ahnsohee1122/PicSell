@@ -121,7 +121,6 @@ public String mainlist(HonorDTO hdto, HttpServletRequest request) {
 		request.setAttribute("imglist3", imglist3);
 		List<HonorDTO> list;
 		list = service.list(hdto);
-		System.out.println(list);
 		request.setAttribute("list", list);
 		List<HonorDTO> hlist1 = service.hfirst();
 		List<HonorDTO> hlist2 = service.hsecond();

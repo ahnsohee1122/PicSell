@@ -49,7 +49,7 @@
 <div class="row" style="margin-left:30px;">
 <c:forEach items = "${enterlist}" var="top">
 <div class="card m-auto col-3 honorlist" style="width: 15rem;margin-left:30px;">
-    	<h5 style="text-align:center">${top.nickname} 작가님</h5>
+    	<h5 style="text-align:center;font-family: 'Cafe24Oneprettynight'" id="htop${top.honorlist_seq}"></h5>
                       <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
                         
@@ -57,8 +57,10 @@
                         <p class="text-center"><input type="button" class="detailpic" id="showpic${top.honorlist_seq}" value="사진보기"></p>
                        
                         <script>
-
-
+						var when = "${top.honor_date}";
+						var topyear = when.substr(0,4);
+						var topmonth = when.substr(5,2);
+						$("#htop${top.honorlist_seq}").html(topyear+"년 "+topmonth+"월<br>"+"${top.nickname} 작가님");
                         	//$("#showpic${firdto.id}").on("click",function(){                        		
                       //  window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nickname ,"Best3사진", "width=800,height=600,resizable=no");
                         //	})
@@ -149,11 +151,13 @@
 
     	</c:forEach>
     	</div>
+    	<hr>
 </c:otherwise>
 </c:choose>
 <c:choose>
+
 <c:when test="${list.size()==0}">
-    	<h4>작가별 대표사진</h4>
+    	<h4 style="text-align:center">작가좋아요 랭킹</h4>
 <div class="row">
     	<div class="imglist col-3">
     	<c:forEach items="${list1}" var="firdto">
