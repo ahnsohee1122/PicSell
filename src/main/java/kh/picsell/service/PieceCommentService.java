@@ -25,11 +25,11 @@ public class PieceCommentService {
 		commentDao.commentModify(comment_seq, comment);
 	}
 	
-	public int getCommetSeq(int pieceNotice_seq) {
-		return commentDao.getCommetSeq(pieceNotice_seq);
+	public int getCommetSeq(int pieceNotice_seq, String writer) {
+		return commentDao.getCommetSeq(pieceNotice_seq, writer);
 	}
 	
-	public PieceNoticeCommentDTO commentSelect(int comment_seq, String writer) {
-		return commentDao.commentSelect(comment_seq, writer);
+	public PieceNoticeCommentDTO commentSelect(int comment_seq) {
+		return commentDao.commentSelect(comment_seq);
 	}
 }
