@@ -1,14 +1,18 @@
 package kh.picsell.service;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +31,8 @@ public class WriterUploadService {
 	@Autowired
 	private WriterImageUpDAO dao;
 	
-	
+	@Autowired
+	HttpServletResponse response;
 	private static final String BASE_64_PREFIX = "data:image/png;base64,";
 	//jsp로 부터 받은 이미지 디코딩. - 앞에 data:image/png;base64, 을 제외하고 사용해야함.
     public static byte[] decodeBase64ToBytes(String imageString) {
@@ -141,4 +146,6 @@ public class WriterUploadService {
 		}
 
 	}
+    
+  
 }

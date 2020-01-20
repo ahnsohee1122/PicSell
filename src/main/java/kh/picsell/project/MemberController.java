@@ -121,7 +121,11 @@ public class MemberController {
 	public String loginProc(String id, String pw, HttpServletRequest request) {
 		System.out.println(id+" : "+pw);
 		try {
-			MemberDTO dto = service.getnick(id);			 
+			MemberDTO dto = service.getnick(id);
+			if(dto==null) {
+				return"로그인실패!";
+						
+			}else {
 			String nickname = dto.getNickname();
 			System.out.println(nickname);
 			int result = service.login(id, pw);
@@ -157,6 +161,7 @@ public class MemberController {
 			}else {
 				return "로그인실패!";
 			}
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -164,7 +169,7 @@ public class MemberController {
 
 		}
 		return "";
-
+		
 	}
 	
 	@RequestMapping(value="/findidProc.do", produces="text/html; charset=UTF-8")

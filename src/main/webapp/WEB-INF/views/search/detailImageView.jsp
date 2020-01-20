@@ -300,16 +300,8 @@
 															<script>
 		                                                        $("#historyYes").on("click", function(){
 		                                                            alert("이미 사진을 구매 한 사용자입니다. 사진이 다운로드됩니다.");
-		
-		                                                            $.ajax({
-		                                                                url : "${pageContext.request.contextPath}/down.do",
-		                                                                type : "post",
-		                                                                data : { img_seq : dto.img_seq}
-		                                                            }).done(function(){
-		                                                                alert("다운로드가 성공했습니다.");
-		                                                            }).fail(function(){
-		                                                                alert("다운로드에 실패했습니다.");
-		                                                            })
+																	location.href="${pageContext.request.contextPath}/writer/down?img_seq=${dto.img_seq}&sysname=${dto.sysname}&oriname=${dto.oriname}"
+																	
 		                                                        })
 	                                                    	</script>
 														</c:when>
@@ -375,18 +367,10 @@
 
                                                                                 alert("이미 사진을 구매 한 사용자입니다. 사진이 다운로드됩니다.");
 
-                                                                                $.ajax({
-                                                                                    url : "${pageContext.request.contextPath}/down.do",
-                                                                                    type : "post",
-                                                                                    data : { img_seq : "${dto.img_seq}"
-                                                                                           }
-                                                                                }).done(function(){
-                                                                                    alert("다운로드가 성공했습니다.");
-                                                                                }).fail(function(){
-                                                                                    alert("다운로드에 실패했습니다.");
-                                                                                })
-                                                                            })			
-                                                                        }
+                                                                                location.href="${pageContext.request.contextPath}/writer/down?img_seq=${dto.img_seq}&sysname=${dto.sysname}&oriname=${dto.oriname}"
+                																	
+                                                                            });			
+                                                                        };
                                                                     </script>
 																</c:when>
 																<%-- 포인트가 500원 미만인 경우 --%>
@@ -663,7 +647,7 @@
             /*************************** 여기까지 로그인 모달창 *********************************/
 
 			var tag = "${dto.tag}";
-            tags = tag.replace(/{/gi,"").replace(/}/gi,",");
+            tags = tag.replace(/#/gi,"").replace(/#/gi,",");
             var arr = tags.split(",");
             console.log(arr);
             console.log(arr.length-1);
