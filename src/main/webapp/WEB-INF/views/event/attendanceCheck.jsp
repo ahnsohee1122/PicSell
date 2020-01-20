@@ -143,6 +143,14 @@
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
 	
+	<div>룰렛으로 가기 위한 버튼 
+		<button id="rulet">룰렛 페이지로 고고</button>
+	</div>
+	<script>
+		$("#rulet").on("click", function(){
+			location.href="${pageContext.request.contextPath}/event/rulet.do";
+		})
+	</script>
 	<div class="container-fluid m-0 py-5" style="height: 250px; background-color: #FFFEEA; font-family: 'Cafe24Ssukssuk';">
 		<div class="container text-center h-100">
 			<h4 class="my-3" style="font-size: 25px;">부지런한 자가 득템한다!</h4>
