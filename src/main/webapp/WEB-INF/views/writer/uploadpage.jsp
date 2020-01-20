@@ -58,6 +58,7 @@
 						<input type="hidden" value="" name="model" id="model"> 
 						<input type="hidden" value="" name="XDimension" id="XDimension"> 
 						<input type="hidden" value="" name="YDimension" id="YDimension">
+						<input type="hidden" value="" name="orientation" id="orientation">
 						<ul class="upload-list"></ul>
 						<div class="text-center">
 							<button type="button" id="upload" class="mb-3" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">등록하기</button>
@@ -99,7 +100,6 @@
 		
 		//사진 메타데이터 정보 가져오기.
 		function getExif(img) {
-			console.log(img)
 			EXIF.getData(img, function() {
 				document.getElementById('size').value = img.size
 				document.getElementById('make').value = EXIF.getTag(this,
@@ -110,6 +110,9 @@
 						"PixelXDimension")
 				document.getElementById('YDimension').value = EXIF.getTag(this,
 						"PixelXDimension")
+				document.getElementById('orientation').value = EXIF.getTag(this,
+						"Orientation")
+						console.log(document.getElementById('orientation').value)
 			});
 		}
 
@@ -124,7 +127,7 @@
 				thumb.innerHTML = ''
 				thumb.appendChild(img)
 				img.onload = function() {
-					var dataURL = watermarkedDataURL(img, "PicSell",
+					var dataURL = watermarkedDataURL(img, "PICSELL",
 							cnt, thumb);
 					var xsdataURL = xswatermarkedDataURL(img,"PICSELL",cnt,thumb)
 					
@@ -223,6 +226,8 @@
 
 				var xPixel = img.width
 				var yPixel = img.height
+				console.log(xPixel);
+				console.log(yPixel)
 				
 					if(!filename.match(reg)) {
 						alert("해당 파일은 이미지 파일이 아닙니다.");
@@ -230,8 +235,8 @@
 						return;
 					}
 					
-					if(xPixel == null || yPixel == null || xPixel < 1024 || yPixel < 1024){
-						alert("최소 해상도는 1024픽셀 이상이어야 합니다.")
+					if(xPixel == null || yPixel == null || xPixel < 720 || yPixel < 720){
+						alert("최소 해상도는 720픽셀 이상이어야 합니다.")
 						$("input[type=file]").val("");
 						return;
 				
