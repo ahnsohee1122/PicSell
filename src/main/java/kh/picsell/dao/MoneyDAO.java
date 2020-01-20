@@ -32,7 +32,9 @@ public class MoneyDAO {
 	public DealListDTO buyHistory(String nickname, int deal_img_seq) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("nickname", nickname);
+		System.out.println("닉네임나옴"+nickname);
 		param.put("deal_img_seq", deal_img_seq);
+		System.out.println("이미지시퀀스나옴"+deal_img_seq);
 		return jdbc.selectOne("Charge.buyHistory", param);
 	}
 	

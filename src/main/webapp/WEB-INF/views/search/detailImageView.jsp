@@ -236,7 +236,7 @@
 
 										<script>
 					                        $(".login").on("click", function(){
-					                            location.href="${pageContext.request.contextPath}/member/login.do";
+					                            $("#Login").modal();
 					                        })
 					                    </script>
 										</c:when>
@@ -291,7 +291,7 @@
 													</div>
 												</c:when>
 												<c:otherwise>
-													<%-- 사용자가 작가가 아닐 때  --%>
+													<%-- 사용자가 일반 사용자일 때  --%>
 													<c:choose>
 														<%-- 이미 구매 한 경우 --%>
 														<c:when test="${history==1}">
