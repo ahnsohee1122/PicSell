@@ -292,7 +292,10 @@
     	var tag = $("#search").val();
     	var writer = tag.substr(1);
     	
-    	if(tag == ""){
+        var regex = /^\s*$/;
+        var result = regex.exec(tag);
+    	
+    	if(result){
     		alert("키워드를 입력하세요");
     		return;
     	}else if(tag.charAt(0) == '@'){

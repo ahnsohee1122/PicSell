@@ -21,6 +21,7 @@ public class SearchService {
 			sb.append("#"+tmp+"#|");
 		}
 		tag = sb.substring(0,sb.length()-1).toString();
+		System.out.println("tag!!!!!!!!!!!!!!!!!!!:" + tag);
 		List<WriterImageUpDTO> list = dao.search(tag);
 		return list;
 	}
