@@ -214,8 +214,9 @@
 						comment:$("#c" + seq).val()
 					}
 				}).done(function(res){
-					console.log(res);
-					var comment = $("#c" + seq).val();
+					console.log(res);				
+					var comment = 
+						$("#c" + seq).val();
 					$("#e" + seq).html(comment)
 
 				})
