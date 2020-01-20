@@ -20,7 +20,9 @@
 	
 	.canvas,.wrap{margin: 10px 0; width: 300px;}
 	
-	.wrap>img {width: 100%; height:100%;}
+	.wrap {padding: 10px; max-height: 300px; text-align: center;}
+	.wrap>img {margin: auto; max-width: 100%; max-height: 100%;}
+	
 	canvas {display: none;}
 	
 	input[type=radio] {display: none; background-color: transparent;}
@@ -37,38 +39,33 @@
 	#floatMenu {position: relative;}
 	
 	.closeBtn {border: 0; background-color: #f4f2f5;}
-	
-	
 </style>
 </head>
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
 	
-	<div class="container-fluid py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
+	<div class="container-fluid py-5" style="min-height: 594px; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 		<div class="container m-auto">
-			<h2 class="mx-auto my-0 text-center">공모전 출품</h2>
+			<h2 class="mx-auto my-0 text-center">이미지 업로드</h2>
 		</div>
 		<div class="container mx-auto my-5">
-			<div class="row">
-				<div class="col-3 col-md-2 h-100 p-0 text-center" style="border-radius: 10px;">
-					<button type="button" class="add-item m-auto" id="floatMenu" style="width: 80%; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">이미지 추가</button>
-				</div>
-				<div class="col-9 col-md-10 h-100 p-0" style="border: 1px solid darkgray; border-radius: 10px;">	
-					<form id="uploadform" action="${pageContext.request.contextPath}/contest/enroll?title=${title}&contest_seq=${contest_seq}" method="post" enctype="multipart/form-data">
-						<input type="file" name="files" multiple="multiple" id="file">
-						<div class="canvas"></div>
-						<input type="hidden" value="" name="tag" id="rdTag" /> 
-						<input type="hidden" value="" name="img_size" id="size"> 
-						<input type="hidden" value="" name="make" id="make"> 
-						<input type="hidden" value="" name="model" id="model"> 
-						<input type="hidden" value="" name="XDimension" id="XDimension"> 
-						<input type="hidden" value="" name="YDimension" id="YDimension">
-						<ul class="upload-list"></ul>
-						<div class="text-center">
-							<button  type="button" id="upload" class="mb-3" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">등록하기</button>
-						</div>
-					</form>
-				</div>
+			<h6>공모 요강에 맞지 않은 사진은 판매가 되지 않을 수 있습니다.</h6>
+			<h6>본인이 촬영한 사진만 제출 가능합니다.</h6>
+			<div class="row w-100 mx-auto my-3 p-3" style="min-height: 300px; border: 1px solid darkgray; border-radius: 10px;">
+				<form id="uploadform" class="w-100" action="${pageContext.request.contextPath}/contest/enroll?title=${title}&contest_seq=${contest_seq}" method="post" enctype="multipart/form-data">
+					<input type="file" name="files" multiple="multiple" id="file">
+					<div class="row canvas w-100 mx-auto"></div>
+					<input type="hidden" value="" name="tag" id="rdTag" /> 
+					<input type="hidden" value="" name="img_size" id="size"> 
+					<input type="hidden" value="" name="make" id="make"> 
+					<input type="hidden" value="" name="model" id="model"> 
+					<input type="hidden" value="" name="XDimension" id="XDimension"> 
+					<input type="hidden" value="" name="YDimension" id="YDimension">
+					<ul class="upload-list"></ul>
+					<div class="text-center">
+						<button  type="button" id="upload" class="mb-3" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">등록하기</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -118,6 +115,8 @@
 					var wrap = document.createElement('div')
 					var remove = document.createElement('input')
 					wrap.classList.add("wrap")
+					wrap.classList.add("col-4")
+					wrap.classList.add("m-0")
 					remove.setAttribute("type","button")
 					remove.setAttribute("value",'X')
 					remove.classList.add('closeBtn')
