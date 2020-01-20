@@ -199,10 +199,9 @@
 <!--  이달의 작가님 -->
     <div class="container-fluid" style="background-color: white;">
         <div class="container px-0 py-5">
-            <div class="row">
-                <p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>
-                <a href="${pageContext.request.contextPath}/honor/mainlist.do">ㄱㄱ</a><br>
-                <a href="${pageContext.request.contextPath}/honor/honorlist.do">고고</a>
+            <div class="row" style="text-align:center">
+                
+                <a href="${pageContext.request.contextPath}/honor/mainlist.do"><p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p></a>
             </div>
             <div class="row">
                 <div class="col-12 col-xl-3">
