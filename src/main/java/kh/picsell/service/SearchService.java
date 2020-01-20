@@ -18,7 +18,7 @@ public class SearchService {
 		StringBuilder sb = new StringBuilder();
 		String[] arr = tag.split(" ");
 		for(String tmp : arr) {
-			sb.append("{"+tmp+"}|");
+			sb.append("#"+tmp+"#|");
 		}
 		tag = sb.substring(0,sb.length()-1).toString();
 		List<WriterImageUpDTO> list = dao.search(tag);
@@ -29,7 +29,7 @@ public class SearchService {
 		StringBuilder sb = new StringBuilder();
 		String[] arr = tag.split(" ");
 		for(String tmp : arr) {
-			sb.append("{"+tmp+"}|");
+			sb.append("#"+tmp+"#|");
 		}
 		tag = sb.substring(0,sb.length()-1).toString();
 		System.out.println("keyword: " + tag);
@@ -38,7 +38,7 @@ public class SearchService {
 			StringBuilder sb2 = new StringBuilder();
 			String[] arr2 = keyword2.split(" ");
 			for(String tmp : arr2) {
-				sb2.append("{"+tmp+"}|");
+				sb2.append("#"+tmp+"#|");
 			}
 			System.out.println(keyword2);
 			keyword2 = sb2.substring(0,sb2.length()-1).toString();
