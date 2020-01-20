@@ -51,7 +51,7 @@
 						<th class="title px-2">첨부파일</th>
 						<td colspan="5" class="data data_file text-left px-2">
 							<c:forEach var="editFileDto" items="${map.editFileDto }">
-								<a style="color: black;" href="${pageContext.request.contextPath}/editNotice/fileDownLoad.do?sysName=${editFileDto.editNoticeFile_sysName}&oriName=${editFileDto.editNoticeFile_oriName}"> ${editFileDto.editNoticeFile_oriName }</a>
+								<a style="color: black;" href="${pageContext.request.contextPath}/editNotice/fileDownLoad.do?sysName=${editFileDto.editNoticeFile_sysName}&oriName=${editFileDto.editNoticeFile_oriName}">${editFileDto.editNoticeFile_oriName }</a>
 							</c:forEach>
 						</td>
 					</tr>
