@@ -24,6 +24,9 @@ select * from honor
 <delete id="delete">
 delete honor
 </delete>
+<delete id="votedelete">
+delete honorvote
+</delete>
 <update id="like" parameterType="kh.picsell.dto.HonorDTO">
 		update honor set honorpoint=honorpoint+1 where nickname = #{nickname}
 	</update>

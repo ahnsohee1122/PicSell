@@ -175,7 +175,7 @@ $(function(){
 					alert("서버에러입니다 관리자에게 문의하세요");}
 				});
 			});
-	        $("#loginPw").on("keyup", function(e){
+	        $(".loginInput").on("keyup", function(e){
 
 	            if(e.keyCode == 13){
 	            	var login_id = $("#loginId").val();
@@ -359,9 +359,9 @@ $(function(){
 									            </g>
 		            							<path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#fff" />
         									</svg>
-											<input type="text" placeholder="Input Your ID" name="loginId" id="loginId" style="font-family: 'Dovemayo-Medium';">
+											<input type="text" class ="loginInput" placeholder="Input Your ID" name="loginId" id="loginId" style="font-family: 'Dovemayo-Medium';">
 											<br>
-											<input type="password" placeholder="Input Your PW" name="loginPw" id="loginPw" style="font-family: 'Dovemayo-Medium';">
+											<input type="password" class ="loginInput" placeholder="Input Your PW" name="loginPw" id="loginPw" style="font-family: 'Dovemayo-Medium';">
 											<br>
 											<div id="info" class="pt-2" style="font-size: 16px; display: none">잘못된 아이디 또는 잘못된 패스워드입니다.</div>
 											<div class="form-group p-0 save" style="width: 300px;">
@@ -482,9 +482,12 @@ $(function(){
 						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
 							<a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a>
 						</li>
+						
+						<%-- 내 정보 modal창 --%>
 						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
-							<a href="#" class="text-dark explanation" data-toggle="modal" data-target="#MyInfo">내 정보</a>
+							<a href="#" class="text-dark explanation" data-toggle="modal" data-target="#MyInfo" id="top_money">내 정보</a>
 						</li>
+				
 						<div class="modal fade" id="MyInfo" tabindex="-1" role="dialog" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-slideout" role="document" style="max-width: 350px; left: 17px;">
 								<div class="modal-content px-2">
@@ -499,15 +502,15 @@ $(function(){
 											<hr>
 											<div class="row my-2" style="font-size: 18px;">
 												<div class="col-6">내 포인트</div>
-												<div class="col-6">4,000원</div>
+												<div class="col-6" id="top_point"></div>
 											</div>
 											<div class="row my-2" style="font-size: 18px;">
 												<div class="col-6">작가 수익금</div>
-												<div class="col-6">3,000원</div>
+												<div class="col-6" id="top_profit"></div>
 											</div>
 											<div class="row my-3 text-center" style="font-size: 20px;">
 												<div class="col-12">
-													<a href="#" class="btn py-0" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">My Point</a>
+													<a href="${pageContext.request.contextPath}/money/charge.do" class="btn py-0" style="width: 150px; border: 1px solid darkgray; border-radius: 10px; background-color: white;">포인트 충전하기</a>
 												</div>
 											</div>
 											<hr>
@@ -572,6 +575,22 @@ $(function(){
 								</div>
 							</div>
 						</div>
+								<script>
+						$("#top_money").on("click", function(){
+							$.ajax({
+								url : "${pageContext.request.contextPath}/money/top_money.do",
+								type : "post",
+								dataType : "json",
+							}).done(function(data){
+								var my_point = data.my_point;
+								var my_profit = data.my_profit;							
+								$("#top_point").html(my_point+"원");
+								$("#top_profit").html(my_profit+"원");
+							}).fail(function(data){
+								alert("데이터를 받아오는데 실패했습니다.");
+							})
+						})
+						</script>
 					</ul>
 				</div>
 			</c:otherwise>

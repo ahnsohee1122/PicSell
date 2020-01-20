@@ -167,9 +167,9 @@
                              <input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
                            <button id="searchBtn" class="search_icon" style="border: 0px; background-color: white !important;"><i class="fas fa-search"></i></button>
                            <div class="hashTag m-3">
-                              <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#겨울</a></span>
-                               <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#웨딩</a></span>
-                               <span class="pr-1" style="font-size: 13px;"><a href="#" style="color: white;">#인테리어</a></span>
+                              <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag='겨울'" style="color: white;">#겨울</a></span>
+                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag='웨딩'" style="color: white;">#웨딩</a></span>
+                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag='인테리어'" style="color: white;">#인테리어</a></span>
                             </div>
                         </div>
                       </div>
@@ -188,7 +188,7 @@
         <div class="row m-auto" style="height: 1000px;">
            <div class="col-12 col-md-12 col-xl-12 text-center px-0 py-3" id="gallery">
         	<c:forEach items="${imagelist }" var="imagelist">
-           		 <div><a href='${pageContext.request.contextPath}/DetailImage.do?img_seq=${imagelist.img_seq }&nickname=${imagelist.nickname }'><img src="/watermarkfiles/xsmarked_${imagelist.sysname }"></a></div>
+           		 <div><a href='${pageContext.request.contextPath}/DetailImage.do?img_seq=${imagelist.img_seq }&nickname=${imagelist.nickname }' onclick="window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src="/watermarkfiles/xsmarked_${imagelist.sysname }"></a></div>
          	</c:forEach>
             </div>
            
@@ -199,10 +199,9 @@
 <!--  이달의 작가님 -->
     <div class="container-fluid" style="background-color: white;">
         <div class="container px-0 py-5">
-            <div class="row">
-                <p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>
-                <a href="${pageContext.request.contextPath}/honor/mainlist.do">ㄱㄱ</a><br>
-                <a href="${pageContext.request.contextPath}/honor/honorlist.do">고고</a>
+            <div class="row" style="text-align:center">
+                
+                <a href="${pageContext.request.contextPath}/honor/mainlist.do"><p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p></a>
             </div>
             <div class="row">
                 <div class="col-12 col-xl-3">
@@ -278,32 +277,44 @@
 	    margins : 10
 	}); 
     
+    
     $("#searchBtn").on("click",function(){
-       var tag = $("#search").val();
-       var writer = tag.substr(1);
-       
-       if(tag == ""){
-          alert("키워드를 입력하세요");
-          return;
-       }else if(tag.charAt(0) == '@'){
-          $.ajax({
-             url:"/WriterExist.do",
-             type:"post",
-             data:{writer:writer}
-          }).done(function(resp){
-             console.log(resp);
-             if(resp == "yes"){
-                location.href = "/writer/writerpage";
-             }else if(resp == "no"){
-                alert("존재하는 작가가 아닙니다.");
-             }
-          }).fail(function(){
-             
-          });
-       }else{
-          location.href = "/Search.do?tag=" + tag;
-       }
+		search();
     })
+    
+    $("#search").on("keyup",function(e){
+    	if(e.keyCode == 13){
+    		search();
+    	}
+    })
+    
+    function search(){
+    	var tag = $("#search").val();
+    	var writer = tag.substr(1);
+    	
+    	if(tag == ""){
+    		alert("키워드를 입력하세요");
+    		return;
+    	}else if(tag.charAt(0) == '@'){
+    		$.ajax({
+    			url:"/WriterExist.do",
+    			type:"post",
+    			data:{writer:writer}
+    		}).done(function(resp){
+    			console.log(resp);
+    			if(resp == "yes"){
+    				location.href = "/writer/writerpage?nickname="+writer;
+    			}else if(resp == "no"){
+    				alert("존재하는 작가가 아닙니다.");
+    			}
+    		}).fail(function(){
+    			
+    		});
+    	}else{
+    		location.href = "/Search.do?tag=" + tag;
+    	}
+    }
+    
     </script>
    
    <jsp:include page="key/bottom.jsp" flush="false"/>

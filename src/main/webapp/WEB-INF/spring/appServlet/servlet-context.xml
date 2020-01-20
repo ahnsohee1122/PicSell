@@ -31,6 +31,7 @@
 	<mvc:resources mapping="/profileimage/**" location="/profileimage/" />
 	<mvc:resources location="/resources/fullcalendar-4.3.1/" mapping="/fullcalendar-4.3.1/**"></mvc:resources>
 	<mvc:resources mapping="/contestenroll/**" location="/contestenroll/" />
+	<mvc:resources location="/resources/javascript-winwheel-2.8.0/" mapping="/javascript-winwheel-2.8.0/**"></mvc:resources>
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->

@@ -7,10 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-.pics{float:left; margin-left:50px;}
-</style>
+<title>명예의전당 등록</title>
 <jsp:include page="../key/top.jsp" flush="false"/>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
@@ -24,16 +21,20 @@
 </c:when>
 <c:otherwise>
 
-<div id="likelist" style="width:100%">
-<h3>좋아요 순위</h3>
+<div class="row" id="likelist" style="width:100%">
+<h3>좋아요 순위</h3><hr>
 <c:forEach items="${memlist}"  var = "dto">
-<h3>${dto.nickname} 작가님</h3>
-<div class="card m-auto pics" style="width: 15rem;float:left;">
+
+<div class="card m-auto pics col-3" style="width: 15rem;margin-left:20px;">
+
                       <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
-                      <div class="card-body">
+                      <div class="card-body" style="text-align:center">
                         
+                        <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';">${dto.nickname} 작가님</p>
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">LIKE ${dto.likepoint }</p>
                         <p class="text-center"><input type="button" class="detailpic" id="showpic${dto.id}" value="사진보기"></p><br>
+                        <input type="hidden" id="onetopnick" value="${top.nickname}">
+                        <input type="hidden" id="onetoppoint" value="${top.honorpoint}">
                         <input type="button" value="등록하기" id="insert${dto.id}">
                         <script>
                         $("#insert${dto.id}").on("click",function(){
@@ -81,10 +82,15 @@
 </c:otherwise>
 </c:choose>
 <hr>
-<h6>새로운 명예의전당을 시작하려면 삭제를 눌러주세요</h6>
-<input type="button" value="삭제" id="delete">
+<div style="text-align:center;width:80%;">
+<hr>
+<h5 style="font-family: 'Cafe24Oneprettynight'">이번달 명예의전당을 종료하려면 종료를 눌러주세요</h5>
+<input type="button" value="종료" id="delete">
+</div>
 <script>
 $("#delete").on("click",function(){
+var result = confirm("이번달 명예의전당을 종료하시겠습니까?");
+if(result){
 	$.ajax({
 		url:"${pageContext.request.contextPath}/honor/delete.do",
 		type:"post"
@@ -99,6 +105,9 @@ $("#delete").on("click",function(){
 			alert("서버문제입니다");
 		}
 	});
+}else{
+	alert("취소되었습니다");
+}
 })
 </script>
 </div>

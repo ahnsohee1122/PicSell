@@ -95,4 +95,16 @@ public class WriterController {
 			return list;
 		}
 	}
+	
+	//사진다운로드
+	@RequestMapping("down")
+	@ResponseBody
+	public String download(int img_seq, String sysname) {
+		System.out.println("다운로드");
+		String path = session.getServletContext().getRealPath("writeruploadfiles");
+		service.download(path, img_seq, sysname);
+		return "다운완료";
+	}
+	
+	
 }

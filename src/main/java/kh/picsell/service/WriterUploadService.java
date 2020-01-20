@@ -1,14 +1,18 @@
 package kh.picsell.service;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +31,8 @@ public class WriterUploadService {
 	@Autowired
 	private WriterImageUpDAO dao;
 	
-	
+	@Autowired
+	HttpServletResponse response;
 	private static final String BASE_64_PREFIX = "data:image/png;base64,";
 	//jsp로 부터 받은 이미지 디코딩. - 앞에 data:image/png;base64, 을 제외하고 사용해야함.
     public static byte[] decodeBase64ToBytes(String imageString) {
@@ -118,7 +123,7 @@ public class WriterUploadService {
 			taglist = request.getParameterValues("p"+i+"-tags[]");
 			String tag="";
 			for(int j = 0; j<taglist.length; j++) {
-				  tag += "{"+taglist[j]+"}";
+				  tag += "#"+taglist[j]+"#";
 				  dto.setTag(tag);
 			}
 			
@@ -141,4 +146,30 @@ public class WriterUploadService {
 		}
 
 	}
+    
+   public void download(String path, int img_seq, String sysname) {
+	   String fullpath = path + "/" + sysname;
+	   File f = new File(fullpath);
+	   
+	   try(
+			FileInputStream fis = new FileInputStream(f);
+			 DataInputStream fileDis = new DataInputStream(fis);
+			   ){
+		   byte[] fileContents = new byte[(int)f.length()];
+		   fileDis.readFully(fileContents);
+		   
+		   response.reset();
+		   response.setContentType("application/octet-stream");
+		   String encFileName = new String(sysname.getBytes("utf8"),"iso-8859-1");
+		   response.setHeader("Content-Disposition", "attachment; filename=\"" + encFileName + "\""); 
+		   response.setHeader("Content-Length", String.valueOf(f.length()));
+		   ServletOutputStream sos = response.getOutputStream();
+		   sos.write(fileContents);
+		   sos.flush();
+	   }catch(Exception e) {
+		   e.printStackTrace();
+	   }
+			   
+	   ;
+   }
 }
