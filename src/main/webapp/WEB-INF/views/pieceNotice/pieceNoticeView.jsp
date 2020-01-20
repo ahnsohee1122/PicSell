@@ -67,7 +67,7 @@
 							<table class="w-100" id="commentTable">
 								<c:forEach var="commentDto" items="${map.commentDto }">
 								<tr id="comment_box">
-									<td id="e${commentDto.comment_seq}" class="p-2 text-left" style="width: 55%;">
+									<td id="e${commentDto.comment_seq}" class="p-2 text-left" style="width: 55%; border: 1px solid red;">
 										${commentDto.notice_comment}
 										<textarea id="c${commentDto.comment_seq }" style="display: none; resize: none;" rows="2" cols="80"></textarea>
 										<input id="d${commentDto.comment_seq }" type="button" value="수정완료" onclick="commentModifyComplete(${commentDto.comment_seq })" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
