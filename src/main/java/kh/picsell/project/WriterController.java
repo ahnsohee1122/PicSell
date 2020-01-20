@@ -104,16 +104,17 @@ public class WriterController {
 	//사진다운로드
 	@RequestMapping("down")
 	@ResponseBody
-	public String download(int img_seq, String sysname, HttpServletResponse response) {
-		System.out.println("다운로드");
-		System.out.println(img_seq);
-		System.out.println(sysname);
+	public void download(int img_seq, String sysname, String oriname, HttpServletResponse response, HttpServletRequest request) {
+		try {
+		request.setCharacterEncoding("UTF-8");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
 		String path = session.getServletContext().getRealPath("writeruploadfiles");
 
 		String fullpath = path + "/" + sysname;
-
 		File f = new File(fullpath);
-
 		try(
 				FileInputStream fis = new FileInputStream(f);
 				DataInputStream fileDis = new DataInputStream(fis);
@@ -123,7 +124,7 @@ public class WriterController {
 
 			response.reset();
 			response.setContentType("application/octet-stream");
-			String encFileName = new String(sysname.getBytes("utf8"),"iso-8859-1");
+			String encFileName = new String(oriname.getBytes("utf8"),"iso-8859-1");
 			response.setHeader("Content-Disposition", "attachment; filename=\"" + encFileName + "\""); 
 			response.setHeader("Content-Length", String.valueOf(f.length()));
 			ServletOutputStream sos = response.getOutputStream();
@@ -133,7 +134,7 @@ public class WriterController {
 			e.printStackTrace();
 		};
 
-		return "다운완료";
+		
 	}
 
 
