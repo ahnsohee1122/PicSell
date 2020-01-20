@@ -647,10 +647,8 @@
             /*************************** 여기까지 로그인 모달창 *********************************/
 
 			var tag = "${dto.tag}";
-            tags = tag.replace(/#/gi,"").replace(/#/gi,",");
+            tags = tag.replace(/##/gi,",").replace(/#/gi,"");
             var arr = tags.split(",");
-            console.log(arr);
-            console.log(arr.length-1);
 
             for(var i=0; i<arr.length-1; i++){
             	var span = "<a href='/Search.do?tag="+arr[i]+"' class='mx-1' style='text-decoration:none; padding: 5px;' onclick='opener.location.href=this.href; window.close();'>"+"#"+arr[i]+"</a>";/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
