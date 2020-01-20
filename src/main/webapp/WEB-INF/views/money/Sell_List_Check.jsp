@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>     
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <style>
-	.odd > td {background-color: #f4f2f5; height: 50px; line-height: 50px;}
+	.odd > td {background-color: #f4f2f5; min-height: 40px; line-height: 40px;}
+	.even > td {background-color: #f4f2f5; min-height: 40px; line-height: 40px;}
 	
 	img {max-width: 100%; max-height: 200px;}
 	
@@ -62,36 +63,68 @@
 	<div class="container-fluid m-0 py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 		<div class="container m-auto" style="max-width: 1500px;">
 			<div class="row">
-				<div id="floatMenu" class="col-5 col-md-3 col-xl-2 py-2 text-center p-0 d-none d-md-block" style="height: 310px; border: 1px solid gray; box-sizing: border-box; border-radius: 10px;">
+				<div id="floatMenu" class="col-5 col-md-3 col-xl-2 py-2 text-center p-0 d-none d-md-block" style="height: 410px; border: 1px solid gray; box-sizing: border-box; border-radius: 10px;">
 					<div class="row m-0 px-0 w-100 text-left">
-						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/myInfo/myInfo.do" style="color: black; font-size: 22px; text-decoration: none;">내 정보</a></div>
+						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/myInfo/myInfo.do" style="color: black; font-size: 22px; text-decoration: none;">My Page</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/myInfo/myInfo.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a></div>
-						<div class="px-3 py-1 mb-3 w-100 quickMenu"><a href="${pageContext.request.contextPath}/contest/contestchecking.do" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/승인 내역</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/buy_list.do" style="color: black; font-size: 16px; text-decoration: none;">구매 내역 확인</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/myPoint.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 입출금 내역 확인</a></div>
+						<div class="px-3 py-1 mb-3 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/charge.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 충전</a></div>
 					</div>
 					<hr class="py-1 m-auto" style="max-width: 220px;">
 					<div class="row m-0 px-0 w-100 text-left">
-						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/money/myPoint.do" style="color: black; font-size: 22px; text-decoration: none;">내 포인트</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/myPoint.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 조회하기</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/buy_list.do" style="color: black; font-size: 16px; text-decoration: none;">구매내역 확인하기</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/sell_list.do" style="color: black; font-size: 16px; text-decoration: none;">판매내역 확인하기</a></div>
+						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 22px; text-decoration: none;">Writer Page</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/profit_list.do" style="color: black; font-size: 16px; text-decoration: none;">수익 & 판매 내역 확인</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/moneyBack.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 환급</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/change.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 전환</a></div>
 					</div>
 				</div>
 				<div class="col-12 col-md-9 col-xl-10 px-0 px-md-3 text-center">
 					<div class="m-auto w-100 h-100 py-5" style="border: 1px solid gray; border-radius: 10px;">
 						<form class="m-auto px-2 px-ml-0" style="max-width: 600px;">
-							<h4>${loginInfo}님의 판매 내역</h4>
+							<h4>${loginInfo}님의 수익금 & 판매 내역</h4>
 						</form>
 						<form class="mx-auto mt-5 px-3 px-ml-0 text-center" style="max-width: 100%;">
 							<table id="DataTable" class="row-border">
 								<thead> 
 									<tr>
-										<th style="width: 20%;">날짜</th>
-										<th style="width: 15%;">금액</th>
-										<th style="width: 15%;">이미지 번호</th>
-										<th style="width: 20%;">구매자</th>
+										<th style="width: 20%;">포인트 번호</th>
+										<th style="width: 15%;">구분</th>
+										<th style="width: 15%;">날짜</th>
+										<th style="width: 20%;">포인트</th>
 										<th style="width: 30%;">이미지</th>
 									</tr> 
 								</thead>
+								
+								<tbody>
+									<c:forEach items="${list}" var="list">
+										<tr onclick="window.open('${pageContext.request.contextPath}/DetailImage.do?img_seq=${list.dealImgSeq}&nickname=${loginInfo}', '','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" style="cursor:pointer; background-color: #f4f2f5;" class="list jg-entry entry-visible" >
+											<td>${list.pointSeq}</td>
+											<td>${list.dealSort}</td>
+											<td>${list.pointDate}</td>
+											<td>${list.point}<span class="mx-1">원</span></td>
+												<script>
+								console.log("${list.dealSort}");
+								</script>
+								
+											<c:choose>
+											<c:when test="${list.dealSort=='판매'}">
+											<td><img src="/writeruploadfiles/${list.sysName}"></td>
+											</c:when>
+											<c:when test="${list.dealSort=='포인트 전환'}">
+											<td>포인트가 전환이 완료되었습니다!</td>
+											</c:when>
+											<c:when test="${list.dealSort=='환급'}">
+											<td>포인트 환급이 완료되었습니다.</td>
+											</c:when>
+											</c:choose>
+											
+										</tr>
+									</c:forEach>
+								</tbody>
+								
+								<%-- 
 								<tbody>
 									<c:forEach items="${list}" var="list">
 										<tr onclick="window.open('${pageContext.request.contextPath}/DetailImage.do?img_seq=${list.dealImgSeq}&nickname=${loginInfo}', '','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" style="cursor:pointer; background-color: #f4f2f5;" class="list jg-entry entry-visible" >
@@ -103,6 +136,8 @@
 										</tr>
 									</c:forEach>
 								</tbody>
+								--%>  
+								
 							</table>
 						</form>
 					</div>
@@ -110,7 +145,7 @@
 			</div>
 		</div>
 	</div>
-	
+									
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
 </html>

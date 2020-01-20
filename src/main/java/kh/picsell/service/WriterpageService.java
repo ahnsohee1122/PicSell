@@ -47,5 +47,9 @@ public class WriterpageService {
 			return info;
 	}
 	
+	public List<WriterImageUpDTO> bestImage(){
+		return dao.bestImage();
+	}
+	
 
 }

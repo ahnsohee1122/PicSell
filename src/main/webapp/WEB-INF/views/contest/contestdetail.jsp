@@ -28,13 +28,15 @@
 <script>
 
 var loginInfo = "${loginInfo}"
+
 $("#upload").on("click",function(){
 	if(loginInfo == null){
 		alert("로그인 후 이용해주세요")
 		$("#gotologin").click(); 
 	}else{
 		location.href = "${pageContext.request.contextPath}/contest/upload?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}" 
-	});
+	}
+})
 
 $("#enrollimage").on("click",function(){
 	location.href="${pageContext.request.contextPath}/contest/enrollList?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}" 
