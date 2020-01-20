@@ -20,8 +20,9 @@
 	
 	.canvas,.wrap{margin: 10px 0; width: 300px;}
 	
-	.wrap {padding: 10px; max-height: 300px; text-align: center;}
-	.wrap>img {margin: auto; max-width: 100%; max-height: 100%;}
+	.wrap {max-height: 300px; text-align: center;}
+	.innerwrap {margin: 10px 0;}
+	.wrapimg>img {margin: auto; max-width: 100%; max-height: 100%;}
 	
 	canvas {display: none;}
 	
@@ -54,7 +55,7 @@
 			<div class="row w-100 mx-auto my-3 p-3" style="min-height: 300px; border: 1px solid darkgray; border-radius: 10px;">
 				<form id="uploadform" class="w-100" action="${pageContext.request.contextPath}/contest/enroll?title=${title}&contest_seq=${contest_seq}" method="post" enctype="multipart/form-data">
 					<input type="file" name="files" multiple="multiple" id="file">
-					<div class="row canvas w-100 mx-auto"></div>
+					<div class="row canvas w-100 mx-auto my-0" style="min-height: 173px;"></div>
 					<input type="hidden" value="" name="tag" id="rdTag" /> 
 					<input type="hidden" value="" name="img_size" id="size"> 
 					<input type="hidden" value="" name="make" id="make"> 
@@ -63,7 +64,8 @@
 					<input type="hidden" value="" name="YDimension" id="YDimension">
 					<ul class="upload-list"></ul>
 					<div class="text-center">
-						<button  type="button" id="upload" class="mb-3" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">등록하기</button>
+						<button type="button" id="upload" class="mb-3 mx-1" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">등록하기</button>
+						<input type="button" value="이전으로" class="mb-3 mx-1" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
 					</div>
 				</form>
 			</div>
@@ -114,9 +116,20 @@
 				reader.onload = function(e) {
 					var wrap = document.createElement('div')
 					var remove = document.createElement('input')
+					var innerwrap = document.createElement('div')
+					var div1 = document.createElement('div')
+					var div2 = document.createElement('div')
+					innerwrap.classList.add("innerwrap")
+					innerwrap.classList.add("row")
 					wrap.classList.add("wrap")
 					wrap.classList.add("col-4")
 					wrap.classList.add("m-0")
+					div1.classList.add("col-11")
+					div1.classList.add("wrapimg")
+					div1.classList.add("px-0")
+					div2.classList.add("col-1")
+					div2.classList.add("wrapremove")
+					div2.classList.add("px-0")
 					remove.setAttribute("type","button")
 					remove.setAttribute("value",'X')
 					remove.classList.add('closeBtn')
@@ -124,9 +137,12 @@
 					var data = e.target.result
 					var img = new Image()
 					img.src = data
+					wrap.appendChild(innerwrap)
+					innerwrap.appendChild(div1)
+					innerwrap.appendChild(div2)
 					preview.appendChild(wrap)
-					wrap.appendChild(img)
-					wrap.appendChild(remove)
+					div1.appendChild(img)
+					div2.appendChild(remove)
 					remove.onclick=function(){
 						remove.parentNode.remove();
 					}
@@ -140,8 +156,6 @@
 		file.onchange = function(e){
 			readImage(e.target.files)
 		}
-		
-		
 		
 	/* 	function leftTemplate(cnt) {
 			//var left = document.createElement('div')
@@ -222,9 +236,6 @@
 				alert("이미지를 등록 해주세요")
 				return;
 			}
- 			
-			
-
 			$("#uploadform").submit();
 		})
 		
