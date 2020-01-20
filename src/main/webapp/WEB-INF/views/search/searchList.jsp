@@ -143,7 +143,7 @@
 	    }
 	
 	    let renderList = function(sysname, tag, img_seq, nickname){
-	    	tags = tag.replace(/{/gi,"#").replace(/}/gi,"");
+	    	tags = tag.replace(/{/gi,"").replace(/}/gi,"");
 	
 	        var html = "<div class='image'><a href='/DetailImage.do?img_seq="+img_seq+"&nickname="+nickname+"' onclick=\"window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;\" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src=/watermarkfiles/xsmarked_"+sysname+" alt="+tags+"></a></div>"
 	        $("#gallery").append(html);
@@ -169,7 +169,10 @@
 	    	var tag = $("#search").val();
 	    	var writer = tag.substr(1);
 	    	
-	    	if(tag == ""){
+	        var regex = /^\s*$/;
+	        var result = regex.exec(tag);
+	    	
+	    	if(result){
 	    		alert("키워드를 입력하세요");
 	    		return;
 	    	}else if(tag.charAt(0) == '@'){
