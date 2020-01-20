@@ -302,10 +302,12 @@
 		                                                            alert("이미 사진을 구매 한 사용자입니다. 사진이 다운로드됩니다.");
 		
 		                                                            $.ajax({
-		                                                                url : "${pageContext.request.contextPath}/down.do",
+		                                                                url : "${pageContext.request.contextPath}/writer/down",
 		                                                                type : "post",
-		                                                                data : { img_seq : dto.img_seq}
-		                                                            }).done(function(){
+		                                                                data : { "img_seq" : dto.img_seq,
+		                                                                	"sysname" : dto.sysname}
+		                                                            }).done(function(data){
+		                                                            	console.log(data)
 		                                                                alert("다운로드가 성공했습니다.");
 		                                                            }).fail(function(){
 		                                                                alert("다운로드에 실패했습니다.");
