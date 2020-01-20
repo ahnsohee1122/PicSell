@@ -33,14 +33,7 @@ public class SearchController {
 	private HttpSession session;
 
 	@RequestMapping("/Search.do")
-	public String search(String tag, HttpServletRequest request) {		
-//		if(tag.charAt(0) == '@') {                                                                         
-//			return "writer/writerpage"; // 작가 페이지로
-//		}else {
-//			request.setAttribute("searchKeyword", tag);
-//			return "/search/searchList";
-//		}
-		
+	public String search(String tag, HttpServletRequest request) {				
 		request.setAttribute("searchKeyword", tag);
 		return "/search/searchList";
 	}
