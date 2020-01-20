@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.picsell.dto.EventDTO;
+import kh.picsell.dto.MemberDTO;
 
 @Repository
 public class EventDAO {
@@ -46,4 +47,16 @@ public class EventDAO {
 			param.put("point_date", point_date);
 			return jdbc.insert("Event.addPoint", param);
 			}
+		
+		/////////////////////////////////////////////////////////////////
+		
+		// 정보 수정 시 업데이트 되는 부분 
+		
+		public void modifyEvent(MemberDTO dto, String nickName) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("dto", dto);
+			map.put("nickName", nickName);
+			jdbc.update("Charge.modifyEvent", map);
+		}
+		
 }

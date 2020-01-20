@@ -89,6 +89,19 @@ public class EventController {
 		public String rulet() {
 			return "/event/rulet";
 		}
-	
+		
+		// 2. 룰렛 돌려서 나온 포인트값 저장하기 
+		@RequestMapping("/rouletProc.do")
+		@ResponseBody
+		public String rulet(String data) {
+			if(data.equals("꽝")) {
+				request.setAttribute("data", "0");
+			}else {
+				
+				request.setAttribute("data", "1");
+			}
+			
+			return "";
+		}
 
 }
