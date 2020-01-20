@@ -34,12 +34,15 @@ public class SearchController {
 
 	@RequestMapping("/Search.do")
 	public String search(String tag, HttpServletRequest request) {		
-		if(tag.charAt(0) == '@') {                                                                         
-			return "writer/writerpage"; // 작가 페이지로
-		}else {
-			request.setAttribute("searchKeyword", tag);
-			return "/search/searchList";
-		}
+//		if(tag.charAt(0) == '@') {                                                                         
+//			return "writer/writerpage"; // 작가 페이지로
+//		}else {
+//			request.setAttribute("searchKeyword", tag);
+//			return "/search/searchList";
+//		}
+		
+		request.setAttribute("searchKeyword", tag);
+		return "/search/searchList";
 	}
 
 	@RequestMapping(value="/Align.do", produces="text/html; charset=UTF-8")
