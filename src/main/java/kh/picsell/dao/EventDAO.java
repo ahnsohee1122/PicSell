@@ -6,9 +6,11 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import kh.picsell.dto.EventDTO;
 
+@Repository
 public class EventDAO {
 	
 	@Autowired

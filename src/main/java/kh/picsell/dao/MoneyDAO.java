@@ -108,6 +108,10 @@ public class MoneyDAO {
 		return jdbc.selectList("Charge.sell_list", nickname);
 	}
 	
+	// 수익금 및 판매 내역 확인하기
+	public List<Map<String, Object>> profit_list(String nickname){
+		return jdbc.selectList("Charge.profit_list", nickname);
+	}
 	/////////////////////////////////////////////////////////////////
 	
 	// 관리자 > 포인트 내역 확인하기

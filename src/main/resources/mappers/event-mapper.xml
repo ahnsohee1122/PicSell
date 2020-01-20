@@ -19,7 +19,7 @@
 	
 	<!-- 3. 출석체크한 사용자의 닉네임, 날짜 추가 -->
 	<insert id="addCalendar" parameterType="java.util.Map">
-		insert into event values (#{nickname}, '출석완료', #{event_date}, '/images/icon.png')
+		insert into event values (#{nickname}, '출석완료', #{event_date}, '/img/icon.png')
 	</insert>
 	
 	<!-- 4. 출석체크한 사용자에게 10포인트 추가 -->

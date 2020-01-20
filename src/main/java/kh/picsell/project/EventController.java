@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,6 +17,7 @@ import com.google.gson.JsonObject;
 import kh.picsell.dto.EventDTO;
 import kh.picsell.service.EventService;
 
+@Controller
 @RequestMapping("/event")
 public class EventController {
 
@@ -29,14 +31,14 @@ public class EventController {
 	private HttpServletRequest request;
 	
 	// 출석체크 화면 진입  
-		@RequestMapping(value = "/AttendanceCheck")
+		@RequestMapping(value = "/attendance_check.do")
 		public String home() {
-			// 로그인 안 한 경우
-			// session.setAttribute("loginInfo", null);
 			String nickname = (String)session.getAttribute("loginInfo");	
 			
 			// 1. 그날 출석체크 했는지 안했는지 체크 > 버튼 기능 조절 
 			String today = LocalDate.now().toString();
+			System.out.println(nickname);
+			System.out.println(today);
 			EventDTO dto4 = event_sv.todayCheck(nickname, today);
 			if(dto4 != null) {
 				System.out.println("출석체크한 이력이 있음");
@@ -46,7 +48,7 @@ public class EventController {
 				request.setAttribute("event", "0");
 			}
 
-			return "event/attendanceCheck";
+			return "/event/attendanceCheck";
 		}
 		
 		
@@ -60,9 +62,10 @@ public class EventController {
 			JsonArray arr = new JsonArray();
 			for(EventDTO go : list) {
 				JsonObject obj = new JsonObject();
-				obj.addProperty("title", go.getTitle());
+				//obj.addProperty("title", go.getTitle());
 				obj.addProperty("date", go.getEvent_date());
-				obj.addProperty("imageurl", go.getImageurl());
+				//obj.addProperty("imageurl", go.getImageurl());
+				obj.addProperty("color", "white");
 				arr.add(obj);
 			}
 			String jstring = arr.toString();
@@ -73,7 +76,8 @@ public class EventController {
 		// 4. 출석체크한 사용자에게 10포인트 추가
 		@RequestMapping(value = "/insertEvent")
 		@ResponseBody
-		public String select(String nickname, String event_date) {
+		public String select(String event_date) {
+			String nickname = (String)session.getAttribute("loginInfo");
 			event_sv.insertCalendar(nickname, event_date);
 			return "1";
 		}

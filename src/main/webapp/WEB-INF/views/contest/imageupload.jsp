@@ -18,8 +18,9 @@
 	
 	li {list-style-type: none;}
 	
-	.canvas {margin: 10px 0; width: 300px;}
-	.canvas>img {width: 100%; height:100%;}
+	.canvas,.wrap{margin: 10px 0; width: 300px;}
+	
+	.wrap>img {width: 100%; height:100%;}
 	canvas {display: none;}
 	
 	input[type=radio] {display: none; background-color: transparent;}
@@ -36,6 +37,8 @@
 	#floatMenu {position: relative;}
 	
 	.closeBtn {border: 0; background-color: #f4f2f5;}
+	
+	
 </style>
 </head>
 <body>
@@ -52,6 +55,8 @@
 				</div>
 				<div class="col-9 col-md-10 h-100 p-0" style="border: 1px solid darkgray; border-radius: 10px;">	
 					<form id="uploadform" action="${pageContext.request.contextPath}/contest/enroll?title=${title}&contest_seq=${contest_seq}" method="post" enctype="multipart/form-data">
+						<input type="file" name="files" multiple="multiple" id="file">
+						<div class="canvas"></div>
 						<input type="hidden" value="" name="tag" id="rdTag" /> 
 						<input type="hidden" value="" name="img_size" id="size"> 
 						<input type="hidden" value="" name="make" id="make"> 
@@ -60,7 +65,7 @@
 						<input type="hidden" value="" name="YDimension" id="YDimension">
 						<ul class="upload-list"></ul>
 						<div class="text-center">
-							<button  id="upload" class="mb-3" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">등록하기</button>
+							<button  type="button" id="upload" class="mb-3" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">등록하기</button>
 						</div>
 					</form>
 				</div>
@@ -92,43 +97,64 @@
 	
 		});
 
-		var addButton = document.getElementsByClassName('add-item')[0]
-		var list = document.getElementsByClassName('upload-list')[0]
-		var count = 0
+		//var addButton = document.getElementsByClassName('add-item')[0]
+		//var list = document.getElementsByClassName('upload-list')[0]
+		//var count = 0
+		var file = document.getElementById('file')
 		
 	
-			var fileList = []
-			var imageList=[]
+			//var fileList = []
+			//var imageList=[]
 		//이미지를 불러와서 미리보기.
-		function readImage(files,thumb) {
-			thumb.innerHTML="";
-		console.log(files)
-		for(i=0; i<files.length; i++){
-			
+		function readImage(files) {
+			var preview = document.getElementsByClassName('canvas')[0]
+			console.log(preview)
+			preview.innerHTML="";
+			console.log(files)
+			for(i=0; i<files.length; i++){
+				console.log(files.length)
 				var reader = new FileReader()
 				reader.onload = function(e) {
-				var data = e.target.result
-				var img = new Image()
-				img.src = data
-				thumb.appendChild(img)
+					var wrap = document.createElement('div')
+					var remove = document.createElement('input')
+					wrap.classList.add("wrap")
+					remove.setAttribute("type","button")
+					remove.setAttribute("value",'X')
+					remove.classList.add('closeBtn')
+					remove.classList.add('rm' + i)
+					var data = e.target.result
+					var img = new Image()
+					img.src = data
+					preview.appendChild(wrap)
+					wrap.appendChild(img)
+					wrap.appendChild(remove)
+					remove.onclick=function(){
+						remove.parentNode.remove();
+					}
 				};
 			if (files)reader.readAsDataURL(files[i])
-		}
-			 
+			}
+			
+			
 		};
 		
+		file.onchange = function(e){
+			readImage(e.target.files)
+		}
 		
 		
-		function leftTemplate(cnt) {
-			var left = document.createElement('div')
-			var input = document.createElement('input')
-			var thumb = document.createElement('div')
-			thumb.classList.add("canvas")
-			left.classList.add('left')
-			input.setAttribute('type', 'file')
-			input.setAttribute('multiple','multiple')
-			input.setAttribute('name', 'files')
-			input.setAttribute('accept','image/*')
+		
+	/* 	function leftTemplate(cnt) {
+			//var left = document.createElement('div')
+			//var input = document.createElement('input')
+			//var thumbwrapper = document.createElement('div')
+			//var thumb = document.createElement('div')
+			//thumb.classList.add("canvas")
+			//left.classList.add('left')
+			//input.setAttribute('type', 'file')
+			//input.setAttribute('multiple','multiple')
+			//input.setAttribute('name', 'files')
+			//sssinput.setAttribute('accept','image/*')
 			input.onchange = function(e) {
 				
 				for(i=0; i<e.target.files.length; i++){
@@ -173,63 +199,38 @@
 						
 					})		
 						if(isAvailable){
-							readImage(e.target.files,thumb)
+							readImage(e.target.files)
 						}
 					
 				};
 			
 					
 			}
-			left.appendChild(input)
-			left.appendChild(thumb)
+			//left.appendChild(input)
+			//left.appendChild(thumb)
 	
 			return left
-		}
+		} */
 		
 	
 		
 	
 		$("#upload").on("click",function(){
 			var a = document.getElementsByName('file')
-			var firstlist = document.getElementsByClassName('list')
-			var ctext = document.getElementsByClassName('ctext')
-			var tags = document.getElementsByClassName('tagList')
-			
- 			
-			if(firstlist.length == 0){
-				alert("이미지를 첨부해주세요")
+			var firstcanvas = document.getElementsByClassName('canvas')
+			console.log(firstcanvas[0])
+			if(firstcanvas[0].innerHTML == ""){
+				alert("이미지를 등록 해주세요")
 				return;
 			}
-			for(i=0; i<a.length; i++){
-				if(a[i].value == ""){
-					alert("이미지를 첨부해주세요.")
-					return;
-				}
-		
-				if(firstlist[i].querySelectorAll(".usagebtn")[0].checked == false & firstlist[i].querySelectorAll(".usagebtn")[1].checked == false){
-					alert((i+1)+"번째 이미지의 용도를 선택해주세요")
-					return;
-				}
-				
-				if(ctext[i].value == ""){
-					alert((i+1)+"번째 이미지의 재산권 및 초상권에 대한 정보를 적어주세요.")
-					ctext[i].focus();
-					return;
-				}
-				
-				if(tags[i].childElementCount == 0 || tags[i].childElementCount < 5){
-					alert((i+1)+"번째 이미지의 태그를 최소 5개이상 입력해주세요.")
-					$(".taginput"+i).focus()
-					return;
-				}
-					
-			}
+ 			
+			
 
 			$("#uploadform").submit();
 		})
 		
 		
-		function setItem() {
+		/* function setItem() {
 			var item = document.createElement('li')
 			var remove = document.createElement('input')
 			var left = leftTemplate(count)
@@ -270,7 +271,7 @@
 
 		addButton.addEventListener('click', setItem)
 		setItem()
-	
+	 */
 		
 	</script>
 	

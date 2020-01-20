@@ -257,7 +257,7 @@ li{text-decoration:none; list-style-type : none }
 				    <div class="row my-4 was-validated">
      					<label class="col-form-label col-3 col-md-2 pt-0">상금<strong> * </strong></label>
 	      				<div class="col-9 col-md-10">
-	      					<input type="number" class="form-control" name="price" id="validation02" placeholder="예) 1,000,000원" style="font-size: 15px;" required>
+	      					<input type="number" class="form-control" name="price" id="validation02" placeholder="예) 1,000,000원" style="font-size: 15px;" required step="10000">
 	      					<div class="invalid-feedback">주최하실 공모전의 상금을 걸어주세요! (장난으로 작성하실 경우 심사에서 거절 처리 됩니다.)</div>
 						</div>
 				    </div>

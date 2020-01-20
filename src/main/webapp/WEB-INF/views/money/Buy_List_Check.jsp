@@ -99,6 +99,9 @@
 											<td>${list.dealPrice}<span class="mx-1">원</span></td>
 											<td>${list.dealImgSeq}</td>
 											<td>${list.writerNickname}</td>
+											<script>
+											console.log("dddd"+${list.writerNickname});
+											</script>
 											<td><img src="/writeruploadfiles/${list.sysName}"></td>
 										</tr>
 									</c:forEach>

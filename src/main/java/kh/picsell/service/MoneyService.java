@@ -102,6 +102,12 @@ public class MoneyService {
 		return list;
 	}
 	
+	// 수익금 및 판매 내역 확인하기 
+	public List<Map<String, Object>> profit_list(String nickname){
+		List<Map<String, Object>> list = money_dao.profit_list(nickname);
+		return list;
+	}
+	
 	///////////////////////////////////////////////////////////////////
 	
 	// 관리자 > 포인트 내역 확인하기 

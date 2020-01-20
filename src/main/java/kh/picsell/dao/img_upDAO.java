@@ -45,4 +45,5 @@ public class img_upDAO {
 	public WriterImageUpDTO detailview(int img_seq) throws Exception{
 		return jdbc.selectOne("Img.detailview",img_seq);
 	}
+	
 }

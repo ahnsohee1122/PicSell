@@ -29,6 +29,8 @@
 	<mvc:resources mapping="/js/**" location="/resources/js/" />
 	<mvc:resources mapping="/watermarkfiles/**" location="/watermarkfiles/" />
 	<mvc:resources mapping="/profileimage/**" location="/profileimage/" />
+	<mvc:resources location="/resources/fullcalendar-4.3.1/" mapping="/fullcalendar-4.3.1/**"></mvc:resources>
+	<mvc:resources mapping="/contestenroll/**" location="/contestenroll/" />
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->

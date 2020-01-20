@@ -106,7 +106,10 @@ public class MoneyController {
 		// 1. 내 포인트 확인하기 
 		int point = money_sv.getPoint(nickname);
 		request.setAttribute("point", point);
-		// 2. 포인트 입출금 내역 확인하기 
+		// 2. 내 수익금 확인하기 
+		int profit = money_sv.getProfit(nickname);
+		request.setAttribute("profit", profit);
+		// 3. 포인트 입출금 내역 확인하기 
 		List<PointDTO> list = new ArrayList<>();
 		list = money_sv.getPointList(nickname);
 		request.setAttribute("list", list);
@@ -126,22 +129,19 @@ public class MoneyController {
 		request.setAttribute("profit", profit);
 		return "money/moneyBack";
 	}
-
+	
+	// 환급 금액 체크하기 
+	@RequestMapping(value="/moneyBack_preCheck.do")
+	@ResponseBody
+	public String moneyBack_preCheck(int back_point) {
+		
+		
+		return "moneyBack";
+	}
 	// 환급하기 
 	@RequestMapping(value="/moneyBackProc.do", produces="text/html; charset=UTF-8")
 	public String money_back(int back_point) {
 		String nickname = (String)session.getAttribute("loginInfo");
-		int profit = money_sv.getProfit(nickname);
-		request.setAttribute("profit", profit);
-		if(profit<back_point) {
-			String msg = "출금하시려는 포인트가 가지고 계신 포인트보다 많습니다.";
-			request.setAttribute("msg", msg);
-			return "moneyBack";
-		}else if(back_point<10) {
-			String msg = "10원 미만은 출금할 수 없습니다.";
-			request.setAttribute("msg", msg);
-			return "moneyBack";
-		}else {
 			Date today = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String formatted_requested_at = sdf.format(today);
@@ -156,8 +156,9 @@ public class MoneyController {
 			request.setAttribute("list", list);
 			int point = money_sv.getPoint(nickname);
 			request.setAttribute("point", point);
+			int profit = money_sv.getProfit(nickname);
+			request.setAttribute("profit", profit);
 			return "money/myPoint";
-		}
 	}
 
 	///////////////////////////////////////////////////////////////////
@@ -229,6 +230,19 @@ public class MoneyController {
 		List<Map<String, Object>> list = money_sv.sell_list(nickname);
 		request.setAttribute("list", list);
 		return "money/Sell_List_Check";
+	}
+	
+	// 수익금 내역 확인하기 
+	@RequestMapping("/profit_list.do")
+	public String profit_list() {
+		System.out.println("도착");
+		String nickname = (String)session.getAttribute("loginInfo");
+		List<Map<String, Object>> list = money_sv.profit_list(nickname);
+		System.out.println(list.size());
+		System.out.println();
+		request.setAttribute("list", list);
+		return "money/Sell_List_Check";
+		
 	}
 	
 	//////////////////////////////////////////////////////////////////

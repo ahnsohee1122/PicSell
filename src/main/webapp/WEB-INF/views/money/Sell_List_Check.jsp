@@ -79,30 +79,62 @@
 				<div class="col-12 col-md-9 col-xl-10 px-0 px-md-3 text-center">
 					<div class="m-auto w-100 h-100 py-5" style="border: 1px solid gray; border-radius: 10px;">
 						<form class="m-auto px-2 px-ml-0" style="max-width: 600px;">
-							<h4>${loginInfo}님의 판매 내역</h4>
+							<h4>${loginInfo}님의 수익금 및 판매 내역</h4>
 						</form>
 						<form class="mx-auto mt-5 px-3 px-ml-0 text-center" style="max-width: 100%;">
 							<table id="DataTable" class="row-border">
 								<thead> 
 									<tr>
-										<th style="width: 20%;">날짜</th>
-										<th style="width: 15%;">금액</th>
-										<th style="width: 15%;">이미지 번호</th>
-										<th style="width: 20%;">구매자</th>
+										<th style="width: 20%;">포인트 번호</th>
+										<th style="width: 15%;">구분</th>
+										<th style="width: 15%;">날짜</th>
+										<th style="width: 20%;">포인트</th>
 										<th style="width: 30%;">이미지</th>
 									</tr> 
 								</thead>
+								
+								<tbody>
+									<c:forEach items="${list}" var="list">
+										<tr onclick="window.open('${pageContext.request.contextPath}/DetailImage.do?img_seq=${list.dealImgSeq}&nickname=${loginInfo}', '','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" style="cursor:pointer; background-color: #f4f2f5;" class="list jg-entry entry-visible" >
+											<td>${list.pointSeq}</td>
+											<td>${list.dealSort}</td>
+											<td>${list.pointDate}</td>
+											<td>${list.point}<span class="mx-1">원</span></td>
+												<script>
+								console.log("${list.dealSort}");
+								</script>
+								
+											<c:choose>
+											<c:when test="${list.dealSort=='판매'}">
+											<td><img src="/writeruploadfiles/${list.sysName}"></td>
+											</c:when>
+											<c:when test="${list.dealSort=='포인트 전환'}">
+											<td>포인트가 전환이 완료되었습니다!</td>
+											</c:when>
+											<c:when test="${list.dealSort=='환급'}">
+											<td>포인트 환급이 완료되었습니다.</td>
+											</c:when>
+											</c:choose>
+											
+										</tr>
+									</c:forEach>
+								</tbody>
+								
+								<%-- 
 								<tbody>
 									<c:forEach items="${list}" var="list">
 										<tr onclick="window.open('${pageContext.request.contextPath}/DetailImage.do?img_seq=${list.dealImgSeq}&nickname=${loginInfo}', '','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" style="cursor:pointer; background-color: #f4f2f5;" class="list jg-entry entry-visible" >
 											<td>${list.dealDate}</td>
 											<td>${list.dealPrice}<span class="mx-1">원</span></td>
 											<td>${list.dealImgSeq}</td>
-											<td>${list.buyNickname}</td>
+											<td>${list.buyerNickname}</td>
 											<td><img src="/writeruploadfiles/${list.sysName}"></td>
 										</tr>
 									</c:forEach>
 								</tbody>
+								--%>  
+								
+								
 							</table>
 						</form>
 					</div>
@@ -111,6 +143,8 @@
 		</div>
 	</div>
 	
+
+								
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
 </html>

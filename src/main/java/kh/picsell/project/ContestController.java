@@ -117,7 +117,7 @@ public class ContestController {
          request.setAttribute("notyet", notyet);
          list = service.contestchecking(host);
          request.setAttribute("list", list);
-         return "myPage/contestaccpet";
+         return "myPage/contestaccept";
       }catch(Exception e) {
          e.printStackTrace();
          return "error";
@@ -153,12 +153,14 @@ public class ContestController {
 	  return "contest/imageupload";
   }
   
+  //이미지 업로드
   @RequestMapping("enroll")
   public String imageupload(MultipartFile[] files, ContestDTO dto,HttpServletRequest request) {
 	  try {
 	  String contestpath = session.getServletContext().getRealPath("contestenroll");
 	  String nickname = (String)session.getAttribute("loginInfo");
-	  service.enrollimg(files, dto, contestpath,nickname );
+	  dto.setEnroll_nickname(nickname);
+	  service.enrollimg(files, dto, contestpath);
 	  ContestDTO contestDto = service.detailcheck(dto.getContest_seq());
 	  request.setAttribute("contestDto", contestDto);
 	  }catch(Exception e) {
@@ -167,7 +169,13 @@ public class ContestController {
 	  return "contest/contestdetail";
   }
    
-   
+  //출품한리스트보기
+  @RequestMapping("enrollList")
+ public String enrollList(int contest_seq,HttpServletRequest request) {
+	 List<ContestDTO> list = service.enrollList(contest_seq);
+	 request.setAttribute("list", list);
+	 return "contest/enrollimagelist";
+ }
    
    
    
