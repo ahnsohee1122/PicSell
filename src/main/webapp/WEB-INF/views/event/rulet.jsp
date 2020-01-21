@@ -9,29 +9,72 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src='/javascript-winwheel-2.8.0/Winwheel.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.0.5/gsap.min.js'></script>
+<style>
+ 
+#canvasContainer {
+    position: relative;
+    width: 300px;
+}
+ 
+#myCanvas {
+    z-index: 1;
+}
+ 
+#prizePointer {
+    position: absolute;
+    left: 330px;
+    top: 10px;
+    z-index: 999;
+    width:100px;
+    height:100px;
+}
+
+</style>
 </head>
 <body>
 
+<div id="canvasContainer">
      <canvas id='myCanvas' width='800' height='410'>
 
-</canvas>
+	 </canvas>
+	 <img id="prizePointer" src="${pageContext.request.contextPath}/img/bomb.png" alt="V" />
+</div>	 
 <script>
     let theWheel = new Winwheel({
         'canvasId'    : 'myCanvas',
-        'numSegments' : 8,
+        'drawMode' : 'image',  // drawMode must be set to image.
+        'drawText'  : true,       // Set this to true for text to be rendered for image wheels.
+        'numSegments' : 8,  // The number of segments must be specified.
         'outerRadius'    : 170,
-        'textAlignment'  : 'outer',   
+        'centerY'     : 230,
+        'textAlignment'  : 'outer',
+        'textOrientation' : 'curved',   // Set text properties.
+        'textAlignment'   : 'outer',
+        'textMargin'      : 5,
+        'textFontFamily'  : 'courier',
+        'imageOverlay' : true,   // Set imageOverlay to true to display the overlay.
+        'lineWidth'    : 4,          // Overlay uses wheel line width and stroke style so can set these
+        'strokeStyle'  : 'red',       // as desired to change appearance of the overlay.
         //'textOrientation' : 'vertical', 
         // 'textDirection'   : 'reversed',     // Set direction. normal (default) or reversed.
         'segments'    :
             [
-                {'fillStyle' : '#eae56f', 'text' : '10원'},
-                {'fillStyle' : '#89f26e', 'text' : '50원'},
-                {'fillStyle' : '#7de6ef', 'text' : '100원'},
-                {'fillStyle' : '#e7706f', 'text' : '꽝'},
-                {'fillStyle' : '#eae56f', 'text' : '30원'},
-                {'fillStyle' : '#eae56f', 'text' : '70원'},
-                {'fillStyle' : '#eae56f', 'text' : '10원'},
+              //  {'fillStyle' : '#eae56f', 'text' : '10원'},
+              //  {'fillStyle' : '#89f26e', 'text' : '50원'},
+              //  {'fillStyle' : '#7de6ef', 'text' : '100원'},
+              //  {'fillStyle' : '#e7706f', 'text' : '꽝'},
+              //  {'fillStyle' : '#eae56f', 'text' : '30원'},
+              //  {'fillStyle' : '#eae56f', 'text' : '70원'},
+              //  {'fillStyle' : '#eae56f', 'text' : '10원'},
+              //  {'fillStyle' : '#eae56f', 'text' : '꽝'}
+              
+                  {'fillStyle' : '#eae56f', 'text' : '10P'},
+                {'fillStyle' : '#89f26e', 'text' : '50P'},
+                {'fillStyle' : '#7de6ef', 'text' : '100P'},
+                {'fillStyle' : 'white', 'text' : '꽝'},
+                {'fillStyle' : '#eae56f', 'text' : '30P'},
+                {'fillStyle' : '#eae56f', 'text' : '70P'},
+                {'fillStyle' : '#eae56f', 'text' : '20P'},
                 {'fillStyle' : '#eae56f', 'text' : '꽝'}
             ],
         'lineWidth'   : 1,
@@ -45,7 +88,7 @@
             'callbackFinished' : 'alertPrize()',
  
             // During the animation need to call the drawTriangle() to re-draw the pointer each frame.
-            'callbackAfter' : 'drawTriangle()'
+            //'callbackAfter' : 'drawTriangle()'
         }
     });
     
@@ -55,31 +98,48 @@
     {
         // Call getIndicatedSegment() function to return pointer to the segment pointed to on wheel.
         let winningSegment = theWheel.getIndicatedSegment();
- 
-        // Basic alert of the segment text which is the prize name.
-        alert("You have won " + winningSegment.text + "!");
-    }
- 
-    // Function to draw pointer using code (like in a previous tutorial).
-    drawTriangle();
- 
-    function drawTriangle()
-    {
-        // Get the canvas context the wheel uses.
-        let ctx = theWheel.ctx;
- 
-        ctx.strokeStyle = 'navy';     // Set line colour.
-        ctx.fillStyle   = 'aqua';     // Set fill colour.
-        ctx.lineWidth   = 2;
-        ctx.beginPath();              // Begin path.
-        ctx.moveTo(370, 5);           // Move to initial position.
-        ctx.lineTo(430, 5);           // Draw lines to make the shape.
-        ctx.lineTo(400, 40);
-        ctx.lineTo(371, 5);
-        ctx.stroke();                 // Complete the path by stroking (draw lines).
-        ctx.fill();                   // Then fill.
-    }
+        var point = winningSegment.text;
+        var point_result = 0;
+        if(point=="꽝"){
+       
+        }else{
+        	var regex = /\d+/;
+         	var result = regex.exec(point);	
+         	console.log(result[0]);
+         	point_result = result[0];
+        }
+     $.ajax({
+    	 url : "${pageContext.request.contextPath}/event/rouletProc.do",
+    	 type : "post",
+    	 data : {score : point_result}
+     }).done(function(){
+    	 if(point_result==0){
+    		 alert("꽝입니다! 다음 기회에!");
+    	 }else{
+         alert("축하합니다! " + point + "를 획득하셨습니다!");
+         console.log(winningSegment.text);
+    	 }
+     }).fail(function(data){
+    	 alert("시스템 오류가 발생했습니다. 다시 시도해주세요.");
+     })
+     
     
+    }
+
+    // 이미지 넣는 부분 
+ 	// Create new image object in memory.
+    let wheelImg = new Image();
+     
+    // Create callback to execute once the image has finished loading.
+    wheelImg.onload = function()
+    {
+        theWheel.wheelImage = wheelImg;    // Make wheelImage equal the loaded image object.
+        theWheel.draw();                    // Also call draw function to render the wheel.
+    }
+     
+    // Set the image source, once complete this will trigger the onLoad callback (above).
+    wheelImg.src = "${pageContext.request.contextPath}/img/bomb.png";
+
 </script>
 
 <button onClick="theWheel.startAnimation();">룰렛 돌리기</button>

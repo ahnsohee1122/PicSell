@@ -125,6 +125,7 @@ $(function(){
 		
     	
 			$("#login").on("click",function(){
+				var fromURL = window.location.href;
 				
 				var login_id = $("#loginId").val();
         		var login_pw = $("#loginPw").val();
@@ -147,19 +148,32 @@ $(function(){
 				}).done(function(res){
 
 					if(res == "로그인성공"){
-							alert("로그인에 성공했습니다!");
+							
+						alert("로그인에 성공했습니다!");
 							$("#Login").modal("hide");
-							location.reload();
+							if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
+								location.href="/home"; // 홈으로
+							}else{ // 아니면
+								location.reload(); // 새로고침
+							}	
 						}else if(res=="관리자로그인성공"){
 							
 							alert("관리자로 로그인했습니다");
 							$("#Login").modal("hide");
-							location.reload();
+							if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
+								location.href="/home"; // 홈으로
+							}else{ // 아니면
+								location.reload(); // 새로고침
+							}
 						}else if(res=="블랙1"){
 							
 							alert("로그인에 성공했습니다!\n블랙리스트 1회경고 회원입니다. 한번더 경고를받을시 블랙리스트에 등록됩니다.");
 							$("#Login").modal("hide");
-							location.reload();
+							if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
+								location.href="/home"; // 홈으로
+							}else{ // 아니면
+								location.reload(); // 새로고침
+							}
 						}else if(res=="블랙2"){
 							alert("블랙리스트 회원입니다 관리자에게 문의바랍니다.");
 				}else if(res == "로그인실패!"){
@@ -175,9 +189,12 @@ $(function(){
 					alert("서버에러입니다 관리자에게 문의하세요");}
 				});
 			});
+	        
 	        $(".loginInput").on("keyup", function(e){
-
+	        	
 	            if(e.keyCode == 13){
+	            	var fromURL = window.location.href;
+	            	
 	            	var login_id = $("#loginId").val();
 	        		var login_pw = $("#loginPw").val();
 	        		if(login_id==""){
@@ -201,15 +218,30 @@ $(function(){
 							console.log(res);
 						
 								alert("로그인에 성공했습니다!");
-								location.href="/home.do";
+								$("#Login").modal("hide");
+								if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
+									location.href="/home"; // 홈으로
+								}else{ // 아니면
+									location.reload(); // 새로고침
+								}
 							}else if(res=="관리자로그인성공"){
 								
 								alert("관리자로 로그인했습니다");
-								location.href="/home.do";
+								$("#Login").modal("hide");
+								if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
+									location.href="/home"; // 홈으로
+								}else{ // 아니면
+									location.reload(); // 새로고침
+								}
 							}else if(res=="블랙1"){
 								
 								alert("로그인에 성공했습니다!\n블랙리스트 1회경고 회원입니다. 한번더 경고를받을시 블랙리스트에 등록됩니다.");
-								location.href="/home.do";
+								$("#Login").modal("hide");
+								if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
+									location.href="/home"; // 홈으로
+								}else{ // 아니면
+									location.reload(); // 새로고침
+								}
 							}else if(res=="블랙2"){
 								alert("블랙리스트 회원입니다 관리자에게 문의바랍니다.");
 					}else if(res == "로그인실패!"){
@@ -443,13 +475,13 @@ $(function(){
 													<a href="#" style="color: black; text-decoration: none;">커뮤니티</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">공지사항</a>
+													<a href="${pageContext.request.contextPath}/notice/notice.do" style="color: black; font-size: 16px; text-decoration: none;">공지사항</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">편집의뢰게시판</a>
+													<a href="${pageContext.request.contextPath}/editNotice/notice.do" style="color: black; font-size: 16px; text-decoration: none;">편집의뢰게시판</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">작품의뢰게시판</a>
+													<a href="${pageContext.request.contextPath}/peaceNotice/notice.do" style="color: black; font-size: 16px; text-decoration: none;">작품의뢰게시판</a>
 												</div>
 											</div>
 											<hr>

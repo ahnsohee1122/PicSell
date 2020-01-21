@@ -44,7 +44,7 @@
 <c:choose>
 
 
-<c:when test="${list.size()==0}">
+<c:when test="${honorlist.size()==0}">
 <h6>역대 명예의전당 수상자목록</h6>
 <div class="row" style="margin-left:30px;">
 <c:forEach items = "${enterlist}" var="top">

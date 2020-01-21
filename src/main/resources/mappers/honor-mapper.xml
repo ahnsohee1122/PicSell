@@ -67,6 +67,9 @@ delete honorvote
 	<select id="honorthird" parameterType="String" resultType="kh.picsell.dto.HonorDTO">
 	select * from (select honor.*, row_number() over(order by honorpoint desc) as rown from honor) where rown=3
 	</select>
+	<select id="newhonorlist" parameterType="String" resultType="kh.picsell.dto.HonorListDTO">
+	select * from (select honorlist.*, row_number() over(order by honor_date desc) as rown from honorlist) where rown=1
+	</select>
 	<select id="list" parameterType="String" resultType="kh.picsell.dto.HonorDTO">
 	select * from Honor
 	</select>

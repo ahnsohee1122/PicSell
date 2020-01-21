@@ -75,9 +75,9 @@
 	};
 
 	let renderList = function(sysname,tag,img_seq){
-		tags = tag.replace(/{/gi,"#").replace(/#/gi,"")
-		console.log(img_seq)
-		var html = "<div class=image><a href=${pageContext.request.contextPath}/DetailImage.do?img_seq="+img_seq+"&nickname=${memberDto.nickname} onclick=\"window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;\" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src=/writeruploadfiles/"+sysname+" alt="+tags+"></a></div>"
+		var tags = tag.replace(/##/g," #");
+	    tags = tags.substr(0,tags.length-1).toString();
+		var html = "<div class=image><a href=${pageContext.request.contextPath}/DetailImage.do?img_seq="+img_seq+"&nickname=${memberDto.nickname} onclick=\"window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;\" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src=/writeruploadfiles/"+sysname+" alt='"+tags+"'></a></div>"
 		$("#gallery").append(html)
 		$("#gallery").justifiedGallery({
 			rowHeight : 200,

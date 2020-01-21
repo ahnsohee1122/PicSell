@@ -122,5 +122,21 @@
 	<select id="admin_deal" resultMap="deal_map">
 		Select d.deal_date, d.deal_price, d.buyer_nickname, d.writer_nickname, d.deal_img_seq, w.sysname from deal_list d, writer_image_up w where d.deal_img_seq = w.img_seq order by d.deal_date desc
 	</select>
+	
+	<!-- 정보 수정 시 변경되는 부분 -->
+	<update id="modifyPoint" parameterType="java.util.Map">
+		update point set nickName=#{dto.nickName} where nickName=#{nickName}
+	</update>
+	
+	<update id="modifyChargeList" parameterType="java.util.Map">
+		update charge_list set charge_nickname=#{dto.nickName} where charge_nickname=#{nickName}
+	</update>
+	
+	<update id="modifyDealList" parameterType="java.util.Map">
+		update charge_list set charge_nickname=#{dto.nickName} where charge_nickname=#{nickName}
+	</update>
+	
+	
+	
 
 </mapper>

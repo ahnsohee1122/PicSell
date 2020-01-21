@@ -27,4 +27,15 @@
 		insert into point values (point_seq.nextval, #{nickname}, '이벤트', #{point_date}, 10, '포인트' )
 	</insert>
 	
+	<!-- 룰렛 돌리기 -->
+	
+	<!-- 1. 룰렛 돌려서 나온 포인트를 추가  -->
+	<insert id="roulettePoint" parameterType="java.util.Map">
+		insert into point values (point_seq.nextval, #{nickname}, '이벤트', #{point_date}, #{point}, '포인트' )
+	</insert>
+	
+	<!-- 정보 수정 시 변경되는 부분 -->
+	<update id="modifyEvent" parameterType="java.util.Map">
+		update event set nickname=#{dto.nickName} where nickname=#{nickName}
+	</update>
 </mapper>
