@@ -151,7 +151,7 @@ $(function(){
 							
 						alert("로그인에 성공했습니다!");
 							$("#Login").modal("hide");
-							if(fromURL == "http://localhost/writer/writer.do"){ // 작가홈에서 왔으면
+							if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
 								location.href="/home"; // 홈으로
 							}else{ // 아니면
 								location.reload(); // 새로고침
@@ -160,7 +160,7 @@ $(function(){
 							
 							alert("관리자로 로그인했습니다");
 							$("#Login").modal("hide");
-							if(fromURL == "http://localhost/writer/writer.do"){ // 작가홈에서 왔으면
+							if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
 								location.href="/home"; // 홈으로
 							}else{ // 아니면
 								location.reload(); // 새로고침
@@ -169,7 +169,7 @@ $(function(){
 							
 							alert("로그인에 성공했습니다!\n블랙리스트 1회경고 회원입니다. 한번더 경고를받을시 블랙리스트에 등록됩니다.");
 							$("#Login").modal("hide");
-							if(fromURL == "http://localhost/writer/writer.do"){ // 작가홈에서 왔으면
+							if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
 								location.href="/home"; // 홈으로
 							}else{ // 아니면
 								location.reload(); // 새로고침
@@ -219,7 +219,7 @@ $(function(){
 						
 								alert("로그인에 성공했습니다!");
 								$("#Login").modal("hide");
-								if(fromURL == "http://localhost/writer/writer.do"){ // 작가홈에서 왔으면
+								if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
 									location.href="/home"; // 홈으로
 								}else{ // 아니면
 									location.reload(); // 새로고침
@@ -228,7 +228,7 @@ $(function(){
 								
 								alert("관리자로 로그인했습니다");
 								$("#Login").modal("hide");
-								if(fromURL == "http://localhost/writer/writer.do"){ // 작가홈에서 왔으면
+								if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
 									location.href="/home"; // 홈으로
 								}else{ // 아니면
 									location.reload(); // 새로고침
@@ -237,7 +237,7 @@ $(function(){
 								
 								alert("로그인에 성공했습니다!\n블랙리스트 1회경고 회원입니다. 한번더 경고를받을시 블랙리스트에 등록됩니다.");
 								$("#Login").modal("hide");
-								if(fromURL == "http://localhost/writer/writer.do"){ // 작가홈에서 왔으면
+								if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
 									location.href="/home"; // 홈으로
 								}else{ // 아니면
 									location.reload(); // 새로고침
