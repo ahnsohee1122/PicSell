@@ -247,7 +247,59 @@ public String like(String nickname) {
 		return "서버";
 	}
 }
-
+@RequestMapping("gohonorlist.do")
+public String gohonorlist(HonorListDTO dto, HttpServletRequest request) {
+	List<HonorListDTO> list;
+	try {
+	list = service.enterhonorlist();
+	request.setAttribute("list", list);
+	List<MemberDTO> mList = new ArrayList<>();
+	
+	for(int i=0; i<list.size(); i++) {			
+		mList.add(service.getpicture(list.get(i).getNickname()));
+	}
+	request.setAttribute("mList", mList);
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+	return "Honor/enterlist";
+}
+@RequestMapping("govote.do")
+public String govote(HonorDTO hdto, HttpServletRequest request) {
+	List<HonorDTO> list;
+	try {
+	list = service.list(hdto);
+	request.setAttribute("list", list);
+	List<MemberDTO> mList = new ArrayList<>();
+	
+	for(int i=0; i<list.size(); i++) {			
+		mList.add(service.getpicture(list.get(i).getNickname()));
+	}
+	request.setAttribute("mList", mList);
+	List<HonorDTO> hlist1 = service.hfirst();
+	List<HonorDTO> hlist2 = service.hsecond();
+	List<HonorDTO> hlist3 = service.hthird();
+	request.setAttribute("hlist1", hlist1);
+	request.setAttribute("hlist2", hlist2);
+	request.setAttribute("hlist3", hlist3);
+	
+	MemberDTO img1 = service.getpicture(hlist1.get(0).getNickname());
+	MemberDTO img2 = service.getpicture(hlist2.get(0).getNickname());
+	MemberDTO img3 = service.getpicture(hlist3.get(0).getNickname());
+	request.setAttribute("img1", img1);
+	request.setAttribute("img2", img2);
+	request.setAttribute("img3", img3);
+	
+	
+	String nick = (String)session.getAttribute("loginInfo");
+	int votecheck = service.votecheck(nick);
+	System.out.println("votecheck : "+votecheck);
+	request.setAttribute("votecheck", votecheck);
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+	return "Honor/votepage";
+}
 @RequestMapping(value="/insertcheck.do", produces="text/html; charset=UTF-8")
 @ResponseBody
 public String insertcheck(String nickname) {
