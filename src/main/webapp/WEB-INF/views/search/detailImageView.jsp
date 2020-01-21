@@ -658,7 +658,7 @@
             tags = tag.replace(/##/gi,",").replace(/#/gi,"");
             var arr = tags.split(",");
 
-            for(var i=0; i<arr.length-1; i++){
+            for(var i=0; i<arr.length; i++){
             	var span = "<a href='/Search.do?tag="+arr[i]+"' class='mx-1' style='text-decoration:none; padding: 5px;' onclick='opener.location.href=this.href; window.close();'>"+"#"+arr[i]+"</a>";/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
                 $("#tagbox").append(span);
             }
