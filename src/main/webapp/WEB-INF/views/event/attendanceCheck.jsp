@@ -17,6 +17,8 @@
 <script src='/fullcalendar-4.3.1/packages/interaction/main.js'></script>
 <script src='/fullcalendar-4.3.1/packages/list/main.js'></script>
 <script src='/fullcalendar-4.3.1/packages/timegrid/main.js'></script>
+<script src='/javascript-winwheel-2.8.0/Winwheel.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.0.5/gsap.min.js'></script>
 <style>
 /*    출석체크 글씨체 */
 	@font-face {font-family: 'Cafe24Ssukssuk'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Ssukssuk.woff') format('woff'); font-weight: normal; font-style: normal; }
@@ -30,6 +32,25 @@
 	.fc-title{font-family: 'Cafe24Dongdong';}
 	.fc-day-grid-event{margin:auto; height:1px;padding:0px; width:1px;}
 	.fc-content{margin-top:-5px; margin-left:-50px; width:100px; height:100px;}
+	
+	#canvasContainer {
+    position: relative;
+    width: 300px;
+}
+ 
+#myCanvas {
+    z-index: 1;
+}
+ 
+#prizePointer {
+    position: absolute;
+    left: 330px;
+    top: 10px;
+    z-index: 999;
+    width:100px;
+    height:100px;
+}
+
 </style>
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
@@ -50,19 +71,21 @@
 		                center:'none',
 		                right:'custom2'
 		            },
-            		events:[{
-            			//title:"dd",
-            			//"start": "2020-01-17"
-          				// imageurl : "/img/icon.PNG"
-            		}],
             		// 출석체크를 위한 버튼 생성 
             		customButtons:{
                 		custom2: {
                     		text:'출석체크', 
                     		id:'check',
+                    		///////////////////////////////////////////////////
                     		// 출석체크 버튼 누르면 출석완료 처리
              				click:function(){
                  				var date = $(".fc-today").attr("data-date");
+                 				$(".fc-custom2-button").attr('data-toggle','modal');
+                 				$(".fc-custom2-button").attr('data-target','#rouletteModal');
+                 				
+                 				$("#rouletteModal").on("click", function(){
+                 					alert("열렸다");
+                 				})
                  				console.log(date);                 
                  				// ajax로 출석 정보를 저장한다 
 				                 $.ajax({
@@ -75,7 +98,6 @@
 				                    $(".fc-custom2-button").prop('disabled', true);
 				                    $(".fc-custom2-button").html('출석완료');
 				                    // 달력에 출석완료 이벤트가 표시된다 
-				                 	// $(".fc-today ").append($('<span>'+'출석완료'+'</span>'));
 				                    alert('오늘의 출석이 완료되었습니다. 10포인트가 지급되었습니다!');
 				                    calendar.addEvent({
 				                    	
@@ -85,12 +107,15 @@
                      				})
                  				});
              				}
+		            		////////////////////////////////////////////////////
+		            
+		            
+		            
                 		}
             		}
         		});
     	 	}else if("${event}"==1){
     		 	console.log("출석이력이 있음");
-    		 //var date = $(".fc-today").attr("data-date");
     		 	var calendarEl = document.getElementById('calendar');
     	        var calendar = new FullCalendar.Calendar(calendarEl, {
     	         	
@@ -105,18 +130,7 @@
     	            	custom2: {
     	                	text:'출석완료' 
     	                }
-    	            },
-    	       
-    	            	events : [{
-    	            	//	"id" : "ddd",
-    	            	//	"start":"2020-01-19",
-             			//	"color" : "#FCF8E3",
-             			//	"textColor" : "black"
-    	            	}]
-    	
-    	        		//eventRender:function(event) {    
-    	            	//	$("td.fc-today").prepend("<img src="${pageContext.request.contextPath}/img/check.PNG">"); 
-    	         		//}  
+    	            }
     	        })
     	 	}
     	 	// 가져온 달력 정보를 캘린더에 뿌린다 
@@ -125,19 +139,12 @@
                 console.log(data[i].imageurl);
             }
     	    calendar.render();      
-    		//$(".fc-title").html("<span><img src="+event.event.extendedProps.imageurl+"></span>");
-    		//$("a").append("악");
     	 	}, error : function(data){
             	alert('error');
            	}
 		})
 	});
 
-  	//$("#calendar").fullcalenadr({
-	//	eventRender:function(event, element) {    
-    //		element.find("td.fc-today").prepend("<img src="+info.extendedProps.imageurl+">"); 
- 	//	}  
- 	//})
 </script>
 </head>
 <body>
@@ -163,6 +170,26 @@
 		</div>
 	</div>
 	
+	<div class="modal fade" id="rouletteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
 </html>

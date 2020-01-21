@@ -1,7 +1,5 @@
 package kh.picsell.dao;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +7,10 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.servlet.ModelAndView;
 
 import kh.picsell.dto.ChargeListDTO;
 import kh.picsell.dto.DealListDTO;
+import kh.picsell.dto.MemberDTO;
 import kh.picsell.dto.PointDTO;
 
 
@@ -126,5 +124,30 @@ public class MoneyDAO {
 		return jdbc.selectList("Charge.admin_deal");
 	}
 	
+	/////////////////////////////////////////////////////////////////
+	
+	// 정보 수정 시 업데이트 되는 부분 
+	
+	public void modifyPoint(MemberDTO dto, String nickName) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("dto", dto);
+		map.put("nickName", nickName);
+		jdbc.update("Charge.modifyPoint", map);
+	}
+	
+	public void modifyChargeList(MemberDTO dto, String nickName) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("dto", dto);
+		map.put("nickName", nickName);
+		jdbc.update("Charge.modifyChargeList", map);
+	}
+	
+	public void modifyDealList(MemberDTO dto, String nickName) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("dto", dto);
+		map.put("nickName", nickName);
+		jdbc.update("Charge.modifyDealList", map);
+	}
 
+	
 }

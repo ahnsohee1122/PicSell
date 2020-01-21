@@ -61,7 +61,7 @@
     			<h4 class="mt-5 mb-4">이미지 업로드 하기</h4>
     			<h6>업로드 해 주신 이미지는 내부 심사를 거쳐 픽셀 사이트에 노출되며,</h6>
     			<h6>최대 7일 이내에 모든 심사가 완료됩니다.</h6>
-    			<a href="/writer/doupload" class="p-0 my-5 btn text-secondary border border-secondary" style="width: 50px; height: 50px; font-size: 35px;">+</a>
+    			<div id="startbtn" class="p-0 my-5 btn text-secondary border border-secondary" style="width: 50px; height: 50px; font-size: 35px;">+</div>
     		</div>
     	</div>
     	<div class="container py-5 px-2">
@@ -159,7 +159,19 @@
     		</div>
     	</div>
     </div>
+    <script>
+  
+    var loginInfo = "${sessionScrope.loginInfo}";
+    $("#startbtn").on("click",function(){
+    	if(loginInfo==""){
+    		alert("로그인 후 이용해주세요")
+    		$("#gotologin").click();
+    	}else{
+    		location.href="${pageContext.request.contextPath}/writer/doupload"
+    	}
+    })
     
+    </script>
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
 </html>

@@ -26,18 +26,24 @@
 								<img src="/contestenroll/${list.enroll_sysname }">
 							</div>
 						  	<div class="row align-items-center image w-100 mx-auto text-center py-3" style="height: 50px;">
-						    	<p class="nickname mx-auto"><a href="#" style="text-decoration: none;"><span class="mx-1">@</span>${list.enroll_nickname }</a></p>
+						    	<p class="nickname mx-auto"><a href='${pageContext.request.contextPath}/writer/writerpage?nickname=${list.enroll_nickname }' style="text-decoration: none;"><span class="mx-1">@</span>${list.enroll_nickname }</a></p>
 						  	</div>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
 			<div class="row w-100 mx-auto my-3 text-center">
-				<input type="button" value="이전으로" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
+				<input type="button" id="back" value="이전으로" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
 			</div>
 		</div>
 	</div>
 	
+	<script>
+		$("#back").on("click",function(){
+			history.back();	
+		})
+	</script>
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
+	
 </body>
 </html>

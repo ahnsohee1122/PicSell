@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ContestDetail | PicSell</title>
 </head>
+<style>
+#example{width:100px;}
+#example>img{width:100%;}
+</style>
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
 	
@@ -46,22 +51,29 @@
 					<div class="row w-100 mx-auto">
 						<h5 class="mt-4" style="font-size: 18px;">[ 예시사진 ]</h5>
 					</div>
-					<div class="row w-100 mx-auto" style="height: 200px; border: 1px solid red;">
-						여기다가 사진 넣으면 되고,, 사진 넣고나면 바로위에 style 모조리 지워주세용
+					<div class="row w-100 mx-auto" id="example">
+						<c:forEach items="${imglist }" var ="imglist">
+							<img src="/contestfiles/${imglist.sysname }">
+						</c:forEach>
+						<c:choose>
+						<c:when test="${loginInfo == dto.host }">
+							<input type="button" value="다운로드">
+						</c:when>
+						</c:choose>
 					</div>
 				</div>
 				<div class="row w-100 mx-auto my-4 text-center">
-					<input type="button" value="목록으로" class="mx-auto" style="width: 100px; height: 30px; background-color: white; border: 1px solid darkgray; border-radius: 10px;">
+					<input type="button" value="목록으로" id="back" class="mx-auto" style="width: 100px; height: 30px; background-color: white; border: 1px solid darkgray; border-radius: 10px;">
 				</div>
 			</form>
 		</div>
 	</div>
 	
 	<script>
-		var loginInfo = "${loginInfo}"
+		var loginInfo = "${sessionScope.loginInfo}";
 		
 		$("#upload").on("click",function(){
-			if(loginInfo == null){
+			if(loginInfo ==""){
 				alert("로그인 후 이용해주세요")
 				$("#gotologin").click(); 
 			}else{
@@ -72,6 +84,10 @@
 		$("#enrollimage").on("click",function(){
 			location.href="${pageContext.request.contextPath}/contest/enrollList?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}" 
 		});
+		
+		$("#back").on("click",function(){
+			location.href="${pageContext.request.contextPath}/contest/contest.do"
+		})
 	</script>
 	
 	<jsp:include page="../key/bottom.jsp" flush="false"/>

@@ -36,6 +36,15 @@
 	#floatMenu {position: relative;}
 	
 	.closeBtn {border: 0; background-color: #f4f2f5;}
+	
+	
+	#Progress_Loading{
+	 position: absolute;
+	 left: 50%;
+	 top: 50%;
+	 background-color: transparent;
+
+	}
 </style>
 </head>
 <body>
@@ -52,12 +61,16 @@
 				</div>
 				<div class="col-9 col-md-10 h-100 p-0" style="border: 1px solid darkgray; border-radius: 10px;">	
 					<form id="uploadform" action="${pageContext.request.contextPath}/writer/upload" method="post" enctype="multipart/form-data">
+					<!-- 로딩바 -->
+						<img src="${pageContext.request.contextPath}/img/Progress_Loading.gif" id="Progress_Loading">
 						<input type="hidden" value="" name="tag" id="rdTag" /> 
 						<input type="hidden" value="" name="img_size" id="size"> 
 						<input type="hidden" value="" name="make" id="make"> 
 						<input type="hidden" value="" name="model" id="model"> 
 						<input type="hidden" value="" name="XDimension" id="XDimension"> 
 						<input type="hidden" value="" name="YDimension" id="YDimension">
+						<input type="hidden" value="" name="orientation" id="orientation">
+						
 						<ul class="upload-list"></ul>
 						<div class="text-center">
 							<button type="button" id="upload" class="mb-3" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">등록하기</button>
@@ -70,22 +83,29 @@
 	
 	<script>
 		$(document).ready(function() {
+			
+			$('#Progress_Loading').hide();
 	
 			// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
 			var floatPosition = parseInt($("#floatMenu").css('top'));
+			var loadingPosition = parseInt($("#Progress_Loading").css('top'));
 			// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
 	
 			$(window).scroll(function() {
 				// 현재 스크롤 위치를 가져온다.
 				var scrollTop = $(window).scrollTop();
 				var newPosition = scrollTop + floatPosition + "px";
-	
+				var loadPosition = scrollTop + loadingPosition + "px";
 				/* 애니메이션 없이 바로 따라감
 				 $("#floatMenu").css('top', newPosition);
 				 */
 	
 				$("#floatMenu").stop().animate({
 					"top" : newPosition
+				}, 500);
+				 
+				$("#Progress_Loading").stop().animate({
+					"top" : loadPosition
 				}, 500);
 	
 			}).scroll();
@@ -99,7 +119,6 @@
 		
 		//사진 메타데이터 정보 가져오기.
 		function getExif(img) {
-			console.log(img)
 			EXIF.getData(img, function() {
 				document.getElementById('size').value = img.size
 				document.getElementById('make').value = EXIF.getTag(this,
@@ -110,7 +129,13 @@
 						"PixelXDimension")
 				document.getElementById('YDimension').value = EXIF.getTag(this,
 						"PixelXDimension")
+				document.getElementById('orientation').value = EXIF.getTag(this,
+						"Orientation")
+				var orientation = document.getElementById('orientation').value;
+				
+						
 			});
+			
 		}
 
 			var fileList = []
@@ -123,16 +148,20 @@
 				img.src = data
 				thumb.innerHTML = ''
 				thumb.appendChild(img)
+				
+				
 				img.onload = function() {
-					var dataURL = watermarkedDataURL(img, "PicSell",
+					var dataURL = watermarkedDataURL(img, "PICSELL",
 							cnt, thumb);
 					var xsdataURL = xswatermarkedDataURL(img,"PICSELL",cnt,thumb)
+					$('#Progress_Loading').hide();
 					
 				};
+				
 			};
-
 			if (files && files[0])reader.readAsDataURL(files[0])
-			getExif(files[0]);
+
+			
 
 
 		};
@@ -205,51 +234,63 @@
 			input.setAttribute('name', 'file')
 			input.setAttribute('accept','image/*')
 			input.onchange = function(e) {
-				//이미지 확장자 체크
-				var filename = e.target.files[0].name
-				var reg = /(.*?)\.(jpg|jpeg|png|bmp|JPG|JPEG|PNG|BMP)$/;
+				$('#Progress_Loading').show();
 				
-				//이미지 사이즈 체크
-				var maxSize  =30  * 1024 * 1024 //30MB
-				var filesize = e.target.files[0].size
-				
-				//이미지 해상도 체크
-				var file = this.files[0];
-				var _URL = window.URL || window.webkitURL;
-				var img = new Image();
-				img.src = _URL.createObjectURL(file);
-				
-				function pixel(){ 
-
-				var xPixel = img.width
-				var yPixel = img.height
-				
-					if(!filename.match(reg)) {
-						alert("해당 파일은 이미지 파일이 아닙니다.");
-						$("input[type=file]").val("");
-						return;
-					}
+				if(e.target.files.length == 0){
+					document.getElementsByClassName('canvas')[0].innerHTML = "";
+					$('#Progress_Loading').hide();
+				}else{
 					
-					if(xPixel == null || yPixel == null || xPixel < 1024 || yPixel < 1024){
-						alert("최소 해상도는 1024픽셀 이상이어야 합니다.")
-						$("input[type=file]").val("");
-						return;
-				
-					}
+					//이미지 확장자 체크
+					var filename = e.target.files[0].name
+					var reg = /(.*?)\.(jpg|jpeg|png|bmp|JPG|JPEG|PNG|BMP)$/;
 					
-					if(filesize > maxSize){
-						alert("첨부파일 사이즈는 30MB 이내로 등록 가능합니다.")
-						$("input[type=file]").val("");
-						return;
-					}
+					//이미지 사이즈 체크
+					var maxSize  =30  * 1024 * 1024 //30MB
+					var filesize = e.target.files[0].size
 					
-					//첨부파일 추가시 이미지 미리보기 function실행.
-					readImage(e.target.files, cnt, thumb)
-				}
-
+					//이미지 해상도 체크
+					var file = this.files[0];
+					var _URL = window.URL || window.webkitURL;
+					var img = new Image();
+					img.src = _URL.createObjectURL(file);
+					
+					getExif(this.files[0]);
+					
+					function pixel(){ 
+	
+					var xPixel = img.width
+					var yPixel = img.height
+					console.log(xPixel);
+					console.log(yPixel)
+					
+						if(!filename.match(reg)) {
+							alert("해당 파일은 이미지 파일이 아닙니다.");
+							$("input[type=file]").val("");
+							return;
+						}
+						
+						if(xPixel == null || yPixel == null || xPixel < 720 || yPixel < 720){
+							alert("최소 해상도는 720픽셀 이상이어야 합니다.")
+							$("input[type=file]").val("");
+							return;
+					
+						}
+						
+						if(filesize > maxSize){
+							alert("첨부파일 사이즈는 30MB 이내로 등록 가능합니다.")
+							$("input[type=file]").val("");
+							return;
+						}
+						
+						//첨부파일 추가시 이미지 미리보기 function실행.
+						readImage(e.target.files, cnt, thumb)
+						}
 					EXIF.getData(e.target.files[0], pixel)
+					}
 					
 			}
+			
 			left.appendChild(input)
 			left.appendChild(thumb)
 	

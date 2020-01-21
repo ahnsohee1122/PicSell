@@ -66,10 +66,12 @@
     		</div>
     	</div>
     	<div class="container pb-5">
-    		<div class="row m-auto">
+    		<div class="row w-100 m-auto">
     			<c:choose>
 				<c:when test = "${list.size() == 0 }">
-					공모전없음
+					<div class="row align-items-center w-100 m-auto text-center" style="min-height: 470px; font-family: 'Cafe24Oneprettynight';">
+						<h5 class="m-auto">진행중인 공모전이 없습니다.</h5>
+					</div>
 				</c:when>
 				<c:otherwise>
 				<c:forEach items="${list}" var="dto">
