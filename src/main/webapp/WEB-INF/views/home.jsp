@@ -225,153 +225,178 @@
         </div>
     </div>
     <hr class="p-0 m-0">
-    
-<!--  이달의 작가님 -->
+
+<!--  명예의 전당 -->    
     <div class="container-fluid" style="background-color: white;">
-        <div class="container px-0 py-5">
-            <div class="row" style="text-align:center">
-                
+    	<div class="container px-0 py-5">
+    		<div class="row w-100 m-auto text-center">
                <p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>
             </div>
-            <div class="row">
-
-<c:choose>
-<c:when test="${loginInfo == null and adminInfo==null}">
-
-<div class="row">
-<div class="card m-auto col-3 honorlist" style="width: 15rem;margin-left:30px;">
-    	<h5 style="text-align:center;font-family: 'Cafe24Oneprettynight'" id="htop${latelyhonor.honorlist_seq}"></h5>
-                      <img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
-                      <div class="card-body">
-                        
-                        <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">받은 득표수 ${latelyhonor.honorpoint}</p>
-                        <p class="text-center"><input type="button" class="detailpic" id="showpic${latelyhonor.honorlist_seq}" value="사진보기"></p>
-                       
-                        <script>
-						var when = "${latelyhonor.honor_date}";
-						var topyear = when.substr(0,4);
-						var topmonth = when.substr(5,2);
-						$("#htop${latelyhonor.honorlist_seq}").html(topyear+"년 "+topmonth+"월<br>"+"${latelyhonor.nickname} 작가님");
-                        	//$("#showpic${firdto.id}").on("click",function(){                        		
-                      //  window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nickname ,"Best3사진", "width=800,height=600,resizable=no");
-                        //	})
-                        	
-						$("body").on("click","#showpic${latelyhonor.honorlist_seq}",function(){
-                            window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${latelyhonor.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
-                        })
-                        </script>
-                      </div>
-                    </div>
-                    <div class="col-8">
-                    <div>명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 
-                    명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 </div>
-                    <div>
-                    <input type="button" value="투표하러가기" id="govote">
-                    <input type="button" value="역대 명예의전당 리스트 보러가기" id="gohonorlist">
-                    </div>
-                    <script>
-                    $("#govote").on("click",function(){
-                    	alert("로그인후 이용해주세요");
-                    	$("#gotologin").trigger('click');
-                    })
-                    $("#gohonorlist").on("click",function(){
-                    	location.href="${pageContext.request.contextPath}/honor/gohonorlist.do"
-                    })
+            <div class="row w-100 m-auto text-center" style="font-family: 'Cafe24Oneprettynight';">
+            <c:choose>
+			<c:when test="${loginInfo == null and adminInfo == null}">
+				<div class="col-12 col-lg-3 p-0 m-auto">
+					<div class="card py-3 m-auto" style="width: 17.5rem;">
+						<h5 style="text-align: center;" id="htop${latelyhonor.honorlist_seq}"></h5>
+	  					<img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+					  	<div class="card-body p-0">
+							<p class="card-text text-left mx-auto my-2 " style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.nickname}<span class="ml-1">작가님</span></p>
+							<p class="card-text text-left mx-auto my-2" style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.honorpoint}<span class="ml-1">등록</span></p>
+							<a href="#" class="btn btn-outline-secondary py-1 my-2">작가 피드 보러가기</a>
+							
+							<script>
+								var when = "${latelyhonor.honor_date}";
+								var topyear = when.substr(0,4);
+								var topmonth = when.substr(5,2);
+								$("#htop${latelyhonor.honorlist_seq}").html(topyear + " 년 " + topmonth + " 월 ");
+		                        $("body").on("click","#showpic${latelyhonor.honorlist_seq}",function(){
+		                            window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${latelyhonor.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
+		                        })
+	                        </script>
+					  	</div>
+					</div>
+				</div>
+				<div class="col-12 col-lg-9 d-none d-lg-block">
+					<div class="w-100 h-100 px-3 py-4" style="border: 1px solid #dfdfdf; border-radius: 5px;">
+						<div class="row w-100 mx-auto mb-3 text-left">
+							<h4 class="w-100 mb-4">* 명예의 전당이란? *</h4>
+							<h5 class="w-100">픽셀을 활발하게 이용해주시는 작가님들을 위해</h5>
+							<h5 class="w-100">투표를 진행하여 작가님의 명예를 높여드리는 픽셀만의 이벤트입니다.</h5>
+							<h5 class="w-100">픽셀의 회원이 되어 수익도 얻고, 명예의 전당까지 도전해보세요!</h5>
+						</div>
+						<hr class="mt-4 p-3">
+						<div class="row w-100 mx-auto">
+							<div class="col-6">
+								<h5>투표하러가기</h5>
+								<input type="button" value="gogo" id="govote" class="mt-3 btn btn-outline-primary" style="width: 100px">
+							</div>
+	                   		<div class="col-6">
+	                   			<h5>역대 명예의전당 보러가기</h5>
+	                   			<input type="button" value="gogo" id="gohonorlist" class="mt-3 btn btn-outline-primary" style="width: 100px">
+	                   		</div>
+						</div>
+						<script>
+		                    $("#govote").on("click",function(){
+		                    	alert("로그인후 이용해주세요");
+		                    	$("#gotologin").trigger('click');
+		                    })
+		                    
+		                    $("#gohonorlist").on("click",function(){
+		                    	location.href="${pageContext.request.contextPath}/honor/gohonorlist.do"
+		                    })
                     </script>
-                    </div>
-                    </div>
-
-</c:when>
-<c:when test="${adminInfo!=null}">
-<div class="row">
-<div class="card m-auto col-3 honorlist" style="width: 15rem;margin-left:30px;">
-    	<h5 style="text-align:center;font-family: 'Cafe24Oneprettynight'" id="htop${latelyhonor.honorlist_seq}"></h5>
-                      <img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
-                      <div class="card-body">
-                        
-                        <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">받은 득표수 ${latelyhonor.honorpoint}</p>
-                        <p class="text-center"><input type="button" class="detailpic" id="showpic${latelyhonor.honorlist_seq}" value="사진보기"></p>
-                       
-                        <script>
-						var when = "${latelyhonor.honor_date}";
-						var topyear = when.substr(0,4);
-						var topmonth = when.substr(5,2);
-						$("#htop${latelyhonor.honorlist_seq}").html(topyear+"년 "+topmonth+"월<br>"+"${latelyhonor.nickname} 작가님");
-                        	//$("#showpic${firdto.id}").on("click",function(){                        		
-                      //  window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nickname ,"Best3사진", "width=800,height=600,resizable=no");
-                        //	})
-                        	
-						$("body").on("click","#showpic${latelyhonor.honorlist_seq}",function(){
-                            window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${latelyhonor.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
-                        })
-                        </script>
-                      </div>
-                    </div>
-                    <div class="col-8">
-                    <div>명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 
-                    명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 </div>
-                    <div>
-                    <input type="button" value="명예의전당 등록/종료" id="honorcontroll">
-                    <input type="button" value="역대 명예의전당 리스트 보러가기" id="gohonorlist">
-                    </div>
-                    <script>
-                    $("#honorcontroll").on("click",function(){
-                    	location.href="${pageContext.request.contextPath}/honor/inserthonor.do";	
-                    })
-                    $("#gohonorlist").on("click",function(){
-                    	location.href="${pageContext.request.contextPath}/honor/gohonorlist.do"
-                    })
+					</div>
+				</div>
+			</c:when>
+			<c:when test="${adminInfo!=null}">
+				<div class="col-12 col-lg-3 p-0 m-auto">
+					<div class="card py-3 m-auto" style="width: 17.5rem;">
+						<h5 style="text-align: center;" id="htop${latelyhonor.honorlist_seq}"></h5>
+	  					<img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+					  	<div class="card-body p-0">
+							<p class="card-text text-left mx-auto my-2 " style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.nickname}<span class="ml-1">작가님</span></p>
+							<p class="card-text text-left mx-auto my-2" style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.honorpoint}<span class="ml-1">등록</span></p>
+							<a href="#" class="btn btn-outline-secondary py-1 my-2">작가 피드 보러가기</a>
+							
+							<script>
+								var when = "${latelyhonor.honor_date}";
+								var topyear = when.substr(0,4);
+								var topmonth = when.substr(5,2);
+								$("#htop${latelyhonor.honorlist_seq}").html(topyear + " 년 " + topmonth + " 월 ");
+		                        $("body").on("click","#showpic${latelyhonor.honorlist_seq}",function(){
+		                            window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${latelyhonor.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
+		                        })
+	                        </script>
+					  	</div>
+					</div>
+				</div>
+				<div class="col-12 col-lg-9 d-none d-lg-block">
+					<div class="w-100 h-100 px-3 py-4" style="border: 1px solid #dfdfdf; border-radius: 5px;">
+						<div class="row w-100 mx-auto mb-3 text-left">
+							<h4 class="w-100 mb-4">* 명예의 전당이란? *</h4>
+							<h5 class="w-100">픽셀을 활발하게 이용해주시는 작가님들을 위해</h5>
+							<h5 class="w-100">투표를 진행하여 작가님의 명예를 높여드리는 픽셀만의 이벤트입니다.</h5>
+							<h5 class="w-100">관리자님들은, 투표를 등록하거나 종료 해주세요!</h5>
+						</div>
+						<hr class="mt-4 p-3">
+						<div class="row w-100 mx-auto">
+							<div class="col-6">
+								<h5>명예의전당 등록/종료하기</h5>
+								<input type="button" value="gogo" id="honorcontroll" class="mt-3 btn btn-outline-primary" style="width: 100px">
+							</div>
+	                   		<div class="col-6">
+	                   			<h5>역대 명예의전당 보러가기</h5>
+	                   			<input type="button" value="gogo" id="gohonorlist" class="mt-3 btn btn-outline-primary" style="width: 100px">
+	                   		</div>
+						</div>
+						<script>
+							$("#honorcontroll").on("click",function(){
+		                    	location.href="${pageContext.request.contextPath}/honor/inserthonor.do";	
+		                    })
+		                    
+		                    $("#gohonorlist").on("click",function(){
+		                    	location.href="${pageContext.request.contextPath}/honor/gohonorlist.do"
+		                    })
                     </script>
-                    </div>
-                    </div>
-</c:when>
-<c:otherwise>
-<div class="row">
-<div class="card m-auto col-3 honorlist" style="width: 15rem;margin-left:30px;">
-    	<h5 style="text-align:center;font-family: 'Cafe24Oneprettynight'" id="htop${latelyhonor.honorlist_seq}"></h5>
-                      <img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
-                      <div class="card-body">
-                        
-                        <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">받은 득표수 ${latelyhonor.honorpoint}</p>
-                        <p class="text-center"><input type="button" class="detailpic" id="showpic${latelyhonor.honorlist_seq}" value="사진보기"></p>
-                       
-                        <script>
-						var when = "${latelyhonor.honor_date}";
-						var topyear = when.substr(0,4);
-						var topmonth = when.substr(5,2);
-						$("#htop${latelyhonor.honorlist_seq}").html(topyear+"년 "+topmonth+"월<br>"+"${latelyhonor.nickname} 작가님");
-                        	//$("#showpic${firdto.id}").on("click",function(){                        		
-                      //  window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nickname ,"Best3사진", "width=800,height=600,resizable=no");
-                        //	})
-                        	
-						$("body").on("click","#showpic${latelyhonor.honorlist_seq}",function(){
-                            window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${latelyhonor.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
-                        })
-                        </script>
-                      </div>
-                    </div>
-                    <div class="col-8">
-                    <div>명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 
-                    명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 </div>
-                    <div>
-                    <input type="button" value="투표하러가기" id="govote">
-                    <input type="button" value="역대 명예의전당 리스트 보러가기" id="gohonorlist">
-                    </div>
-                    <script>
-                    $("#govote").on("click",function(){
-                    	location.href="${pageContext.request.contextPath}/honor/govote.do"
-                    })
-                    $("#gohonorlist").on("click",function(){
-                    	location.href="${pageContext.request.contextPath}/honor/gohonorlist.do"
-                    })
+					</div>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="col-12 col-lg-3 p-0 m-auto">
+					<div class="card py-3 m-auto" style="width: 17.5rem;">
+						<h5 style="text-align: center;" id="htop${latelyhonor.honorlist_seq}"></h5>
+	  					<img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+					  	<div class="card-body p-0">
+							<p class="card-text text-left mx-auto my-2 " style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.nickname}<span class="ml-1">작가님</span></p>
+							<p class="card-text text-left mx-auto my-2" style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.honorpoint}<span class="ml-1">등록</span></p>
+							<a href="#" class="btn btn-outline-secondary py-1 my-2">작가 피드 보러가기</a>
+							
+							<script>
+								var when = "${latelyhonor.honor_date}";
+								var topyear = when.substr(0,4);
+								var topmonth = when.substr(5,2);
+								$("#htop${latelyhonor.honorlist_seq}").html(topyear + " 년  " + topmonth + " 월 ");
+		                        $("body").on("click","#showpic${latelyhonor.honorlist_seq}",function(){
+		                            window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${latelyhonor.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
+		                        })
+	                        </script>
+					  	</div>
+					</div>
+				</div>
+				<div class="col-12 col-lg-9 d-none d-lg-block">
+					<div class="w-100 h-100 px-3 py-4" style="border: 1px solid #dfdfdf; border-radius: 5px;">
+						<div class="row w-100 mx-auto mb-3 text-left">
+							<h4 class="w-100 mb-4">* 명예의 전당이란? *</h4>
+							<h5 class="w-100">픽셀을 활발하게 이용해주시는 작가님들을 위해</h5>
+							<h5 class="w-100">투표를 진행하여 작가님의 명예를 높여드리는 픽셀만의 이벤트입니다.</h5>
+							<h5 class="w-100">활발하게 이용해주신 작가님들이라면, 명예의 전당에 도전해보세요!</h5>
+						</div>
+						<hr class="mt-4 p-3">
+						<div class="row w-100 mx-auto">
+							<div class="col-6">
+								<h5>투표하러가기</h5>
+								<input type="button" value="gogo" id="govote" class="mt-3 btn btn-outline-primary" style="width: 100px">
+							</div>
+	                   		<div class="col-6">
+	                   			<h5>역대 명예의전당 보러가기</h5>
+	                   			<input type="button" value="gogo" id="gohonorlist" class="mt-3 btn btn-outline-primary" style="width: 100px">
+	                   		</div>
+						</div>
+						<script>
+							$("#govote").on("click",function(){
+		                    	location.href="${pageContext.request.contextPath}/honor/govote.do"
+		                    })
+		                    
+		                    $("#gohonorlist").on("click",function(){
+		                    	location.href="${pageContext.request.contextPath}/honor/gohonorlist.do"
+		                    })
                     </script>
-                    </div>
-                    </div>
-</c:otherwise>
-</c:choose>
-
+					</div>
+				</div>
+			</c:otherwise>
+			</c:choose>
             </div>
-        </div>
+    	</div>
     </div>
     
 <!--  이달의 공모전 -->
