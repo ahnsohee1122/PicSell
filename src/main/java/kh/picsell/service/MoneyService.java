@@ -96,11 +96,6 @@ public class MoneyService {
 		return list;
 	}
 		
-	// 판매 내역 확인하기
-	public List<Map<String, Object>> sell_list(String nickname){
-		List<Map<String, Object>> list = money_dao.sell_list(nickname);
-		return list;
-	}
 	
 	// 수익금 및 판매 내역 확인하기 
 	public List<Map<String, Object>> profit_list(String nickname){

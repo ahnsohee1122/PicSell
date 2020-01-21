@@ -274,19 +274,6 @@ public class MoneyController {
 		return "money/Buy_List_Check";
 	}
 	
-	// 판매 내역 확인하기
-	@RequestMapping("/sell_list.do")
-	public String sell_list() {
-		String nickname = (String)session.getAttribute("loginInfo");
-		List<Map<String, Object>> list = money_sv.sell_list(nickname);
-		request.setAttribute("list", list);
-		MemberDTO writerinfo = writerservice.writerInfo(nickname);
-	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
-	    request.setAttribute("imginfo", imginfo);
-	    request.setAttribute("memberDto", writerinfo);
-		return "money/Sell_List_Check";
-	}
-	
 	// 수익금 내역 확인하기 
 	@RequestMapping("/profit_list.do")
 	public String profit_list() {
