@@ -454,7 +454,7 @@ $(function(){
 													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">관리자 정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="member/manage.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a>
+													<a href="${pageContext.request.contextPath}/member/manage.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/img_up/NoList" style="color: black; font-size: 16px; text-decoration: none;">이미지 심사/업로드 </a>
@@ -475,13 +475,13 @@ $(function(){
 													<a href="#" style="color: black; text-decoration: none;">커뮤니티</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">공지사항</a>
+													<a href="${pageContext.request.contextPath}/notice/notice.do" style="color: black; font-size: 16px; text-decoration: none;">공지사항</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">편집의뢰게시판</a>
+													<a href="${pageContext.request.contextPath}/editNotice/notice.do" style="color: black; font-size: 16px; text-decoration: none;">편집의뢰게시판</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">작품의뢰게시판</a>
+													<a href="${pageContext.request.contextPath}/peaceNotice/notice.do" style="color: black; font-size: 16px; text-decoration: none;">작품의뢰게시판</a>
 												</div>
 											</div>
 											<hr>

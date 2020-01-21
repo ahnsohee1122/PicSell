@@ -22,7 +22,8 @@
 <c:forEach items="${imglist1}" var="onedto">
   <div class="card m-auto pics">
                       <p class="card-title">사진번호 : ${onedto.img_seq}</p>
-                      <img src="${pageContext.request.contextPath}/writeruploadfiles/${onedto.sysname}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <img src="/watermarkfiles/xsmarked_${onedto.sysname}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      
                       <div class="card-body">
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">LIKE ${onedto.img_like }</p>
                         
