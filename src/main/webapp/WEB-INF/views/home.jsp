@@ -12,7 +12,6 @@
 <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet"> <!-- BestPic 글씨체 -->
 <link rel="stylesheet" href="/css/justifiedGallery.css" />
 <style>
-
 .honorlist {
 			min-width:230px;
 			border: solid 5px gold;
