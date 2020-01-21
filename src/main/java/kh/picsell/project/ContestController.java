@@ -243,12 +243,17 @@ public class ContestController {
 
 
    }
-	@RequestMapping(value="a")
+	@RequestMapping(value="alreadyselect")
 	@ResponseBody
 	public List<ContestDTO> alreadyselected(int contest_seq) {
-		System.out.println("도착?:"+contest_seq);
 		 List<ContestDTO> selectedList = service.selected(contest_seq);
 		 return selectedList;
+	}
+	
+	@RequestMapping("enrolldetail")
+	public void detail() {
+		System.out.println("hihi");
+		
 	}
    
 }
