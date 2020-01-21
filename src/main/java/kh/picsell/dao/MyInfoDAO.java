@@ -24,8 +24,8 @@ public class MyInfoDAO {
 		return d;
 	}
 	
-	public void infoModifyProc(MemberDTO memberDto) {
-		jdbc.update("MyInfo.infoModify", memberDto);
+	public void infoModifyProc(MemberDTO dto) {
+		jdbc.update("MyInfo.infoModify", dto);
 	}
 	
 	public String currentPwCheck(String nickname) {
