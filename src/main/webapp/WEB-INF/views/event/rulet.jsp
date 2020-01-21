@@ -68,13 +68,13 @@
               //  {'fillStyle' : '#eae56f', 'text' : '10원'},
               //  {'fillStyle' : '#eae56f', 'text' : '꽝'}
               
-                  {'fillStyle' : '#eae56f', 'text' : '10원'},
-                {'fillStyle' : '#89f26e', 'text' : '50원'},
-                {'fillStyle' : '#7de6ef', 'text' : '100원'},
+                  {'fillStyle' : '#eae56f', 'text' : '10P'},
+                {'fillStyle' : '#89f26e', 'text' : '50P'},
+                {'fillStyle' : '#7de6ef', 'text' : '100P'},
                 {'fillStyle' : 'white', 'text' : '꽝'},
-                {'fillStyle' : '#eae56f', 'text' : '30원'},
-                {'fillStyle' : '#eae56f', 'text' : '70원'},
-                {'fillStyle' : '#eae56f', 'text' : '10원'},
+                {'fillStyle' : '#eae56f', 'text' : '30P'},
+                {'fillStyle' : '#eae56f', 'text' : '70P'},
+                {'fillStyle' : '#eae56f', 'text' : '20P'},
                 {'fillStyle' : '#eae56f', 'text' : '꽝'}
             ],
         'lineWidth'   : 1,
@@ -99,15 +99,26 @@
         // Call getIndicatedSegment() function to return pointer to the segment pointed to on wheel.
         let winningSegment = theWheel.getIndicatedSegment();
         var point = winningSegment.text;
-     
+        var point_result = 0;
+        if(point=="꽝"){
+       
+        }else{
+        	var regex = /\d+/;
+         	var result = regex.exec(point);	
+         	console.log(result[0]);
+         	point_result = result[0];
+        }
      $.ajax({
     	 url : "${pageContext.request.contextPath}/event/rouletProc.do",
     	 type : "post",
-    	 data : {score : point}
-     }).done(function(data){
-    	 // Basic alert of the segment text which is the prize name.
-         alert("축하합니다! " + winningSegment.text + "포인트를 획득하셨습니다!");
-         console.log(winningSegment.text);	 
+    	 data : {score : point_result}
+     }).done(function(){
+    	 if(point_result==0){
+    		 alert("꽝입니다! 다음 기회에!");
+    	 }else{
+         alert("축하합니다! " + point + "를 획득하셨습니다!");
+         console.log(winningSegment.text);
+    	 }
      }).fail(function(data){
     	 alert("시스템 오류가 발생했습니다. 다시 시도해주세요.");
      })

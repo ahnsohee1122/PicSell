@@ -93,12 +93,22 @@ public class EventController {
 		// 2. 룰렛 돌려서 나온 포인트값 저장하기 
 		@RequestMapping("/rouletProc.do")
 		@ResponseBody
-		public String rulet(String data) {
-			if(data.equals("꽝")) {
-				request.setAttribute("data", "0");
-			}else {
+		public String rulet(int score) {
+			System.out.println(score);
+			String nickname = (String)session.getAttribute("loginInfo");
+			String today = LocalDate.now().toString();
+			int point = 0;
+			// 꽝인 경우 
+			if(score == 0) {
+				// 출석체크는 된다 
 				
-				request.setAttribute("data", "1");
+				// 포인트는 0이기 때문에 들어가지않는다 
+			// 포인트 당첨된 경우	
+			}else {
+				point = score;
+				System.out.println(point);
+				event_sv.insertRoulette(nickname, today, point);
+				// 포인트가 들어간다 
 			}
 			
 			return "";

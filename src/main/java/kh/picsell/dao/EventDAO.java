@@ -48,6 +48,17 @@ public class EventDAO {
 			return jdbc.insert("Event.addPoint", param);
 			}
 		
+		
+		/////////////////////////////////////////////////////////////////
+		
+		// 룰렛 
+		public int roulettePoint(String nickname, String point_date, int point) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("nickname", nickname);
+			param.put("point_date", point_date);
+			param.put("point", point);
+			return jdbc.insert("Event.roulettePoint", param);
+			}
 		/////////////////////////////////////////////////////////////////
 		
 		// 정보 수정 시 업데이트 되는 부분 
