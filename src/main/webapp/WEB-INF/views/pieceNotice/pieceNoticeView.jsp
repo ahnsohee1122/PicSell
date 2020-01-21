@@ -13,11 +13,11 @@
 <style>
 	.li {margin: auto; width: 33%; float:left; text-align: center;}
 	.title {width: 60px; text-align: left;}
-	.title2 {width: 90px; text-align: left;}
+	.title2 {width: 80px; text-align: left;}
 	.data_title {width: 400px;}
 	.data_date {width: 120px;}
 	.data_count {width: 50px;}
-	.title, .data {border: 1px solid gray;}
+	.title, .title2, .data {border: 1px solid gray;}
 	.viewBtn {width: 100px; border: 1px solid gray; background-color: #f4f2f5;}
 	.noBtn {width: 120px; border: 1px solid gray; background-color: #f4f2f5;}
 	#contentsP
@@ -33,7 +33,7 @@
 		<div class="container mx-auto mt-5 mb-4 text-center" style="height: 40px;">
 			<ul class="p-0 m-0 h-100" style="list-style-type: none; border: 1px solid gray; border-radius: 10px;">
 				<li class="li h-100"><a href="${pageContext.request.contextPath}/notice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">공지사항</a></li>
-				<li class="li h-100"><a href="${pageContext.request.contextPath}/pieceNotice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">작품의뢰게시판</a></li>
+				<li class="li h-100"><a href="${pageContext.request.contextPath}/editNotice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">편집의뢰게시판</a></li>
 				<li class="li h-100"><a href="${pageContext.request.contextPath}/pieceNotice/notice.do" style="font-size: 18px; line-height: 40px; color: black;">작품의뢰게시판</a></li>
 			</ul>
 		</div>
@@ -41,7 +41,7 @@
 			<table id="example" class="row-border" style="width: 100%; text-align: center;">
 				<thead>
 					<tr>
-						<th class="title px-2">제목</th>
+						<th class="title2 px-2">제목</th>
 						<td class="data data_title">${map.pieceNotice.pieceNotice_title}</td>
 						<th class="title px-2 text-center">날짜</th>
 						<td class="data data_date">${map.pieceNotice.pieceNotice_write_date}</td>
@@ -49,7 +49,7 @@
 						<td class="data data_count">${map.pieceNotice.pieceNotice_view_count}</td>
 					</tr>
 					<tr>
-						<th class="title px-2">첨부파일</th>
+						<th class="title2 px-2">첨부파일</th>
 						<td colspan="5" class="data data_file text-left px-2">
 							<c:forEach var="pieceFileDto" items="${map.pieceFileDto }">
 								<a style="color: black;" href="${pageContext.request.contextPath}/pieceNotice/fileDownLoad.do?sysName=${pieceFileDto.pieceNoticeFile_sysName}&oriName=${pieceFileDto.pieceNoticeFile_oriName}">${pieceFileDto.pieceNoticeFile_oriName }</a>
@@ -62,20 +62,24 @@
 						</td>
 					</tr>
 					<tr>
-						<th class="title px-2 text-center">댓글 목록</th>
+						<th class="title2 px-2 text-center">댓글 목록</th>
 						<td colspan="5" class="data">
 							<table class="w-100" id="commentTable">
 								<c:forEach var="commentDto" items="${map.commentDto }">
 								<tr id="comment_box">
 									<td id="e${commentDto.comment_seq}" class="p-2 text-left" style="width: 55%">
-										${commentDto.notice_comment}
-										<textarea id="c${commentDto.comment_seq }" style="display: none; resize: none;" rows="2" cols="80"></textarea>
-										<input id="d${commentDto.comment_seq }" type="button" value="수정완료" onclick="commentModifyComplete(${commentDto.comment_seq })" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
+										<div class="row w-100 m-auto">
+											${commentDto.notice_comment}
+										</div>
+										<div class="row w-100 m-auto">
+											<textarea id="c${commentDto.comment_seq }" class="col-12 col-lg-9 align-self-center px-2" style="height: 40px; display: none; resize: none;"></textarea>
+											<input id="d${commentDto.comment_seq }" type="button" value="수정완료" class="mx-lg-2 my-1 my-lg-0 col-6 col-lg-2 align-self-center text-center" onclick="commentModifyComplete(${commentDto.comment_seq })" style="height: 40px; display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
+										</div>
 									</td>
 									<td class="p-2" style="width: 20%">${commentDto.write_date }</td>
 									<td class="p-2" style="width: 15%">${commentDto.writer}</td>
 									<td class="p-2" style="width: 8%">
-										<input type="button" value="삭제" id="a${commentDto.comment_seq }" onclick="commentDelete(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
+										<input type="button" value="삭제" id="a${commentDto.comment_seq }" class="mb-1" onclick="commentDelete(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 										<input type="button" value="수정" id="b${commentDto.comment_seq }" onclick="commentModify(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 									</td>
 								</tr>
@@ -87,7 +91,7 @@
 						<th class="title px-2 py-0 text-center">댓글</th>
 						<td class="data px-2 m-auto py-2" colspan="4">
 							<div class="row align-items-center w-100 m-auto">
-								<textarea id="comment" class="col align-self-center" style="width: 100%; resize: none;"></textarea>	
+								<textarea id="comment" class="col align-self-center px-2" style="width: 100%; resize: none;"></textarea>	
 							</div>
 						</td>
 						<td class="data p-2">
