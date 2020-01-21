@@ -502,11 +502,11 @@ $(function(){
 											<hr>
 											<div class="row my-2" style="font-size: 18px;">
 												<div class="col-4">내 포인트</div>
-												<div class="col-3 text-right" id="top_point" style="border: 1px solid red;"></div>
+												<div class="col-5 text-right" id="top_point"></div>
 											</div>
 											<div class="row my-2" style="font-size: 18px;">
 												<div class="col-4">작가 수익금</div>
-												<div class="col-3 text-right" id="top_profit"></div>
+												<div class="col-5 text-right" id="top_profit"></div>
 											</div>
 											<div class="row my-3 text-center" style="font-size: 20px;">
 												<div class="col-12">
