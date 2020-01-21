@@ -161,7 +161,7 @@
     </div>
     <script>
   
-    var loginInfo = "${sessionScrope.loginInfo}";
+    var loginInfo = "${sessionScope.loginInfo}";
     $("#startbtn").on("click",function(){
     	if(loginInfo==""){
     		alert("로그인 후 이용해주세요")
