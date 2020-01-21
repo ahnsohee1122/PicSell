@@ -121,4 +121,19 @@ public class ContestService {
 	public List<ContestDTO> enrollList(int Contest_seq) {
 		return dao.enrollList(Contest_seq);
 	}
+	
+	public void selectedimage(String[] select) {
+		for(String seq : select) {
+			int contest_img_seq = Integer.parseInt(seq);
+			System.out.println(contest_img_seq);
+			dao.selectedimage(contest_img_seq);
+		}
+		
+	}
+	
+	public List<ContestDTO> selected(int contest_seq){
+		return dao.selected(contest_seq);
+	}
+	
+	
 }
