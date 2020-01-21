@@ -502,11 +502,11 @@ $(function(){
 											<hr>
 											<div class="row my-2" style="font-size: 18px;">
 												<div class="col-4">내 포인트</div>
-												<div class="col-3 text-right" id="top_point" style="border: 1px solid red;"></div>
+												<div class="col-5 text-right" id="top_point"></div>
 											</div>
 											<div class="row my-2" style="font-size: 18px;">
 												<div class="col-4">작가 수익금</div>
-												<div class="col-3 text-right" id="top_profit"></div>
+												<div class="col-5 text-right" id="top_profit"></div>
 											</div>
 											<div class="row my-3 text-center" style="font-size: 20px;">
 												<div class="col-12">
@@ -552,10 +552,10 @@ $(function(){
 													<a href="${pageContext.request.contextPath}/notice/notice.do" style="color: black; font-size: 16px; text-decoration: none;">공지사항</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">편집의뢰게시판</a>
+													<a href="${pageContext.request.contextPath}/editNotice/notice.do" style="color: black; font-size: 16px; text-decoration: none;">편집의뢰게시판</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">작품의뢰게시판</a>
+													<a href="${pageContext.request.contextPath}/pieceNotice/notice.do" style="color: black; font-size: 16px; text-decoration: none;">작품의뢰게시판</a>
 												</div>
 											</div>
 											<hr>

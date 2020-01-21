@@ -71,6 +71,7 @@ public class ContestController {
    @RequestMapping(value="/accept.do", produces="text/html; charset=UTF-8")
    @ResponseBody
    public String accept(String accept_date, int contest_seq, HttpServletRequest request) {
+	   System.out.println("공모전 :" + contest_seq);
       try{
          int result = service.accept(accept_date, contest_seq);
          if(result>0) {
@@ -139,7 +140,9 @@ public class ContestController {
    public String detail(ContestDTO dto, HttpServletRequest request) {
 	  try {
 	  ContestDTO contestDto = service.detailcheck(dto.getContest_seq());
+	  List<ContestDTO> imglist = service.exampleimg(dto.getContest_seq());
 	  request.setAttribute("contestDto", contestDto);
+	  request.setAttribute("imglist", imglist);
 	  }catch(Exception e) {
 		  e.printStackTrace();
 	  }
@@ -162,7 +165,9 @@ public class ContestController {
 	  dto.setEnroll_nickname(nickname);
 	  service.enrollimg(files, dto, contestpath);
 	  ContestDTO contestDto = service.detailcheck(dto.getContest_seq());
+	  List<ContestDTO> imglist = service.exampleimg(dto.getContest_seq());
 	  request.setAttribute("contestDto", contestDto);
+	  request.setAttribute("imglist", imglist);
 	  }catch(Exception e) {
 		  e.printStackTrace();
 	  }
@@ -171,7 +176,7 @@ public class ContestController {
    
   //출품한리스트보기
   @RequestMapping("enrollList")
- public String enrollList(int contest_seq,HttpServletRequest request) {
+ public String enrollList(int contest_seq, HttpServletRequest request) {
 	 List<ContestDTO> list = service.enrollList(contest_seq);
 	 request.setAttribute("list", list);
 	 return "contest/enrollimagelist";

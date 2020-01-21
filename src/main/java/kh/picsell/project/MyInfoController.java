@@ -42,9 +42,9 @@ public class MyInfoController {
 	}
 	
 	@RequestMapping("/infoModifyProc.do")
-	public String infoModifyProc(String id,MemberDTO memberDto) {
-		System.out.println(id);
+	public String infoModifyProc(MemberDTO memberDto, String id) {
 		memberDto.setId(id);
+		System.out.println(memberDto.toString());
 		myInfoService.infoModifyProc(memberDto);
 		session.removeAttribute("loginInfo");
 		return "home";

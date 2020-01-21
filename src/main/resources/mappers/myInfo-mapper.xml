@@ -8,8 +8,8 @@
 	</select>
 	
 	<update id="infoModify" parameterType="kh.picsell.dto.MemberDTO">
-		update member set name=#{name}, nickname=#{nickname}, email=#{email}, email_receive=#{email_receive}
-		where id=#{id}
+		update member set name = #{name}, nickname = #{nickname}, email = #{email}, email_receive = #{email_receive}
+		where id = #{id}
 	</update>
 	
 	<select id="currentPwCheck" resultType="String">
