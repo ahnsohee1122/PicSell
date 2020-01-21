@@ -20,9 +20,9 @@
 	
 	.canvas,.wrap{margin: 10px 0; width: 300px;}
 	
-	.wrap {max-height: 300px; text-align: center;}
+	.wrap {max-height: 500px; text-align: center;}
 	.innerwrap {margin: 10px 0;}
-	.wrapimg>img {margin: auto; max-width: 100%; max-height: 100%;}
+	.wrapimg>img {margin: auto; width: 100%;}
 	
 	canvas {display: none;}
 	
@@ -55,7 +55,7 @@
 			<div class="row w-100 mx-auto my-3 p-3" style="min-height: 300px; border: 1px solid darkgray; border-radius: 10px;">
 				<form id="uploadform" class="w-100" action="${pageContext.request.contextPath}/contest/enroll?title=${title}&contest_seq=${contest_seq}" method="post" enctype="multipart/form-data">
 					<input type="file" name="files" multiple="multiple" id="file">
-					<div class="row canvas w-100 mx-auto my-0" style="min-height: 173px;"></div>
+					<div class="row canvas w-100 h-100 mx-auto my-0 py-4"></div>
 					<input type="hidden" value="" name="tag" id="rdTag" /> 
 					<input type="hidden" value="" name="img_size" id="size"> 
 					<input type="hidden" value="" name="make" id="make"> 
@@ -94,11 +94,14 @@
 						var div2 = document.createElement('div')
 						innerwrap.classList.add("innerwrap")
 						innerwrap.classList.add("row")
+						innerwrap.classList.add("w-100")
+						innerwrap.classList.add("h-100")
+						innerwrap.classList.add("m-auto")
 						wrap.classList.add("wrap")
 						wrap.classList.add("col-4")
 						wrap.classList.add("m-0")
-						div1.classList.add("col-11")
 						div1.classList.add("wrapimg")
+						div1.classList.add("h-100")
 						div1.classList.add("px-0")
 						div2.classList.add("col-1")
 						div2.classList.add("wrapremove")
