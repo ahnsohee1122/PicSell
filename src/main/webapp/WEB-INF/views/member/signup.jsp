@@ -56,7 +56,7 @@
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">닉네임<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="text" class="form-control" id="nickname" name="nickname" placeholder="예) (주)픽셀 (픽셀에서 활동하실 닉네임)" style="font-size: 15px;">
+		      				<input type="text" class="form-control" id="nickname" name="nickname" placeholder="한번 등록한 닉네임은 변경 불가능 합니다." style="font-size: 15px;">
 		      				<div id="alert_nickname" class="px-1 alert5 invalid-feedback">이미사용중인 닉네임입니다.</div>
 						</div>
 					</div>
