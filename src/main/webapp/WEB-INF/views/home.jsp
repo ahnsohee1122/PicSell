@@ -1,3 +1,5 @@
+<%@ page import="kh.picsell.dto.HonorDTO" %>
+<%@ page import="kh.picsell.dto.MemberDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -10,6 +12,35 @@
 <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet"> <!-- BestPic 글씨체 -->
 <link rel="stylesheet" href="/css/justifiedGallery.css" />
 <style>
+
+.honorlist {
+			min-width:230px;
+			border: solid 5px gold;
+			-webkit-animation-name: movingPara;
+			-webkit-animation-duration: 2s;
+			animation-name: movingPara;
+			animation-duration: 2s;
+		 animation-iteration-count: infinite;
+		}
+		@-webkit-keyframes movingPara {
+			0% { border-color: gold; }
+			20% { border-color: #fffccc; }
+			40% { border-color: yellow; }
+			50% { border-color: #fffccc; }
+			60% { border-color: gold; }
+			80% { border-color: #fffccc; }
+			100% { border-color: yellow; }
+		}
+		@keyframes movingPara {
+			0% { border-color: gold; }
+			20% { border-color: #fffccc; }
+			40% { border-color: yellow; }
+			50% { border-color: #fffccc; }
+			60% { border-color: gold; }
+			80% { border-color: #fffccc; }
+			100% { border-color: yellow; }
+		}
+
 /*    글씨체 css */
    @font-face {font-family: 'Cafe24Oneprettynight'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff'); font-weight: normal; font-style: normal; }
    
@@ -201,42 +232,145 @@
         <div class="container px-0 py-5">
             <div class="row" style="text-align:center">
                 
-                <a href="${pageContext.request.contextPath}/honor/mainlist.do"><p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p></a>
+               <p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>
             </div>
             <div class="row">
-                <div class="col-12 col-xl-3">
-                    <div class="card m-auto" style="width: 15rem;">
-                      <img src="img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+
+<c:choose>
+<c:when test="${loginInfo == null and adminInfo==null}">
+
+<div class="row">
+<div class="card m-auto col-3 honorlist" style="width: 15rem;margin-left:30px;">
+    	<h5 style="text-align:center;font-family: 'Cafe24Oneprettynight'" id="htop${latelyhonor.honorlist_seq}"></h5>
+                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
-                        <h5 class="card-title" style="font-size: 20px; font-family: 'Cafe24Oneprettynight';">애소</h5>
-                        <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="img/best_likes.png" style="width: 30px; height: 30px;">LIKE 4816</p>
-                        <p class="text-center"><a href="#" class="btn btn-outline-dark btn-sm">작가피드 보러가기</a></p>
+                        
+                        <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">받은 득표수 ${latelyhonor.honorpoint}</p>
+                        <p class="text-center"><input type="button" class="detailpic" id="showpic${latelyhonor.honorlist_seq}" value="사진보기"></p>
+                       
+                        <script>
+						var when = "${latelyhonor.honor_date}";
+						var topyear = when.substr(0,4);
+						var topmonth = when.substr(5,2);
+						$("#htop${latelyhonor.honorlist_seq}").html(topyear+"년 "+topmonth+"월<br>"+"${latelyhonor.nickname} 작가님");
+                        	//$("#showpic${firdto.id}").on("click",function(){                        		
+                      //  window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nickname ,"Best3사진", "width=800,height=600,resizable=no");
+                        //	})
+                        	
+						$("body").on("click","#showpic${latelyhonor.honorlist_seq}",function(){
+                            window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${latelyhonor.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
+                        })
+                        </script>
                       </div>
                     </div>
-                </div>
-                <div class="col-xl-9 d-none d-xl-block">
-                    <div id="carousel" class="carousel slide" data-ride="carousel">
-                      <div class="carousel-inner">
-                        <div class="carousel-item active" style="height: 370px;">
-                          <img src="${pageContext.request.contextPath}/img/pic01.jpg" class="d-block m-auto h-100">
-                        </div>
-                        <div class="carousel-item" style="height: 370px;">
-                          <img src="${pageContext.request.contextPath}/img/pic02.jpg" class="d-block m-auto h-100">
-                        </div>
-                        <div class="carousel-item" style="height: 370px;">
-                          <img src="${pageContext.request.contextPath}/img/pic03.jpg" class="d-block m-auto h-100">
-                        </div>
-                      </div>
-                      <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                      <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                      </a>
+                    <div class="col-8">
+                    <div>명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 
+                    명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 </div>
+                    <div>
+                    <input type="button" value="투표하러가기" id="govote">
+                    <input type="button" value="역대 명예의전당 리스트 보러가기" id="gohonorlist">
                     </div>
-                </div>
+                    <script>
+                    $("#govote").on("click",function(){
+                    	alert("로그인후 이용해주세요");
+                    	$("#gotologin").trigger('click');
+                    })
+                    $("#gohonorlist").on("click",function(){
+                    	location.href="${pageContext.request.contextPath}/honor/gohonorlist.do"
+                    })
+                    </script>
+                    </div>
+                    </div>
+
+</c:when>
+<c:when test="${adminInfo!=null}">
+<div class="row">
+<div class="card m-auto col-3 honorlist" style="width: 15rem;margin-left:30px;">
+    	<h5 style="text-align:center;font-family: 'Cafe24Oneprettynight'" id="htop${latelyhonor.honorlist_seq}"></h5>
+                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <div class="card-body">
+                        
+                        <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">받은 득표수 ${latelyhonor.honorpoint}</p>
+                        <p class="text-center"><input type="button" class="detailpic" id="showpic${latelyhonor.honorlist_seq}" value="사진보기"></p>
+                       
+                        <script>
+						var when = "${latelyhonor.honor_date}";
+						var topyear = when.substr(0,4);
+						var topmonth = when.substr(5,2);
+						$("#htop${latelyhonor.honorlist_seq}").html(topyear+"년 "+topmonth+"월<br>"+"${latelyhonor.nickname} 작가님");
+                        	//$("#showpic${firdto.id}").on("click",function(){                        		
+                      //  window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nickname ,"Best3사진", "width=800,height=600,resizable=no");
+                        //	})
+                        	
+						$("body").on("click","#showpic${latelyhonor.honorlist_seq}",function(){
+                            window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${latelyhonor.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
+                        })
+                        </script>
+                      </div>
+                    </div>
+                    <div class="col-8">
+                    <div>명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 
+                    명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 </div>
+                    <div>
+                    <input type="button" value="명예의전당 등록/종료" id="honorcontroll">
+                    <input type="button" value="역대 명예의전당 리스트 보러가기" id="gohonorlist">
+                    </div>
+                    <script>
+                    $("#honorcontroll").on("click",function(){
+                    	location.href="${pageContext.request.contextPath}/honor/inserthonor.do";	
+                    })
+                    $("#gohonorlist").on("click",function(){
+                    	location.href="${pageContext.request.contextPath}/honor/gohonorlist.do"
+                    })
+                    </script>
+                    </div>
+                    </div>
+</c:when>
+<c:otherwise>
+<div class="row">
+<div class="card m-auto col-3 honorlist" style="width: 15rem;margin-left:30px;">
+    	<h5 style="text-align:center;font-family: 'Cafe24Oneprettynight'" id="htop${latelyhonor.honorlist_seq}"></h5>
+                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <div class="card-body">
+                        
+                        <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">받은 득표수 ${latelyhonor.honorpoint}</p>
+                        <p class="text-center"><input type="button" class="detailpic" id="showpic${latelyhonor.honorlist_seq}" value="사진보기"></p>
+                       
+                        <script>
+						var when = "${latelyhonor.honor_date}";
+						var topyear = when.substr(0,4);
+						var topmonth = when.substr(5,2);
+						$("#htop${latelyhonor.honorlist_seq}").html(topyear+"년 "+topmonth+"월<br>"+"${latelyhonor.nickname} 작가님");
+                        	//$("#showpic${firdto.id}").on("click",function(){                        		
+                      //  window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nickname ,"Best3사진", "width=800,height=600,resizable=no");
+                        //	})
+                        	
+						$("body").on("click","#showpic${latelyhonor.honorlist_seq}",function(){
+                            window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${latelyhonor.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
+                        })
+                        </script>
+                      </div>
+                    </div>
+                    <div class="col-8">
+                    <div>명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 
+                    명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 명예의전당 </div>
+                    <div>
+                    <input type="button" value="투표하러가기" id="govote">
+                    <input type="button" value="역대 명예의전당 리스트 보러가기" id="gohonorlist">
+                    </div>
+                    <script>
+                    $("#govote").on("click",function(){
+                    	location.href="${pageContext.request.contextPath}/honor/govote.do"
+                    })
+                    $("#gohonorlist").on("click",function(){
+                    	location.href="${pageContext.request.contextPath}/honor/gohonorlist.do"
+                    })
+                    </script>
+                    </div>
+                    </div>
+</c:otherwise>
+</c:choose>
+
             </div>
         </div>
     </div>

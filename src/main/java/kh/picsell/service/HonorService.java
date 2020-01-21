@@ -103,4 +103,7 @@ public HonorDTO top() throws Exception {
 public MemberDTO getpicture(String nickname) throws Exception{
 	return dao.getpicture(nickname);
 }
+public HonorListDTO newhonor() throws Exception {
+	return dao.newhonor();
+}
 }
