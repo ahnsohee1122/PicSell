@@ -27,7 +27,7 @@
 					<div class="col-4 w-100 my-0 one p-2">
 						<div class="card w-100 h-100 p-2">
 							<div class="row image w-100 mx-auto text-center" style="height: 250px;">
-								<a href="#" onclick=window.open(/contest/enrolldetail?contest_seq=${dto.contest_seq},'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950');' return false;><img src="/contestenroll/${list.enroll_sysname }"></a>
+								<a href="#" ><img src="/contestenroll/${list.enroll_sysname }"></a>
 							</div>
 						  	<div class="row align-items-center image w-100 mx-auto text-center py-3" style="height: 50px;">
 						    	<p class="nickname mx-auto"><a href='${pageContext.request.contextPath}/writer/writerpage?nickname=${list.enroll_nickname }' style="text-decoration: none;"><span class="mx-1">@</span>${list.enroll_nickname }</a></p>
