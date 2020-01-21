@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Contest">
 <insert id="insert" parameterType="kh.picsell.dto.ContestDTO">
-      insert into contest values(contest_seq.nextval, #{reason} , #{title} , #{detail}, #{terms}, #{enddate} ,#{price}, #{hosttype}, #{host},'N','N',sysdate,null)
+      insert into contest values(contest_seq.nextval, #{reason} , #{title} , #{detail}, #{terms}, #{enddate} ,#{price}, #{hosttype}, #{host},'N','N',sysdate,null,'N')
 </insert>
 <insert id="fileinsert" parameterType="kh.picsell.dto.ContestDTO">
       insert into contestfiles values(contestfiles_seq.nextval, #{contest_seq}, #{oriname}, #{sysname},#{title}, #{hosttype} )
@@ -17,7 +17,7 @@
 </update>
 <select id="detailcheck" resultType="kh.picsell.dto.ContestDTO">
       select * from contest where contest_seq = #{contest_seq}
-   </select>
+ </select>
    <update id="acceptno" parameterType="kh.picsell.dto.ContestDTO">
    update contest set rejection=#{rejection}, checking = 'Y' where contest_seq = #{contest_seq}
 </update>
@@ -46,9 +46,18 @@
    		select * from (select contest.*, row_number() over(order by accept_date desc ) as rown from contest) where rown between 1 and 5 and accept='Y' and (enddate > sysdate)
    </select>
    <insert id="enrollimg" parameterType="java.util.Map">
-      insert into contestimage values(contest_img_seq.nextval, #{dto.contest_seq}, #{dto.enroll_nickname},#{dto.title},#{dto.enroll_sysname},sysdate)
+      insert into contestimage values(contest_img_seq.nextval, #{dto.contest_seq}, #{dto.enroll_nickname},#{dto.title},#{dto.enroll_sysname},sysdate,'N')
 	</insert>
 	<select id="enrollList" parameterType="Integer" resultType="kh.picsell.dto.ContestDTO">
 		select * from contestimage where contest_seq = #{contest_seq}
 	</select>
+	 <update id="selecting">
+	   update contest set selectimage='Y' where contest_seq = #{contest_seq}
+	 </update>
+	 <update id="selectedimage" parameterType="Integer">
+	  	update contestimage set selectimage='Y' where contest_img_seq = #{contest_img_seq}
+	 </update>
+	 <select id="selected" parameterType="Integer" resultType="kh.picsell.dto.ContestDTO">
+	 	select * from contestimage where selectimage='Y'and contest_seq = #{contest_seq}
+	 </select>
 </mapper>

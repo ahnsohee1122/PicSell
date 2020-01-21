@@ -55,11 +55,6 @@
 						<c:forEach items="${imglist }" var ="imglist">
 							<img src="/contestfiles/${imglist.sysname }">
 						</c:forEach>
-						<c:choose>
-						<c:when test="${loginInfo == dto.host }">
-							<input type="button" value="다운로드">
-						</c:when>
-						</c:choose>
 					</div>
 				</div>
 				<div class="row w-100 mx-auto my-4 text-center">
