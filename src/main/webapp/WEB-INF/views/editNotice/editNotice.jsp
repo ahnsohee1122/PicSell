@@ -67,7 +67,7 @@
 						<tr style="background-color: #f4f2f5;">
 							<td class="seq">${editNoticeList.editNotice_seq}</td>
 							<td class="title"><a style="color: black;" href="${pageContext.request.contextPath}/editNotice/detail.do?editNotice_seq=${editNoticeList.editNotice_seq}">${editNoticeList.editNotice_title}</td>
-							<td class="writer">${editNoticeList.editNotice_writer}</td>
+							<td class="writer"><a style="color: black;" href="${pageContext.request.contextPath}/writer/writerpage?nickname=${editNoticeList.editNotice_writer}">${editNoticeList.editNotice_writer}</td>
 							<td class="date">${editNoticeList.editNotice_write_date}</td>
 							<td class="viewCount">${editNoticeList.editNotice_view_count}</td>
 						</tr>

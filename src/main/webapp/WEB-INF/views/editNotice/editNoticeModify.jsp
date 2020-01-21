@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
 				<table style="width: 100%;">
 					<tr>
 						<td>글번호</td>
-						<td><input type="text" name="editNotice_seq" class="w-100 px-2" value='${map.editNotice.editNotice_seq }'></td>
+						<td><input type="text" name="editNotice_seq" class="w-100 px-2" value='${map.editNotice.editNotice_seq }' readonly></td>
 					</tr>
 					<tr>
 						<td>제목</td>
@@ -38,7 +39,7 @@
 							<c:forEach var="editFileDto" items="${map.editFileDto }">
 							<div>
 								${editFileDto.editNoticeFile_oriName } <input type="button" value="x"
-									id="a${editFileDto.pieceNoticeFile_seq }" class="test"
+									id="a${editFileDto.editNoticeFile_seq }" class="test"
 									onclick="uploadedFileDelete(${editFileDto.editNoticeFile_seq})">
 									<input type=hidden value='${editFileDto.editNoticeFile_seq }'>
 							</div>

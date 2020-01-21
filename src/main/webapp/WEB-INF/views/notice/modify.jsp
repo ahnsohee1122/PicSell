@@ -22,7 +22,7 @@
 				<table style="width: 100%;">
 					<tr>
 						<td>글번호</td>
-						<td><input type="text" name="notice_seq" class="w-100 px-2" value='${map.notice.notice_seq }'></td>
+						<td><input type="text" name="notice_seq" class="w-100 px-2" value='${map.notice.notice_seq }' readonly></td>
 					</tr>
 					<tr>
 						<td>제목</td>
