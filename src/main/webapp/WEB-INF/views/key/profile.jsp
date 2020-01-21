@@ -77,7 +77,14 @@ input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1p
 
 		})
 		
-		$("#profileimg").on("change",function(e){	
+		$("#profileimg").on("change",function(e){
+			console.log(e.target.files.length)
+			if(e.target.files.length == 0){
+				var profile = document.getElementById('profile')
+				console.log(profile)
+				profile.setAttribute('src','/img/user.png')
+			}else{
+				
 			var form = $("#fileform")[0]
 			console.log(form)
 			var data = new FormData(form);
@@ -95,7 +102,7 @@ input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1p
 				console.log(resp)
 				$("#profile").attr('src',resp)
 			})
-			
+			}
 			 
 		})
 		
