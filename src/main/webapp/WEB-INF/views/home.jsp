@@ -242,7 +242,7 @@
 <div class="row">
 <div class="card m-auto col-3 honorlist" style="width: 15rem;margin-left:30px;">
     	<h5 style="text-align:center;font-family: 'Cafe24Oneprettynight'" id="htop${latelyhonor.honorlist_seq}"></h5>
-                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
                         
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">받은 득표수 ${latelyhonor.honorpoint}</p>
@@ -287,7 +287,7 @@
 <div class="row">
 <div class="card m-auto col-3 honorlist" style="width: 15rem;margin-left:30px;">
     	<h5 style="text-align:center;font-family: 'Cafe24Oneprettynight'" id="htop${latelyhonor.honorlist_seq}"></h5>
-                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
                         
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">받은 득표수 ${latelyhonor.honorpoint}</p>
@@ -330,7 +330,7 @@
 <div class="row">
 <div class="card m-auto col-3 honorlist" style="width: 15rem;margin-left:30px;">
     	<h5 style="text-align:center;font-family: 'Cafe24Oneprettynight'" id="htop${latelyhonor.honorlist_seq}"></h5>
-                      <img src="${pageContext.request.contextPath}/img/ompangi.gif" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+                      <img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
                         
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">받은 득표수 ${latelyhonor.honorpoint}</p>

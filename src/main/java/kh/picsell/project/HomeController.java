@@ -91,42 +91,11 @@ public class HomeController {
 		request.setAttribute("imglist3", imglist3);
 		HonorListDTO newhonor = honorservice.newhonor();
 		request.setAttribute("latelyhonor", newhonor);
+		MemberDTO latelyimg = honorservice.getpicture(newhonor.getNickname());
+		request.setAttribute("latelyimg", latelyimg);
 		List<HonorDTO> honorlist;
 		honorlist = honorservice.list(hdto);
 		request.setAttribute("honorlist", honorlist);
-//		List<MemberDTO> mem = new ArrayList<>();	
-//for(int i=0; i<list.size(); i++) {
-//			
-//			//MemberDTO img = service.getpicture(list.get(i).getNickname());
-//			//request.setAttribute("img", mem);
-//			//System.out.println(img.getNickname());
-//	mem.add(service.getpicture(list.get(i).getNickname()));
-//		}
-//request.setAttribute("img",mem);
-//System.out.println(mem.size());
-//System.out.println(mem.get(0).getProfileimg());
-		
-		List<MemberDTO> mList = new ArrayList<>();
-		
-		for(int i=0; i<honorlist.size(); i++) {			
-			mList.add(honorservice.getpicture(honorlist.get(i).getNickname()));
-		}
-		request.setAttribute("mList", mList);
-
-		
-		List<HonorDTO> hlist1 = honorservice.hfirst();
-		List<HonorDTO> hlist2 = honorservice.hsecond();
-		List<HonorDTO> hlist3 = honorservice.hthird();
-		request.setAttribute("hlist1", hlist1);
-		request.setAttribute("hlist2", hlist2);
-		request.setAttribute("hlist3", hlist3);
-		
-		MemberDTO img1 = honorservice.getpicture(hlist1.get(0).getNickname());
-		MemberDTO img2 = honorservice.getpicture(hlist2.get(0).getNickname());
-		MemberDTO img3 = honorservice.getpicture(hlist3.get(0).getNickname());
-		request.setAttribute("img1", img1);
-		request.setAttribute("img2", img2);
-		request.setAttribute("img3", img3);
 		
 		
 	}catch(Exception e) {
