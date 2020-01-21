@@ -1,5 +1,6 @@
 package kh.picsell.project;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.picsell.dto.ContestDTO;
+import kh.picsell.dto.HonorDTO;
+import kh.picsell.dto.HonorListDTO;
 import kh.picsell.dto.MemberDTO;
 import kh.picsell.dto.WriterImageUpDTO;
 import kh.picsell.service.ContestService;
+import kh.picsell.service.HonorService;
 import kh.picsell.service.MemberService;
 import kh.picsell.service.WriterpageService;
 
@@ -25,7 +29,8 @@ public class HomeController {
    private MemberService service;
    @Autowired
    private HttpServletRequest request;
-
+   @Autowired
+   private HonorService honorservice;
    @Autowired
    private ContestService contestservice;
    
@@ -39,18 +44,106 @@ public class HomeController {
    }
 
    @RequestMapping("/home")
-   public String home() {
+   public String home(HonorDTO hdto, HttpServletRequest request) {
       System.out.println("공모전");
       List<ContestDTO> list =  contestservice.lastContest();
       request.setAttribute("list", list);
       List<WriterImageUpDTO> imagelist = imageservice.bestImage();
       request.setAttribute("imagelist", imagelist);
+      List<MemberDTO> list1;
+  	List<MemberDTO> list2;
+  	List<MemberDTO> list3;
+  	List<HonorListDTO> enterlist;
+  	MemberDTO mdto = new MemberDTO();
 //      List<Integer> seq = new ArrayList<>();
       
 //      for(ContestDTO c : list) {
 //         System.out.println(c.getContest_seq());
 //         seq.add(c.getContest_seq());
 //      }
+  	
+  	try {
+		MemberDTO mlist1 = honorservice.dfirst();
+		MemberDTO mlist2 = honorservice.dsecond();
+		MemberDTO mlist3 = honorservice.dthird();
+		enterlist = honorservice.enterhonorlist();
+		request.setAttribute("enterlist", enterlist);
+		if(mlist3!=null) {			
+			session.setAttribute("dto1", mlist1.getNickname());
+			session.setAttribute("dto2", mlist2.getNickname());
+			session.setAttribute("dto3", mlist3.getNickname());
+		}
+			
+		list1 = honorservice.first(mdto);
+		list2 = honorservice.second(mdto);
+		list3 = honorservice.third(mdto);
+		request.setAttribute("list1", list1);
+		request.setAttribute("list2", list2);
+		request.setAttribute("list3", list3);		
+		List<WriterImageUpDTO> imglist1;
+		List<WriterImageUpDTO> imglist2;
+		List<WriterImageUpDTO> imglist3;
+		imglist1 = honorservice.manpic(mlist1.getNickname());
+		imglist2 = honorservice.manpic(mlist2.getNickname());
+		imglist3 = honorservice.manpic(mlist3.getNickname());
+		request.setAttribute("imglist1", imglist1);
+		request.setAttribute("imglist2", imglist2);
+		request.setAttribute("imglist3", imglist3);
+		HonorListDTO newhonor = honorservice.newhonor();
+		request.setAttribute("latelyhonor", newhonor);
+		List<HonorDTO> honorlist;
+		honorlist = honorservice.list(hdto);
+		request.setAttribute("honorlist", honorlist);
+//		List<MemberDTO> mem = new ArrayList<>();	
+//for(int i=0; i<list.size(); i++) {
+//			
+//			//MemberDTO img = service.getpicture(list.get(i).getNickname());
+//			//request.setAttribute("img", mem);
+//			//System.out.println(img.getNickname());
+//	mem.add(service.getpicture(list.get(i).getNickname()));
+//		}
+//request.setAttribute("img",mem);
+//System.out.println(mem.size());
+//System.out.println(mem.get(0).getProfileimg());
+		
+		List<MemberDTO> mList = new ArrayList<>();
+		
+		for(int i=0; i<honorlist.size(); i++) {			
+			mList.add(honorservice.getpicture(honorlist.get(i).getNickname()));
+		}
+		request.setAttribute("mList", mList);
+
+		
+		List<HonorDTO> hlist1 = honorservice.hfirst();
+		List<HonorDTO> hlist2 = honorservice.hsecond();
+		List<HonorDTO> hlist3 = honorservice.hthird();
+		request.setAttribute("hlist1", hlist1);
+		request.setAttribute("hlist2", hlist2);
+		request.setAttribute("hlist3", hlist3);
+		
+		MemberDTO img1 = honorservice.getpicture(hlist1.get(0).getNickname());
+		MemberDTO img2 = honorservice.getpicture(hlist2.get(0).getNickname());
+		MemberDTO img3 = honorservice.getpicture(hlist3.get(0).getNickname());
+		request.setAttribute("img1", img1);
+		request.setAttribute("img2", img2);
+		request.setAttribute("img3", img3);
+		
+		
+	}catch(Exception e) {
+		e.printStackTrace();
+		
+	}
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
       if((String)session.getAttribute("loginInfo")!=null) { //일반회원으로 로그인
          try {
             //List<ContestDTO> imagelist = contestservice.exampleimg(contest_seq);
