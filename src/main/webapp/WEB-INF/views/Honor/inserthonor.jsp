@@ -33,8 +33,6 @@
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';">${dto.nickname} 작가님</p>
                         <p class="card-text" style="font-size: 18px; font-family: 'Cafe24Oneprettynight';"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">LIKE ${dto.likepoint }</p>
                         <p class="text-center"><input type="button" class="detailpic" id="showpic${dto.id}" value="사진보기"></p><br>
-                        <input type="hidden" id="onetopnick" value="${top.nickname}">
-                        <input type="hidden" id="onetoppoint" value="${top.honorpoint}">
                         <input type="button" value="등록하기" id="insert${dto.id}">
                         <script>
                         $("#insert${dto.id}").on("click",function(){
@@ -68,11 +66,10 @@
                         			alert("서버문제입니다");
                         		}
                         	});
-                        })
-                        
-                        	var nickname = "${dto.nickname}";
-                        	$("#showpic${thirdto.id}").on("click",function(){                        		
-                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nickname ,"Best3사진", "width=900,height=400,resizable=no");
+                        });
+
+                        	$("#showpic${dto.id}").on("click",function(){                        		
+                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${dto.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
                         	})
                         </script>
                       </div>
