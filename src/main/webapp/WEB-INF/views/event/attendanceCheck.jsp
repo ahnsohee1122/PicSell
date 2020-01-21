@@ -39,7 +39,7 @@
 }
  
 #myCanvas {
-    z-index: 1;
+    z-index: 200;
 }
  
 #prizePointer {
@@ -52,7 +52,159 @@
 }
 
 </style>
+
 <script>
+
+
+
+</script>
+
+
+
+
+</head>
+<body>
+	<jsp:include page="../key/top.jsp" flush="false"/>
+	
+	<div class="modal fade" id="rouletteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+   
+  </div>
+   <div id="canvasContainer">
+						<canvas id='myCanvas' width='800' height='410'></canvas>
+						<img id="prizePointer" src="${pageContext.request.contextPath}/img/bomb.png" alt="V" />
+						
+					</div>
+					<button onClick="theWheel.startAnimation();">룰렛 돌리기</button>
+					<button type="button" data-dismiss="modal" id="closeBtn">X</button>
+</div>
+	
+	<div>룰렛으로 가기 위한 버튼 
+		<button id="rulet">룰렛 페이지로 고고</button>
+	</div>
+	<script>
+		$("#rulet").on("click", function(){
+			location.href="${pageContext.request.contextPath}/event/rulet.do";
+		})
+	</script>
+	<div class="container-fluid m-0 py-5" style="height: 250px; background-color: #FFFEEA; font-family: 'Cafe24Ssukssuk';">
+		<div class="container text-center h-100">
+			<h4 class="my-3" style="font-size: 25px;">부지런한 자가 득템한다!</h4>
+			<h1 class="mt-4" style="font-size: 60px;">출석<img src="${pageContext.request.contextPath}/img/calendar.png" class="mx-3" style="width: 50px; height: 50px;">체크</h1>
+		</div>
+	</div>
+	<div class="container-fluid m-0 py-5" style="background-color: #A6C14C; font-family: 'Cafe24Dongdong';">
+		<div class="container calendar-container py-3" style="max-width: 1200px; background-color: white;">
+			<div id="calendar"></div>
+		</div>
+	</div>
+	
+	
+
+<script>
+
+// 룰렛 
+    let theWheel = new Winwheel({
+        'canvasId'    : 'myCanvas',
+        'drawMode' : 'image',  // drawMode must be set to image.
+        'drawText'  : true,       // Set this to true for text to be rendered for image wheels.
+        'numSegments' : 8,  // The number of segments must be specified.
+        'outerRadius'    : 170,
+        'centerY'     : 230,
+        'textAlignment'  : 'outer',
+        'textOrientation' : 'curved',   // Set text properties.
+        'textAlignment'   : 'outer',
+        'textMargin'      : 5,
+        'textFontFamily'  : 'courier',
+        'imageOverlay' : true,   // Set imageOverlay to true to display the overlay.
+        'lineWidth'    : 4,          // Overlay uses wheel line width and stroke style so can set these
+        'strokeStyle'  : 'red',       // as desired to change appearance of the overlay.
+        //'textOrientation' : 'vertical', 
+        // 'textDirection'   : 'reversed',     // Set direction. normal (default) or reversed.
+        'segments'    :
+            [
+              //  {'fillStyle' : '#eae56f', 'text' : '10원'},
+              //  {'fillStyle' : '#89f26e', 'text' : '50원'},
+              //  {'fillStyle' : '#7de6ef', 'text' : '100원'},
+              //  {'fillStyle' : '#e7706f', 'text' : '꽝'},
+              //  {'fillStyle' : '#eae56f', 'text' : '30원'},
+              //  {'fillStyle' : '#eae56f', 'text' : '70원'},
+              //  {'fillStyle' : '#eae56f', 'text' : '10원'},
+              //  {'fillStyle' : '#eae56f', 'text' : '꽝'}
+              
+                  {'fillStyle' : '#eae56f', 'text' : '10P'},
+                {'fillStyle' : '#89f26e', 'text' : '50P'},
+                {'fillStyle' : '#7de6ef', 'text' : '100P'},
+                {'fillStyle' : 'white', 'text' : '꽝'},
+                {'fillStyle' : '#eae56f', 'text' : '30P'},
+                {'fillStyle' : '#eae56f', 'text' : '70P'},
+                {'fillStyle' : '#eae56f', 'text' : '20P'},
+                {'fillStyle' : '#eae56f', 'text' : '꽝'}
+            ],
+        'lineWidth'   : 1,
+        'animation' :
+        {
+            'type'     : 'spinToStop',
+            'duration' : 5,
+            'spins'    : 8,
+ 
+            // Remember to do something after the animation has finished specify callback function.
+            'callbackFinished' : 'alertPrize()',
+ 
+            // During the animation need to call the drawTriangle() to re-draw the pointer each frame.
+            //'callbackAfter' : 'drawTriangle()'
+        }
+    });
+    
+
+    // This function called after the spin animation has stopped.
+    function alertPrize()
+    {
+        // Call getIndicatedSegment() function to return pointer to the segment pointed to on wheel.
+        let winningSegment = theWheel.getIndicatedSegment();
+        var point = winningSegment.text;
+        var point_result = 0;
+        if(point=="꽝"){
+       
+        }else{
+        	var regex = /\d+/;
+         	var result = regex.exec(point);	
+         	console.log(result[0]);
+         	point_result = result[0];
+        }
+     $.ajax({
+    	 url : "${pageContext.request.contextPath}/event/rouletProc.do",
+    	 type : "post",
+    	 data : {score : point_result}
+     }).done(function(){
+    	 if(point_result==0){
+    		 alert("꽝입니다! 다음 기회에!");
+    	 }else{
+         alert("축하합니다! " + point + "를 획득하셨습니다!");
+         console.log(winningSegment.text);
+    	 }
+     }).fail(function(data){
+    	 alert("시스템 오류가 발생했습니다. 다시 시도해주세요.");
+     })
+     
+    
+    }
+
+    // 이미지 넣는 부분 
+ 	// Create new image object in memory.
+    let wheelImg = new Image();
+     
+    // Create callback to execute once the image has finished loading.
+    wheelImg.onload = function()
+    {
+        theWheel.wheelImage = wheelImg;    // Make wheelImage equal the loaded image object.
+        theWheel.draw();                    // Also call draw function to render the wheel.
+    }
+     
+    // Set the image source, once complete this will trigger the onLoad callback (above).
+    wheelImg.src = "${pageContext.request.contextPath}/img/bomb.png";
+    
+ // 출석체크 
 	document.addEventListener('DOMContentLoaded', function() {
     	  
     $.ajax({	  
@@ -82,10 +234,12 @@
                  				var date = $(".fc-today").attr("data-date");
                  				$(".fc-custom2-button").attr('data-toggle','modal');
                  				$(".fc-custom2-button").attr('data-target','#rouletteModal');
+                 				$(".fc-custom2-button").attr('data-backdrop','static');
+                 				$(".fc-custom2-button").attr('data-keyboard','false');
                  				
-                 				$("#rouletteModal").on("click", function(){
-                 					alert("열렸다");
-                 				})
+                 
+                 				
+                 
                  				console.log(date);                 
                  				// ajax로 출석 정보를 저장한다 
 				                 $.ajax({
@@ -146,49 +300,6 @@
 	});
 
 </script>
-</head>
-<body>
-	<jsp:include page="../key/top.jsp" flush="false"/>
-	
-	<div>룰렛으로 가기 위한 버튼 
-		<button id="rulet">룰렛 페이지로 고고</button>
-	</div>
-	<script>
-		$("#rulet").on("click", function(){
-			location.href="${pageContext.request.contextPath}/event/rulet.do";
-		})
-	</script>
-	<div class="container-fluid m-0 py-5" style="height: 250px; background-color: #FFFEEA; font-family: 'Cafe24Ssukssuk';">
-		<div class="container text-center h-100">
-			<h4 class="my-3" style="font-size: 25px;">부지런한 자가 득템한다!</h4>
-			<h1 class="mt-4" style="font-size: 60px;">출석<img src="${pageContext.request.contextPath}/img/calendar.png" class="mx-3" style="width: 50px; height: 50px;">체크</h1>
-		</div>
-	</div>
-	<div class="container-fluid m-0 py-5" style="background-color: #A6C14C; font-family: 'Cafe24Dongdong';">
-		<div class="container calendar-container py-3" style="max-width: 1200px; background-color: white;">
-			<div id="calendar"></div>
-		</div>
-	</div>
-	
-	<div class="modal fade" id="rouletteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
