@@ -111,4 +111,7 @@ public int voteinsert(String nickname) throws Exception{
 public MemberDTO getpicture(String nickname) throws Exception{
 	return jdbc.selectOne("Honor.getpicture", nickname);
 }
+public HonorListDTO newhonor() {
+	return jdbc.selectOne("Honor.newhonorlist");
+}
 }
