@@ -151,7 +151,7 @@
 		
 	 	$("#commentBtn").on("click", function(){
 
-	 		var comment = $("#comment").val().replace(/(?:\r\n|\r|\n)/g, '<br/>')
+	 		var comment = $("#comment").val().replace(/(?:\r\n|\r|\n)/g, '<br/>');
 
 			$.ajax({
 				url:"${pageContext.request.contextPath}/pieceComment/commentWrite.do",
