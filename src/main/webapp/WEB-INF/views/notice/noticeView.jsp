@@ -64,10 +64,10 @@
 			</table>
 		</div>
 		<div class="container text-center">
-		<%-- <c:if test="${adminInfo !=null }"> --%>
+		<c:if test="${adminInfo !=null }">
 			<input type="button" id="delete" class="viewBtn mx-1" value="삭제">
 			<input type="button" id="modify" class="viewBtn mx-1" value="수정">
-		<%-- </c:if> --%>
+		</c:if>
 		</div>
 		<div class="container mx-auto mt-5 mb-4 text-center">
 			<table id="example" class="row-border" style="width: 100%;">
@@ -96,11 +96,14 @@
 	
 	<script>
 		$("#delete").on("click", function(){
-			location.href="${pageContext.request.contextPath}/notice/delete.do?seq=${map.notice.notice_seq}";
+			var result = confirm("삭제하시겠습니까?");
+			if(result){
+				location.href="${pageContext.request.contextPath}/notice/delete.do?seq=${map.notice.notice_seq}";	
+			}
 		})
 		
 		$("#modify").on("click", function(){
-			location.href="${pageContext.request.contextPath}/notice/modify.do?seq=${map.notice.notice_seq}";
+				location.href="${pageContext.request.contextPath}/notice/modify.do?seq=${map.notice.notice_seq}";	
 		})
 		
 		$("#listGo").on("click", function(){
