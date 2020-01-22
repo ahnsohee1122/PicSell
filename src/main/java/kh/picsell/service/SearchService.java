@@ -74,35 +74,71 @@ public class SearchService {
 //			}
 //		}
 		
-		String[] arr = tag.split(" ");
-		StringBuilder sb = new StringBuilder();
-		for(String tmp : arr) {
-			if(!tmp.contentEquals("")) {
-				sb.append("#"+tmp+"#|");
-			}
-		}
-		
-		if(sb.length() == 0) {
+		Pattern p = Pattern.compile("[^a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9 ]+");
+		Matcher m = p.matcher(tag);
+		if(m.find()) { // 특수문자를 포함하면
 			tag = "# #";
-		}else {
-			tag = sb.substring(0,sb.length()-1).toString();
-		}
-		
-		if(keyword2 != null) {
-			String[] arr2 = keyword2.split(" ");
-			StringBuilder sb2 = new StringBuilder();
-			for(String tmp : arr2) {
+		}else { // 특수문자 포함하지 않으면
+			String[] arr = tag.split(" ");
+			StringBuilder sb = new StringBuilder();
+			for(String tmp : arr) {
 				if(!tmp.contentEquals("")) {
-					sb2.append("#"+tmp+"#|");
+					sb.append("#"+tmp+"#|");
 				}
 			}
 			
-			if(sb2.length() == 0) {
-				keyword2 = "# #";
+			if(sb.length() == 0) {
+				tag = "# #";
 			}else {
-				keyword2 = sb2.substring(0,sb2.length()-1).toString();
+				tag = sb.substring(0,sb.length()-1).toString();
+			}
+			
+			if(keyword2 != null) {
+				String[] arr2 = keyword2.split(" ");
+				StringBuilder sb2 = new StringBuilder();
+				for(String tmp : arr2) {
+					if(!tmp.contentEquals("")) {
+						sb2.append("#"+tmp+"#|");
+					}
+				}
+				
+				if(sb2.length() == 0) {
+					keyword2 = "# #";
+				}else {
+					keyword2 = sb2.substring(0,sb2.length()-1).toString();
+				}
 			}
 		}
+		
+//		String[] arr = tag.split(" ");
+//		StringBuilder sb = new StringBuilder();
+//		for(String tmp : arr) {
+//			if(!tmp.contentEquals("")) {
+//				sb.append("#"+tmp+"#|");
+//			}
+//		}
+//		
+//		if(sb.length() == 0) {
+//			tag = "# #";
+//		}else {
+//			tag = sb.substring(0,sb.length()-1).toString();
+//		}
+//		
+//		if(keyword2 != null) {
+//			String[] arr2 = keyword2.split(" ");
+//			StringBuilder sb2 = new StringBuilder();
+//			for(String tmp : arr2) {
+//				if(!tmp.contentEquals("")) {
+//					sb2.append("#"+tmp+"#|");
+//				}
+//			}
+//			
+//			if(sb2.length() == 0) {
+//				keyword2 = "# #";
+//			}else {
+//				keyword2 = sb2.substring(0,sb2.length()-1).toString();
+//			}
+//		}
 		
 		System.out.println("tag:"+tag);
 		System.out.println("keyword2:"+keyword2);

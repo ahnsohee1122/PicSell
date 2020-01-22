@@ -472,7 +472,7 @@
     			
     		});
     	}else{
-    		location.href = "/Search.do?tag=" + tag;
+    		location.href = "/Search.do?tag=" + encodeURI(tag);
     	}
     }
     
