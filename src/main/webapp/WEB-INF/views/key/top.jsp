@@ -339,8 +339,7 @@ $(function(){
 </head>
 <body>
 	<div class="container-fluid p-0" style="height: 50px;">
-		<div
-			class="col-5 col-md-4 col-lg-3 py-0 px-3 px-md-4 h-100 float-left">
+		<div class="col-5 col-md-4 col-lg-3 py-0 px-3 px-md-4 h-100 float-left">
 			<ul class="h-100 float-left m-0 p-0" style="list-style: none;">
 				<a href="${pageContext.request.contextPath}/home" class="h-100">
 					<li class="h-100 float-left" style="line-height: 3.0;">
@@ -353,15 +352,18 @@ $(function(){
 		</div>
 		<c:choose>
 			<c:when test="${loginInfo == null and adminInfo == null }">
-				<div class="col-7 col-md-6 col-lg-5 col-xl-4 p-0 h-100 float-right text-right">
+				<div class="col-7 col-md-8 col-lg-9 p-0 h-100 float-right text-right">
 					<ul class="h-100 float-right mx-3 my-0" style="list-style: none;">
-						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
+						<li class="h-100 float-left mx-2 mx-sm-3 mx-xl-3 d-none d-md-block" style="line-height: 3.0;">
 							<a href="${pageContext.request.contextPath}/contest/contest.do" class="text-dark">공모전</a>
 						</li>
-						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
+						<li class="h-100 float-left mx-2 mx-sm-3 mx-xl-3 d-none d-md-block" style="line-height: 3.0;">
 							<a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a>
 						</li>
-						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
+						<li class="h-100 float-left mx-2 mx-sm-3 mx-xl-3 d-none d-md-block" style="line-height: 3.0;">
+							<a href="${pageContext.request.contextPath}/notice/notice.do" class="text-dark">커뮤니티</a>
+						</li>
+						<li class="h-100 float-left mx-2 mx-sm-3 mx-xl-3" style="line-height: 3.0;">
 							<a id="gotologin" href="#" class="text-dark explanation" data-toggle="modal" data-target="#Login">로그인</a>
 						</li>
 						<div class="modal fade" id="Login" role="dialog" aria-labelledby="Label" aria-hidden="true" style="top: 110px;">
@@ -422,13 +424,16 @@ $(function(){
 				</div>
 			</c:when>
 			<c:when test="${adminInfo != null }">
-				<div class="col-7 col-md-6 col-lg-5 col-xl-4 p-0 h-100 float-right text-right">
+				<div class="col-7 col-md-8 col-lg-9 p-0 h-100 float-right text-right">
 					<ul class="h-100 float-right mx-3 my-0" style="list-style: none;">
-						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
+						<li class="h-100 float-left mx-2 mx-sm-3 mx-xl-3 d-none d-md-block" style="line-height: 3.0;">
 							<a href="${pageContext.request.contextPath}/contest/contest.do" class="text-dark">공모전</a>
 						</li>
-						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
+						<li class="h-100 float-left mx-2 mx-sm-3 mx-xl-3 d-none d-md-block" style="line-height: 3.0;">
 							<a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a>
+						</li>
+						<li class="h-100 float-left mx-2 mx-sm-3 mx-xl-3 d-none d-md-block" style="line-height: 3.0;">
+							<a href="${pageContext.request.contextPath}/notice/notice.do" class="text-dark">커뮤니티</a>
 						</li>
 						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
 							<a href="#" class="text-dark explanation" data-toggle="modal" data-target="#AdminInfo">내 정보</a>
@@ -454,7 +459,7 @@ $(function(){
 													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">관리자 정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="member/manage.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a>
+													<a href="${pageContext.request.contextPath}/member/manage.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/img_up/NoList" style="color: black; font-size: 16px; text-decoration: none;">이미지 심사/업로드 </a>
@@ -506,15 +511,17 @@ $(function(){
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div class="col-7 col-md-6 col-lg-5 col-xl-4 p-0 h-100 float-right text-right">
+				<div class="col-7 col-md-8 col-lg-9 p-0 h-100 float-right text-right">
 					<ul class="h-100 float-right mx-3 my-0" style="list-style: none;">
-						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
+						<li class="h-100 float-left mx-2 mx-sm-3 mx-xl-3 d-none d-md-block" style="line-height: 3.0;">
 							<a href="${pageContext.request.contextPath}/contest/contest.do" class="text-dark">공모전</a>
 						</li>
-						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
+						<li class="h-100 float-left mx-2 mx-sm-3 mx-xl-3 d-none d-md-block" style="line-height: 3.0;">
 							<a href="${pageContext.request.contextPath}/writer/writer.do" class="text-dark">작가 홈</a>
 						</li>
-						
+						<li class="h-100 float-left mx-2 mx-sm-3 mx-xl-3 d-none d-md-block" style="line-height: 3.0;">
+							<a href="${pageContext.request.contextPath}/notice/notice.do" class="text-dark">커뮤니티</a>
+						</li>
 						<%-- 내 정보 modal창 --%>
 						<li class="h-100 float-left mx-2 mx-sm-3 mx-md-4" style="line-height: 3.0;">
 							<a href="#" class="text-dark explanation" data-toggle="modal" data-target="#MyInfo" id="top_money">내 정보</a>

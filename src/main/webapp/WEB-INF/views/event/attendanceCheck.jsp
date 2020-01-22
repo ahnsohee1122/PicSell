@@ -33,51 +33,24 @@
 	.fc-day-grid-event{margin:auto; height:1px;padding:0px; width:1px;}
 	.fc-content{margin-top:-5px; margin-left:-50px; width:100px; height:100px;}
 	
-	#canvasContainer {
-    position: relative;
-    width: 300px;
-}
+	#canvasContainer {position: relative; width: 300px;}
  
-#myCanvas {
-    z-index: 200;
-}
- 
-#prizePointer {
-    position: absolute;
-    left: 330px;
-    top: 10px;
-    z-index: 999;
-    width:100px;
-    height:100px;
-}
-
+	#myCanvas {z-index: 200;}
+	#prizePointer {position: absolute; left: 175px; top: 40px; z-index: 300; width: 50px; height: 50px;}
 </style>
-
-<script>
-
-
-
-</script>
-
-
-
-
 </head>
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
 	
 	<div class="modal fade" id="rouletteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-   
-  </div>
-   <div id="canvasContainer">
-						<canvas id='myCanvas' width='800' height='410'></canvas>
-						<img id="prizePointer" src="${pageContext.request.contextPath}/img/bomb.png" alt="V" />
-						
-					</div>
-					<button onClick="theWheel.startAnimation();">룰렛 돌리기</button>
-					<button type="button" data-dismiss="modal" id="closeBtn">X</button>
-</div>
+		<div class="modal-dialog m-auto" role="document">
+		</div>
+   		<div id="canvasContainer" class="m-auto" style="top: 200px; width: 400px; height: 400px;">
+			<canvas id='myCanvas' width='400' height='420'></canvas>
+			<img id="prizePointer" src="${pageContext.request.contextPath}/img/arrow.png" alt="V" />
+			<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeBtn" style="display: none;">Close</button>
+		</div>
+	</div>
 	
 	<div>룰렛으로 가기 위한 버튼 
 		<button id="rulet">룰렛 페이지로 고고</button>
@@ -98,56 +71,44 @@
 			<div id="calendar"></div>
 		</div>
 	</div>
-	
-	
 
-<script>
+	<script>
 
-// 룰렛 
+	// 룰렛 
     let theWheel = new Winwheel({
-        'canvasId'    : 'myCanvas',
-        'drawMode' : 'image',  // drawMode must be set to image.
-        'drawText'  : true,       // Set this to true for text to be rendered for image wheels.
+        'canvasId' : 'myCanvas',
+        'drawMode' : 'none',  // drawMode must be set to image.
+        'drawText' : true,       // Set this to true for text to be rendered for image wheels.
         'numSegments' : 8,  // The number of segments must be specified.
-        'outerRadius'    : 170,
-        'centerY'     : 230,
-        'textAlignment'  : 'outer',
-        'textOrientation' : 'curved',   // Set text properties.
-        'textAlignment'   : 'outer',
-        'textMargin'      : 5,
-        'textFontFamily'  : 'courier',
+        'outerRadius' : 170,
+        'centerY' : 230,
+        'textAlignment' : 'center',
+        //'textOrientation' : 'curved',   // Set text properties.
+        'textMargin' : 35,
+        //'textFontFamily' : 'courier',
+        'textFontSize'    : 20,
         'imageOverlay' : true,   // Set imageOverlay to true to display the overlay.
-        'lineWidth'    : 4,          // Overlay uses wheel line width and stroke style so can set these
-        'strokeStyle'  : 'red',       // as desired to change appearance of the overlay.
+        'lineWidth' : 6,          // Overlay uses wheel line width and stroke style so can set these
+        'strokeStyle' : '#685243',       // as desired to change appearance of the overlay.
         //'textOrientation' : 'vertical', 
+        // 'textOrientation' : 'curved',
         // 'textDirection'   : 'reversed',     // Set direction. normal (default) or reversed.
         'segments'    :
-            [
-              //  {'fillStyle' : '#eae56f', 'text' : '10원'},
-              //  {'fillStyle' : '#89f26e', 'text' : '50원'},
-              //  {'fillStyle' : '#7de6ef', 'text' : '100원'},
-              //  {'fillStyle' : '#e7706f', 'text' : '꽝'},
-              //  {'fillStyle' : '#eae56f', 'text' : '30원'},
-              //  {'fillStyle' : '#eae56f', 'text' : '70원'},
-              //  {'fillStyle' : '#eae56f', 'text' : '10원'},
-              //  {'fillStyle' : '#eae56f', 'text' : '꽝'}
-              
-                  {'fillStyle' : '#eae56f', 'text' : '10P'},
-                {'fillStyle' : '#89f26e', 'text' : '50P'},
-                {'fillStyle' : '#7de6ef', 'text' : '100P'},
-                {'fillStyle' : 'white', 'text' : '꽝'},
-                {'fillStyle' : '#eae56f', 'text' : '30P'},
-                {'fillStyle' : '#eae56f', 'text' : '70P'},
-                {'fillStyle' : '#eae56f', 'text' : '20P'},
-                {'fillStyle' : '#eae56f', 'text' : '꽝'}
+            [              
+            	{'fillStyle' : '#F79D96', 'text' : '10P'},
+                {'fillStyle' : '#f6d14a', 'text' : '50P'},
+                {'fillStyle' : '#9dc0e5', 'text' : '100P'},
+                {'fillStyle' : '#aed266', 'text' : '꽝'},
+                {'fillStyle' : '#f4f4f4', 'text' : '30P'},
+                {'fillStyle' : '#b3e0e8', 'text' : '70P'},
+                {'fillStyle' : '#f6b259', 'text' : '20P'},
+                {'fillStyle' : '#c2a1db', 'text' : '500P'}
             ],
-        'lineWidth'   : 1,
         'animation' :
         {
             'type'     : 'spinToStop',
             'duration' : 5,
-            'spins'    : 8,
- 
+            'spins'    : 20,
             // Remember to do something after the animation has finished specify callback function.
             'callbackFinished' : 'alertPrize()',
  
@@ -156,7 +117,7 @@
         }
     });
     
-
+    theWheel.startAnimation();
     // This function called after the spin animation has stopped.
     function alertPrize()
     {
@@ -179,8 +140,10 @@
      }).done(function(){
     	 if(point_result==0){
     		 alert("꽝입니다! 다음 기회에!");
+    		 $("#closeBtn").trigger("click");
     	 }else{
          alert("축하합니다! " + point + "를 획득하셨습니다!");
+         $("#closeBtn").trigger("click");
          console.log(winningSegment.text);
     	 }
      }).fail(function(data){
@@ -236,10 +199,7 @@
                  				$(".fc-custom2-button").attr('data-target','#rouletteModal');
                  				$(".fc-custom2-button").attr('data-backdrop','static');
                  				$(".fc-custom2-button").attr('data-keyboard','false');
-                 				
-                 
-                 				
-                 
+                 				                 
                  				console.log(date);                 
                  				// ajax로 출석 정보를 저장한다 
 				                 $.ajax({
@@ -299,7 +259,7 @@
 		})
 	});
 
-</script>
+	</script>
 
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
