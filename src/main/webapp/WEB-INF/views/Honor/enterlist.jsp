@@ -39,7 +39,7 @@
                         </script>
                       </div>
                     <div style="text-align:center">
-                    <input type="radio" name="who" value="${list[i].nickname}" style="text-align:center">
+                    
                     </div>
                     </div>
           
