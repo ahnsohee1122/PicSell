@@ -215,7 +215,7 @@
            <span style="font-family: 'Cafe24Oneprettynight'; font-size: 30px;">BEST PIC</span>
         </div>
         <hr class="p-0 m-0">
-        <div class="row m-auto" style="height: 1000px;">
+        <div class="row m-auto">
            <div class="col-12 col-md-12 col-xl-12 text-center px-0 py-3" id="gallery">
         	<c:forEach items="${imagelist }" var="imagelist">
            		 <div><a href='${pageContext.request.contextPath}/DetailImage.do?img_seq=${imagelist.img_seq }&nickname=${imagelist.nickname }' onclick="window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src="/watermarkfiles/xsmarked_${imagelist.sysname }" ></a></div>
@@ -431,7 +431,7 @@
     <script>
     $("#gallery").justifiedGallery({
 		rowHeight : 200,
-	    lastRow : 'nojustify',
+	    lastRow : 'hide',
 	    margins : 10
 	}); 
     
