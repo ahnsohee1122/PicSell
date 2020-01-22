@@ -97,14 +97,21 @@
 								</thead>
 								<tbody>
 									<c:forEach items="${list}" var="list">
+										<c:choose>
+										<c:when test="${list.memberOut=='N'}">
 										<tr onclick="window.open('${pageContext.request.contextPath}/DetailImage.do?img_seq=${list.dealImgSeq}&nickname=${loginInfo}', '','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" style="cursor:pointer; background-color: #f4f2f5;" class="list jg-entry entry-visible" >
+										</c:when>
+										<c:otherwise>
+										<tr onclick="alert('탈퇴한 회원입니다.')">
+										<script>
+										
+										</script>
+										</c:otherwise>
+										</c:choose>
 											<td>${list.dealDate}</td>
 											<td>${list.dealPrice}<span class="mx-1">원</span></td>
 											<td>${list.dealImgSeq}</td>
 											<td>${list.writerNickname}</td>
-											<script>
-											console.log("dddd"+${list.writerNickname});
-											</script>
 											<td><img src="/writeruploadfiles/${list.sysName}"></td>
 										</tr>
 									</c:forEach>

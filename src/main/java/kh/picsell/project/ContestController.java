@@ -1,8 +1,14 @@
 package kh.picsell.project;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,12 +183,77 @@ public class ContestController {
   //출품한리스트보기
   @RequestMapping("enrollList")
  public String enrollList(int contest_seq, HttpServletRequest request) {
+	  try {
 	 List<ContestDTO> list = service.enrollList(contest_seq);
+	 ContestDTO dto = service.detailcheck(contest_seq);
+	 System.out.println(dto.getHost());
 	 request.setAttribute("list", list);
+	 request.setAttribute("dto", dto);
+	  }catch(Exception e) {
+		  e.printStackTrace();
+		  
+	  }
 	 return "contest/enrollimagelist";
  }
    
+  
+	//사진다운로드
+	@RequestMapping("download")
+	public void download(int contest_img_seq, String enroll_sysname, HttpServletResponse response, HttpServletRequest request) {
+		System.out.println("도착?");
+		try {
+		request.setCharacterEncoding("UTF-8");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
+		String path = session.getServletContext().getRealPath("contestenroll");
+
+		String fullpath = path + "/" + enroll_sysname;
+		File f = new File(fullpath);
+		try(
+				FileInputStream fis = new FileInputStream(f);
+				DataInputStream fileDis = new DataInputStream(fis);
+				){
+			byte[] fileContents = new byte[(int)f.length()];
+			fileDis.readFully(fileContents);
+
+			response.reset();
+			response.setContentType("application/octet-stream");
+			String encFileName = new String(enroll_sysname.getBytes("utf8"),"iso-8859-1");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + encFileName + "\""); 
+			response.setHeader("Content-Length", String.valueOf(f.length()));
+			ServletOutputStream sos = response.getOutputStream();
+			sos.write(fileContents);
+			sos.flush();
+		}catch(Exception e) {
+			e.printStackTrace();
+		};
+
+		
+	}
    
-   
+	@RequestMapping(value="select")
+   public String selectsuccess(int contest_seq, HttpServletRequest request) {
+		List<ContestDTO> list = service.enrollList(contest_seq);
+		String[] select = request.getParameterValues("select");
+		service.selectedimage(select);
+
+		return "redirect:enrollList?contest_seq="+contest_seq;
+
+
+   }
+	@RequestMapping(value="alreadyselect")
+	@ResponseBody
+	public List<ContestDTO> alreadyselected(int contest_seq) {
+		 List<ContestDTO> selectedList = service.selected(contest_seq);
+		 return selectedList;
+	}
+	
+	@RequestMapping("enrolldetail")
+	public void detail() {
+		System.out.println("hihi");
+		
+	}
    
 }

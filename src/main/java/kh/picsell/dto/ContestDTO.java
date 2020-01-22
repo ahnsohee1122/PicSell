@@ -20,16 +20,8 @@ private String rejection;
 private String contest_img_seq;
 private String enroll_sysname;
 private String enroll_nickname;
-
-
-public String getEnroll_nickname() {
-	return enroll_nickname;
-}
-
-
-public void setEnroll_nickname(String enroll_nickname) {
-	this.enroll_nickname = enroll_nickname;
-}
+private String selecting;
+private String selectedimage;
 
 
 public ContestDTO() {
@@ -206,6 +198,35 @@ public String getEnroll_sysname() {
 
 public void setEnroll_sysname(String enroll_sysname) {
 	this.enroll_sysname = enroll_sysname;
+}
+
+public String getEnroll_nickname() {
+	return enroll_nickname;
+}
+
+
+public void setEnroll_nickname(String enroll_nickname) {
+	this.enroll_nickname = enroll_nickname;
+}
+
+
+public String getSelecting() {
+	return selecting;
+}
+
+
+public void setSelecting(String selecting) {
+	this.selecting = selecting;
+}
+
+
+public String getSelectedimage() {
+	return selectedimage;
+}
+
+
+public void setSelectedimage(String selectedimage) {
+	this.selectedimage = selectedimage;
 }
 
 
