@@ -1,17 +1,40 @@
 <%@ page import="kh.picsell.dto.HonorDTO" %>
 <%@ page import="kh.picsell.dto.MemberDTO" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GoVote | PicSell</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
-<jsp:include page="../key/top.jsp" flush="false"/>
+	<jsp:include page="../key/top.jsp" flush="false"/>
+	
+	<div class="container-fluid m-0 py-5 text-center" style="height: 700px; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
+		<c:choose>
+		<c:when test="${votecheck==1}">
+		<h2>실시간 투표 순위</h2>
+		<div class="row w-100 m-auto">
+			<c:forEach items="${hlist1}" var="hfir">
+				
+			</c:forEach>
+		</div>
+		</c:when>
+		</c:choose>
+		<c:otherwise>
+		<h2>명예의 전당 투표하기</h2>
+		<h5 class="mt-5 mb-3">이번달 명예의 전당 후보 작가님들 입니다!</h5>
+		<h5>당신의 명예의 전당에 투표해 주세요!</h5>
+		<div class="row w-100 m-auto">
+			<c:forEach begin="0" end="2" step="1" var="i">
+			
+			</c:forEach>
+		</div>
+		</c:otherwise>
+	</div>
+	
 <c:choose>
 <c:when test="${votecheck==1}">
 <h3>현재 투표순위</h3>
