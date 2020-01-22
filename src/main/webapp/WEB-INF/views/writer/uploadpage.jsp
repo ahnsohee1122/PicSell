@@ -88,14 +88,12 @@
 	
 			// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
 			var floatPosition = parseInt($("#floatMenu").css('top'));
-			var loadingPosition = parseInt($("#Progress_Loading").css('top'));
 			// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
 	
 			$(window).scroll(function() {
 				// 현재 스크롤 위치를 가져온다.
 				var scrollTop = $(window).scrollTop();
 				var newPosition = scrollTop + floatPosition + "px";
-				var loadPosition = scrollTop + loadingPosition + "px";
 				/* 애니메이션 없이 바로 따라감
 				 $("#floatMenu").css('top', newPosition);
 				 */
@@ -103,10 +101,7 @@
 				$("#floatMenu").stop().animate({
 					"top" : newPosition
 				}, 500);
-				 
-				$("#Progress_Loading").stop().animate({
-					"top" : loadPosition
-				}, 500);
+				
 	
 			}).scroll();
 	
@@ -128,12 +123,7 @@
 				document.getElementById('XDimension').value = EXIF.getTag(this,
 						"PixelXDimension")
 				document.getElementById('YDimension').value = EXIF.getTag(this,
-						"PixelXDimension")
-				document.getElementById('orientation').value = EXIF.getTag(this,
-						"Orientation")
-				var orientation = document.getElementById('orientation').value;
-				
-						
+						"PixelXDimension")			
 			});
 			
 		}
@@ -147,53 +137,17 @@
 				var img = new Image()
 				img.src = data
 				thumb.innerHTML = ''
-				thumb.appendChild(img)
-				
-				
 				img.onload = function() {
-					var dataURL = watermarkedDataURL(img, "PICSELL",
-							cnt, thumb);
 					var xsdataURL = xswatermarkedDataURL(img,"PICSELL",cnt,thumb)
 					$('#Progress_Loading').hide();
+					thumb.appendChild(img)
 					
 				};
 				
 			};
 			if (files && files[0])reader.readAsDataURL(files[0])
-
-			
-
-
 		};
 
-		//워터마크 새로 canvas에 그리기.
-		function watermarkedDataURL(img, text, cnt, thumb) {
-			var tempCanvas = document.createElement('canvas');
-			tempCanvas.classList.add("watermark")
-			var tempCtx = tempCanvas.getContext('2d');
-			var hidden = document.createElement('input')
-			hidden.setAttribute('type', 'hidden')
-			hidden.classList.add("watermark" + cnt)
-			hidden.setAttribute('name', "watermark" + cnt)
-			var cw, ch;
-			cw = tempCanvas.width = img.naturalWidth;
-			ch = tempCanvas.height = img.naturalHeight;
-			tempCtx.drawImage(img, 10, 10);
-			tempCtx.font = "200px verdana";
-			var textWidth = tempCtx.measureText(text).width;
-			tempCtx.globalAlpha = .50;
-			tempCtx.fillStyle = 'white'
-			tempCtx.textAlign = 'center'
-			tempCtx.textBaseline = 'middle';
-			var x = cw / 2;
-			var y = ch / 2
-			tempCtx.fillText(text, x, y);
-			thumb.appendChild(tempCanvas);
-			thumb.appendChild(hidden)
-			document.getElementsByClassName("watermark" + cnt)[0].value = tempCanvas
-					.toDataURL()
-			return (tempCanvas.toDataURL());
-		}
 		//작은워터마크
 		function xswatermarkedDataURL(img, text, cnt, thumb) {
 			var xstempCanvas = document.createElement('canvas');
@@ -203,20 +157,20 @@
 			xshidden.setAttribute('type', 'hidden')
 			xshidden.classList.add("xswatermark" + cnt)
 			xshidden.setAttribute('name', "xswatermark" + cnt)
-			var xscw, xsch;
-			xscw = xstempCanvas.width = img.naturalWidth;
-			xsch = xstempCanvas.height = img.naturalHeight;
-			xstempCtx.drawImage(img, 10, 10);
-			xstempCtx.font = "40px verdana";
+			xstempCanvas.width = img.naturalWidth;
+			xstempCanvas.height = img.naturalHeight;
+			xstempCtx.drawImage(img, 0, 0);
+			var ratio = 50 / 1000;
+			var fontSize = img.naturalWidth * ratio;
+			xstempCtx.font = (fontSize|0) + 'px Arial'
 			var xstextWidth = xstempCtx.measureText(text).width;
 			xstempCtx.globalAlpha = .50;
 			xstempCtx.fillStyle = 'white'
 			xstempCtx.textAlign = 'right'
 			xstempCtx.textBaseline = 'middle';
-			var x = xscw-10;
-			var y = xsch-20;
+			var x = xstempCanvas.width-10;
+			var y = xstempCanvas.height-100;
 			xstempCtx.fillText(text, x, y);
-			thumb.appendChild(xstempCanvas);
 			thumb.appendChild(xshidden)
 			document.getElementsByClassName("xswatermark" + cnt)[0].value = xstempCanvas
 					.toDataURL()
@@ -401,7 +355,6 @@
 				list.removeChild(item)
 				list.removeChild(hr)
 				count--;
-				console.log("- : " + count)
 				}
 			}
 			
@@ -412,7 +365,6 @@
 				list.appendChild(item)
 				list.appendChild(hr)
 				count++
-				console.log("+ : " + count)
 
 			if (count >= 10) {
 				alert("최대 10개까지 업로드 가능합니다")
@@ -425,8 +377,20 @@
 	
 		//태그추가. 	
 		function addTags(e, cnt, view, list) {
+			var regex = /[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9 ]+/;
+			var data = e.target.value
+			var result = regex.exec(data)
+
+   			
 			if (e.key === 'Enter') {
 				e.preventDefault()
+				
+				if(result == null){
+					alert("특수문자는 태그로 등록 할 수 없습니다")
+					var a = document.getElementsByClassName("taginput"+cnt)[0].value="";
+					return false
+				
+				}
 
 				if (!e.target.value) {
 					alert('태그를 입력해주세요.')
@@ -434,7 +398,6 @@
 				}
 
 				var value = e.target.value.replace(/ +/g, '')
-				console.log(list)
 				var overlap = list.reduce(function(a, c) {
 					!a && (a = c === value)
 					return a
