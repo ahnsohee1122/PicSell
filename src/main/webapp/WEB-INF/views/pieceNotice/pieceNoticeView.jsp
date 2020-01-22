@@ -148,13 +148,14 @@
 		/*여기부터 comment  */
 		
 	 	$("#commentBtn").on("click", function(){
+		var comment = $("#comment").val().replace(/(?:\r\n|\r|\n)/g, '<br/>')
 			$.ajax({
 				url:"${pageContext.request.contextPath}/pieceComment/commentWrite.do",
 				type:"post",
 				data:{
 					pieceNotice_seq:"${map.pieceNotice.pieceNotice_seq}",
 					writer:"회원",
-					comment:$("#comment").val()
+					comment: comment
 				},
 				dataType:"JSON"
 			}).done(function(res){
