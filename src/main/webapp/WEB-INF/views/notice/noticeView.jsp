@@ -96,11 +96,14 @@
 	
 	<script>
 		$("#delete").on("click", function(){
-			location.href="${pageContext.request.contextPath}/notice/delete.do?seq=${map.notice.notice_seq}";
+			var result = confirm("삭제하시겠습니까?");
+			if(result){
+				location.href="${pageContext.request.contextPath}/notice/delete.do?seq=${map.notice.notice_seq}";	
+			}
 		})
 		
 		$("#modify").on("click", function(){
-			location.href="${pageContext.request.contextPath}/notice/modify.do?seq=${map.notice.notice_seq}";
+				location.href="${pageContext.request.contextPath}/notice/modify.do?seq=${map.notice.notice_seq}";	
 		})
 		
 		$("#listGo").on("click", function(){

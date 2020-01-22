@@ -101,12 +101,12 @@
 				</thead>
 			</table>
 		</div>
+		<c:if test="${loginInfo == map.pieceNotice.pieceNotice_writer }">
 		<div class="container text-center">
-		<%-- <c:if test="${adminInfo !=null }"> --%>
 			<input type="button" id="delete" class="viewBtn mx-1" value="삭제">
 			<input type="button" id="modify" class="viewBtn mx-1" value="수정">
-		<%-- </c:if> --%>
 		</div>
+		</c:if>
 		<div class="container mx-auto mt-5 mb-4 text-center">
 			<table id="example" class="row-border" style="width: 100%;">
 				<tr style="height: 50px;">
@@ -148,13 +148,14 @@
 		/*여기부터 comment  */
 		
 	 	$("#commentBtn").on("click", function(){
+	 		var comment = $("#comment").val().replace(/(?:\r\n|\r|\n)/g, '<br/>')
 			$.ajax({
 				url:"${pageContext.request.contextPath}/editComment/commentWrite.do",
 				type:"post",
 				data:{
 					editNotice_seq:"${map.editNotice.editNotice_seq}",
 					writer:"회원",
-					comment:$("#comment").val()
+					comment:comment
 				},
 				dataType:"JSON"
 			}).done(function(res){

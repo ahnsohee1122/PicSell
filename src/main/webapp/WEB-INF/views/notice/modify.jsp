@@ -90,14 +90,12 @@
 					alert("본문 내용을 입력해주세요.");
 					return;
 				}
-
-				$("#frm").submit();
+				var result = confirm("수정 하시겠습니까?");
+				if(result){
+					$("#frm").submit();
+				}
 			})
 		})
-			
-		$("#writeBtn").on("click",function(){
-			$("#frm").submit();
-		});
 	</script>
 	
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
