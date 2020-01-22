@@ -78,10 +78,12 @@
 									</td>
 									<td class="p-2" style="width: 20%">${commentDto.write_date }</td>
 									<td class="p-2" style="width: 15%">${commentDto.writer}</td>
+									<c:if test="${(loginInfo == commentDto.writer) || (adminInfo != null)}">
 									<td class="p-2" style="width: 8%">
 										<input type="button" value="삭제" id="a${commentDto.comment_seq }" class="mb-1" onclick="commentDelete(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 										<input type="button" value="수정" id="b${commentDto.comment_seq }" onclick="commentModify(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 									</td>
+									</c:if>
 								</tr>
 								</c:forEach>
 							</table>
@@ -101,12 +103,12 @@
 				</thead>
 			</table>
 		</div>
+		<c:if test="${loginInfo == map.pieceNotice.pieceNotice_writer }">
 		<div class="container text-center">
-		<%-- <c:if test="${adminInfo !=null }"> --%>
 			<input type="button" id="delete" class="viewBtn mx-1" value="삭제">
 			<input type="button" id="modify" class="viewBtn mx-1" value="수정">
-		<%-- </c:if> --%>
 		</div>
+		</c:if>
 		<div class="container mx-auto mt-5 mb-4 text-center">
 			<table id="example" class="row-border" style="width: 100%;">
 				<tr style="height: 50px;">
@@ -148,13 +150,16 @@
 		/*여기부터 comment  */
 		
 	 	$("#commentBtn").on("click", function(){
+
+	 		var comment = $("#comment").val().replace(/(?:\r\n|\r|\n)/g, '<br/>')
+
 			$.ajax({
 				url:"${pageContext.request.contextPath}/pieceComment/commentWrite.do",
 				type:"post",
 				data:{
 					pieceNotice_seq:"${map.pieceNotice.pieceNotice_seq}",
 					writer:"회원",
-					comment:$("#comment").val()
+					comment: comment
 				},
 				dataType:"JSON"
 			}).done(function(res){
@@ -220,6 +225,9 @@
 				})
 			}
 		}		
+		$("#listBtn").on("click",function(){
+			location.href="${pageContext.request.contextPath}/pieceNotice/notice.do";
+		})
 	</script>
 	
 	<jsp:include page="../key/bottom.jsp" flush="false"/>

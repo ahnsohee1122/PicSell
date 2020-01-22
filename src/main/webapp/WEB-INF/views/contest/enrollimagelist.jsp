@@ -8,7 +8,7 @@
 <title>Enroll Image List | PicSell</title>
 <style>
 	.one {max-height: 450px;}
-	.image > img {margin: auto; width: 100%; height: 100%;}
+	.image > a > img {margin: auto; width: 100%; height: 100%;}
 </style>
 </head>
 <body>
@@ -17,7 +17,7 @@
 	<div class="container-fluid m-0 py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 		<div class="container m-auto">
 			<h2 class="mx-auto my-0 text-center">출품작</h2>
-			<!-- 선택완료 버튼을 누른 후 다운로드 버튼이 생깁니다. 공모전 마감 후 14일동안 다운로드 받을 수 있습니다. 안내문구 넣어줘! -->
+			<!-- 선택완료 버튼을 누른 후 다운로드 버튼이 생깁니다. 선택완료 후에는 추가선택할 수 없습니다. 신중히 선택하여 주시기 바랍니다. 공모전 마감 후 14일동안 다운로드 받을 수 있습니다. 안내문구 넣어줘! -->
 		</div>
 			<form action="/contest/select" >
 			<input type="hidden" value="${dto.contest_seq}" name="contest_seq">
@@ -27,13 +27,13 @@
 					<div class="col-4 w-100 my-0 one p-2">
 						<div class="card w-100 h-100 p-2">
 							<div class="row image w-100 mx-auto text-center" style="height: 250px;">
-								<img src="/contestenroll/${list.enroll_sysname }">
+								<a href="#" ><img src="/contestenroll/${list.enroll_sysname }"></a>
 							</div>
 						  	<div class="row align-items-center image w-100 mx-auto text-center py-3" style="height: 50px;">
 						    	<p class="nickname mx-auto"><a href='${pageContext.request.contextPath}/writer/writerpage?nickname=${list.enroll_nickname }' style="text-decoration: none;"><span class="mx-1">@</span>${list.enroll_nickname }</a></p>
 						  		<c:choose>
 						  		<c:when test="${loginInfo == dto.host }">
-						  			<input type="checkbox" name="select" value="${list.contest_img_seq }" id="select${list.contest_img_seq }" class=select><label class="label${status.index }">선택</label>
+						  			<input type="checkbox" name="select" value="${list.contest_img_seq }" id="select${list.contest_img_seq }" class=select><label for="select${list.contest_img_seq }">선택</label>
 						  		</c:when>
 						  		</c:choose>
 						  	</div>
@@ -55,7 +55,7 @@
 	
 	$(function(){
 		$.ajax({
-			url:"/contest/a",
+			url:"/contest/alreadyselect",
 			type:"GET",
 			dataType:"json",
 			data:{"contest_seq" : "${dto.contest_seq}"}

@@ -51,8 +51,13 @@ public class PieceNoticeController {
 	@RequestMapping("/writeProc.do")
 	public String writeProc(PieceNoticeDTO pieceNoticeDto, PieceNoticeFileDTO pieceNoticeFileDto) {
 		//String nickName = (String)session.getAttribute("loginInfo");
+		String nickName = "";
+		if(session.getAttribute("loginInfo") != null) {
+			nickName = (String)session.getAttribute("loginInfo");
+		}else if(session.getAttribute("adminInfo") != null) {
+			nickName = (String)session.getAttribute("adminInfo"); 
+		}
 		
-		String nickName = "a123";
 		pieceNoticeDto.setPieceNotice_writer(nickName);
 		
 		String file_path = session.getServletContext().getRealPath("/pieceNotice_files");

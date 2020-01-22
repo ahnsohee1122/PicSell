@@ -16,7 +16,7 @@ insert into honorvote values(#{nickname})
 	select count(*) from honorvote where nick=#{nick}
 	</select>
 <select id="enterhonorlist" resultType="kh.picsell.dto.HonorListDTO">
-select * from honorlist
+select * from honorlist order by honor_date desc
 </select>
 <select id="honorlist" resultType="kh.picsell.dto.HonorDTO">
 select * from honor

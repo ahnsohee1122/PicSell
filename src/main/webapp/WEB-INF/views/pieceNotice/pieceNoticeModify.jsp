@@ -23,7 +23,7 @@
 				<table style="width: 100%;">
 					<tr>
 						<td>글번호</td>
-						<td><input type="text" name="pieceNotice_seq" class="w-100 px-2" value='${map.pieceNotice.pieceNotice_seq }'></td>
+						<td><input type="text" name="pieceNotice_seq" class="w-100 px-2" value='${map.pieceNotice.pieceNotice_seq }' readonly></td>
 					</tr>
 					<tr>
 						<td>제목</td>

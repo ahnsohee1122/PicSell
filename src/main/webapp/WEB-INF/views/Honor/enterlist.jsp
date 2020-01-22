@@ -18,6 +18,7 @@
 </c:when>
 <c:otherwise>
 <c:forEach begin="0" end="${list.size()-1}" step="1" var="i">
+<h5 style="text-align: center;" id="htop${list[i].honorlist_seq}"></h5>
 <div class="card m-auto col-2" style="width: 15rem;border:3px solid black;border-style:outset;margin-left:30px;">
                       <img src="/profileimage/${mList[i].profileimg }" class="card-img-top m-auto" style="width: 200px; height: 200px;">
                       <div class="card-body">
@@ -26,7 +27,11 @@
                         <p class="text-center"><input type="button" class="detailpic" id="sshowpic${list[i].honorlist_seq}" value="사진보기"></p>
                         
                         <script>
-                        
+                        var when = "${list[i].honor_date}";
+						var topyear = when.substr(0,4);
+						var topmonth = when.substr(5,2);
+						$("#htop${list[i].honorlist_seq}").html(topyear + " 년  " + topmonth + " 월 ");
+               
                         	
                         	$("#sshowpic${list[i].honorlist_seq}").on("click",function(){
                         window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${list[i].nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
@@ -34,7 +39,7 @@
                         </script>
                       </div>
                     <div style="text-align:center">
-                    <input type="radio" name="who" value="${list[i].nickname}" style="text-align:center">
+                    
                     </div>
                     </div>
           
