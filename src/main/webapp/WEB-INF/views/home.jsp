@@ -489,8 +489,11 @@
                     <div class="MultiCarousel-inner">
                         <c:forEach items="${list }" var="list">
                         <div class="item">
-                            <div class="pad15">
-                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
+                            <div class="pad15"style="margin: auto; width: 300px; background-color: white;">
+	                            <div class="text-center">
+		    						<img src="${pageContext.request.contextPath}/img/contest_image.PNG" style="width: 300px; height: 170px;">
+		    						<p class="card-img-overlay m-auto py-5" style="position: absolute; bottom: 180px; height: 170px; font-size: 50px; font-weight: 500; font-family: 'Cafe24Oneprettynight';">일본어하이요</p>
+		    					</div>
                                 <p class="lead">${list.title }</p>
                                 <p class="text-danger">집계중</p>
                                 <p>${list.enddate }</p>
