@@ -247,7 +247,7 @@ public String like(String nickname) {
 		return "서버";
 	}
 }
-@RequestMapping("gohonorlist.do")
+@RequestMapping("/gohonorlist.do")
 public String gohonorlist(HonorListDTO dto, HttpServletRequest request) {
 	List<HonorListDTO> list;
 	try {
@@ -264,7 +264,7 @@ public String gohonorlist(HonorListDTO dto, HttpServletRequest request) {
 	}
 	return "Honor/enterlist";
 }
-@RequestMapping("govote.do")
+@RequestMapping("/govote.do")
 public String govote(HonorDTO hdto, HttpServletRequest request) {
 	List<HonorDTO> list;
 	try {
