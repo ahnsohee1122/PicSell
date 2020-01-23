@@ -30,6 +30,11 @@ public class EventController {
 	@Autowired
 	private HttpServletRequest request;
 	
+	// 출석체크 팝업창 띄우기 
+	@RequestMapping(value = "/pop.do")
+	public String pop() {
+		return "/event/pop";
+	}
 	// 출석체크 화면 진입  
 		@RequestMapping(value = "/attendance_check.do")
 		public String home() {
@@ -74,11 +79,11 @@ public class EventController {
 
 		// 3. 출석체크한 사용자의 닉네임, 날짜 추가
 		// 4. 출석체크한 사용자에게 10포인트 추가
-		@RequestMapping(value = "/insertEvent")
+		@RequestMapping(value = "/changeButton")
 		@ResponseBody
 		public String select(String event_date) {
 			String nickname = (String)session.getAttribute("loginInfo");
-			event_sv.insertCalendar(nickname, event_date);
+			//event_sv.insertCalendar(nickname, event_date);
 			return "1";
 		}
 
@@ -101,7 +106,7 @@ public class EventController {
 			// 꽝인 경우 
 			if(score == 0) {
 				// 출석체크는 된다 
-				
+				event_sv.insertRoulette(nickname, today, 0);
 				// 포인트는 0이기 때문에 들어가지않는다 
 			// 포인트 당첨된 경우	
 			}else {

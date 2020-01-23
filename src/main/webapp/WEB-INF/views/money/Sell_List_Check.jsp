@@ -52,7 +52,8 @@
 			},
 			"pagingType": "simple_numbers"
 		});        
-	});     
+	});  
+	
 </script>	
 </head>
 <body>

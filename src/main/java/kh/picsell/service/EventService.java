@@ -30,22 +30,12 @@ public class EventService {
 			return list;
 		}
 		
-		// 오늘의 출석체크 정보 저장하기 
-		@Transactional("txManager")
-		public void insertCalendar(String nickname, String event_date) {
-			// pointMapper pointMapper = new PointMapper();
-			// 3. 출석체크한 사용자의 닉네임, 날짜 추가
-			event_dao.addCalendar(nickname, event_date);
-			// 4. 출석체크한 사용자에게 10포인트 추가
-			event_dao.addPoint(nickname, event_date);
-		}
-		
 	// 룰렛 돌리기 
 		// 오늘의 출석체크 정보 저장하기 
 		public void insertRoulette(String nickname, String event_date, int point) {
 			// pointMapper pointMapper = new PointMapper();
 			// 3. 출석체크한 사용자의 닉네임, 날짜 추가
-			//event_dao.addCalendar(nickname, event_date);
+			event_dao.addCalendar(nickname, event_date);
 			// 4. 사용자에게 룰렛 돌려서 나온 포인트 추가
 			event_dao.roulettePoint(nickname, event_date, point);
 		}
