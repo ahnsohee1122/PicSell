@@ -79,7 +79,7 @@
     				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
     					<div class="text-center">
     						<img src="${pageContext.request.contextPath}/img/contest_image.PNG" style="width: 300px; height: 170px;">
-    						<p class="card-img-overlay m-auto py-5" style="font-size: 50px; font-weight: 500;">일본어하이요</p>
+    						<p class="card-img-overlay m-auto py-5" style="position: absolute; bottom: 180px; height: 170px; font-size: 50px; font-weight: 500;">일본어하이요</p>
     					</div>
     					<p class="px-2 pb-2" style="font-size: 20px;"><a href="${pageContext.request.contextPath}/contest/detail?title=${dto.title }&contest_seq=${dto.contest_seq}" style="color: black;">${dto.title }</a></p>
     					<p class="px-2 py-0" style="font-size: 17px;" id="price${dto.contest_seq}"></p>
