@@ -74,7 +74,11 @@
 			</div>
 			<div class="row w-100 mx-auto my-3 text-center">
 				<input type="button" id="back" value="이전으로" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
-				<input type="button" id="select" value="선택하기" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
+				<c:choose>
+				<c:when test="${loginInfo == dto.host }">
+					<input type="button" id="select" value="선택하기" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
+				</c:when>
+				</c:choose>
 			</div>
 		</div>
 				</form>

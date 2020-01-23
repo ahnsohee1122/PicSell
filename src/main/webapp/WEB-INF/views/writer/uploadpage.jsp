@@ -146,6 +146,7 @@
 				
 			};
 			if (files && files[0])reader.readAsDataURL(files[0])
+			getExif(files[0]);
 		};
 
 		//작은워터마크
@@ -179,6 +180,7 @@
 		
 		
 		function leftTemplate(cnt) {
+			console.log(cnt)
 			var left = document.createElement('div')
 			var input = document.createElement('input')
 			var thumb = document.createElement('div')
@@ -188,13 +190,15 @@
 			input.setAttribute('name', 'file')
 			input.setAttribute('accept','image/*')
 			input.onchange = function(e) {
+				console.log(cnt)
+				
 				$('#Progress_Loading').show();
 				
 				if(e.target.files.length == 0){
-					document.getElementsByClassName('canvas')[0].innerHTML = "";
+					document.getElementsByClassName('canvas')[cnt].innerHTML = "";
 					$('#Progress_Loading').hide();
 				}else{
-					
+					console.log(e)
 					//이미지 확장자 체크
 					var filename = e.target.files[0].name
 					var reg = /(.*?)\.(jpg|jpeg|png|bmp|JPG|JPEG|PNG|BMP)$/;
@@ -209,10 +213,10 @@
 					var img = new Image();
 					img.src = _URL.createObjectURL(file);
 					
-					getExif(this.files[0]);
+					
 					
 					function pixel(){ 
-	
+					console.log(cnt)
 					var xPixel = img.width
 					var yPixel = img.height
 					console.log(xPixel);
@@ -220,20 +224,20 @@
 					
 						if(!filename.match(reg)) {
 							alert("해당 파일은 이미지 파일이 아닙니다.");
-							$("input[type=file]").val("");
+							document.getElementsByName('file')[cnt].value = "";
 							return;
 						}
 						
 						if(xPixel == null || yPixel == null || xPixel < 720 || yPixel < 720){
 							alert("최소 해상도는 720픽셀 이상이어야 합니다.")
-							$("input[type=file]").val("");
+							document.getElementsByName('file')[cnt].value = "";
 							return;
 					
 						}
 						
 						if(filesize > maxSize){
 							alert("첨부파일 사이즈는 30MB 이내로 등록 가능합니다.")
-							$("input[type=file]").val("");
+							document.getElementsByName('file')[cnt].value = "";
 							return;
 						}
 						

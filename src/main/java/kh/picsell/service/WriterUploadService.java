@@ -141,8 +141,6 @@ public class WriterUploadService {
 				xsdos.flush();
 				xsdos.close();
 
-				dto.setSysname_watermark(sysName_watermark);
-
 				//파일이름저장
 				dto.setOriname(oriNamelist.get(i));
 				dto.setSysname(sysNamelist.get(i));
