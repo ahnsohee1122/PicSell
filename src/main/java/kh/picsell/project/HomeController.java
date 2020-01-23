@@ -48,9 +48,7 @@ public class HomeController {
       request.setAttribute("list", list);
       List<WriterImageUpDTO> imagelist = imageservice.bestImage();
       request.setAttribute("imagelist", imagelist);
- 
-  	List<HonorListDTO> enterlist;
-  	MemberDTO mdto = new MemberDTO();
+   
 //      List<Integer> seq = new ArrayList<>();
       
 //      for(ContestDTO c : list) {
@@ -60,8 +58,6 @@ public class HomeController {
   	
   	try {
 		
-			
-
 		HonorListDTO newhonor = honorservice.newhonor();
 		request.setAttribute("latelyhonor", newhonor);
 		MemberDTO latelyimg = honorservice.getpicture(newhonor.getNickname());
