@@ -19,7 +19,37 @@
 			<h2 class="mx-auto my-0 text-center">출품작</h2>
 			<!-- 선택완료 버튼을 누른 후 다운로드 버튼이 생깁니다. 선택완료 후에는 추가선택할 수 없습니다. 신중히 선택하여 주시기 바랍니다. 공모전 마감 후 14일동안 다운로드 받을 수 있습니다. 안내문구 넣어줘! -->
 		</div>
-			<form action="/contest/select" >
+		<c:choose>
+		<c:when test="${loginInfo == dto.host }">
+		<button type="button" style="display:none" id="alert" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+		  Launch demo modal
+		</button>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">당선작 선택</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        	이미지를 선택 후 선택완료 버튼을 누르시면 다운로드 버튼이 생깁니다.<br>
+		        	선택완료 버튼을 누르신 후에는 추가 선택 할 수 없습니다.<br>
+		        	신중히 선택하여 주시기 바랍니다.<br>
+		        	공모전 마감 후 14일 동안 다운받을 수 있습니다.
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		</c:when>
+		</c:choose>
+			<form action="/contest/select" id="selectform" method="post" >
 			<input type="hidden" value="${dto.contest_seq}" name="contest_seq">
 		<div class="container mx-auto my-5 p-3 text-center" style="border: 1px solid darkgray; border-radius: 10px;">
 			<div class="row w-100 m-auto">
@@ -27,7 +57,7 @@
 					<div class="col-4 w-100 my-0 one p-2">
 						<div class="card w-100 h-100 p-2">
 							<div class="row image w-100 mx-auto text-center" style="height: 250px;">
-								<a href="#" ><img src="/contestenroll/${list.enroll_sysname }"></a>
+								<a href="/contest/enrolldetail?contest_img_seq=${list.contest_img_seq }&title=${dto.title}" onclick=window.open(this.href,'',"width=800,height=800") return false; style="height: 250px;" ><img src="/contestenroll/marked_${list.enroll_sysname }"></a>
 							</div>
 						  	<div class="row align-items-center image w-100 mx-auto text-center py-3" style="height: 50px;">
 						    	<p class="nickname mx-auto"><a href='${pageContext.request.contextPath}/writer/writerpage?nickname=${list.enroll_nickname }' style="text-decoration: none;"><span class="mx-1">@</span>${list.enroll_nickname }</a></p>
@@ -43,7 +73,7 @@
 			</div>
 			<div class="row w-100 mx-auto my-3 text-center">
 				<input type="button" id="back" value="이전으로" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
-				<input type="submit" id="select" value="선택하기" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
+				<input type="button" id="select" value="선택하기" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
 			</div>
 		</div>
 				</form>
@@ -54,6 +84,7 @@
 	var label = document.getElementsByTagName('label')
 	
 	$(function(){
+		
 		$.ajax({
 			url:"/contest/alreadyselect",
 			type:"GET",
@@ -72,10 +103,12 @@
 					selectId.setAttribute('type','button')
 					selectId.setAttribute('value','다운로드')
 	                selectId.classList.add('download')
+	                $("#select").attr('type','hidden')
 	                selectId.setAttribute('onclick','location.href=\'/contest/download?contest_img_seq='+e[i].contest_img_seq+'&enroll_sysname='+e[i].enroll_sysname+'\'')
 				}
 				
 			}else if(e.length == 0){
+				$("#alert").click();
 				return;
 			}
 		}).fail(function(e){
@@ -89,18 +122,15 @@
 		})
 	
 
+		$("#select").on("click",function(){
+			if(confirm("선택완료 후에는 재선택 하실 수 없습니다. 선택을 완료하시겠습니까?")){
+				$("#select").attr('type','hidden')
+				$("#selectform").submit();
+			}else{
+				return;
+			}
+		})
 		
-		
-		
-			
-			
-		
-			
-			
-		
-		
-		
-
 
 	</script>
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
