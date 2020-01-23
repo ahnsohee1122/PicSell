@@ -77,7 +77,10 @@
 				<c:forEach items="${list}" var="dto">
 				<div class="col-12 col-md-6 col-xl-4 mt-2 mb-4" id="contest${dto.contest_seq}">
     				<div class="convention pb-3" style="margin: auto; width: 300px; background-color: white;">
-    					<p><img src="${pageContext.request.contextPath}/img/contest01.jpg" style="width: 300px; height: 170px;"></p>
+    					<div class="text-center">
+    						<img src="${pageContext.request.contextPath}/img/contest_image.PNG" style="width: 300px; height: 170px;">
+    						<p class="card-img-overlay m-auto py-5" style="font-size: 50px; font-weight: 500;">일본어하이요</p>
+    					</div>
     					<p class="px-2 pb-2" style="font-size: 20px;"><a href="${pageContext.request.contextPath}/contest/detail?title=${dto.title }&contest_seq=${dto.contest_seq}" style="color: black;">${dto.title }</a></p>
     					<p class="px-2 py-0" style="font-size: 17px;" id="price${dto.contest_seq}"></p>
     					<p class="px-2 py-0" style="font-size: 17px;" id="date${dto.enddate }">기간 : <span class="mr-1">~</span>${dto.enddate}</p>
@@ -95,9 +98,7 @@
     				  return num.toString().replace(regexp, ',');
     				}
   				$("#price${dto.contest_seq}").html("상금 : "+(addComma(num))+"원");
-  			
-    			
-    			
+  			    			
     			var a = "${dto.enddate}";
     
     			var inputyear = a.substr(0,4); //게시끝나는년도
@@ -152,9 +153,9 @@
         			}
     			
     			</script>
-</c:forEach>
-</c:otherwise>
-</c:choose>
+			</c:forEach>
+			</c:otherwise>
+			</c:choose>
     		</div>
     	</div>
     </div>
