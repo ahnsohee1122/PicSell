@@ -77,7 +77,7 @@
 										</div>
 									</td>
 									<td class="p-2" style="width: 20%">${commentDto.write_date }</td>
-									<td class="p-2" style="width: 20%">${commentDto.writer}</td>
+									<td class="p-2" style="width: 20%"><a href= "${pageContext.request.contextPath}/writer/writerpage?nickname=${commentDto.writer}">${commentDto.writer}</a></td>
 									<c:if test="${(loginInfo == commentDto.writer) || (adminInfo != null)}">
 									<td class="p-2" style="width: 10%">
 										<input type="button" value="삭제" id="a${commentDto.comment_seq }" class="mb-1" onclick="commentDelete(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
