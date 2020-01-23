@@ -72,6 +72,9 @@
 				$("#frm").submit();
 			})
 		})
+		$("#listBtn").on("click",function(){
+			location.href="${pageContext.request.contextPath}/pieceNotice/notice.do";
+		})
 	</script>
 </body>
 </html>

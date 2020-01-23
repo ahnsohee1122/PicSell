@@ -44,13 +44,15 @@ public class PieceNoticeController {
 	
 	@RequestMapping("/noticeWrite.do")
 	public String write() {
-		return "pieceNotice/pieceNoticeWrite";
+		if((session.getAttribute("loginInfo") != null) || (session.getAttribute("adminInfo") != null)) {
+			return "pieceNotice/pieceNoticeWrite";
+		}
+		return "home";
 
 	}
 	
 	@RequestMapping("/writeProc.do")
 	public String writeProc(PieceNoticeDTO pieceNoticeDto, PieceNoticeFileDTO pieceNoticeFileDto) {
-		//String nickName = (String)session.getAttribute("loginInfo");
 		String nickName = "";
 		if(session.getAttribute("loginInfo") != null) {
 			nickName = (String)session.getAttribute("loginInfo");
