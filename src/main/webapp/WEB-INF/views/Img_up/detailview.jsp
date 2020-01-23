@@ -11,40 +11,36 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <style>
-#container{height:800px;position:relative;min-width:1400px;}
-#manage{width:80%; float:right;text-align:center;min-width:860px;}
-#leftmenu{width:20%; float:left;height:100%;min-width:182px}
-td{margin-left:40px;}
-#img{width:800px;margin:auto}
-img{width:100%; height:100%;}
+.imgspan{margin-right:40px;}
 </style>
 <body>
-<div style="text-align:center">
-<h1>이미지 등록/심사</h1>
-</div>
-<div id="container">
-<div id="leftmenu">
-<div style="height: 100px; width: 100%; padding-top: 30px;"><h3 style="margin-left:20px;">관리자 페이지</h3></div>
-                <p style="text-align:center;font-size:20px;width:160px;height:30px;line-height:30px;"><a href="" class=mya>관리자 정보 조회</a></p>
-                <p style="text-align:center;font-size:20px;width:160px;height:30px;line-height:30px;"><a href="${pageContext.request.contextPath}/member/manage.do" class=mya>회원정보</a></p>
-                <p style="text-align:center;font-size:20px;width:160px;height:30px;line-height:30px;background-color: #476491;"><a href="${pageContext.request.contextPath}/img_up/NoList" class=mya style="color:white;">이미지심사/승인 내역</a></p>
-                <p style="text-align:center;font-size:20px;width:160px;height:30px;line-height:30px;"><a href="${pageContext.request.contextPath}/contest/check.do" class=mya>공모전 심사/승인내역</a></p>
+   <div class="container-fluid m-0 p-0" style="font-family: 'Cafe24Oneprettynight';text-align:center;">
+    	<div class="container mt-5 px-2" style="max-width: 1500px;background-color:#dedede;">
+    		<h3>이미지 심사/승인</h3>
+    	</div>
 
-</div>
-<div id="manage">
 
-<div>
-<div style="width:100%;text-align:center">${dto.nickname} 님의 ${dto.img_seq}번 이미지 승인신청입니다</div>
-<div><table><tr><td>용도 : ${dto.usage}</td><td>사진사이즈 : ${dto.xDimension} * ${dto.yDimension}</td><td>파일크기 : ${dto.img_size}</td><td>신청일 : ${dto.img_sysdate}</td></tr></table></div>
+
+<div style="margin:auto;text-align:center">
+<div style="font-size: 15px; font-family: 'NanumBarunpen'; border: 1px solid darkgray; border-radius: 10px;">
+<div>${dto.nickname} 님의 ${dto.img_seq}번 이미지 승인신청입니다</div>
+<div><span class="imgspan">용도 : ${dto.usage}</span><span class="imgspan">사진사이즈 : ${dto.xDimension} * ${dto.yDimension}</span><span  class="imgspan" id="size${dto.img_seq}"></span><span  class="imgspan">신청일 : ${dto.img_sysdate}</span></div>
 </div>
-<div id="img" style="width:80%; height:500px; text-align:center;border:1px solid;">
-	<img src='/writeruploadfiles/${dto.sysname}'>
-</div>
+<span>
+	<img src='/writeruploadfiles/${dto.sysname}' style="width: 450px; height: 280px;text-align:center">
+</span><br>
+<div style="margin-top:50px;">
+<span class="imgspan">태그 : ${dto.tag }</span></div>
 <hr>
 <input type="button" value="승인" id="ok${dto.img_seq}">
 <input type="button" value="승인거절" id="no${dto.img_seq}">
 <input type="hidden" id="why${dto.img_seq }">
 <script>
+
+var size = ${dto.img_size};
+var value = size/1048576;
+var showvalue = value.toFixed(2);
+$("#size${dto.img_seq}").html("파일크기 : "+showvalue+"MB");
 
 	$("#ok${dto.img_seq}").on("click",function(){
 		var seq = ${dto.img_seq};
@@ -88,6 +84,7 @@ $("#no${dto.img_seq}").on("click",function(){
 	
 })
 </script>
+
 </div>
 </div>
 <jsp:include page="../key/bottom.jsp" flush="false"/>
