@@ -89,7 +89,6 @@ public class MemberController {
 	@ResponseBody
 	public String mailCheck(String email) { //메일중복확인
 
-
 		try {
 			System.out.println(email);
 			int result = service.mailCheck(email);

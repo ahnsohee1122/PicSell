@@ -28,6 +28,7 @@ public class MemberService {
 	public int insert(MemberDTO dto, String deal_sort, String point_date, int point, String money_sort) throws Exception{
 		String modifyPw = myDao.getSHA512(dto.getPw());
 		
+		System.out.println("a" + modifyPw);
 		dto.setPw(modifyPw);
 		int result = 0; 
 		int signup = dao.insert(dto);
