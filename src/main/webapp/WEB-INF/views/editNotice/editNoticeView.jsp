@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -28,7 +27,7 @@
 	
 	<div class="container-fluid py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 		<div class="container m-auto">
-			<h2 class="mx-auto my-0 text-center">편집의뢰</h2>
+			<h2 class="mx-auto my-0 text-center">편집의뢰게시판</h2>
 		</div>
 		<div class="container mx-auto mt-5 mb-4 text-center" style="height: 40px;">
 			<ul class="p-0 m-0 h-100" style="list-style-type: none; border: 1px solid gray; border-radius: 10px;">
@@ -176,9 +175,9 @@
 					
 					'<tr id="comment_box">'
 					+'<td id="e' + res.comment_seq+'" class="p-2 text-left" style="width: 55%">'
-					+	res.notice_comment
-					+	'<textarea id="c' + res.comment_seq+'" style="display: none; resize: none;" rows="2" cols="80"></textarea>'
-					+	'<input id="d' + res.comment_seq+'" type="button" value="수정완료" onclick="commentModifyComplete('+res.comment_seq+')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+					+	'<div class="row w-100 m-auto">'+res.notice_comment+'</div>'
+					+	'<div class="row w-100 m-auto"><textarea id="c' + res.comment_seq+'" class="col-12 col-lg-9 align-self-center px-2" style="height: 40px; display: none; resize: none;"></textarea>'
+					+	'<input id="d' + res.comment_seq+'" type="button" value="수정완료" onclick="commentModifyComplete('+res.comment_seq+')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;"></div>'
 					+'</td>'
 					+'<td class="p-2" style="width: 20%">' + res.write_date+'</td>'
 					+'<td class="p-2" style="width: 15%">' + res.writer+'</td>'
