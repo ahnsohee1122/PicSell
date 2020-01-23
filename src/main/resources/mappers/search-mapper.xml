@@ -8,10 +8,17 @@
 		select * from writer_image_up where REGEXP_LIKE (tag, #{tag}) and accept='Y'
 	</select>
 
-	<select id="align" resultType="kh.picsell.dto.WriterImageUpDTO" parameterType="java.util.Map">
-		
-		select * from (select writer_image_up.*, row_number() over(order by img_seq ) as rown from writer_image_up where REGEXP_LIKE (tag, #{tag}) and accept='Y'
-
+	<select id="align" resultType="kh.picsell.dto.WriterImageUpDTO" parameterType="java.util.Map">		
+		select * from (select writer_image_up.*, row_number() over(			
+			<choose>
+				<when test="orderBy == null">
+					order by img_sysdate desc, img_seq desc
+				</when>
+				<otherwise>
+					order by ${orderBy} desc, img_seq desc
+				</otherwise>
+			</choose>		
+		) as rown from writer_image_up where REGEXP_LIKE (tag, #{tag}) and accept='Y'
 		<if test="keyword2 != null">
 			and REGEXP_LIKE (tag, #{keyword2})
 		</if>
@@ -21,10 +28,6 @@
 		<if test="usage != null">
 			and usage = #{usage}
 		</if>
-		<if test="orderBy != null">
-			order by ${orderBy} desc
-		</if>
-		
 		) where rown between #{start} and #{end}
 	</select>
 	

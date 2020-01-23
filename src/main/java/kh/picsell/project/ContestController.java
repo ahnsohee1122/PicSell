@@ -251,9 +251,10 @@ public class ContestController {
 	}
 	
 	@RequestMapping("enrolldetail")
-	public void detail(String contest_img_seq, String title) {
-		
-		
+	public String detail(int contest_img_seq, String title, HttpServletRequest request) {
+		ContestDTO dto = service.enrollimagedetail(contest_img_seq);
+		request.setAttribute("dto",dto);
+		return "contest/enrollimagedetail";
 	}
    
 }

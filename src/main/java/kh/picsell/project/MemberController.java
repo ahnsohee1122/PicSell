@@ -89,7 +89,6 @@ public class MemberController {
 	@ResponseBody
 	public String mailCheck(String email) { //메일중복확인
 
-
 		try {
 			System.out.println(email);
 			int result = service.mailCheck(email);
@@ -128,6 +127,7 @@ public class MemberController {
 			}else {
 			String nickname = dto.getNickname();
 			System.out.println(nickname);
+			
 			int result = service.login(id, pw);
 			MemberDTO black1 = service.getblack(id);
 			int black = black1.getBlack();

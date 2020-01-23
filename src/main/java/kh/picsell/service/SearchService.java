@@ -94,19 +94,39 @@ public class SearchService {
 			}
 			
 			if(keyword2 != null) {
-				String[] arr2 = keyword2.split(" ");
-				StringBuilder sb2 = new StringBuilder();
-				for(String tmp : arr2) {
-					if(!tmp.contentEquals("")) {
-						sb2.append("#"+tmp+"#|");
+				Pattern p2 = Pattern.compile("[^a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9 ]+");
+				Matcher m2 = p2.matcher(keyword2);
+				if(m2.find()) {
+					keyword2 = "# #";
+				}else {
+					String[] arr2 = keyword2.split(" ");
+					StringBuilder sb2 = new StringBuilder();
+					for(String tmp : arr2) {
+						if(!tmp.contentEquals("")) {
+							sb2.append("#"+tmp+"#|");
+						}
+					}
+					
+					if(sb2.length() == 0) {
+						keyword2 = "# #";
+					}else {
+						keyword2 = sb2.substring(0,sb2.length()-1).toString();
 					}
 				}
 				
-				if(sb2.length() == 0) {
-					keyword2 = "# #";
-				}else {
-					keyword2 = sb2.substring(0,sb2.length()-1).toString();
-				}
+//				String[] arr2 = keyword2.split(" ");
+//				StringBuilder sb2 = new StringBuilder();
+//				for(String tmp : arr2) {
+//					if(!tmp.contentEquals("")) {
+//						sb2.append("#"+tmp+"#|");
+//					}
+//				}
+//				
+//				if(sb2.length() == 0) {
+//					keyword2 = "# #";
+//				}else {
+//					keyword2 = sb2.substring(0,sb2.length()-1).toString();
+//				}
 			}
 		}
 		
