@@ -48,38 +48,27 @@ public class SearchController {
 		System.out.println("usage: " + usage);
 		System.out.println("orderBy: " + orderBy);
 		System.out.println("keyword2: " + keyword2);
-
-		//		int start = 0;
-		//		int end = 0 ;
-		//		Map<String,Object> param = new HashMap<String,Object>();
-		//		if(currentPage == 1) {
-		//			start = 0;
-		//			end = 20;
-		//			List<WriterImageUpDTO> list = service.align(start, end, tag, file_extension, usage, orderBy, keyword2);
-		//			for(WriterImageUpDTO dto : list) {
-		//				System.out.println(dto);
-		//			}
-		//			return list;
-		//
-		//		}else {
-		//			start = currentPage * 10 + 1;
-		//			end = start + (10 - 1);   
-		//			List<WriterImageUpDTO> list = service.align(start, end, tag, file_extension, usage, orderBy, keyword2);
-		//			for(WriterImageUpDTO dto : list) {
-		//				System.out.println(dto);
-		//			}
-		//			return list;
-		//		}
-
-		int start = 0;
-		int end = 0;
-		start = 50 * count - 49;
-		end = 50 * count;
-		List<WriterImageUpDTO> list = service.align(start, end, tag, file_extension, usage, orderBy, keyword2);
-		for(WriterImageUpDTO dto : list) {
-			System.out.println(dto);
-		}
 		
+		int start = 0;
+		int end = 0 ;
+		List<WriterImageUpDTO> list = null;
+		if(count == 1) { // 처음엔 20개 가져오고
+			start = 0;
+			end = 20;
+			list = service.align(start, end, tag, file_extension, usage, orderBy, keyword2);
+			for(WriterImageUpDTO dto : list) {
+				System.out.println(dto);
+			}		
+
+		}else { // 다음부턴 50개씩 가져옴
+			start = 50 * count -79;
+			end = 50 * count - 30;   
+			list = service.align(start, end, tag, file_extension, usage, orderBy, keyword2);
+			for(WriterImageUpDTO dto : list) {
+				System.out.println(dto);
+			}
+		}
+
 		String data = null;
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -88,6 +77,24 @@ public class SearchController {
 			System.out.println("first() mapper   ::    " + e.getMessage());
 		}
 		return data;
+
+//		int start = 0;
+//		int end = 0;
+//		start = 50 * count - 49;
+//		end = 50 * count;
+//		List<WriterImageUpDTO> list = service.align(start, end, tag, file_extension, usage, orderBy, keyword2);
+//		for(WriterImageUpDTO dto : list) {
+//			System.out.println(dto);
+//		}
+//		
+//		String data = null;
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			data = mapper.writeValueAsString(list);
+//		} catch (Exception e) {
+//			System.out.println("first() mapper   ::    " + e.getMessage());
+//		}
+//		return data;
 	}
 
 	@RequestMapping("/DetailImage.do")
