@@ -37,16 +37,18 @@ body {
 </head>
 <body>
 	<button id="goEvent">출석하러 가기</button>
-    <input type="checkbox" id="check" onclick="closePopup();">
-    <br />
+  <input type="checkbox" id="check" onclick="closePopup();">
+    <br>
     <fontsize=3> <b>하루에 한번만 보기</b> </font>
 	
-<script>
+	<script>
    $("#goEvent").on("click", function(){
+
          window.opener.location = '${pageContext.request.contextPath}/event/attendance_check.do';
          window.close();
+
    })
+
 </script>
-   
 </body>
 </html>

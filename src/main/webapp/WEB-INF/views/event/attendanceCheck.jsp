@@ -41,6 +41,7 @@
 
 <script type="text/javascript"> 
 
+
 	function getCookie(name) {
 		var cookie = document.cookie;
 		if (document.cookie != "") {
@@ -57,7 +58,7 @@
 	function openPopup(url) {
 		var cookieCheck = getCookie("popupYN");
 		if (cookieCheck != "N")
-			window.open(url, '', 'width=400,height=375,left=0,top=0')
+			window.open(url, '', 'width=450,height=750,left=0,top=0')
 	}
 </script>
 
@@ -70,6 +71,13 @@
 
 
 </div>
+
+
+	<script>
+	//var win = window.open("${pageContext.request.contextPath}/event/pop.do", "PopupWin", "width=400, height=375");
+	
+	</script>
+	
 
 	<div class="modal fade" id="rouletteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog m-auto" role="document">
