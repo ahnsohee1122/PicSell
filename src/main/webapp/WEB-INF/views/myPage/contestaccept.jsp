@@ -85,7 +85,7 @@
 						<th style="width: 30%;">공모전 제목</th>
 						<th style="width: 15%;">심사진행</th>
 						<th style="width: 15%;">승인여부</th>
-						<th style="width: 20%;">등록일</th>
+						<th style="width: 20%;">마감일</th>
 						<th style="width: 10%;">비고</th>
 					</tr>
 				</thead>
@@ -96,7 +96,7 @@
 						<td>${dto.title}</td>
 						<td id="checking${dto.contest_seq}"></td>
 						<td id="accept${dto.contest_seq}"></td>
-						<td></td>
+						<td>${dto.enddate}</td>
 						<td></td>
 					</tr>
 				

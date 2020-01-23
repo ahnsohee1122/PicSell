@@ -195,7 +195,7 @@
 				$('#Progress_Loading').show();
 				
 				if(e.target.files.length == 0){
-					document.getElementsByClassName('canvas')[0].innerHTML = "";
+					document.getElementsByClassName('canvas')[cnt].innerHTML = "";
 					$('#Progress_Loading').hide();
 				}else{
 					console.log(e)
@@ -221,7 +221,6 @@
 					var yPixel = img.height
 					console.log(xPixel);
 					console.log(yPixel)
-					console.log(document.getElementsByName('file')[cnt].value)
 					
 						if(!filename.match(reg)) {
 							alert("해당 파일은 이미지 파일이 아닙니다.");

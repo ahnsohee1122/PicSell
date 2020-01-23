@@ -6,7 +6,7 @@ public class WriterImageUpDTO {
 	private int img_seq;
 	private String nickname, usage, copyright, tag, file_extension,oriname,sysname;
 	private int img_size;
-	private String make,model,xDimension,yDimension,sysname_watermark;
+	private String make,model,xDimension,yDimension;
 	private int img_like, viewcount, downcount;
 	private String accept,checking;
 	private Timestamp img_sysdate;
@@ -16,7 +16,7 @@ public class WriterImageUpDTO {
 
 	public WriterImageUpDTO(int img_seq, String nickname, String usage, String copyright, String tag,
 			String file_extension, String oriname, String sysname, int img_size, String make, String model,
-			String xDimension, String yDimension, String sysname_watermark, int img_like, int viewcount, int downcount,
+			String xDimension, String yDimension, int img_like, int viewcount, int downcount,
 			String accept, String checking, Timestamp img_sysdate, String rejection) {
 		super();
 		this.img_seq = img_seq;
@@ -32,7 +32,6 @@ public class WriterImageUpDTO {
 		this.model = model;
 		this.xDimension = xDimension;
 		this.yDimension = yDimension;
-		this.sysname_watermark = sysname_watermark;
 		this.img_like = img_like;
 		this.viewcount = viewcount;
 		this.downcount = downcount;
@@ -145,15 +144,6 @@ public class WriterImageUpDTO {
 	public void setyDimension(String yDimension) {
 		this.yDimension = yDimension;
 	}
-
-	public String getSysname_watermark() {
-		return sysname_watermark;
-	}
-
-	public void setSysname_watermark(String sysname_watermark) {
-		this.sysname_watermark = sysname_watermark;
-	}
-
 	public int getImg_like() {
 		return img_like;
 	}
