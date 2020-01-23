@@ -78,30 +78,34 @@
 									</td>
 									<td class="p-2" style="width: 20%">${commentDto.write_date }</td>
 									<td class="p-2" style="width: 15%">${commentDto.writer}</td>
+									<c:if test="${(loginInfo == commentDto.writer) || (adminInfo != null)}">
 									<td class="p-2" style="width: 8%">
 										<input type="button" value="삭제" id="a${commentDto.comment_seq }" onclick="commentDelete(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 										<input type="button" value="수정" id="b${commentDto.comment_seq }" onclick="commentModify(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 									</td>
+									</c:if>
 								</tr>
 								</c:forEach>
 							</table>
 						</td>
 					</tr>
+					<c:if test="${loginInfo != null || adminInfo != null}">
 					<tr>
 						<th class="title px-2 py-0 text-center">댓글</th>
 						<td class="data px-2 m-auto py-2" colspan="4">
 							<div class="row align-items-center w-100 m-auto">
-								<textarea id="comment" class="col align-self-center" style="width: 100%; resize: none;"></textarea>	
+								<textarea id="comment" class="col align-self-center" placeholder="댓글을 입력해주세요" style="width: 100%; resize: none;"></textarea>	
 							</div>
 						</td>
 						<td class="data p-2">
 							<input type="button" id="commentBtn" value="작성" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">	
 						</td>
 					</tr>
+					</c:if>
 				</thead>
 			</table>
 		</div>
-		<c:if test="${loginInfo == map.pieceNotice.pieceNotice_writer }">
+		<c:if test="${loginInfo == map.editNotice.editNotice_writer }">
 		<div class="container text-center">
 			<input type="button" id="delete" class="viewBtn mx-1" value="삭제">
 			<input type="button" id="modify" class="viewBtn mx-1" value="수정">
@@ -148,13 +152,20 @@
 		/*여기부터 comment  */
 		
 	 	$("#commentBtn").on("click", function(){
+	 		var writer = null;
+ 			if(${loginInfo != null}){
+ 				writer = "${loginInfo}";
+ 			}else{
+ 				writer = "${adminInfo}";
+ 			}
+ 			
 	 		var comment = $("#comment").val().replace(/(?:\r\n|\r|\n)/g, '<br/>')
 			$.ajax({
 				url:"${pageContext.request.contextPath}/editComment/commentWrite.do",
 				type:"post",
 				data:{
 					editNotice_seq:"${map.editNotice.editNotice_seq}",
-					writer:"회원",
+					writer:writer,
 					comment:comment
 				},
 				dataType:"JSON"

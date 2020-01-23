@@ -74,9 +74,11 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<c:if test="${loginInfo != null || adminInfo != null}">
 			<div class="text-right">
 				<input type="button" id="writeBtn" value="글쓰기" style="width: 150px; backgorund-color: #f4f2f5; border: 1px solid gray; border-radius: 10px;">
 			</div>
+			</c:if>
 		</div>
 	</div>
 	
