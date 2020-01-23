@@ -52,7 +52,7 @@
 		<div class="container mx-auto my-5">
 			<h6>공모 요강에 맞지 않은 사진은 판매가 되지 않을 수 있습니다.</h6>
 			<h6>본인이 촬영한 사진만 제출 가능합니다.</h6>
-			<div class="row w-100 mx-auto my-3 p-3" style="min-height: 300px; border: 1px solid darkgray; border-radius: 10px;">
+			<div class="row w-100 mx-auto my-3 p-3" style="min-height:600px; border: 1px solid darkgray; border-radius: 10px;">
 				<form id="uploadform" class="w-100" action="${pageContext.request.contextPath}/contest/enroll?title=${title}&contest_seq=${contest_seq}" method="post" enctype="multipart/form-data">
 					<input type="file" name="files" multiple="multiple" id="file">
 					<div class="row canvas w-100 h-100 mx-auto my-0 py-4"></div>

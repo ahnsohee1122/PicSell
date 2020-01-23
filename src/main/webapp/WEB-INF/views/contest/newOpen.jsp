@@ -153,7 +153,7 @@
 			<h6 class="mx-3 py-2 px-4">어떤 공모전을 열고 싶으세요?</h6>
 			<h6 class="mx-3 py-2 px-4">픽셀 ＇공모전＇을 통해<br>특정 주제의 이미지를 빠르고 효율적으로 공모할 수 있습니다.</h6>
 			<h6 class="mx-3 py-2 px-4">아래의 신청 양식을 작성해주시면,<br>확인 후 회원님의 전화번호 또는 메일로 연락 드리겠습니다!</h6>
-			<form method="post" action="${pageContext.request.contextPath}/contest/newcontestform" enctype="multipart/form-data" class="mx-3 my-5 px-4 py-3" style="font-size: 15px; font-family: 'NanumBarunpen'; border: 1px solid darkgray; border-radius: 10px;">
+			<form method="post" id="newcontestform" action="${pageContext.request.contextPath}/contest/newcontestform" enctype="multipart/form-data" class="mx-3 my-5 px-4 py-3" style="font-size: 15px; font-family: 'NanumBarunpen'; border: 1px solid darkgray; border-radius: 10px;">
 				<fieldset class="form-group">
 					<div class="row my-4">
 				    	<label class="col-form-label col-3 col-md-2 pt-0">주최이유<strong> * </strong></label>
@@ -255,7 +255,7 @@
 					    </div>
 				  	</div>
 				  	<div class="row mt-5 mb-3">
-				  		<button class="m-auto btn border border-danger rounded-lg text-black" type="submit" style="width: 150px;">신청하기</button>
+				  		<button class="m-auto btn border border-danger rounded-lg text-black" type="button" id="newcontest" style="width: 150px;">신청하기</button>
 				  	</div>
 				</fieldset>
 			</form>
@@ -263,7 +263,6 @@
 	</div>
 	
 	<script>
-	
 		// 주최이유 기타 내용 적는 부분 클릭하면 라디오버튼이 기타에 찍힘
 		$("#others").on("click", function() {
 			$("input[id=gridRadios5]").prop("checked", true);

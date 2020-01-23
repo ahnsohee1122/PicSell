@@ -172,5 +172,7 @@ public class ContestService {
 		return dao.selected(contest_seq);
 	}
 	
-	
+	public ContestDTO enrollimagedetail(int contest_img_seq) {
+		return dao.enrollimagedetail(contest_img_seq);
+	}
 }
