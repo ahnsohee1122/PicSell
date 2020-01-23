@@ -8,10 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kh.picsell.dao.MemberDAO;
 import kh.picsell.dao.MoneyDAO;
+import kh.picsell.dao.MyUtilsDAO;
 import kh.picsell.dto.MemberDTO;
 
 @Service
 public class MemberService {
+	
+	@Autowired
+	private MyUtilsDAO myDao;
 	
 	@Autowired
 	private MemberDAO dao;
@@ -22,11 +26,12 @@ public class MemberService {
 	// 회원가입 + 회원가입 포인트 지급 
 	@Transactional("txManager")
 	public int insert(MemberDTO dto, String deal_sort, String point_date, int point, String money_sort) throws Exception{
+		String modifyPw = myDao.getSHA512(dto.getPw());
+		
+		dto.setPw(modifyPw);
 		int result = 0; 
 		int signup = dao.insert(dto);
-		System.out.println("성공"+signup);
 		int signupPoint = money_dao.pointUpdate(dto.getNickname(), deal_sort, point_date, point, money_sort);
-		System.out.println("성공2"+signupPoint);
 		if((signup>0)&&(signupPoint>0)) {
 			result = 1;
 		}else {
@@ -45,8 +50,8 @@ public class MemberService {
 		return dao.nicknameCheck(nickname);
 	}
 	public int login(String id, String pw) throws Exception{ //로그인
-		System.out.println(id+" : "+pw);
-		return dao.login(id, pw);
+		String modifyPw = myDao.getSHA512(pw);
+		return dao.login(id, modifyPw);
 	}
 	public int managercheck(String id, String pw) throws Exception{ //관리자인지체크
 		return dao.managercheck(id, pw);
@@ -64,9 +69,8 @@ public class MemberService {
 		return dao.findid(name, email);
 	}
 	public int pwchange(String pw, String id, String email) throws Exception{ //비번변경
-		System.out.println("서비스");
-		System.out.println("dao : "+dao.pwmodify(pw, id, email));
-		return dao.pwmodify(pw, id, email);
+		String modifyPw = myDao.getSHA512(pw);
+		return dao.pwmodify(modifyPw, id, email);
 	}
 	public int memout(String nickname)throws Exception{ //회원탈퇴
 		return dao.leave(nickname);
