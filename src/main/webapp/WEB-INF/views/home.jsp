@@ -482,11 +482,14 @@
     </div>
     
     <script>
-    $("#gallery").justifiedGallery({
-		rowHeight : 200,
-	    lastRow : 'hide',
-	    margins : 10
-	}); 
+    $(function(){
+        $("#gallery").justifiedGallery({
+    		rowHeight : 200,
+    	    lastRow : 'hide',
+    	    margins : 10
+    	});
+    })
+ 
     
     
     $("#searchBtn").on("click",function(){
