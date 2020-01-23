@@ -8,7 +8,7 @@
 </head>
 <style>
 #example{width:100px;}
-#example>img{width:100%;}
+#example>img{width:500px;}
 </style>
 <body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
