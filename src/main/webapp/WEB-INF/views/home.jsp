@@ -489,14 +489,14 @@
                     <div class="MultiCarousel-inner">
                         <c:forEach items="${list }" var="list">
                         <div class="item">
-                            <div class="pad15"style="margin: auto; width: 300px; background-color: white;">
+                            <div class="convention pad15" style="margin: auto; width: 280px; background-color: white;">
 	                            <div class="text-center">
-		    						<img src="${pageContext.request.contextPath}/img/contest_image.PNG" style="width: 300px; height: 170px;">
-		    						<p class="card-img-overlay m-auto py-5" style="position: absolute; bottom: 180px; height: 170px; font-size: 50px; font-weight: 500; font-family: 'Cafe24Oneprettynight';">일본어하이요</p>
+		    						<img src="${pageContext.request.contextPath}/img/contest_image.PNG" style="width: 280px; height: 170px;">
+		    						<p class="m-auto py-5 text-center" style="width: 280px; position: absolute; bottom: 210px; height: 170px; font-size: 48px; font-weight: 500; font-family: 'Cafe24Oneprettynight';">일본어하이요</p>
 		    					</div>
-                                <p class="lead">${list.title }</p>
-                                <p class="text-danger">집계중</p>
-                                <p>${list.enddate }</p>
+                                <p class="lead px-2 text-left" style="font-size: 20px;">${list.title }</p>
+                                <p class="text-danger" style="font-size: 17px;">진행중</p>
+                                <p style="font-size: 17px;">${list.enddate }</p>
                                 <p><a href="${pageContext.request.contextPath}/contest/detail?title=${list.title}&contest_seq=${list.contest_seq}" class="btn btn-outline-dark btn-sm">참여하기</a></p>
                             </div>
                         </div>
