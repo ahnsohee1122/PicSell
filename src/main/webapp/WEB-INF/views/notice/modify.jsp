@@ -22,7 +22,7 @@
 				<table style="width: 100%;">
 					<tr>
 						<td>글번호</td>
-						<td><input type="text" name="notice_seq" class="w-100 px-2" value='${map.notice.notice_seq }'></td>
+						<td><input type="text" name="notice_seq" class="w-100 px-2" value='${map.notice.notice_seq }' readonly></td>
 					</tr>
 					<tr>
 						<td>제목</td>
@@ -90,14 +90,12 @@
 					alert("본문 내용을 입력해주세요.");
 					return;
 				}
-
-				$("#frm").submit();
+				var result = confirm("수정 하시겠습니까?");
+				if(result){
+					$("#frm").submit();
+				}
 			})
 		})
-			
-		$("#writeBtn").on("click",function(){
-			$("#frm").submit();
-		});
 	</script>
 	
 	<jsp:include page="../key/bottom.jsp" flush="false"/>

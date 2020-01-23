@@ -8,7 +8,7 @@
 	</select>
 	
 	<update id="infoModify" parameterType="kh.picsell.dto.MemberDTO">
-		update member set name = #{name}, nickname = #{nickname}, email = #{email}, email_receive = #{email_receive}
+		update member set name = #{name}, email = #{email}, email_receive = #{email_receive}
 		where id = #{id}
 	</update>
 	

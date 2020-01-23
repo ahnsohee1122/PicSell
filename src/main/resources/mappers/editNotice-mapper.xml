@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="EditNotice">
 	<select id="selectAll" resultType="kh.picsell.dto.EditNoticeDTO">
-		select * from editNotice
+		select * from editNotice order by 1 desc 
 	</select>
 	
 	<insert id="insert" parameterType="kh.picsell.dto.EditNoticeDTO">

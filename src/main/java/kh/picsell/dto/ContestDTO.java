@@ -3,6 +3,7 @@ package kh.picsell.dto;
 public class ContestDTO {
 private int contest_seq;
 private String reason;
+private String grouping;
 private String title;
 private String detail;
 private String terms;
@@ -17,6 +18,7 @@ private String sysname;
 private int price;
 private int contestfiles_seq;
 private String rejection;
+
 private String contest_img_seq;
 private String enroll_sysname;
 private String enroll_nickname;
@@ -29,28 +31,31 @@ public ContestDTO() {
 }
 
 
-public ContestDTO(int contest_seq, String reason, String title, String detail, String terms, String enddate,
-      String hosttype, String host, String accept, String checking, String accept_date, String oriname,
-      String sysname, int price, int contestfiles_seq, String rejection) {
 
-   super();
-   this.contest_seq = contest_seq;
-   this.reason = reason;
-   this.title = title;
-   this.detail = detail;
-   this.terms = terms;
-   this.enddate = enddate;
-   this.hosttype = hosttype;
-   this.host = host;
-   this.accept = accept;
-   this.checking = checking;
-   this.accept_date = accept_date;
-   this.oriname = oriname;
-   this.sysname = sysname;
-   this.price = price;
-   this.contestfiles_seq = contestfiles_seq;
-   this.rejection = rejection;
+
+public ContestDTO(int contest_seq, String reason, String grouping, String title, String detail, String terms,
+		String enddate, String hosttype, String host, String accept, String checking, String accept_date,
+		String oriname, String sysname, int price, int contestfiles_seq, String rejection) {
+	super();
+	this.contest_seq = contest_seq;
+	this.reason = reason;
+	this.grouping = grouping;
+	this.title = title;
+	this.detail = detail;
+	this.terms = terms;
+	this.enddate = enddate;
+	this.hosttype = hosttype;
+	this.host = host;
+	this.accept = accept;
+	this.checking = checking;
+	this.accept_date = accept_date;
+	this.oriname = oriname;
+	this.sysname = sysname;
+	this.price = price;
+	this.contestfiles_seq = contestfiles_seq;
+	this.rejection = rejection;
 }
+
 
 public int getContest_seq() {
    return contest_seq;
@@ -228,6 +233,21 @@ public String getSelectedimage() {
 public void setSelectedimage(String selectedimage) {
 	this.selectedimage = selectedimage;
 }
+
+
+
+
+public String getGrouping() {
+	return grouping;
+}
+
+
+
+
+public void setGrouping(String grouping) {
+	this.grouping = grouping;
+}
+
 
 
 

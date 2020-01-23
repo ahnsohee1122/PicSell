@@ -251,8 +251,8 @@ public class ContestController {
 	}
 	
 	@RequestMapping("enrolldetail")
-	public void detail() {
-		System.out.println("hihi");
+	public void detail(String contest_img_seq, String title) {
+		
 		
 	}
    

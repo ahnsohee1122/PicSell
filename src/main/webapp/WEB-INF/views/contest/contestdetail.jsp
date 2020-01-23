@@ -45,6 +45,10 @@
 							<th class="text-left" style="min-width: 70px; line-height: 30px;">상금</th>
 							<td class="text-left px-2" style="min-width: 100px; line-height: 30px;">${contestDto.price }<span class="mx-1">원</span></td>
 						</tr>
+						<tr>
+							<th class="text-left" style="min-width: 70px; line-height: 30px;">주최기관/주최자</th>
+							<td class="text-left px-2" style="min-width: 100px; line-height: 30px;">${contestDto.hosttype }<span class="mx-1">원</span></td>
+						</tr>
 					</table>
 				</div>
 				<div class="row w-100 mx-auto">
@@ -68,12 +72,37 @@
 		var loginInfo = "${sessionScope.loginInfo}";
 		
 		$("#upload").on("click",function(){
-			if(loginInfo ==""){
-				alert("로그인 후 이용해주세요")
-				$("#gotologin").click(); 
+			var today = new Date();
+			var dd = today.getDate();
+			var mm = today.getMonth()+1; //January is 0!
+			var yyyy = today.getFullYear();
+			
+			if(dd<10) {
+			    dd='0'+dd
+			} 
+			
+			if(mm<10) {
+			    mm='0'+mm
+			} 
+			
+			today = yyyy+'-'+mm+'-'+dd;
+						console.log(today)
+			
+			
+			//if('${ContestDto.enddate}'>)
+				
+			if('${contestDto.enddate }' < today){
+				alert("완료된 공모전입니다. 다른공모전에 참여해주세요!")
+				return;
 			}else{
-				location.href = "${pageContext.request.contextPath}/contest/upload?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}" 
+				if(loginInfo ==""){
+					alert("로그인 후 이용해주세요")
+					$("#gotologin").click(); 
+				}else{
+					location.href = "${pageContext.request.contextPath}/contest/upload?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}" 
+				}
 			}
+						
 		})
 		
 		$("#enrollimage").on("click",function(){

@@ -30,49 +30,119 @@ public class SearchService {
 	
 	public List<WriterImageUpDTO> align(int start, int end, String tag, String file_extension, String usage, String orderBy, String keyword2){
 		
-		int checkTag = 0;
-		int checkKeyword2 = 0;
+//		int checkTag = 0;
+//		int checkKeyword2 = 0;
+//		
+//		Pattern p = Pattern.compile("^\\s+.*$"); // 태그가 "     ㅇㅇㅇ" 처럼 공백+문자일 경우
+//		Matcher m = p.matcher(tag);
+//		
+//		if(m.find()) {
+//			tag="# #";
+//			checkTag = 1;
+//			System.out.println("keyword: " + tag);
+//		}
+//		
+//		if(keyword2 != null) {
+//			Matcher m2 = p.matcher(keyword2);
+//			if(m2.find()){
+//				keyword2="# #";
+//				checkKeyword2 = 1;
+//				System.out.println("keyword2: " + keyword2);
+//			}
+//		}
+//		
+//		if(checkTag != 1) {
+//			StringBuilder sb = new StringBuilder();
+//			String[] arr = tag.split(" ");
+//			for(String tmp : arr) {
+//				sb.append("#"+tmp+"#|");
+//			}
+//			tag = sb.substring(0,sb.length()-1).toString();
+//			System.out.println("공백+문자 아닌 경우 keyword: " + tag);
+//		}
+//		
+//		if(keyword2 != null) {
+//			if(checkKeyword2 != 1) {
+//				StringBuilder sb2 = new StringBuilder();
+//				String[] arr2 = keyword2.split(" ");
+//				for(String tmp : arr2) {
+//					sb2.append("#"+tmp+"#|");
+//				}
+//				System.out.println(keyword2);
+//				keyword2 = sb2.substring(0,sb2.length()-1).toString();
+//				System.out.println("공백+문자 아닌 경우 keyword2: " + keyword2);
+//			}
+//		}
 		
-		Pattern p = Pattern.compile("^\\s+.*$"); // 태그가 "     ㅇㅇㅇ" 처럼 공백+문자일 경우
+		Pattern p = Pattern.compile("[^a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣0-9 ]+");
 		Matcher m = p.matcher(tag);
-		
-		if(m.find()) {
-			tag="# #";
-			checkTag = 1;
-			System.out.println("keyword: " + tag);
-		}
-		
-		if(keyword2 != null) {
-			Matcher m2 = p.matcher(keyword2);
-			if(m2.find()){
-				keyword2="# #";
-				checkKeyword2 = 1;
-				System.out.println("keyword2: " + keyword2);
-			}
-		}
-		
-		if(checkTag != 1) {
-			StringBuilder sb = new StringBuilder();
+		if(m.find()) { // 특수문자를 포함하면
+			tag = "# #";
+		}else { // 특수문자 포함하지 않으면
 			String[] arr = tag.split(" ");
+			StringBuilder sb = new StringBuilder();
 			for(String tmp : arr) {
-				sb.append("#"+tmp+"#|");
+				if(!tmp.contentEquals("")) {
+					sb.append("#"+tmp+"#|");
+				}
 			}
-			tag = sb.substring(0,sb.length()-1).toString();
-			System.out.println("공백+문자 아닌 경우 keyword: " + tag);
+			
+			if(sb.length() == 0) {
+				tag = "# #";
+			}else {
+				tag = sb.substring(0,sb.length()-1).toString();
+			}
+			
+			if(keyword2 != null) {
+				String[] arr2 = keyword2.split(" ");
+				StringBuilder sb2 = new StringBuilder();
+				for(String tmp : arr2) {
+					if(!tmp.contentEquals("")) {
+						sb2.append("#"+tmp+"#|");
+					}
+				}
+				
+				if(sb2.length() == 0) {
+					keyword2 = "# #";
+				}else {
+					keyword2 = sb2.substring(0,sb2.length()-1).toString();
+				}
+			}
 		}
 		
-		if(keyword2 != null) {
-			if(checkKeyword2 != 1) {
-				StringBuilder sb2 = new StringBuilder();
-				String[] arr2 = keyword2.split(" ");
-				for(String tmp : arr2) {
-					sb2.append("#"+tmp+"#|");
-				}
-				System.out.println(keyword2);
-				keyword2 = sb2.substring(0,sb2.length()-1).toString();
-				System.out.println("공백+문자 아닌 경우 keyword2: " + keyword2);
-			}
-		}
+//		String[] arr = tag.split(" ");
+//		StringBuilder sb = new StringBuilder();
+//		for(String tmp : arr) {
+//			if(!tmp.contentEquals("")) {
+//				sb.append("#"+tmp+"#|");
+//			}
+//		}
+//		
+//		if(sb.length() == 0) {
+//			tag = "# #";
+//		}else {
+//			tag = sb.substring(0,sb.length()-1).toString();
+//		}
+//		
+//		if(keyword2 != null) {
+//			String[] arr2 = keyword2.split(" ");
+//			StringBuilder sb2 = new StringBuilder();
+//			for(String tmp : arr2) {
+//				if(!tmp.contentEquals("")) {
+//					sb2.append("#"+tmp+"#|");
+//				}
+//			}
+//			
+//			if(sb2.length() == 0) {
+//				keyword2 = "# #";
+//			}else {
+//				keyword2 = sb2.substring(0,sb2.length()-1).toString();
+//			}
+//		}
+		
+		System.out.println("tag:"+tag);
+		System.out.println("keyword2:"+keyword2);
+		
 		return dao.align(start, end, tag, file_extension, usage, orderBy, keyword2);
 	}
 	
