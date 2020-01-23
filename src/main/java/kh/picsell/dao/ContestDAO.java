@@ -89,5 +89,7 @@ public int selectedimage(int contest_img_seq) {
 public List<ContestDTO> selected(int contest_seq){
 	return jdbc.selectList("Contest.selected",contest_seq);
 }
-
+public ContestDTO enrollimagedetail(int contest_img_seq) {
+	return jdbc.selectOne("Contest.enrollimagedetail",contest_img_seq);
+}
 }

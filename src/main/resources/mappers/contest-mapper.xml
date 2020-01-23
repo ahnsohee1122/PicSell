@@ -68,12 +68,12 @@
 		update contest set selectimage='Y' where contest_seq = #{contest_seq}
 	</update>
 	<update id="selectedimage" parameterType="Integer">
-		update contestimage set selectimage='Y' where contest_img_seq =
-		#{contest_img_seq}
+		update contestimage set selectimage='Y' where contest_img_seq = #{contest_img_seq}
 	</update>
-	<select id="selected" parameterType="Integer"
-		resultType="kh.picsell.dto.ContestDTO">
-		select * from contestimage where selectimage='Y'and contest_seq =
-		#{contest_seq}
+	<select id="selected" parameterType="Integer" resultType="kh.picsell.dto.ContestDTO">
+		select * from contestimage where selectimage='Y'and contest_seq = #{contest_seq}
+	</select>
+	<select id="enrollimagedetail" parameterType="Integer" resultType="kh.picsell.dto.ContestDTO">
+		select * from contestimage where contest_img_seq = #{contest_img_seq}
 	</select>
 </mapper>

@@ -46,8 +46,8 @@
 							<td class="text-left px-2" style="min-width: 100px; line-height: 30px;">${contestDto.price }<span class="mx-1">원</span></td>
 						</tr>
 						<tr>
-							<th class="text-left" style="min-width: 70px; line-height: 30px;">주최기관/주최자</th>
-							<td class="text-left px-2" style="min-width: 100px; line-height: 30px;">${contestDto.hosttype }<span class="mx-1">원</span></td>
+							<th class="text-left" style="min-width: 70px; line-height: 30px;">주최기관</th>
+							<td class="text-left px-2" style="min-width: 100px; line-height: 30px;">${contestDto.hosttype }</td>
 						</tr>
 					</table>
 				</div>
@@ -86,10 +86,6 @@
 			} 
 			
 			today = yyyy+'-'+mm+'-'+dd;
-						console.log(today)
-			
-			
-			//if('${ContestDto.enddate}'>)
 				
 			if('${contestDto.enddate }' < today){
 				alert("완료된 공모전입니다. 다른공모전에 참여해주세요!")
