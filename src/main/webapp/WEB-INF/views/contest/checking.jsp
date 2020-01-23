@@ -55,7 +55,7 @@
 <div class="container-fluid m-0 p-0">
         <div class="writer row m-0 p-0">
 	        <div class="m-auto" style="text-align: center;">
-	            <div class="text-white" style="font-size: 32px; font-family: 'Cafe24Oneprettynight';">이미지 심사/승인</div>
+	            <div class="text-white" style="font-size: 32px; font-family: 'Cafe24Oneprettynight';">공모전 심사/승인</div>
 	        </div>
         </div>
     </div>
