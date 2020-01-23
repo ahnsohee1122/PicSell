@@ -42,11 +42,5 @@ public class MyInfoDAO {
 	public void modiprofileimg(MemberDTO dto) {
 		jdbc.update("MyInfo.modiprofileimg", dto );
 	}
-	
-//	public void modifyInfo(String nick, MemberDTO dto) {
-//		Map<String, Object> param = new HashMap<>();
-//		param.put("nick", nick);
-//		param.put("dto", dto);
-//		jdbc.update("MyInfo.modifyInfo", param);
-//	}
+
 }

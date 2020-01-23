@@ -19,6 +19,7 @@ public class MemberDAO {
 	private SqlSessionTemplate jdbc;
 	
 	public int insert(MemberDTO dto) throws Exception{ //회원가입
+		System.out.println("b" + dto.getPw());
 		return jdbc.insert("Member.insert", dto);
 	}
 	public int idCheck(String id) throws Exception{ //아이디중복체크

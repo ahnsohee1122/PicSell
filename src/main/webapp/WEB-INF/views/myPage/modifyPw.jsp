@@ -83,7 +83,7 @@
 				type:"post",
 				data:{currentPw : currentPw}
 			}).done(function(res){
-				if(res == currentPw){
+				if(res == 'yes'){
 					currentPwCheck = 1;
 					$("#currentPwMsg").css("display","none");
 				}else{

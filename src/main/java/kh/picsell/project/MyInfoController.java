@@ -69,8 +69,8 @@ public class MyInfoController {
 	@ResponseBody
 	public String currentPwCheck(String currentPw) {
 		String nickName = (String)session.getAttribute("loginInfo");
-		String pw = myInfoService.currentPwCheck(nickName);
-		return pw;
+		return myInfoService.currentPwCheck(nickName, currentPw);
+
 	}
 	
 	@RequestMapping("/modifyPwProc.do")
@@ -81,12 +81,6 @@ public class MyInfoController {
 		return "home";
 	}
 	
-//	@RequestMapping("/modifyInfo.do")
-//	public void modifyInfo(MemberDTO dto) {
-//		String nick = (String)session.getAttribute("loginInfo");
-//		myInfoService.modifyInfo(nick, dto);
-//
-//	}
 	@RequestMapping(value="profileimg", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String modiprofileimg(MultipartFile file, String nickname) {
