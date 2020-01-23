@@ -53,6 +53,6 @@ public class EditNoticeDAO {
 	}
 	
 	public void modify(EditNoticeDTO editNoticeDto) {
-		jdbc.update("editNotice.update", editNoticeDto);
+		jdbc.update("EditNotice.update", editNoticeDto);
 	}
 }

@@ -28,7 +28,7 @@
 	
 	<div class="container-fluid py-5" style="background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
 		<div class="container m-auto">
-			<h2 class="mx-auto my-0 text-center">작품의뢰</h2>
+			<h2 class="mx-auto my-0 text-center">작품의뢰게시판</h2>
 		</div>
 		<div class="container mx-auto mt-5 mb-4 text-center" style="height: 40px;">
 			<ul class="p-0 m-0 h-100" style="list-style-type: none; border: 1px solid gray; border-radius: 10px;">
@@ -67,9 +67,9 @@
 							<table class="w-100" id="commentTable">
 								<c:forEach var="commentDto" items="${map.commentDto }">
 								<tr id="comment_box">
-									<td id="e${commentDto.comment_seq}" class="p-2 text-left" style="width: 55%">
+									<td id="e${commentDto.comment_seq}" class="p-2 text-left" style="width: 50%">
 										<div class="row w-100 m-auto">
-											${commentDto.notice_comment}
+											<p class="w-100" style="word-break: break-all;">${commentDto.notice_comment}</p>
 										</div>
 										<div class="row w-100 m-auto">
 											<textarea id="c${commentDto.comment_seq }" class="col-12 col-lg-9 align-self-center px-2" style="height: 40px; display: none; resize: none;"></textarea>
@@ -77,36 +77,40 @@
 										</div>
 									</td>
 									<td class="p-2" style="width: 20%">${commentDto.write_date }</td>
-									<td class="p-2" style="width: 15%">${commentDto.writer}</td>
-									<td class="p-2" style="width: 8%">
+									<td class="p-2" style="width: 20%">${commentDto.writer}</td>
+									<c:if test="${(loginInfo == commentDto.writer) || (adminInfo != null)}">
+									<td class="p-2" style="width: 10%">
 										<input type="button" value="삭제" id="a${commentDto.comment_seq }" class="mb-1" onclick="commentDelete(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 										<input type="button" value="수정" id="b${commentDto.comment_seq }" onclick="commentModify(${commentDto.comment_seq })" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">
 									</td>
+									</c:if>
 								</tr>
 								</c:forEach>
 							</table>
 						</td>
 					</tr>
+					<c:if test="${loginInfo != null || adminInfo != null}">
 					<tr>
 						<th class="title px-2 py-0 text-center">댓글</th>
 						<td class="data px-2 m-auto py-2" colspan="4">
 							<div class="row align-items-center w-100 m-auto">
-								<textarea id="comment" class="col align-self-center px-2" style="width: 100%; resize: none;"></textarea>	
+								<textarea id="comment" class="col align-self-center px-2" placeholder="댓글을 입력해주세요" style="width: 100%; resize: none;"></textarea>	
 							</div>
 						</td>
 						<td class="data p-2">
 							<input type="button" id="commentBtn" value="작성" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">	
 						</td>
 					</tr>
+					</c:if>
 				</thead>
 			</table>
 		</div>
+		<c:if test="${loginInfo == map.pieceNotice.pieceNotice_writer }">
 		<div class="container text-center">
-		<%-- <c:if test="${adminInfo !=null }"> --%>
 			<input type="button" id="delete" class="viewBtn mx-1" value="삭제">
 			<input type="button" id="modify" class="viewBtn mx-1" value="수정">
-		<%-- </c:if> --%>
 		</div>
+		</c:if>
 		<div class="container mx-auto mt-5 mb-4 text-center">
 			<table id="example" class="row-border" style="width: 100%;">
 				<tr style="height: 50px;">
@@ -148,36 +152,49 @@
 		/*여기부터 comment  */
 		
 	 	$("#commentBtn").on("click", function(){
-			$.ajax({
-				url:"${pageContext.request.contextPath}/pieceComment/commentWrite.do",
-				type:"post",
-				data:{
-					pieceNotice_seq:"${map.pieceNotice.pieceNotice_seq}",
-					writer:"회원",
-					comment:$("#comment").val()
-				},
-				dataType:"JSON"
-			}).done(function(res){
-				$("#comment").val("");
+	 		var comment = $("#comment").val().replace(/(?:\r\n|\r|\n)/g, '<br/>');
+	 		if(comment == ""){
+	 			alert("댓글 내용을 작성해주세요");
+	 		}else{
+	 			var writer = null;
+	 			if(${loginInfo != null}){
+	 				writer = "${loginInfo}";
+	 			}else{
+	 				writer = "${adminInfo}";
+	 			}
 
-				var insertComment =
-					
-					'<tr id="comment_box">'
-					+'<td id="e' + res.comment_seq+'" class="p-2 text-left" style="width: 55%">'
-					+	res.notice_comment
-					+	'<textarea id="c' + res.comment_seq+'" style="display: none; resize: none;" rows="2" cols="80"></textarea>'
-					+	'<input id="d' + res.comment_seq+'" type="button" value="수정완료" onclick="commentModifyComplete('+res.comment_seq+')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
-					+'</td>'
-					+'<td class="p-2" style="width: 20%">' + res.write_date+'</td>'
-					+'<td class="p-2" style="width: 15%">' + res.writer+'</td>'
-					+'<td class="p-2" style="width: 8%">'
-						+'<input type="button" class=repDelete value="삭제" id="a' + res.comment_seq + '"onclick="commentDelete('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
-						+'<input type="button" class=repModify value="수정" id="b' + res.comment_seq + '"onclick="commentModify('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
-					+'</td>'
-					+'</tr>'; 
-					
-					$("#commentTable").append(insertComment);
-			})
+				$.ajax({
+					url:"${pageContext.request.contextPath}/pieceComment/commentWrite.do",
+					type:"post",
+					data:{
+						pieceNotice_seq:"${map.pieceNotice.pieceNotice_seq}",
+						writer:writer,
+						comment: comment
+					},
+					dataType:"JSON"
+				}).done(function(res){
+					$("#comment").val("");
+
+					var insertComment =
+						
+						'<tr id="comment_box">'
+						+'<td id="e' + res.comment_seq+'" class="p-2 text-left" style="width: 50%">'
+						+	'<div class="row w-100 m-auto"><p class="w-100" style="word-break: break-all;">'+res.notice_comment+'</p></div>'
+						+	'<div class="row w-100 m-auto"><textarea id="c' + res.comment_seq + '" class="col-12 col-lg-9 align-self-center px-2" style="height: 40px; display: none; resize: none;"></textarea>'
+						+	'<input id="d' + res.comment_seq+'" type="button" value="수정완료" onclick="commentModifyComplete('+res.comment_seq+')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+						+'</td>'
+						+'<td class="p-2" style="width: 20%">' + res.write_date+'</td>'
+						+'<td class="p-2" style="width: 20%">' + res.writer+'</td>'
+						+'<td class="p-2" style="width: 10%">'
+							+'<input type="button" class=repDelete value="삭제" id="a' + res.comment_seq + '"onclick="commentDelete('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+							+'<input type="button" class=repModify value="수정" id="b' + res.comment_seq + '"onclick="commentModify('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+						+'</td>'
+						+'</tr>'; 
+						
+						$("#commentTable").append(insertComment);
+				})	
+	 		}
+	 			
 		}) 
 		
 		function commentDelete(seq){
@@ -220,6 +237,9 @@
 				})
 			}
 		}		
+		$("#listBtn").on("click",function(){
+			location.href="${pageContext.request.contextPath}/pieceNotice/notice.do";
+		})
 	</script>
 	
 	<jsp:include page="../key/bottom.jsp" flush="false"/>

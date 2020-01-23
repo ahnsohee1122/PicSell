@@ -63,8 +63,8 @@
 							<div class="form-group row mx-auto my-3">
 								<label for="modifyNickName" class="col-3 col-form-label">닉네임</label>
 							    <div class="col-9">
-							      <input type="text" class="form-control text-right" id="modifyNickName" name="nickname" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.nickname }">
-									<div id="alert_nickname" class="px-1 alert5 invalid-feedback">이미사용중인 닉네임입니다.</div>
+							      <input type="text" class="form-control text-right" id="modifyNickName" name="nickname" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.nickname }" readonly>
+								<!-- 	<div id="alert_nickname" class="px-1 alert5 invalid-feedback">이미사용중인 닉네임입니다.</div> -->
 							    </div>
 							</div>
 							<div class="form-group row mx-auto my-3">
@@ -177,7 +177,7 @@
 			}
 		})
 		
-	$("#modifyNickName").on("blur",function(){
+/* 	$("#modifyNickName").on("blur",function(){
    			var nickname = $("#modifyNickName").val();
    			
    			if(nickname==""){
@@ -207,7 +207,7 @@
    						});
    					}
    				}
-   		})
+   		}) */
    	
    		$("#mailc").on("show.bs.modal",function(){
    			var button = $(event.relatedTarget)

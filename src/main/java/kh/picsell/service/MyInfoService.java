@@ -1,17 +1,20 @@
 package kh.picsell.service;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.picsell.dao.MyInfoDAO;
+import kh.picsell.dao.MyUtilsDAO;
 import kh.picsell.dto.MemberDTO;
 
 @Service
 public class MyInfoService {
+	
+	@Autowired
+	private MyUtilsDAO myDao;
 	
 	@Autowired
 	private MyInfoDAO myInfoDao;
@@ -30,17 +33,23 @@ public class MyInfoService {
 		myInfoDao.infoModifyProc(memberDto);
 	}
 	
-	public String currentPwCheck(String nickname) {
-		return myInfoDao.currentPwCheck(nickname);
+	public String currentPwCheck(String nickname, String pw) {
+		String inputPw = myDao.getSHA512(pw);
+		String currentPw = myInfoDao.currentPwCheck(nickname);
+		if(inputPw.contentEquals(currentPw)) {
+			System.out.println("yes");
+			return "yes";
+		}else {
+			System.out.println("no");
+			return "no";
+		}
 	}
 	
 	public void modifyPwProc(String pw, String nickname) {
-		myInfoDao.modifyPwProc(pw, nickname);
+		String modifiedPw = myDao.getSHA512(pw);
+		myInfoDao.modifyPwProc(modifiedPw, nickname);
 	}
-	
-//	public void modifyInfo(String nick, MemberDTO dto) {
-//		myInfoDao.modifyInfo(nick, dto);
-//	}
+
 	
 	public String modiprofileimg(MultipartFile file, String path, String nickname) {
 		MemberDTO dto = new MemberDTO();

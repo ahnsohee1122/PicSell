@@ -56,8 +56,9 @@
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">닉네임<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="text" class="form-control" id="nickname" name="nickname" placeholder="한번 등록한 닉네임은 변경 불가능 합니다." style="font-size: 15px;">
+		      				<input type="text" class="form-control" id="nickname" name="nickname" placeholder="한번 등록한 닉네임은 변경 불가능 합니다." style="font-size: 15px;" maxlength=12>
 		      				<div id="alert_nickname" class="px-1 alert5 invalid-feedback">이미사용중인 닉네임입니다.</div>
+		      				<div id="alert_nickname1" class="px-1 alert5 invalid-feedback">특수문자와 공백은 사용할수없습니다.</div>
 						</div>
 					</div>
 					<div class="row my-4">
@@ -374,9 +375,9 @@
    		//닉네임 중복검사
    		$("#nickname").on("blur",function(){
    			var nickname = $("#nickname").val();
-   			if(nickname==""){
-   				nicknamec=0;
-   			}else{
+   			var regex = /[A-Za-z0-9가-힣]$/;
+   			var result = regex.exec(nickname);
+   			if(result){
    			$.ajax({
    				url:"${pageContext.request.contextPath}/member/nickCheck.do",
    				type:"post",
@@ -384,16 +385,24 @@
    			}).done(function(res){
    				if(res == "사용가능한 별명입니다."){
    					$("#alert_nickname").css("display","none");
+   					$("#alert_nickname1").css("display","none");
    					nicknamec = 1;
    				}
    				else if(res == "중복된 별명입니다."){
    					$("#alert_nickname").css("display","block");
+   					$("#alert_nickname1").css("display","none");
    					$("#nickname").val("");
    				}
 
    			}).fail(function(res){
    				$("#alert_nickname_form").css("display", "none");
+   				
    			});
+   			}else{
+   				$("#alert_nickname1").css("display","block");
+   				$("#alert_nickname").css("display","none");
+   				$("#nickname").val("");
+   				nicknamec=0;
    			}
    		})
    		
@@ -516,7 +525,7 @@
    		
    		// 비밀번호 정규식 검사
    		$("#pw").on("blur",function(){
-   			var regex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{9,20}$/;
+   			var regex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,20}$/;
    			var data = $("#pw").val();
    			var result = regex.exec(data);
    			

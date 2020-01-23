@@ -28,8 +28,6 @@ public class HomeController {
    @Autowired
    private MemberService service;
    @Autowired
-   private HttpServletRequest request;
-   @Autowired
    private HonorService honorservice;
    @Autowired
    private ContestService contestservice;
@@ -50,9 +48,7 @@ public class HomeController {
       request.setAttribute("list", list);
       List<WriterImageUpDTO> imagelist = imageservice.bestImage();
       request.setAttribute("imagelist", imagelist);
-      List<MemberDTO> list1;
-  	List<MemberDTO> list2;
-  	List<MemberDTO> list3;
+ 
   	List<HonorListDTO> enterlist;
   	MemberDTO mdto = new MemberDTO();
 //      List<Integer> seq = new ArrayList<>();
@@ -63,16 +59,7 @@ public class HomeController {
 //      }
   	
   	try {
-		MemberDTO mlist1 = honorservice.dfirst();
-		MemberDTO mlist2 = honorservice.dsecond();
-		MemberDTO mlist3 = honorservice.dthird();
-		enterlist = honorservice.enterhonorlist();
-		request.setAttribute("enterlist", enterlist);
-		if(mlist3!=null) {			
-			session.setAttribute("dto1", mlist1.getNickname());
-			session.setAttribute("dto2", mlist2.getNickname());
-			session.setAttribute("dto3", mlist3.getNickname());
-		}
+		
 			
 
 		HonorListDTO newhonor = honorservice.newhonor();

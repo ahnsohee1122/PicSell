@@ -128,7 +128,7 @@
 		        info:false,
 		        order:[[2,"desc"]],
 		        "language": {
-		             "emptyTable": "등록된 심사/승인 내역이 없습니다."",
+		             "emptyTable": "등록된 심사/승인 내역이 없습니다.",
 		              "paginate" :{
 		              "previous" : "<<",
 		              "next" : ">>"

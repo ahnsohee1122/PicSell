@@ -80,4 +80,14 @@ public List<ContestDTO> enrollList(int contest_seq){
 	return jdbc.selectList("Contest.enrollList", contest_seq);
 }
 
+public int selectimage(int contest_seq) {
+	return jdbc.update("Contest.selectimage",contest_seq);
+}
+public int selectedimage(int contest_img_seq) {
+	return jdbc.update("Contest.selectedimage",contest_img_seq);
+}
+public List<ContestDTO> selected(int contest_seq){
+	return jdbc.selectList("Contest.selected",contest_seq);
+}
+
 }

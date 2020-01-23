@@ -31,8 +31,8 @@ public class PieceCommentController {
 	@RequestMapping(value="/commentWrite.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String commentWrite(int pieceNotice_seq, String writer, String comment) {
+		comment.replaceAll("\r\n", "<br>");
 		pieceCommentService.commentWrite(pieceNotice_seq, writer, comment);
-		
 		int comment_seq = pieceCommentService.getCommetSeq(pieceNotice_seq, writer);
 		PieceNoticeCommentDTO dto = pieceCommentService.commentSelect(comment_seq);
 		System.out.println(dto.getWrite_date());

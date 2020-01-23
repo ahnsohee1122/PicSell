@@ -109,7 +109,7 @@ public class EditNoticeController {
 		String editSummernote_filePath = session.getServletContext().getRealPath("/editNotice_summernote_files");
 		
 		editNoticeService.delete(seq, editFile_path, editSummernote_filePath);
-		return "redirect:/pieceNotice/notice.do";
+		return "redirect:/editNotice/notice.do";
 	}
 	
 	@RequestMapping("/modify.do")
