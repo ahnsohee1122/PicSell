@@ -415,7 +415,7 @@
                                 <p class="lead">${list.title }</p>
                                 <p class="text-danger">집계중</p>
                                 <p>${list.enddate }</p>
-                                <p><a href="contest" class="btn btn-outline-dark btn-sm">참여하기</a></p>
+                                <p><a href="${pageContext.request.contextPath}/contest/detail?title=${list.title}&contest_seq=${list.contest_seq}" class="btn btn-outline-dark btn-sm">참여하기</a></p>
                             </div>
                         </div>
                         </c:forEach>

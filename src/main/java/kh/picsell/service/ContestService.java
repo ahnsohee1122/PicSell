@@ -1,9 +1,17 @@
 package kh.picsell.service;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,23 +99,52 @@ public class ContestService {
 	}
 	@Transactional("txManager")
 	public void enrollimg(MultipartFile[] files, ContestDTO dto, String contestpath) {
-		System.out.println("contestseq" + dto.getContest_seq());
-		System.out.println("title" + dto.getTitle());
-		File filepath = new File(contestpath);
-
-		if(!filepath.exists()) {
-			filepath.mkdir();
+	
+		File originalfile = new File(contestpath);
+		File originaloutput;
+		if(!originalfile.exists()) {
+			originalfile.mkdir();
 		}
 		String oriName = "";
 		String sysName = "";
-
+		
 		for(MultipartFile f : files) {
 			HashMap<String,Object> map = new HashMap<>();
 			oriName = f.getOriginalFilename();
 			sysName = System.currentTimeMillis() + "_" + oriName;
-			System.out.println("oriname:"+oriName);
+
 			try {
-				f.transferTo(new File(contestpath+"/"+sysName));
+				originaloutput = new File(contestpath+"/"+sysName);
+				f.transferTo(originaloutput);
+				
+				BufferedImage original = ImageIO.read(originaloutput);
+				Graphics2D g2d = original.createGraphics();
+				
+				AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f);
+
+				g2d.setComposite(alphaChannel);
+				g2d.setColor(Color.white);
+				double ratio = (double)30/1000;
+				double fontsize = original.getWidth() * ratio;
+				g2d.setFont(new Font("Arial", Font.BOLD, (int)fontsize));
+				FontMetrics fontMetrics = g2d.getFontMetrics();
+				Rectangle2D rect = fontMetrics.getStringBounds("PicSell", g2d);
+
+				// calculates the coordinate where the String is painted
+				int centerX = (original.getWidth() - (int) rect.getWidth()) / 2;
+				int centerY = original.getHeight() / 2;
+				
+				
+				// paints the textual watermark
+				g2d.drawString("PicSell", centerX, centerY);
+
+				String sysName_watermark;
+				sysName_watermark = "marked_" + sysName;
+
+				File markedfile;
+				markedfile = new File(originalfile+ "/" + sysName_watermark);
+
+				ImageIO.write(original, "png", markedfile);
 				dto.setEnroll_sysname(sysName);
 				map.put("dto", dto);
 				dao.enrollimg(map);
