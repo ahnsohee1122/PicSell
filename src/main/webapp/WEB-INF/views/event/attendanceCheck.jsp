@@ -25,8 +25,8 @@
 	@font-face {font-family: 'Cafe24Dongdong'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Dongdong.woff') format('woff'); font-weight: normal; font-style: normal; }
 	@font-face {font-family: 'Arita-dotum-Medium'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Arita-dotum-Medium.woff') format('woff'); font-weight: normal; font-style: normal; }
 	
-	.fc-custom2-button {width: 100px; border: 1px solid #A6C14C; background-color: #FFFEEA; color: #A6C14C; font-family: 'Arita-dotum-Medium';}
-	.fc-custom2-button:hover {width: 100px; border: 1px solid #FFFEEA; background-color: #A6C14C; color: white; font-family: 'Arita-dotum-Medium';}
+	/*.fc-custom2-button {width: 100px; border: 1px solid #A6C14C; background-color: #FFFEEA; color: #A6C14C; font-family: 'Arita-dotum-Medium';}
+	.fc-custom2-button:hover {width: 100px; border: 1px solid #FFFEEA; background-color: #A6C14C; color: white; font-family: 'Arita-dotum-Medium';}*/
 		
 	.fc-content {margin: auto; width: 100px !important; text-align: center; height: 100px; background-image: url('${pageContext.request.contextPath}/img/pass.png'); background-size: 100px; background-repeat: no-repeat;}
 	.fc-title{font-family: 'Cafe24Dongdong';}
@@ -38,10 +38,47 @@
 	#myCanvas {z-index: 200;}
 	#prizePointer {position: absolute; left: 175px; top: 40px; z-index: 300; width: 50px; height: 50px;}
 </style>
+
+<script type="text/javascript"> 
+
+
+	function getCookie(name) {
+		var cookie = document.cookie;
+		if (document.cookie != "") {
+			var cookie_array = cookie.split("; ");
+			for ( var index in cookie_array) {
+				var cookie_name = cookie_array[index].split("=");
+				if (cookie_name[0] == "popupYN") {
+					return cookie_name[1];
+				}
+			}
+		}
+		return;
+	}
+	function openPopup(url) {
+		var cookieCheck = getCookie("popupYN");
+		if (cookieCheck != "N")
+			window.open(url, '', 'width=450,height=750,left=0,top=0')
+	}
+</script>
+
+
 </head>
-<body>
+<body onload="javascript:openPopup('${pageContext.request.contextPath}/event/pop.do')">
+
+
 	<jsp:include page="../key/top.jsp" flush="false"/>
+
+
+</div>
+
+
+	<script>
+	//var win = window.open("${pageContext.request.contextPath}/event/pop.do", "PopupWin", "width=400, height=375");
 	
+	</script>
+	
+
 	<div class="modal fade" id="rouletteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog m-auto" role="document">
 		</div>
@@ -51,15 +88,7 @@
 			<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeBtn" style="display: none;">Close</button>
 		</div>
 	</div>
-	
-	<div>룰렛으로 가기 위한 버튼 
-		<button id="rulet">룰렛 페이지로 고고</button>
-	</div>
-	<script>
-		$("#rulet").on("click", function(){
-			location.href="${pageContext.request.contextPath}/event/rulet.do";
-		})
-	</script>
+
 	<div class="container-fluid m-0 py-5" style="height: 250px; background-color: #FFFEEA; font-family: 'Cafe24Ssukssuk';">
 		<div class="container text-center h-100">
 			<h4 class="my-3" style="font-size: 25px;">부지런한 자가 득템한다!</h4>
@@ -73,7 +102,102 @@
 	</div>
 
 	<script>
-
+    
+ // 출석체크 
+	document.addEventListener('DOMContentLoaded', function() {
+    	  
+    $.ajax({	  
+    	url: "${pageContext.request.contextPath}/event/getEvent",
+        type: "get",
+        dataType:"json",
+        // 값을 성공적으로 받아온 경우 
+        success: function(data){
+    		if("${event}"==0){
+    			console.log("출석이력이 없음");
+        		var calendarEl = document.getElementById('calendar');
+       			var calendar = new FullCalendar.Calendar(calendarEl, {
+        			plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ],
+		            header:{
+		           		left:'title',
+		                center:'none',
+		                right:'custom2'
+		            },
+            		// 출석체크를 위한 버튼 생성 
+            		customButtons:{
+                		custom2: {
+                    		text:'출석체크', 
+                    		id:'check',
+                    		///////////////////////////////////////////////////
+                    		// 출석체크 버튼 누르면 출석완료 처리
+             				click:function(){
+             					// 출석체크 누르면 모달창 나옴
+                 				var date = $(".fc-today").attr("data-date");
+                 				$(".fc-custom2-button").attr('data-toggle','modal');
+                 				$(".fc-custom2-button").attr('data-target','#rouletteModal');
+                 				$(".fc-custom2-button").attr('data-backdrop','static');
+                 				$(".fc-custom2-button").attr('data-keyboard','false');
+                 				                 
+                 				console.log(date);                 
+                 				// ajax로 출석 정보를 저장한다 
+				                 $.ajax({
+				                 	url: "${pageContext.request.contextPath}/event/changeButton",
+				                    type: "post",
+				                    data : {event_date:date},
+				                    dataType: "json"
+				                 }).done(function(data){
+				                    // 버튼이 출석완료로 바뀐다 
+				                    $(".fc-custom2-button").prop('disabled', true);
+				                    $(".fc-custom2-button").html('출석완료');
+				                    theWheel.startAnimation();
+				                    // 달력에 출석완료 이벤트가 표시된다 
+				                    //alert('오늘의 출석이 완료되었습니다. 10포인트가 지급되었습니다!');
+				                    calendar.addEvent({
+				                    	
+                         				"start": date,
+                         				"color" : "#FCF8E3",
+                         				"textColor" : "white"
+                     				})
+                 				});
+             				}
+		            		////////////////////////////////////////////////////
+		            
+		            
+		            
+                		}
+            		}
+        		});
+    	 	}else if("${event}"==1){
+    		 	console.log("출석이력이 있음");
+    		 	var calendarEl = document.getElementById('calendar');
+    	        var calendar = new FullCalendar.Calendar(calendarEl, {
+    	         	
+    	        	plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ],
+    	            header:{
+    	            	left:'title',
+    	                center:'none',
+    	                right:'custom2'
+    	            },
+    	            // 출석체크를 위한 버튼 생성 
+    	            customButtons:{
+    	            	custom2: {
+    	                	text:'출석완료'      	
+    	                }
+    	            }
+    	        })
+    	        $(".fc-custom2-button").prop('background-color', 'grey');
+    	 	}
+    	 	// 가져온 달력 정보를 캘린더에 뿌린다 
+            for(var i = 0;i < data.length;i++){
+            	calendar.addEvent(data[i]);
+                console.log(data[i].imageurl);
+            }
+    	    calendar.render();      
+    	 	}, error : function(data){
+            	alert('error');
+           	}
+		})
+	});
+ 
 	// 룰렛 
     let theWheel = new Winwheel({
         'canvasId' : 'myCanvas',
@@ -117,7 +241,7 @@
         }
     });
     
-    theWheel.startAnimation();
+    
     // This function called after the spin animation has stopped.
     function alertPrize()
     {
@@ -166,98 +290,6 @@
      
     // Set the image source, once complete this will trigger the onLoad callback (above).
     wheelImg.src = "${pageContext.request.contextPath}/img/bomb.png";
-    
- // 출석체크 
-	document.addEventListener('DOMContentLoaded', function() {
-    	  
-    $.ajax({	  
-    	url: "${pageContext.request.contextPath}/event/getEvent",
-        type: "get",
-        dataType:"json",
-        // 값을 성공적으로 받아온 경우 
-        success: function(data){
-    		if("${event}"==0){
-    			console.log("출석이력이 없음");
-        		var calendarEl = document.getElementById('calendar');
-       			var calendar = new FullCalendar.Calendar(calendarEl, {
-        			plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ],
-		            header:{
-		           		left:'title',
-		                center:'none',
-		                right:'custom2'
-		            },
-            		// 출석체크를 위한 버튼 생성 
-            		customButtons:{
-                		custom2: {
-                    		text:'출석체크', 
-                    		id:'check',
-                    		///////////////////////////////////////////////////
-                    		// 출석체크 버튼 누르면 출석완료 처리
-             				click:function(){
-                 				var date = $(".fc-today").attr("data-date");
-                 				$(".fc-custom2-button").attr('data-toggle','modal');
-                 				$(".fc-custom2-button").attr('data-target','#rouletteModal');
-                 				$(".fc-custom2-button").attr('data-backdrop','static');
-                 				$(".fc-custom2-button").attr('data-keyboard','false');
-                 				                 
-                 				console.log(date);                 
-                 				// ajax로 출석 정보를 저장한다 
-				                 $.ajax({
-				                 	url: "${pageContext.request.contextPath}/event/insertEvent",
-				                    type: "post",
-				                    data : {event_date:date},
-				                    dataType: "json"
-				                 }).done(function(data){
-				                    // 버튼이 출석완료로 바뀐다 
-				                    $(".fc-custom2-button").prop('disabled', true);
-				                    $(".fc-custom2-button").html('출석완료');
-				                    // 달력에 출석완료 이벤트가 표시된다 
-				                    alert('오늘의 출석이 완료되었습니다. 10포인트가 지급되었습니다!');
-				                    calendar.addEvent({
-				                    	
-                         				"start": date,
-                         				"color" : "#FCF8E3",
-                         				"textColor" : "white"
-                     				})
-                 				});
-             				}
-		            		////////////////////////////////////////////////////
-		            
-		            
-		            
-                		}
-            		}
-        		});
-    	 	}else if("${event}"==1){
-    		 	console.log("출석이력이 있음");
-    		 	var calendarEl = document.getElementById('calendar');
-    	        var calendar = new FullCalendar.Calendar(calendarEl, {
-    	         	
-    	        	plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ],
-    	            header:{
-    	            	left:'title',
-    	                center:'none',
-    	                right:'custom2'
-    	            },
-    	            // 출석체크를 위한 버튼 생성 
-    	            customButtons:{
-    	            	custom2: {
-    	                	text:'출석완료' 
-    	                }
-    	            }
-    	        })
-    	 	}
-    	 	// 가져온 달력 정보를 캘린더에 뿌린다 
-            for(var i = 0;i < data.length;i++){
-            	calendar.addEvent(data[i]);
-                console.log(data[i].imageurl);
-            }
-    	    calendar.render();      
-    	 	}, error : function(data){
-            	alert('error');
-           	}
-		})
-	});
 
 	</script>
 

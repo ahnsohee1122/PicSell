@@ -40,14 +40,6 @@ public class EventDAO {
 			return jdbc.insert("Event.addCalendar", param);
 		}
 		
-		// 4. 출석체크한 사용자에게 10포인트 추가
-		public int addPoint(String nickname, String point_date) {
-			Map<String, String> param = new HashMap<>();
-			param.put("nickname", nickname);
-			param.put("point_date", point_date);
-			return jdbc.insert("Event.addPoint", param);
-			}
-		
 		
 		/////////////////////////////////////////////////////////////////
 		
