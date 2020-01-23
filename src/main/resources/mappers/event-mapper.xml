@@ -22,11 +22,6 @@
 		insert into event values (#{nickname}, '출석완료', #{event_date}, '/img/icon.png')
 	</insert>
 	
-	<!-- 4. 출석체크한 사용자에게 10포인트 추가 -->
-	<insert id="addPoint" parameterType="java.util.Map">
-		insert into point values (point_seq.nextval, #{nickname}, '이벤트', #{point_date}, 10, '포인트' )
-	</insert>
-	
 	<!-- 룰렛 돌리기 -->
 	
 	<!-- 1. 룰렛 돌려서 나온 포인트를 추가  -->
