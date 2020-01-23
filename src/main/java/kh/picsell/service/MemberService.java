@@ -55,7 +55,8 @@ public class MemberService {
 		return dao.login(id, modifyPw);
 	}
 	public int managercheck(String id, String pw) throws Exception{ //관리자인지체크
-		return dao.managercheck(id, pw);
+		String modifyPw = myDao.getSHA512(pw);
+		return dao.managercheck(id, modifyPw);
 	}
 	public MemberDTO getnick(String id)throws Exception{ //로그인시 세션값으로쓸 닉
 		return dao.getnick(id);
