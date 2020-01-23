@@ -136,6 +136,7 @@ public class MemberController {
 				if(black==0) {
 					int result1 = service.managercheck(id, pw); //매니저로그인
 					if(result1 > 0) {
+						
 						session = request.getSession();
 						session.setAttribute("adminInfo", nickname);
 						return  "관리자로그인성공";

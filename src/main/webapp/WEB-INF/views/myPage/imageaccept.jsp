@@ -92,7 +92,7 @@
 				<c:forEach items="${list}" var="dto">
 					<tr style="height:100px;">
 						<td>${dto.img_seq}</td>
-						<td class="imgtd"><img src='/writeruploadfiles/${dto.sysname}'></td>
+						<td class="imgtd"><img src='/watermarkfiles/xsmarked_${dto.sysname}'></td>
 						<td id="checking${dto.img_seq}"></td>
 						<td id="accept${dto.img_seq}"></td>
 						<td id="time${dto.img_seq}"></td>

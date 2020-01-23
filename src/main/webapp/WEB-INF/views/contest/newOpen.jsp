@@ -255,7 +255,7 @@
 					    </div>
 				  	</div>
 				  	<div class="row mt-5 mb-3">
-				  		<button class="m-auto btn border border-danger rounded-lg text-black" type="button" id="newcontest" style="width: 150px;">신청하기</button>
+				  		<button class="m-auto btn border border-danger rounded-lg text-black" type="submit" id="newcontest" style="width: 150px;">신청하기</button>
 				  	</div>
 				</fieldset>
 			</form>
@@ -263,6 +263,7 @@
 	</div>
 	
 	<script>
+		var loginInfo = "${sessionScope.loginInfo}";
 		// 주최이유 기타 내용 적는 부분 클릭하면 라디오버튼이 기타에 찍힘
 		$("#others").on("click", function() {
 			$("input[id=gridRadios5]").prop("checked", true);
