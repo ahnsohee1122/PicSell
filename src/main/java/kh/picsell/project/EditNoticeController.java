@@ -43,14 +43,21 @@ public class EditNoticeController {
 	
 	@RequestMapping("/noticeWrite.do")
 	public String write() {
+		if((session.getAttribute("loginInfo") != null) || (session.getAttribute("adminInfo") != null)) {
 		return "editNotice/editNoticeWrite";
-
+		}
+		return "home";
 	}
 	
 	@RequestMapping("/writeProc.do")
 	public String writeProc(EditNoticeDTO editNoticeDto, EditNoticeFileDTO editNoticeFileDto) {
 		
-		String nickName = "a123";
+		String nickName = "";
+		if(session.getAttribute("loginInfo") != null) {
+			nickName = (String)session.getAttribute("loginInfo");
+		}else if(session.getAttribute("adminInfo") != null) {
+			nickName = (String)session.getAttribute("adminInfo"); 
+		}
 		editNoticeDto.setEditNotice_writer(nickName);
 		
 		String file_path = session.getServletContext().getRealPath("/editNotice_files");

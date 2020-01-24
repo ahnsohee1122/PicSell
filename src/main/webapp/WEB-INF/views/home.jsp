@@ -242,18 +242,17 @@
         </div>
         <hr class="p-0 m-0">
         <div class="row m-auto">
-           <div class="col-12 col-md-12 col-xl-12 text-center px-0 py-3" id="gallery">
+           <div class="col-12 col-md-12 col-xl-12 text-center px-0 py-3 justified-gallery" id="gallery">
         	<c:forEach items="${imagelist }" var="imagelist">
            		 <div><a href='${pageContext.request.contextPath}/DetailImage.do?img_seq=${imagelist.img_seq }&nickname=${imagelist.nickname }' onclick="window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src="/watermarkfiles/xsmarked_${imagelist.sysname }" ></a></div>
          	</c:forEach>
-            </div>
-           
+           </div>
         </div>
     </div>
     <hr class="p-0 m-0">
 
 <!--  명예의 전당 -->    
-    <div class="container-fluid" style="background-color: white;">
+    <div class="container-fluid" style="background-color: white; display: none;" id="honorDiv">
     	<div class="container px-0 py-5">
     		<div class="row w-100 m-auto text-center">
                <p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>
@@ -489,11 +488,14 @@
                     <div class="MultiCarousel-inner">
                         <c:forEach items="${list }" var="list">
                         <div class="item">
-                            <div class="pad15">
-                                <p><img src="${pageContext.request.contextPath}/img/contest.jpg" style="width: 250px; height: 170px;"></p>
-                                <p class="lead">${list.title }</p>
-                                <p class="text-danger">집계중</p>
-                                <p>${list.enddate }</p>
+                            <div class="convention pad15" style="margin: auto; width: 280px; background-color: white;">
+	                            <div class="text-center">
+		    						<img src="${pageContext.request.contextPath}/img/contest_image.PNG" style="width: 280px; height: 170px;">
+		    						<p class="m-auto py-5 text-center" style="width: 280px; position: absolute; bottom: 210px; height: 170px; font-size: 48px; font-weight: 500; font-family: 'Cafe24Oneprettynight';">일본어하이요</p>
+		    					</div>
+                                <p class="lead px-2 text-left" style="font-size: 20px;">${list.title }</p>
+                                <p class="text-danger" style="font-size: 17px;">진행중</p>
+                                <p style="font-size: 17px;">${list.enddate }</p>
                                 <p><a href="${pageContext.request.contextPath}/contest/detail?title=${list.title}&contest_seq=${list.contest_seq}" class="btn btn-outline-dark btn-sm">참여하기</a></p>
                             </div>
                         </div>
@@ -513,11 +515,11 @@
     		rowHeight : 200,
     	    lastRow : 'hide',
     	    margins : 10
+    	}).on('jg.complete', function (e) {
+    	    $("#honorDiv").show();
     	});
     })
  
-    
-    
     $("#searchBtn").on("click",function(){
 		search();
     })

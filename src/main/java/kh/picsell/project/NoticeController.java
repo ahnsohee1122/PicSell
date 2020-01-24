@@ -70,7 +70,7 @@ public class NoticeController {
 	}
 	@RequestMapping("/writeProc.do")
 	public String writeProc(NoticeDTO noticeDto, NoticeFileDTO noticeFileDto) {
-		String nickName = "a123";
+		String nickName = (String)session.getAttribute("adminInfo");
 		noticeDto.setNotice_writer(nickName);
 		String file_path = session.getServletContext().getRealPath("/notice_files");
 		String summernote_filePath = session.getServletContext().getRealPath("notice_summernote_files") ;
