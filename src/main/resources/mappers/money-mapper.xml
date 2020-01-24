@@ -89,7 +89,10 @@
 		where p.point_date=o.deal_date(+) and nickname=#{nickname} and money_sort='수익금' order by point_date desc
 	</select>
 	
-
+	<!-- 공모전 당첨수익금 지급 -->
+	<insert id="insertContestBuyList" parameterType="java.util.Map">
+		insert into deal_list values(deal_seq.nextval, #{deal_date}, #{pricePerPerson}, #{deal_img_seq}, #{writer_nickname}, #{buyer_nickname})
+	</insert>
 	
 	<!-- 관리자 > 포인트 내역 확인하기 -->
 	<select id="admin_point" parameterType="String" resultType="kh.picsell.dto.PointDTO">
@@ -111,7 +114,7 @@
 		Select d.deal_date, d.deal_price, d.buyer_nickname, d.writer_nickname, d.deal_img_seq, w.sysname from deal_list d, writer_image_up w where d.deal_img_seq = w.img_seq order by d.deal_date desc
 	</select>
 	
-	<!-- 정보 수정 시 변경되는 부분 -->
+	<!— 정보 수정 시 변경되는 부분 —>
 	<update id="modifyPoint" parameterType="java.util.Map">
 		update point set nickName=#{dto.nickName} where nickName=#{nickName}
 	</update>

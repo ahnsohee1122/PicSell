@@ -515,9 +515,8 @@
     		rowHeight : 200,
     	    lastRow : 'hide',
     	    margins : 10
-    	}).on('jg.complete', function (e) {
-    	    $("#honorDiv").show();
-    	});
+    	})
+
         $("#gallery").justifiedGallery('norewind');
     })
  
