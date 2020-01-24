@@ -41,7 +41,17 @@ public class ContestController {
       }
       return "contest/contest";
    }
-   
+   @RequestMapping("/ing.do")
+   public String ing(HttpServletRequest request) {
+	   List<ContestDTO> list;
+	   try {
+		   list = service.ing();
+		   request.setAttribute("list", list);
+	   }catch(Exception e) {
+		   e.printStackTrace();
+	   }
+	   return "contest/ing";
+   }
    // 새로운 공모전 열기
    @RequestMapping("/newOpen.do")
    public String newOpen() {
@@ -238,6 +248,16 @@ public class ContestController {
 		List<ContestDTO> list = service.enrollList(contest_seq);
 		String[] select = request.getParameterValues("select");
 		service.selectedimage(select);
+		try {
+			int result = service.selecting(contest_seq);
+			if(result>0) {
+				System.out.println("ㅇㅇ");
+			}else {
+				System.out.println("ㄴㄴ");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return "redirect:enrollList?contest_seq="+contest_seq;
 

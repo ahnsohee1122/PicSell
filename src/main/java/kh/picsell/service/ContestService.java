@@ -97,6 +97,12 @@ public class ContestService {
 	public List<ContestDTO> lastContest(){
 		return dao.lastContest();
 	}
+	public int selecting(int contest_seq) throws Exception{
+		return dao.selecting(contest_seq);
+	}
+	public List<ContestDTO> ing() throws Exception{
+		return dao.ing();
+	}
 	@Transactional("txManager")
 	public void enrollimg(MultipartFile[] files, ContestDTO dto, String contestpath) {
 	

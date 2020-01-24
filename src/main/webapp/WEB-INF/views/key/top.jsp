@@ -456,9 +456,6 @@ $(function(){
 													<a href="#" style="color: black; text-decoration: none;">관리자 페이지</a>
 												</div>
 												<div class="col-12 sideMenu">
-													<a href="#" style="color: black; font-size: 16px; text-decoration: none;">관리자 정보 조회</a>
-												</div>
-												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/member/manage.do" style="color: black; font-size: 16px; text-decoration: none;">회원 정보 조회</a>
 												</div>
 												<div class="col-12 sideMenu">
@@ -466,6 +463,9 @@ $(function(){
 												</div>
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/contest/check.do" style="color: black; font-size: 16px; text-decoration: none;">공모전 심사/업로드 </a>
+												</div>
+												<div class="col-12 sideMenu">
+													<a href="${pageContext.request.contextPath}/contest/ing.do" style="color: black; font-size: 16px; text-decoration: none;">공모전 현황</a>
 												</div>
 												<div class="col-12 sideMenu">
 													<a href="${pageContext.request.contextPath}/money/admin_point.do" style="color: black; font-size: 16px; text-decoration: none;">회원 포인트 내역 </a>
