@@ -104,6 +104,15 @@ public class ContestService {
 	public List<ContestDTO> lastContest(){
 		return dao.lastContest();
 	}
+	public int selecting(int contest_seq) throws Exception{
+		return dao.selecting(contest_seq);
+	}
+	public List<ContestDTO> ing() throws Exception{
+		return dao.ing();
+	}
+	public List<ContestDTO> selectlist(int contest_seq) throws Exception{
+		return dao.selectlist(contest_seq);
+	}
 	@Transactional("txManager")
 	public void enrollimg(MultipartFile[] files, ContestDTO dto, String contestpath) {
 
@@ -166,14 +175,14 @@ public class ContestService {
 		return dao.enrollList(Contest_seq);
 	}
 
-//	public void selectedimage(String[] select) {
-//		for(String seq : select) {
-//			int contest_img_seq = Integer.parseInt(seq);
-//			dao.selectedimage(contest_img_seq);
-//
-//		}
-//
-//	}
+	public void selectedimage(String[] select) {
+		for(String seq : select) {
+			int contest_img_seq = Integer.parseInt(seq);
+			dao.selectedimage(contest_img_seq);
+
+		}
+
+	}
 
 	public List<ContestDTO> selected(int contest_seq){
 		return dao.selected(contest_seq);

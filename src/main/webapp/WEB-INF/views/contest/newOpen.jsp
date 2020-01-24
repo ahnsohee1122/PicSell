@@ -184,7 +184,7 @@
 				    <div class="row my-4 was-validated">
      					<label class="col-form-label col-3 col-md-2 pt-0">분류<strong> * </strong></label>
 	      				<div class="col-9 col-md-10">
-	      					<input type="text" class="form-control" name="grouping" id="group" placeholder="예) 일본어" style="font-size: 15px;" required>
+	      					<input type="text" class="form-control" name="grouping" id="group" placeholder="예) 일본어" style="font-size: 15px;" required; maxlength=6>
 	      					<div class="invalid-feedback">주최하실 공모전의 분류를 간단하게 작성해주세요!</div>
 						</div>
 				    </div>
