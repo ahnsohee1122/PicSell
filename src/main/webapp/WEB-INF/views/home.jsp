@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet"> <!-- BestPic 글씨체 -->
 <link rel="stylesheet" href="/css/justifiedGallery.css" />
 <style>
-.honorlist {
+ .honorlist {
 			min-width:230px;
 			border: solid 5px gold;
 			-webkit-animation-name: movingPara;
@@ -39,7 +39,7 @@
 			80% { border-color: #fffccc; }
 			100% { border-color: yellow; }
 		}
-
+ 
 /*    글씨체 css */
    @font-face {font-family: 'Cafe24Oneprettynight'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff'); font-weight: normal; font-style: normal; }
    
@@ -462,9 +462,9 @@
     		rowHeight : 200,
     	    lastRow : 'hide',
     	    margins : 10
-    	}).on('jg.complete', function (e) {
-    	    $("#honorDiv").show();
-    	});
+    	})
+
+        $("#gallery").justifiedGallery('norewind');
     })
  
     $("#searchBtn").on("click",function(){
