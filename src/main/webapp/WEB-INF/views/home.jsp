@@ -242,18 +242,17 @@
         </div>
         <hr class="p-0 m-0">
         <div class="row m-auto">
-           <div class="col-12 col-md-12 col-xl-12 text-center px-0 py-3" id="gallery">
+           <div class="col-12 col-md-12 col-xl-12 text-center px-0 py-3 justified-gallery" id="gallery">
         	<c:forEach items="${imagelist }" var="imagelist">
            		 <div><a href='${pageContext.request.contextPath}/DetailImage.do?img_seq=${imagelist.img_seq }&nickname=${imagelist.nickname }' onclick="window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'><img src="/watermarkfiles/xsmarked_${imagelist.sysname }" ></a></div>
          	</c:forEach>
-            </div>
-           
+           </div>
         </div>
     </div>
     <hr class="p-0 m-0">
 
 <!--  명예의 전당 -->    
-    <div class="container-fluid" style="background-color: white;">
+    <div class="container-fluid" style="background-color: white; display: none;" id="honorDiv">
     	<div class="container px-0 py-5">
     		<div class="row w-100 m-auto text-center">
                <p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>
@@ -516,11 +515,11 @@
     		rowHeight : 200,
     	    lastRow : 'hide',
     	    margins : 10
+    	}).on('jg.complete', function (e) {
+    	    $("#honorDiv").show();
     	});
     })
  
-    
-    
     $("#searchBtn").on("click",function(){
 		search();
     })
