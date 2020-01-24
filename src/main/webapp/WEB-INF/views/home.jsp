@@ -438,7 +438,7 @@
                             <div class="convention pad15" style="margin: auto; width: 280px; background-color: white;">
 	                            <div class="text-center">
 		    						<img src="${pageContext.request.contextPath}/img/contest_image.PNG" style="width: 280px; height: 170px;">
-		    						<p class="m-auto py-5 text-center" style="width: 280px; position: absolute; bottom: 210px; height: 170px; font-size: 48px; font-weight: 500; font-family: 'Cafe24Oneprettynight';">일본어하이요</p>
+		    						<p class="m-auto py-5 text-center" style="width: 280px; position: absolute; bottom: 210px; height: 170px; font-size: 48px; font-weight: 500; font-family: 'Cafe24Oneprettynight';">${list.grouping }</p>
 		    					</div>
                                 <p class="lead px-2 text-left" style="font-size: 20px;">${list.title }</p>
                                 <p class="text-danger" style="font-size: 17px;">진행중</p>

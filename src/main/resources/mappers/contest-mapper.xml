@@ -83,4 +83,10 @@
 	<select id="enrollimagedetail" parameterType="Integer" resultType="kh.picsell.dto.ContestDTO">
 		select * from contestimage where contest_img_seq = #{contest_img_seq}
 	</select>
+	<select id="totalContents" parameterType="Integer" resultType="Integer" >
+		select count(*) from contestimage where contest_seq = #{contest_seq}
+	</select>
+	<select id="selectByPage" parameterType="java.util.Map" resultType="kh.picsell.dto.ContestDTO">
+		select * from (select contestimage.*, row_number() over(order by contest_img_seq desc) as rown from contestimage) where rown between #{start} and #{end} 
+	</select>
 </mapper>

@@ -152,7 +152,8 @@
 			<h2 class="mx-3 pt-4 pb-3 px-4 text-center">공모전 신청하기</h2>
 			<h6 class="mx-3 py-2 px-4">어떤 공모전을 열고 싶으세요?</h6>
 			<h6 class="mx-3 py-2 px-4">픽셀 ＇공모전＇을 통해<br>특정 주제의 이미지를 빠르고 효율적으로 공모할 수 있습니다.</h6>
-			<h6 class="mx-3 py-2 px-4">아래의 신청 양식을 작성해주시면,<br>확인 후 회원님의 전화번호 또는 메일로 연락 드리겠습니다!</h6>
+			<h6 class="mx-3 py-2 px-4">아래의 신청 양식을 작성해주시면,<br>확인 후 회원님의 메일로 연락 드리겠습니다!</h6>
+			<h6 class="mx-3 py-2 px-4">공모전 승인 심사에 알맞는 절차 진행 후 승인이 가능합니다.<br>실제 보여질 상세요강이므로 자세히 적어주세요!</h6>
 			<form method="post" id="newcontestform" action="${pageContext.request.contextPath}/contest/newcontestform" enctype="multipart/form-data" class="mx-3 my-5 px-4 py-3" style="font-size: 15px; font-family: 'NanumBarunpen'; border: 1px solid darkgray; border-radius: 10px;">
 				<fieldset class="form-group">
 					<div class="row my-4">
