@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,15 +18,20 @@ import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.picsell.dao.ContestDAO;
+import kh.picsell.dao.MoneyDAO;
 import kh.picsell.dto.ContestDTO;
 
 @Service
 public class ContestService {
 	@Autowired
 	private ContestDAO dao;
+
+	@Autowired
+	private MoneyDAO moneydao;
 
 	public List<ContestDTO> notyetList() throws Exception{
 		return dao.notyetList();
@@ -99,7 +106,7 @@ public class ContestService {
 	}
 	@Transactional("txManager")
 	public void enrollimg(MultipartFile[] files, ContestDTO dto, String contestpath) {
-	
+
 		File originalfile = new File(contestpath);
 		File originaloutput;
 		if(!originalfile.exists()) {
@@ -107,7 +114,7 @@ public class ContestService {
 		}
 		String oriName = "";
 		String sysName = "";
-		
+
 		for(MultipartFile f : files) {
 			HashMap<String,Object> map = new HashMap<>();
 			oriName = f.getOriginalFilename();
@@ -116,10 +123,10 @@ public class ContestService {
 			try {
 				originaloutput = new File(contestpath+"/"+sysName);
 				f.transferTo(originaloutput);
-				
+
 				BufferedImage original = ImageIO.read(originaloutput);
 				Graphics2D g2d = original.createGraphics();
-				
+
 				AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f);
 
 				g2d.setComposite(alphaChannel);
@@ -133,8 +140,8 @@ public class ContestService {
 				// calculates the coordinate where the String is painted
 				int centerX = (original.getWidth() - (int) rect.getWidth()) / 2;
 				int centerY = original.getHeight() / 2;
-				
-				
+
+
 				// paints the textual watermark
 				g2d.drawString("PicSell", centerX, centerY);
 
@@ -154,25 +161,71 @@ public class ContestService {
 
 		}
 	}
-	
+
 	public List<ContestDTO> enrollList(int Contest_seq) {
 		return dao.enrollList(Contest_seq);
 	}
-	
-	public void selectedimage(String[] select) {
-		for(String seq : select) {
-			int contest_img_seq = Integer.parseInt(seq);
-			System.out.println(contest_img_seq);
-			dao.selectedimage(contest_img_seq);
-		}
-		
-	}
-	
+
+//	public void selectedimage(String[] select) {
+//		for(String seq : select) {
+//			int contest_img_seq = Integer.parseInt(seq);
+//			dao.selectedimage(contest_img_seq);
+//
+//		}
+//
+//	}
+
 	public List<ContestDTO> selected(int contest_seq){
 		return dao.selected(contest_seq);
 	}
-	
+
 	public ContestDTO enrollimagedetail(int contest_img_seq) {
 		return dao.enrollimagedetail(contest_img_seq);
 	}
+
+	
+	////////////////////////////////////////////
+	//공모전 상금(수익금)지급
+	@RequestMapping("ContestProfit")
+	public void contestProfit(int contest_seq, String[] select) {
+
+		for(String seq : select) {
+			try {
+				//선택된 사람 'Y'로 바꾸
+				int contest_img_seq = Integer.parseInt(seq);
+				dao.selectedimage(contest_img_seq);
+				//작가정보
+				ContestDTO detail = dao.enrollimagedetail(contest_img_seq);
+				String writer_nickname = detail.getEnroll_nickname();
+
+				// 날짜
+				Date today = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String deal_date = sdf.format(today);
+
+				//공모전정보가져오기
+				ContestDTO dto = dao.detailcheck(contest_seq);
+				int headcount = select.length;
+				int pricePerPerson = dto.getPrice()/headcount;
+				System.out.println("인당가격" + pricePerPerson);
+				System.out.println(dto.getHost());
+
+				moneydao.insertBuyList(deal_date, pricePerPerson, 0, dto.getHost(), writer_nickname);
+				moneydao.pointUpdate(writer_nickname, "구매", deal_date, pricePerPerson,"수익금");
+				moneydao.pointUpdate(dto.getHost(), "판매",deal_date, -pricePerPerson, "수익금");
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
+
 }

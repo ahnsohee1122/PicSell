@@ -103,6 +103,14 @@ public class MoneyService {
 		return list;
 	}
 	
+	////////////////////////////////////////////
+	//공모전 당첨자 상금(수익금) 주기
+	public void contestProfit(String deal_date, int point, int deal_img_seq, String buyer_nickname, String writer_nickname, 
+			String buyer_deal_sort, String writer_deal_sort, String buyer_money_sort, String writer_money_sort) {
+		money_dao.insertBuyList(deal_date, deal_img_seq, buyer_nickname, writer_nickname);
+		
+	}
+	
 	///////////////////////////////////////////////////////////////////
 	
 	// 관리자 > 포인트 내역 확인하기 
