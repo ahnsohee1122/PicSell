@@ -40,6 +40,9 @@ public List<ContestDTO> ing() throws Exception{
 public ContestDTO detailcheck(int contest_seq) throws Exception{//승인안된공모전내용보기
    return jdbc.selectOne("Contest.detailcheck",contest_seq);
 }
+public List<ContestDTO> selectlist(int contest_seq) throws Exception{
+	return jdbc.selectList("Contest.selectlist",contest_seq);
+}
 public int accept(String accept_date, int contest_seq) throws Exception{//승인
    ContestDTO dto = new ContestDTO();
    dto.setAccept_date(accept_date);

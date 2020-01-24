@@ -97,10 +97,13 @@
 						<td id="checking${dto.contest_seq}"></td>
 						<td id="accept${dto.contest_seq}"></td>
 						<td>${dto.enddate}</td>
-						<td></td>
+						<td><input type="button" value="공모전으로" id="go${dto.contest_seq}"></td>
 					</tr>
 				
 					<script>
+					$("#go${dto.contest_seq}").on("click",function(){
+						location.href="${pageContext.request.contextPath}/contest/detail?title=${dto.title}&contest_seq=${dto.contest_seq}"
+					})
 						var checking = "${dto.checking}";
 						var accept = "${dto.accept}";
 						if(checking=="N"){

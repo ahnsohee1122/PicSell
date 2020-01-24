@@ -18,13 +18,13 @@ private String sysname;
 private int price;
 private int contestfiles_seq;
 private String rejection;
+private String selectimage;
 
 private String contest_img_seq;
 private String enroll_sysname;
 private String enroll_nickname;
 private String selecting;
 private String selectedimage;
-
 
 public ContestDTO() {
    super();
@@ -35,7 +35,7 @@ public ContestDTO() {
 
 public ContestDTO(int contest_seq, String reason, String grouping, String title, String detail, String terms,
 		String enddate, String hosttype, String host, String accept, String checking, String accept_date,
-		String oriname, String sysname, int price, int contestfiles_seq, String rejection) {
+		String oriname, String sysname, int price, int contestfiles_seq, String rejection, String selectimage) {
 	super();
 	this.contest_seq = contest_seq;
 	this.reason = reason;
@@ -54,6 +54,7 @@ public ContestDTO(int contest_seq, String reason, String grouping, String title,
 	this.price = price;
 	this.contestfiles_seq = contestfiles_seq;
 	this.rejection = rejection;
+	this.selectimage = selectimage;
 }
 
 
@@ -246,6 +247,20 @@ public String getGrouping() {
 
 public void setGrouping(String grouping) {
 	this.grouping = grouping;
+}
+
+
+
+
+public String getSelectimage() {
+	return selectimage;
+}
+
+
+
+
+public void setSelectimage(String selectimage) {
+	this.selectimage = selectimage;
 }
 
 

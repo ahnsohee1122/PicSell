@@ -3,8 +3,7 @@ package kh.picsell.project;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -20,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kh.picsell.dto.ContestDTO;
 import kh.picsell.service.ContestService;
-import kh.picsell.service.MoneyService;
 
 @Controller
 @RequestMapping("/contest")
@@ -30,9 +28,6 @@ public class ContestController {
 
    @Autowired
    private ContestService service;
-   
-   @Autowired
-   private MoneyService money;
    
    // 공모전 페이지
    @RequestMapping("/contest.do")
@@ -250,12 +245,11 @@ public class ContestController {
    
 	@RequestMapping(value="select")
    public String selectsuccess(int contest_seq, HttpServletRequest request) {
-		try {
 		List<ContestDTO> list = service.enrollList(contest_seq);
 		String[] select = request.getParameterValues("select");
-<<<<<<< HEAD
 		service.selectedimage(select);
 		try {
+			service.contestProfit(contest_seq, select);
 			int result = service.selecting(contest_seq);
 			if(result>0) {
 				System.out.println("ㅇㅇ");
@@ -265,17 +259,23 @@ public class ContestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-=======
->>>>>>> 171204654bffedcda1736842d789fa09adc06c52
 
-		service.contestProfit(contest_seq, select);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
 		return "redirect:enrollList?contest_seq="+contest_seq;
 
 
    }
+	@RequestMapping("selectlist.do")
+	public String selectlist(int contest_seq, HttpServletRequest request) {
+		System.out.println("시퀀스 : "+contest_seq);
+		List<ContestDTO> list;
+		try {
+			list = service.selectlist(contest_seq);
+			request.setAttribute("list", list);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "contest/selectlist";
+	}
 	@RequestMapping(value="alreadyselect")
 	@ResponseBody
 	public List<ContestDTO> alreadyselected(int contest_seq) {

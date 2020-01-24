@@ -33,6 +33,9 @@
 	<select id="ing" resultType="kh.picsell.dto.ContestDTO">
 	select * from contest where accept='Y'
 	</select>
+	<select id="selectlist" resultType="kh.picsell.dto.ContestDTO">
+	select * from contestimage where contest_seq = #{contest_seq}
+	</select>
 	<select id="getcurrval" resultType="Integer">
 		select contest_seq.currval from dual
 	</select>
