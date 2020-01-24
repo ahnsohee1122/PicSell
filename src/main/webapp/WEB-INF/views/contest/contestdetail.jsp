@@ -43,13 +43,23 @@
 						</tr>
 						<tr>
 							<th class="text-left" style="min-width: 70px; line-height: 30px;">상금</th>
-							<td class="text-left px-2" style="min-width: 100px; line-height: 30px;">${contestDto.price }<span class="mx-1">원</span></td>
+							<td class="text-left px-2" style="min-width: 100px; line-height: 30px;"><span id="price${contestDto.contest_seq }"></span><span class="mx-1">원</span></td>
+							
 						</tr>
 						<tr>
 							<th class="text-left" style="min-width: 70px; line-height: 30px;">주최기관</th>
 							<td class="text-left px-2" style="min-width: 100px; line-height: 30px;">${contestDto.hosttype }</td>
 						</tr>
 					</table>
+					<script>
+					var num = ${contestDto.price};
+	    			console.log(num);
+	    			function addComma(num) {
+	    				  var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	    				  return num.toString().replace(regexp, ',');
+	    				}
+	  				$("#price${contestDto.contest_seq}").html((addComma(num)));
+					</script>
 				</div>
 				<div class="row w-100 mx-auto">
 					<div class="row w-100 mx-auto">
