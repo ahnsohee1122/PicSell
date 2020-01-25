@@ -119,6 +119,12 @@
 											<c:when test="${list.dealSort=='환급'}">
 											<td>포인트 환급이 완료되었습니다.</td>
 											</c:when>
+											<c:when test="${list.dealSort=='공모전판매' }">
+											<td>공모전 채택</td>
+											</c:when>
+											<c:when test="${list.dealSort=='공모전구매' }">
+											<td>공모전 심사/승인내역을 확인해주세요!</td>
+											</c:when>
 											</c:choose>
 											
 										</tr>

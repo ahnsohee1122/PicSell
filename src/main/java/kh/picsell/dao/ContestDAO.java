@@ -100,4 +100,10 @@ public List<ContestDTO> selected(int contest_seq){
 public ContestDTO enrollimagedetail(int contest_img_seq) {
 	return jdbc.selectOne("Contest.enrollimagedetail",contest_img_seq);
 }
+public int totalContents(int contest_seq) {
+	return jdbc.selectOne("Contest.totalContents",contest_seq);
+}
+public List<ContestDTO> selectByPage(Map<String, Integer> map){
+	return jdbc.selectList("Contest.selectByPage",map);
+}
 }

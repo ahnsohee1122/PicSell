@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -220,18 +221,27 @@ public class ContestService {
 				System.out.println(dto.getHost());
 
 				moneydao.insertBuyList(deal_date, pricePerPerson, 0, dto.getHost(), writer_nickname);
-				moneydao.pointUpdate(writer_nickname, "구매", deal_date, pricePerPerson,"수익금");
-				moneydao.pointUpdate(dto.getHost(), "판매",deal_date, -pricePerPerson, "수익금");
+				moneydao.pointUpdate(writer_nickname, "공모전판매", deal_date, pricePerPerson,"수익금");
+				moneydao.pointUpdate(dto.getHost(), "공모전구매",deal_date, -pricePerPerson, "수익금");
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
+	public int totalContents(int contest_seq) {
+		return dao.totalContents(contest_seq);
+	}
 
 
-
-
+	public List<ContestDTO> selectByPage(int start, int end) {
+		System.out.println("start: " + start);
+		System.out.println("end:" + end);
+		Map<String,Integer> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		return dao.selectByPage(map);
+	}
 
 
 

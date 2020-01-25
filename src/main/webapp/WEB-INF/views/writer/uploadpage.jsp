@@ -39,9 +39,10 @@
 	
 	
 	#Progress_Loading{
-	 position: absolute;
+	 position: fixed;
 	 left: 50%;
-	 top: 50%;
+	 top: 50vh;
+	 transform:translate(-50%,-50%);
 	 background-color: transparent;
 
 	}
@@ -83,8 +84,8 @@
 	
 	<script>
 		$(document).ready(function() {
-			
 			$('#Progress_Loading').hide();
+			$(".rm0").css("display","none")
 	
 			// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
 			var floatPosition = parseInt($("#floatMenu").css('top'));
@@ -106,7 +107,9 @@
 			}).scroll();
 	
 		});
-
+	 
+		
+		
 		var addButton = document.getElementsByClassName('add-item')[0]
 		var list = document.getElementsByClassName('upload-list')[0]
 		var count = 0
@@ -161,8 +164,12 @@
 			xstempCanvas.width = img.naturalWidth;
 			xstempCanvas.height = img.naturalHeight;
 			xstempCtx.drawImage(img, 0, 0);
-			var ratio = 50 / 1000;
-			var fontSize = img.naturalWidth * ratio;
+			var ratio = 40 / 1000;
+			if(img.naturalWidth > img.naturalHeight){
+				var fontSize = img.naturalWidth * ratio;
+			}else if(img.naturalWidth < img.naturalHeight){
+				var fontSize = img.naturalHeight * ratio;
+			}
 			xstempCtx.font = (fontSize|0) + 'px Arial'
 			var xstextWidth = xstempCtx.measureText(text).width;
 			xstempCtx.globalAlpha = .50;
@@ -170,7 +177,7 @@
 			xstempCtx.textAlign = 'right'
 			xstempCtx.textBaseline = 'middle';
 			var x = xstempCanvas.width-10;
-			var y = xstempCanvas.height-100;
+			var y = xstempCanvas.height-80;
 			xstempCtx.fillText(text, x, y);
 			thumb.appendChild(xshidden)
 			document.getElementsByClassName("xswatermark" + cnt)[0].value = xstempCanvas
@@ -180,7 +187,6 @@
 		
 		
 		function leftTemplate(cnt) {
-			console.log(cnt)
 			var left = document.createElement('div')
 			var input = document.createElement('input')
 			var thumb = document.createElement('div')
@@ -190,7 +196,7 @@
 			input.setAttribute('name', 'file')
 			input.setAttribute('accept','image/*')
 			input.onchange = function(e) {
-				console.log(cnt)
+				
 				
 				$('#Progress_Loading').show();
 				
@@ -332,8 +338,9 @@
 				}
 					
 			}
-
+			$('#Progress_Loading').hide();
 			$("#uploadform").submit();
+			$('#Progress_Loading').show();
 		})
 		
 		
@@ -349,6 +356,7 @@
 			remove.setAttribute("value",'X')
 			remove.classList.add('closeBtn')
 			remove.classList.add('rm' + count)
+			
 			
 			
 			remove.onclick = function() {
@@ -378,6 +386,7 @@
 
 		addButton.addEventListener('click', setItem)
 		setItem()
+		
 	
 		//태그추가. 	
 		function addTags(e, cnt, view, list) {
@@ -431,9 +440,6 @@
 			}
 		}
 		
-		function check(){
-			
-		}
 	</script>
 	
 	<jsp:include page="../key/bottom.jsp" flush="false"/>

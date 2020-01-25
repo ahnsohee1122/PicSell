@@ -9,6 +9,8 @@
 <style>
 	.one {max-height: 450px;}
 	.image > a > img {margin: auto; width: 100%; height: 100%;}
+	#page > a > span{text-align:center; width:30px}
+	#page > a{width:30px}
 </style>
 </head>
 <body>
@@ -71,8 +73,10 @@
 						</div>
 					</div>
 				</c:forEach>
+				
 			</div>
 			<div class="row w-100 mx-auto my-3 text-center">
+				<div id="page" class="row w-100 mx-auto my-3 text-center" style="disply:block; text-align:center">${pagenum }</div>
 				<input type="button" id="back" value="이전으로" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
 				<c:choose>
 				<c:when test="${loginInfo == dto.host }">
@@ -120,7 +124,7 @@
 			console.log("에러입니다")
 		})
 		
-	})
+	});
 	
 		$("#back").on("click",function(){
 			history.back();	
