@@ -64,6 +64,7 @@ public class MoneyDAO {
 		return jdbc.update("Charge.downCountUp", deal_img_seq);
 	}
 
+
 	/////////////////////////////////////////////////////////////////
 
 	// 충전 내역을 insert한다 

@@ -132,7 +132,7 @@
 						</div>
 						<div class="col-4" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray;">
 							<span class="mx-2"><img src="${pageContext.request.contextPath}/img/download.png" style="width: 28px; height: 23px;" data-toggle="tooltip" data-placement="top" title="Downloads"></span>
-							<span class="rightchild mx-2" style="line-height: 50px;">${dto.downcount }</span>
+							<span class="rightchild mx-2" style="line-height: 50px;" id="downcount">${dto.downcount }</span>
 						</div>
 						<div class="col-4" style="border-bottom: 1px solid darkgray;">
 							<span class="mx-2"><img src="${pageContext.request.contextPath}/img/like.png" style="width: 22px; height: 22px;" data-toggle="tooltip" data-placement="top" title="Like"></span>
@@ -358,7 +358,9 @@
                                                                                 //$("#buy").removeAttr('onclick',"").unbind('click');
                                                                                 $("#buy").removeAttr('onclick');
                                                                                 $("#buy").attr('id','historyYes');     
-                                                                                $("#historyYes").attr("onclick", historyYes)
+                                                                                $("#historyYes").attr("onclick", historyYes);
+                                                                                // 다운로드 수를 바꾼다 
+                                                                                $("#downcount").text("${dto.downcount+1}");
 
                                                                             }).fail(function(data){
                                                                                 alert("구매에 실패했습니다. 다시 시도해주세요.");

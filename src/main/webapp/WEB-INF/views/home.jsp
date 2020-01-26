@@ -1,5 +1,6 @@
 <%@ page import="kh.picsell.dto.HonorDTO" %>
 <%@ page import="kh.picsell.dto.MemberDTO" %>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -78,6 +79,27 @@
 
 
 <script type="text/javascript"> 
+
+
+// 출석체크 이벤트 팝업창 
+	function getCookie(name) {
+	var cookie = document.cookie;
+	if (document.cookie != "") {
+		var cookie_array = cookie.split("; ");
+		for ( var index in cookie_array) {
+			var cookie_name = cookie_array[index].split("=");
+			if (cookie_name[0] == "popupYN") {
+				return cookie_name[1];
+			}
+		}
+	}
+	return;
+}
+function openPopup(url) {
+	var cookieCheck = getCookie("popupYN");
+	if (cookieCheck != "N")
+		window.open(url, '', 'width=450,height=750,left=0,top=0')
+}
 
    // === 베스트 공모전 캐러셀 ===
    $(document).ready(function () {
@@ -183,26 +205,6 @@
    // === 베스트 공모전 캐러셀 끝 ===
 	   
 
-	
-	   // 출석체크 이벤트 팝업창 
-	function getCookie(name) {
-		var cookie = document.cookie;
-		if (document.cookie != "") {
-			var cookie_array = cookie.split("; ");
-			for ( var index in cookie_array) {
-				var cookie_name = cookie_array[index].split("=");
-				if (cookie_name[0] == "popupYN") {
-					return cookie_name[1];
-				}
-			}
-		}
-		return;
-	}
-	function openPopup(url) {
-		var cookieCheck = getCookie("popupYN");
-		if (cookieCheck != "N")
-			window.open(url, '', 'width=400,height=375,left=0,top=0')
-	}
 	
 </script>
 </head>
