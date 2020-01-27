@@ -190,10 +190,10 @@ public class MemberController {
 	public String logout() { //로그아웃
 		String adminInfo = (String)session.getAttribute("adminInfo");
 		String loginInfo = (String)session.getAttribute("loginInfo");
-		if(adminInfo==null) {			
-			session.removeAttribute("loginInfo");
-		}else if(loginInfo==null) {			
+		if(adminInfo!=null) {			
 			session.removeAttribute("adminInfo");
+		}else if(loginInfo!=null) {			
+			session.removeAttribute("loginInfo");
 		}
 		return "redirect:../home";
 	}
