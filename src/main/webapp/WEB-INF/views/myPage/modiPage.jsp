@@ -331,15 +331,16 @@
 			});
 		}
 	})
-   		$("#modifyPw2").on("click",function(){
-   			location.href="${pageContext.request.contextPath}/myInfo/modifyPw.do";
-   			})
-   			
    		$("#signup_join").on("click",function(){
    			var result = confirm("수정을 진행하시겠습니까?(수정완료 후에는 재로그인 해주세요.)")
    			if(result){
    				$("#frm").submit();
+   			}else{
+   				return false;
    			}
+   		})
+   		$("#modifyPw2").on("click",function(){
+   			location.href="${pageContext.request.contextPath}/myInfo/modifyPw.do"
    		})
 	</script>
 </body>

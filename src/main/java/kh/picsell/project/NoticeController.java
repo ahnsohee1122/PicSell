@@ -32,44 +32,41 @@ public class NoticeController {
 	ModelAndView mav = new ModelAndView();
 
 	@RequestMapping("/notice.do")
-	public ModelAndView notice() {
+	public String notice() {
 		try {
 			List<NoticeDTO> noticeList = noticeService.noticeList();
-			mav.addObject("noticeList", noticeList);
-			mav.setViewName("notice/notice");
+			session.setAttribute("noticeList", noticeList);
+			return "notice/notice";
 		}catch(Exception e) {
 			e.printStackTrace();
-			mav.setViewName("error");
+			return "error";
 		}
-		return mav;
 	}
 
 	@RequestMapping("/detail.do")
-	public ModelAndView detail(int notice_seq) {
+	public String detail(int notice_seq) {
 
 		try {
 			Map map = noticeService.detail(notice_seq);
-			mav.addObject("map", map);
-			mav.setViewName("notice/noticeView");
+			session.setAttribute("map", map);
+			return "notice/noticeView";
 		}catch(Exception e) {
 			e.printStackTrace();
-			mav.setViewName("error");
+			return "error";
 		}
-		return mav;
 	}
 
 	@RequestMapping("/noticeWrite.do")
-	public ModelAndView write() {
+	public String write_aop() {
 		try {
-			mav.setViewName("notice/noticeWrite");
+			return "notice/noticeWrite";
 		}catch(Exception e) {
 			e.printStackTrace();
-			mav.setViewName("error");
+			return "error";
 		}
-		return mav;
 	}
 	@RequestMapping("/writeProc.do")
-	public String writeProc(NoticeDTO noticeDto, NoticeFileDTO noticeFileDto) {
+	public String writeProc_aop(NoticeDTO noticeDto, NoticeFileDTO noticeFileDto) {
 		String nickName = (String)session.getAttribute("adminInfo");
 		noticeDto.setNotice_writer(nickName);
 		String file_path = session.getServletContext().getRealPath("/notice_files");
@@ -110,7 +107,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping("/delete.do")
-	public String delete(int seq) {
+	public String delete_aop(int seq) {
 		String file_path = session.getServletContext().getRealPath("/notice_files");
 		String summernote_filePath = session.getServletContext().getRealPath("notice_summernote_files") ;
 		noticeService.delete(seq, file_path, summernote_filePath);
@@ -118,7 +115,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping("/modify.do")
-	public String modify(int seq) {
+	public String modify_aop(int seq) {
 
 		try {
 			Map map = noticeService.detail(seq);
@@ -132,7 +129,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping("/modifyProc.do")
-	public String modifyProc(String[] removeFileSeq, NoticeDTO noticeDto, NoticeFileDTO noticeFileDto) {
+	public String modifyProc_aop(String[] removeFileSeq, NoticeDTO noticeDto, NoticeFileDTO noticeFileDto) {
 		if(removeFileSeq != null){
 			for(String fileSeq : removeFileSeq) {
 				int seq = Integer.parseInt(fileSeq);
