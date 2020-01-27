@@ -105,7 +105,7 @@
 				</thead>
 			</table>
 		</div>
-		<c:if test="${loginInfo == map.pieceNotice.pieceNotice_writer }">
+		<c:if test="${(loginInfo == map.pieceNotice.pieceNotice_writer) || (adminInfo != null)}">
 		<div class="container text-center">
 			<input type="button" id="delete" class="viewBtn mx-1" value="삭제">
 			<input type="button" id="modify" class="viewBtn mx-1" value="수정">

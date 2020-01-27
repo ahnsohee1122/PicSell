@@ -42,15 +42,12 @@ public class EditNoticeController {
 	}
 	
 	@RequestMapping("/noticeWrite.do")
-	public String write() {
-		if((session.getAttribute("loginInfo") != null) || (session.getAttribute("adminInfo") != null)) {
+	public String write_loginAop() {
 		return "editNotice/editNoticeWrite";
-		}
-		return "home";
 	}
 	
 	@RequestMapping("/writeProc.do")
-	public String writeProc(EditNoticeDTO editNoticeDto, EditNoticeFileDTO editNoticeFileDto) {
+	public String writeProc_loginAop(EditNoticeDTO editNoticeDto, EditNoticeFileDTO editNoticeFileDto) {
 		
 		String nickName = "";
 		if(session.getAttribute("loginInfo") != null) {
