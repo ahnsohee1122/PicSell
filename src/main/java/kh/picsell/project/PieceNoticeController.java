@@ -43,16 +43,13 @@ public class PieceNoticeController {
 	}
 	
 	@RequestMapping("/noticeWrite.do")
-	public String write() {
-		if((session.getAttribute("loginInfo") != null) || (session.getAttribute("adminInfo") != null)) {
+	public String write_loginAop() {
+	
 			return "pieceNotice/pieceNoticeWrite";
-		}
-		return "home";
-
 	}
 	
 	@RequestMapping("/writeProc.do")
-	public String writeProc(PieceNoticeDTO pieceNoticeDto, PieceNoticeFileDTO pieceNoticeFileDto) {
+	public String writeProc_loginAop(PieceNoticeDTO pieceNoticeDto, PieceNoticeFileDTO pieceNoticeFileDto) {
 		String nickName = "";
 		if(session.getAttribute("loginInfo") != null) {
 			nickName = (String)session.getAttribute("loginInfo");
