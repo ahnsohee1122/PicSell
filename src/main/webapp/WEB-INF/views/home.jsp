@@ -427,7 +427,7 @@ function openPopup(url) {
     </div>
     
 <!--  이달의 공모전 -->
-    <div class="container-fluid" style="background-color: #f4f2f5;">
+    <div class="container-fluid" style="background-color: #f4f2f5; display: none;" id="contestDiv">
         <div class="container px-0 py-5">
             <div class="row">
                 <p class="contest02">이달의 공모전</p>
@@ -464,7 +464,10 @@ function openPopup(url) {
     		rowHeight : 200,
     	    lastRow : 'hide',
     	    margins : 10
-    	})
+    	}).on('jg.complete', function (e) {
+    	    $("#honorDiv").show();
+    	    $("#contestDiv").show();
+    	});
 
         $("#gallery").justifiedGallery('norewind');
     })
