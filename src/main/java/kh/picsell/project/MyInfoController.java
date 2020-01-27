@@ -47,7 +47,7 @@ public class MyInfoController {
 		System.out.println(memberDto.toString());
 		myInfoService.infoModifyProc(memberDto);
 		session.removeAttribute("loginInfo");
-		return "home";
+		return "redirect:../home";
 	}
 	
 	@RequestMapping("/modiPage.do")
@@ -78,7 +78,7 @@ public class MyInfoController {
 		String nickName = (String)session.getAttribute("loginInfo");
 		myInfoService.modifyPwProc(pw, nickName);
 		session.removeAttribute("loginInfo");
-		return "home";
+		return "redirect:../home";
 	}
 	
 	@RequestMapping(value="profileimg", produces="text/html; charset=UTF-8")

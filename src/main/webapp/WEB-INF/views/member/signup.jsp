@@ -408,6 +408,7 @@
    		
  		$("#mailvalue").on("blur",function(){
  			var value = $("#mailvalue").val();
+ 			if(value!=""){
  			$.ajax({
  				url:"../mail/valuecheck.do",
  				type:"post",
@@ -425,8 +426,12 @@
  				}
  			}).fail(function(res){
  				alert("서버에러입니다 관리자에게 연락주세요");
- 			})
+ 			});
+ 		}else{
+ 			return false;
+ 		}
  		})
+ 		
  		
    		$("#emailval").on("blur",function(){
 			var email = $("#emailval").val();
@@ -443,6 +448,7 @@
 				if(res == "사용 가능한 메일주소입니다."){
 					$("#mai1").css("display", "block");
 					$("#mai3").css("display", "none");
+					$("#mai2").css("display","none");
 					$("#mai1").css("font-size","15px");
 					mailValid = 1;
 					
@@ -450,6 +456,7 @@
 				
 				else if(res == "중복된 메일주소입니다."){
 					$("#mai2").css("display", "block");
+					$("#mai1").css("display","none");
 					$("#mai3").css("display", "none");
 					$("#mai2").css("font-size","15px");
 					$("#emailval").val("");
