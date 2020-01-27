@@ -56,7 +56,7 @@ public class ContestController {
 	}
 	// 새로운 공모전 열기
 	@RequestMapping("/newOpen.do")
-	public String newOpen() {
+	public String newOpen_aop() {
 		System.out.println("New Contest Open Page");
 		return "contest/newOpen";
 	}
@@ -176,7 +176,7 @@ public class ContestController {
 
 	//이미지 업로드
 	@RequestMapping("enroll")
-	public String imageupload(MultipartFile[] files, ContestDTO dto,HttpServletRequest request) {
+	public String imageupload_aop(MultipartFile[] files, ContestDTO dto,HttpServletRequest request) {
 		try {
 			String contestpath = session.getServletContext().getRealPath("contestenroll");
 			String nickname = (String)session.getAttribute("loginInfo");
@@ -194,68 +194,15 @@ public class ContestController {
 
 	//출품한리스트보기
 	@RequestMapping("enrollList")
-	public String enrollList( HttpServletRequest request) {
+	public String enrollList_aop( HttpServletRequest request) {
 		int contest_seq = Integer.parseInt(request.getParameter("contest_seq"));
-		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		System.out.println(currentPage);	
-		int perPage = currentPage;
+		//int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		try {
-			int recordCountPerPage = 9;
-			int naviCountPerPage = 10;
-			int recordTotalCount = service.totalContents(contest_seq);
-			System.out.println(recordTotalCount);
-
-			int pageTotalCount = 0;
-			if(recordTotalCount % recordCountPerPage > 0) {
-				pageTotalCount = recordTotalCount / recordCountPerPage + 1;
-			}else {
-				pageTotalCount = recordTotalCount / recordCountPerPage;
-			}
-			if(currentPage <= 1) {
-				currentPage = 1;
-			}else if(currentPage > pageTotalCount) {
-				currentPage = pageTotalCount;
-			}
-
-			int start =0;
-			int end = 0;
-
-			start = ((currentPage -1) / naviCountPerPage ) * naviCountPerPage + 1;
-			end = start + (naviCountPerPage - 1);
-
-			if(end > pageTotalCount) {
-				end = pageTotalCount;
-			}
-		
-			int contentsStart = perPage * 10 - 9;
-			
-			int contentsEnd = contentsStart + 8;
-			if(contentsEnd > recordTotalCount) {
-				contentsEnd = recordTotalCount;
-			}
-			
-			
-			System.out.println("start " + contentsStart);
-			System.out.println("contentsEnd : " + contentsEnd);
-			List<ContestDTO> list = service.selectByPage( contentsStart, contentsEnd);
-			StringBuilder sb = new StringBuilder();
-
-			for(int i = start; i<= end; i++) {
-				sb.append("<a href='/contest/enrollList?&contest_seq="+contest_seq+"&currentPage="+i+"'>");
-				
-				sb.append("<span>" +i + " "+ "</span>");
-				sb.append("</a>");
-			}
-
-			System.out.println(sb.toString());
-
-			//List<ContestDTO> list = service.enrollList(contest_seq);
+			List<ContestDTO> list = service.enrollList(contest_seq);
 			ContestDTO dto = service.detailcheck(contest_seq);
 			System.out.println(dto.getHost());
 			request.setAttribute("dto", dto);
 			request.setAttribute("list", list);
-			request.setAttribute("pagenum", sb.toString());
-			request.setAttribute("currentPage", currentPage);
 		}catch(Exception e) {
 			e.printStackTrace();
 
@@ -302,8 +249,7 @@ public class ContestController {
 
 	@RequestMapping(value="select")
 	public String selectsuccess(int contest_seq, HttpServletRequest request) {
-		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		System.out.println("Page:" + currentPage);
+	
 		List<ContestDTO> list = service.enrollList(contest_seq);
 		String[] select = request.getParameterValues("select");
 		service.selectedimage(select);
@@ -319,7 +265,7 @@ public class ContestController {
 			e.printStackTrace();
 		}
 
-		return "redirect:enrollList?contest_seq="+contest_seq+"&currentPage="+currentPage;
+		return "redirect:enrollList?contest_seq="+contest_seq;
 
 
 	}

@@ -62,7 +62,7 @@ public class WriterController {
 
 	//작가페이지로 이동
 	@RequestMapping("writerpage")
-	public String view(HttpServletRequest request, String nickname) {
+	public String view_aop(HttpServletRequest request, String nickname) {
 		//		String nickname = (String)session.getAttribute("loginInfo");
 		MemberDTO writerinfo = writerservice.writerInfo(nickname);
 		Map<String,Integer> imginfo = writerservice.imginfo(nickname);
