@@ -57,7 +57,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping("/noticeWrite.do")
-	public String write_aop() {
+	public String write_adminAop() {
 		try {
 			return "notice/noticeWrite";
 		}catch(Exception e) {
@@ -66,7 +66,7 @@ public class NoticeController {
 		}
 	}
 	@RequestMapping("/writeProc.do")
-	public String writeProc_aop(NoticeDTO noticeDto, NoticeFileDTO noticeFileDto) {
+	public String writeProc_adminAop(NoticeDTO noticeDto, NoticeFileDTO noticeFileDto) {
 		String nickName = (String)session.getAttribute("adminInfo");
 		noticeDto.setNotice_writer(nickName);
 		String file_path = session.getServletContext().getRealPath("/notice_files");
@@ -107,7 +107,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping("/delete.do")
-	public String delete_aop(int seq) {
+	public String delete_adminAop(int seq) {
 		String file_path = session.getServletContext().getRealPath("/notice_files");
 		String summernote_filePath = session.getServletContext().getRealPath("notice_summernote_files") ;
 		noticeService.delete(seq, file_path, summernote_filePath);
@@ -115,7 +115,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping("/modify.do")
-	public String modify_aop(int seq) {
+	public String modify_adminAop(int seq) {
 
 		try {
 			Map map = noticeService.detail(seq);
@@ -129,7 +129,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping("/modifyProc.do")
-	public String modifyProc_aop(String[] removeFileSeq, NoticeDTO noticeDto, NoticeFileDTO noticeFileDto) {
+	public String modifyProc_adminAop(String[] removeFileSeq, NoticeDTO noticeDto, NoticeFileDTO noticeFileDto) {
 		if(removeFileSeq != null){
 			for(String fileSeq : removeFileSeq) {
 				int seq = Integer.parseInt(fileSeq);
