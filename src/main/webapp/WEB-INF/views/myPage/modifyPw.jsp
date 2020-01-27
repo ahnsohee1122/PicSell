@@ -95,7 +95,7 @@
 		})
 		
 		$("#pw").on("blur",function(){
-   			var regex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{9,20}$/;
+   			var regex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,20}$/;
    			var data = $("#pw").val();
    			var result = regex.exec(data);
    			
@@ -139,6 +139,8 @@
 	   			}else{
 	   			$("#frm").submit();
 	   			}	 
+	   		}else{
+	   			return false;
 	   		}
 	   	})
 		

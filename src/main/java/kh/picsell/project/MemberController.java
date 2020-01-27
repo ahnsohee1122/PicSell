@@ -190,12 +190,12 @@ public class MemberController {
 	public String logout() { //로그아웃
 		String adminInfo = (String)session.getAttribute("adminInfo");
 		String loginInfo = (String)session.getAttribute("loginInfo");
-		if(adminInfo==null) {			
-			session.removeAttribute("loginInfo");
-		}else {			
+		if(adminInfo!=null) {			
 			session.removeAttribute("adminInfo");
+		}else if(loginInfo!=null) {			
+			session.removeAttribute("loginInfo");
 		}
-		return "redirect:/home";
+		return "redirect:../home";
 	}
 	
 	@RequestMapping(value="/pwchange.do", produces="text/html; charset=UTF-8")

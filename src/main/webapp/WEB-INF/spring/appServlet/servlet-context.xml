@@ -79,9 +79,23 @@
 	
 	<beans:bean id="perfAdv" class="kh.picsell.advisers.PerfAdviser"/>
 	<aop:config>
-		<aop:pointcut expression="execution(String kh.picsell.project.WriterController.*_aop(..))" id="all"/>
+		<aop:pointcut expression="execution(String kh.picsell.project.*Controller.*_aop(..))" id="all"/>
 		<aop:aspect id="perfAsp" ref="perfAdv">
-			<aop:around pointcut-ref="all" method="loginCheck"/>
+			<aop:around pointcut-ref="all" method="infoCheck"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(String kh.picsell.project.*Controller.*_adminAop(..))" id="all1"/>
+		<aop:aspect id="perfAsp" ref="perfAdv">
+			<aop:around pointcut-ref="all1" method="adminCheck"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(String kh.picsell.project.*Controller.*_loginAop(..))" id="all2"/>
+		<aop:aspect id="perfAsp" ref="perfAdv">
+			<aop:around pointcut-ref="all2" method="infoCheck"/>
 		</aop:aspect>
 	</aop:config>
 	

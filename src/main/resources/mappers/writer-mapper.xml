@@ -41,6 +41,6 @@
 		</select>
 		
 		<select id="bestImage" resultType="kh.picsell.dto.WriterImageUpDTO">
-			select * from (select writer_image_Up.*, row_number() over(order by img_like desc) as rown from writer_image_Up) where accept='Y' and rown between 1 and 20
+			select * from (select writer_image_Up.*, row_number() over(order by img_like desc) as rown from writer_image_Up) where accept='Y' and rown between 1 and 40
 		</select>
 </mapper>
