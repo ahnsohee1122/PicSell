@@ -36,7 +36,12 @@ public class EventService {
 			// pointMapper pointMapper = new PointMapper();
 			// 3. 출석체크한 사용자의 닉네임, 날짜 추가
 			event_dao.addCalendar(nickname, event_date);
+			
 			// 4. 사용자에게 룰렛 돌려서 나온 포인트 추가
+			if(point==0) {
+				// 0포인트면 포인트 내역에 추가하지 않는다 
+			}else {
 			event_dao.roulettePoint(nickname, event_date, point);
+			}
 		}
 }

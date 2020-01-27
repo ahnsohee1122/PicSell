@@ -40,7 +40,13 @@
 							<h5 class="text-left" style="font-size: 20px;"><span>구매 가격 : </span>${dto.price}</h5>
 							<h5 class="text-left" style="font-size: 20px;"><span>결제 방식 : </span>${dto.payment_name}</h5>
 							<h5 class="text-left" style="font-size: 20px;"><span>구매 날짜 : </span>${dto.requested_at}</h5>
-							<input type="button" value="확인" class="mx-auto mt-5 text-center" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
+							<input type="button" id="btn" value="확인" class="mx-auto mt-5 text-center" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
+						
+						<script>
+						$("#btn").on("click", function(){
+							location.href = "${pageContext.request.contextPath}/money/myPoint.do";	
+						})
+						</script>
 						</form>
 					</div>
 				</div>
