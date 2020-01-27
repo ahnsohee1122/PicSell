@@ -10,22 +10,22 @@ public class PerfAdviser {
 	@Autowired
 	private HttpSession session;
 	
-	public Object loginCheck(ProceedingJoinPoint pjp) {
-		Object result = null;
-		Object loginInfo = session.getAttribute("loginInfo");
-
-		if(loginInfo != null) {
-			try {
-				result = pjp.proceed(pjp.getArgs());
-			} catch (Throwable e) {
-				e.printStackTrace();
-				return "error";
-			}
-		}else {
-			return "error";
-		}
-		return result;
-	}
+//	public Object loginCheck(ProceedingJoinPoint pjp) {
+//		Object result = null;
+//		Object loginInfo = session.getAttribute("loginInfo");
+//
+//		if(loginInfo != null) {
+//			try {
+//				result = pjp.proceed(pjp.getArgs());
+//			} catch (Throwable e) {
+//				e.printStackTrace();
+//				return "error";
+//			}
+//		}else {
+//			return "error";
+//		}
+//		return result;
+//	}
 	
 	public Object adminCheck(ProceedingJoinPoint pjp) {
 		Object result = null;
