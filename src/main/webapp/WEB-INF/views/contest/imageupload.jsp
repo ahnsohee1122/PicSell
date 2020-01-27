@@ -40,9 +40,19 @@
 	#floatMenu {position: relative;}
 	
 	.closeBtn {border: 0; background-color: #f4f2f5;}
+	
+	#Progress_Loading {
+	position: fixed;
+	left: 50%;
+	top: 50vh;
+	transform: translate(-50%, -50%);
+	background-color: transparent;
+	z-index:1
+}
 </style>
 </head>
 <body>
+<img src="${pageContext.request.contextPath}/img/Progress_Loading.gif" id="Progress_Loading">
 	<jsp:include page="../key/top.jsp" flush="false"/>
 	
 	<div class="container-fluid py-5" style="min-height: 594px; background-color: #f4f2f5; font-family: 'Cafe24Oneprettynight';">
@@ -65,7 +75,7 @@
 					<ul class="upload-list"></ul>
 					<div class="text-center">
 						<button type="button" id="upload" class="mb-3 mx-1" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">등록하기</button>
-						<input type="button" value="이전으로" class="mb-3 mx-1" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
+						<input type="button" id ="back" value="이전으로" class="mb-3 mx-1" style="width: 100px; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 10px;">
 					</div>
 				</form>
 			</div>
@@ -74,6 +84,9 @@
 	
 	<script>
 	
+	$(function(){
+		$('#Progress_Loading').hide();
+	})
 		var file = document.getElementById('file')
 		
 		//이미지를 불러와서 미리보기.
@@ -137,15 +150,17 @@
 		$("#upload").on("click",function(){
 			var a = document.getElementsByName('file')
 			var firstcanvas = document.getElementsByClassName('canvas')
-			console.log(firstcanvas[0])
 				if(firstcanvas[0].innerHTML == ""){
 					alert("이미지를 등록 해주세요")
 					return;
 				}
 			$("#uploadform").submit();
+			$('#Progress_Loading').show();
 		})
 		
-		
+		$("#back").on("click",function(){
+			history.back();	
+		})
 		
 		
 	</script>

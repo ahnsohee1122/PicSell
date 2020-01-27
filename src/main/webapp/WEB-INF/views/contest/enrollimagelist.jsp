@@ -60,7 +60,7 @@
 					<div class="col-4 w-100 my-0 one p-2">
 						<div class="card w-100 h-100 p-2">
 							<div class="row image w-100 mx-auto text-center" style="height: 250px;">
-								<a  onclick=window.open("/contest/enrolldetail?contest_img_seq=${list.contest_img_seq }&title=${dto.title}",'',"width=1024,height=800") return false; style="height: 250px;" ><img src="/contestenroll/marked_${list.enroll_sysname }"></a>
+								<a onclick="window.open('/contest/enrolldetail?contest_img_seq=${list.contest_img_seq }&title=${dto.title}','','width=1024,height=800')" style="height: 250px;" ><img src="/contestenroll/marked_${list.enroll_sysname }"></a>
 							</div>
 						  	<div class="row align-items-center image w-100 mx-auto text-center py-3" style="height: 50px;">
 						    	<p class="nickname mx-auto"><a href='${pageContext.request.contextPath}/writer/writerpage?nickname=${list.enroll_nickname }' style="text-decoration: none;"><span class="mx-1">@</span>${list.enroll_nickname }</a></p>
@@ -79,8 +79,8 @@
 				<div id="page" class="row w-100 mx-auto my-3 text-center" style="disply:block; text-align:center">${pagenum }</div>
 				<input type="button" id="back" value="이전으로" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
 				<c:choose>
-				<c:when test="${loginInfo == dto.host }">
-					<input type="button" id="select" value="선택하기" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
+				<c:when test="${loginInfo == dto.host}">
+						<input type="button" id="select" value="선택하기" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
 				</c:when>
 				</c:choose>
 			</div>
@@ -132,13 +132,24 @@
 	
 
 		$("#select").on("click",function(){
-			if(confirm("선택완료 후에는 재선택 하실 수 없습니다. 선택을 완료하시겠습니까?")){
-				$("#select").attr('type','hidden')
-				$("#selectform").submit();
-			}else{
+			if(${fn:length(list) == 0}){
+				alert("출품 된 작품이 없습니다")
 				return;
+			}else{
+		
+				if(confirm("선택완료 후에는 재선택 하실 수 없습니다. 선택을 완료하시겠습니까?")){
+					if($("input[type=checkbox]:checked").length==0){
+						alert("하나 이상의 항목을 채택해주세요")
+						return;
+					}
+					$("#select").attr('type','hidden')
+					$("#selectform").submit();
+				}else{
+					return;
+				}
 			}
-		})
+
+		});
 		
 
 	</script>
