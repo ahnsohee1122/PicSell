@@ -46,7 +46,6 @@ public class WriterController {
 	//업로드 (+)버튼 누름
 	@RequestMapping("doupload")
 	public String upload() {
-		System.out.println("업로드버튼 누름");
 		return "writer/uploadpage";
 	}
 
