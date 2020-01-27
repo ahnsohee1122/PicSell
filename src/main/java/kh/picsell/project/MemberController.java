@@ -195,7 +195,7 @@ public class MemberController {
 		}else if(loginInfo==null) {			
 			session.removeAttribute("adminInfo");
 		}
-		return "redirect:/home";
+		return "redirect:../home";
 	}
 	
 	@RequestMapping(value="/pwchange.do", produces="text/html; charset=UTF-8")
