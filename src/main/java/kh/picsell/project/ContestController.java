@@ -194,8 +194,11 @@ public class ContestController {
 
 	//출품한리스트보기
 	@RequestMapping("enrollList")
-	public String enrollList(int contest_seq, int currentPage, HttpServletRequest request) {
-			int perPage = currentPage;
+	public String enrollList( HttpServletRequest request) {
+		int contest_seq = Integer.parseInt(request.getParameter("contest_seq"));
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		System.out.println(currentPage);	
+		int perPage = currentPage;
 		try {
 			int recordCountPerPage = 9;
 			int naviCountPerPage = 10;
@@ -252,6 +255,7 @@ public class ContestController {
 			request.setAttribute("dto", dto);
 			request.setAttribute("list", list);
 			request.setAttribute("pagenum", sb.toString());
+			request.setAttribute("currentPage", currentPage);
 		}catch(Exception e) {
 			e.printStackTrace();
 
@@ -298,6 +302,8 @@ public class ContestController {
 
 	@RequestMapping(value="select")
 	public String selectsuccess(int contest_seq, HttpServletRequest request) {
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		System.out.println("Page:" + currentPage);
 		List<ContestDTO> list = service.enrollList(contest_seq);
 		String[] select = request.getParameterValues("select");
 		service.selectedimage(select);
@@ -313,7 +319,7 @@ public class ContestController {
 			e.printStackTrace();
 		}
 
-		return "redirect:enrollList?contest_seq="+contest_seq;
+		return "redirect:enrollList?contest_seq="+contest_seq+"&currentPage="+currentPage;
 
 
 	}
