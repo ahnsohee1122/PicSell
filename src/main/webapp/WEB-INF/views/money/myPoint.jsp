@@ -82,8 +82,10 @@
 				</div>
 				<div class="col-12 col-md-9 col-xl-10 px-0 px-md-3 text-center">
 					<div class="m-auto w-100 h-100 py-5" style="border: 1px solid gray; border-radius: 10px;">
-						<form class="mx-auto px-3 px-ml-0" style="max-width: 100%;">
+						<form class="m-auto px-2 px-ml-0" style="max-width: 600px;">
 							<h4>포인트 입출금 내역</h4>
+						</form>
+						<form class="mx-auto mt-5 px-3 px-ml-0 text-center" style="max-width: 100%;">
 							<table id="DataTable" class="row-border">
 								<thead> 
 									<tr>
