@@ -18,9 +18,6 @@
 <div id="detailimg">
 <img src="/contestenroll/marked_${dto.enroll_sysname }">
 </div>
-<script>
-console.log('hihi')
 
-</script>
 </body>
 </html>
