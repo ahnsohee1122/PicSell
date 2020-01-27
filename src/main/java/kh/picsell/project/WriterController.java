@@ -46,13 +46,12 @@ public class WriterController {
 	//업로드 (+)버튼 누름
 	@RequestMapping("doupload")
 	public String upload() {
-		System.out.println("업로드버튼 누름");
 		return "writer/uploadpage";
 	}
 
 	//컨텐츠업로드
 	@RequestMapping("upload")
-	public String upload(MultipartFile[] file, HttpServletRequest request, WriterImageUpDTO dto) {
+	public String upload_aop(MultipartFile[] file, HttpServletRequest request, WriterImageUpDTO dto) {
 		System.out.println("업로드도착");
 		String nickname = (String)session.getAttribute("loginInfo");
 		String path = session.getServletContext().getRealPath("writeruploadfiles");

@@ -28,7 +28,7 @@
 		= #{contest_seq}
 	</update>
 	<select id="acceptlist" resultType="kh.picsell.dto.ContestDTO">
-		select * from contest where selectimage='N' and accept='Y' order by 6 desc
+		select * from contest where selectimage='N' and accept='Y' order by enddate desc
 	</select>
 	<select id="ing" resultType="kh.picsell.dto.ContestDTO">
 	select * from contest where accept='Y'
