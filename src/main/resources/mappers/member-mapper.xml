@@ -13,7 +13,7 @@
 		delete from member where nickname = #{nickname}
 	</delete>
 	<insert id="insert" parameterType="kh.picsell.dto.MemberDTO">
-		insert into member values(#{id}, #{pw} , #{name} , #{nickname}, #{email}, #{email_receive},0,'N',0,null)
+		insert into member values(#{id}, #{pw} , #{name} , #{nickname}, #{email}, #{email_receive},0,'N',0,'user.png')
 	</insert>
 	<select id="idCheck" resultType="integer">
 		select count(*) from member where id = #{id}
