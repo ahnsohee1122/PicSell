@@ -94,6 +94,7 @@
 		insert into deal_list values(deal_seq.nextval, #{deal_date}, #{pricePerPerson}, #{deal_img_seq}, #{writer_nickname}, #{buyer_nickname})
 	</insert>
 	
+	
 	<!-- 관리자 > 포인트 내역 확인하기 -->
 	<select id="admin_point" parameterType="String" resultType="kh.picsell.dto.PointDTO">
 		select * from point order by point_date desc
