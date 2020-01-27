@@ -192,7 +192,7 @@ public class MemberController {
 		String loginInfo = (String)session.getAttribute("loginInfo");
 		if(adminInfo==null) {			
 			session.removeAttribute("loginInfo");
-		}else {			
+		}else if(loginInfo==null) {			
 			session.removeAttribute("adminInfo");
 		}
 		return "redirect:/home";
