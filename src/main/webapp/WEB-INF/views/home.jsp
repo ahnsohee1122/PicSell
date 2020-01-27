@@ -435,8 +435,8 @@ function openPopup(url) {
             <div class="row">
                 <div class="MultiCarousel" data-items="1,2,3,3" data-slide="1" id="MultiCarousel"  data-interval="1000">
                     <div class="MultiCarousel-inner">
-                        <c:forEach items="${list }" var="list">
                         <div class="item">
+                        <c:forEach items="${list }" var="list">
                             <div class="convention pad15" style="margin: auto; width: 280px; background-color: white;">
 	                            <div class="text-center">
 		    						<img src="${pageContext.request.contextPath}/img/contest_image.PNG" style="width: 280px; height: 170px;">
@@ -447,8 +447,8 @@ function openPopup(url) {
                                 <p style="font-size: 17px;">${list.enddate }</p>
                                 <p><a href="${pageContext.request.contextPath}/contest/detail?title=${list.title}&contest_seq=${list.contest_seq}" class="btn btn-outline-dark btn-sm">참여하기</a></p>
                             </div>
-                        </div>
                         </c:forEach>
+                        </div>
                         
                     </div>
                     <button class="btn border-0 leftLst"><img src="${pageContext.request.contextPath}/img/previous01.png" style="width: 17px; height: 17px;"></button>
