@@ -4,9 +4,13 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
@@ -72,5 +76,14 @@
 		<beans:property name="maxUploadSize" value="1048576000"/>
 		<beans:property name="defaultEncoding" value="utf-8"/>
 	</beans:bean>
+	
+	<beans:bean id="perfAdv" class="kh.picsell.advisers.PerfAdviser"/>
+	<aop:config>
+		<aop:pointcut expression="execution(String kh.picsell.project.WriterController.*_aop(..))" id="all"/>
+		<aop:aspect id="perfAsp" ref="perfAdv">
+			<aop:around pointcut-ref="all" method="loginCheck"/>
+		</aop:aspect>
+	</aop:config>
+	
 </beans:beans>
 

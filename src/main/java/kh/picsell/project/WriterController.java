@@ -52,7 +52,7 @@ public class WriterController {
 
 	//컨텐츠업로드
 	@RequestMapping("upload")
-	public String upload(MultipartFile[] file, HttpServletRequest request, WriterImageUpDTO dto) {
+	public String upload_aop(MultipartFile[] file, HttpServletRequest request, WriterImageUpDTO dto) {
 		System.out.println("업로드도착");
 		String nickname = (String)session.getAttribute("loginInfo");
 		String path = session.getServletContext().getRealPath("writeruploadfiles");
