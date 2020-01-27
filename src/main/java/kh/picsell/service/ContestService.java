@@ -215,7 +215,7 @@ public class ContestService {
 
 				//공모전정보가져오기
 				ContestDTO dto = dao.detailcheck(contest_seq);
-				int headcount = select.length;
+				int headcount = Math.round(select.length);
 				int pricePerPerson = dto.getPrice()/headcount;
 				System.out.println("인당가격" + pricePerPerson);
 				System.out.println(dto.getHost());

@@ -433,6 +433,12 @@ input[type=text] {
 						})
 
 		function setItem() {
+			if (count >= 10) {
+				console.log(count)
+				alert("최대 10개까지 업로드 가능합니다")
+				return;
+			}
+			
 			var item = document.createElement('li')
 			var remove = document.createElement('input')
 			var left = leftTemplate(count)
@@ -463,9 +469,6 @@ input[type=text] {
 			list.appendChild(hr)
 			count++
 
-			if (count >= 10) {
-				alert("최대 10개까지 업로드 가능합니다")
-			}
 
 		}
 
