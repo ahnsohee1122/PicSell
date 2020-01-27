@@ -39,45 +39,10 @@
 	#prizePointer {position: absolute; left: 175px; top: 40px; z-index: 300; width: 50px; height: 50px;}
 </style>
 
-<script type="text/javascript"> 
-
-
-	function getCookie(name) {
-		var cookie = document.cookie;
-		if (document.cookie != "") {
-			var cookie_array = cookie.split("; ");
-			for ( var index in cookie_array) {
-				var cookie_name = cookie_array[index].split("=");
-				if (cookie_name[0] == "popupYN") {
-					return cookie_name[1];
-				}
-			}
-		}
-		return;
-	}
-	function openPopup(url) {
-		var cookieCheck = getCookie("popupYN");
-		if (cookieCheck != "N")
-			window.open(url, '', 'width=450,height=750,left=0,top=0')
-	}
-</script>
-
-
 </head>
-<body onload="javascript:openPopup('${pageContext.request.contextPath}/event/pop.do')">
-
-
+<body>
 	<jsp:include page="../key/top.jsp" flush="false"/>
-
-
 </div>
-
-
-	<script>
-	//var win = window.open("${pageContext.request.contextPath}/event/pop.do", "PopupWin", "width=400, height=375");
-	
-	</script>
-	
 
 	<div class="modal fade" id="rouletteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog m-auto" role="document">
@@ -100,6 +65,43 @@
 			<div id="calendar"></div>
 		</div>
 	</div>
+
+<c:choose>
+
+<c:when test="${loginInfo==null && event==null}">
+
+<script>
+		// 로그인 안한 경우 
+		document.addEventListener('DOMContentLoaded', function() {
+    			console.log("로그인 안했음");
+        		var calendarEl = document.getElementById('calendar');
+       			var calendar = new FullCalendar.Calendar(calendarEl, {
+        			plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ],
+		            header:{
+		           		left:'title',
+		                center:'none',
+		                right:'custom2'
+		            },
+            		// 출석체크를 위한 버튼 생성 
+            		customButtons:{
+                		custom2: {
+                    		text:'출석체크', 
+                    		id:'check',
+                    		///////////////////////////////////////////////////
+                    		// 출석체크 버튼 누르면 출석완료 처리
+             				click:function(){
+             					// 출석체크 누르면 로그인 모달창 나옴
+             					alert("로그인 후 이용해주세요")
+             		    		$("#gotologin").click();
+             				}
+                		}
+            		}
+        		});
+    	    calendar.render();      
+	});
+</script>
+</c:when>
+<c:otherwise>
 
 	<script>
     
@@ -292,6 +294,9 @@
     wheelImg.src = "${pageContext.request.contextPath}/img/bomb.png";
 
 	</script>
+	
+	</c:otherwise>
+</c:choose>
 
 	<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
