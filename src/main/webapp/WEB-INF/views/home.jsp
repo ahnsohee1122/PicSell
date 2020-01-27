@@ -254,7 +254,7 @@ function openPopup(url) {
     <hr class="p-0 m-0">
 
 <!--  명예의 전당 -->    
-    <div class="container-fluid" style="background-color: white; display: none;" id="honorDiv">
+    <div class="container-fluid" style="background-color: white;" id="honorDiv">
     	<div class="container px-0 py-5">
     		<div class="row w-100 m-auto text-center">
                <p class="contest01"><img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;">명예의 전당<img src="${pageContext.request.contextPath}/img/crown.png" style="width: 50px; height: 50px;"></p>

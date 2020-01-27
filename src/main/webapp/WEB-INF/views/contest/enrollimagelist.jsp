@@ -131,7 +131,10 @@
 		})
 	
 
+			
+			
 		$("#select").on("click",function(){
+			
 			if(${fn:length(list) == 0}){
 				alert("출품 된 작품이 없습니다")
 				return;
@@ -144,6 +147,8 @@
 					}
 					$("#select").attr('type','hidden')
 					$("#selectform").submit();
+					
+				
 				}else{
 					return;
 				}
