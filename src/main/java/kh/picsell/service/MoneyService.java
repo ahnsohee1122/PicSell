@@ -57,6 +57,7 @@ public class MoneyService {
 		money_dao.pointUpdate(writer_nickname, writer_deal_sort, point_date, point, writer_money_sort);
 		point = -500;
 		money_dao.pointUpdate(buyer_nickname, buyer_deal_sort, point_date, point, buyer_money_sort);
+		money_dao.downCountUp(deal_img_seq);
 	}
 	
 	// 충전 완료 + 충전 내역 뿌리기 

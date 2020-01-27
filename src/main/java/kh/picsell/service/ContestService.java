@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -104,6 +105,15 @@ public class ContestService {
 	public List<ContestDTO> lastContest(){
 		return dao.lastContest();
 	}
+	public int selecting(int contest_seq) throws Exception{
+		return dao.selecting(contest_seq);
+	}
+	public List<ContestDTO> ing() throws Exception{
+		return dao.ing();
+	}
+	public List<ContestDTO> selectlist(int contest_seq) throws Exception{
+		return dao.selectlist(contest_seq);
+	}
 	@Transactional("txManager")
 	public void enrollimg(MultipartFile[] files, ContestDTO dto, String contestpath) {
 
@@ -166,14 +176,14 @@ public class ContestService {
 		return dao.enrollList(Contest_seq);
 	}
 
-//	public void selectedimage(String[] select) {
-//		for(String seq : select) {
-//			int contest_img_seq = Integer.parseInt(seq);
-//			dao.selectedimage(contest_img_seq);
-//
-//		}
-//
-//	}
+	public void selectedimage(String[] select) {
+		for(String seq : select) {
+			int contest_img_seq = Integer.parseInt(seq);
+			dao.selectedimage(contest_img_seq);
+
+		}
+
+	}
 
 	public List<ContestDTO> selected(int contest_seq){
 		return dao.selected(contest_seq);
@@ -211,18 +221,27 @@ public class ContestService {
 				System.out.println(dto.getHost());
 
 				moneydao.insertBuyList(deal_date, pricePerPerson, 0, dto.getHost(), writer_nickname);
-				moneydao.pointUpdate(writer_nickname, "구매", deal_date, pricePerPerson,"수익금");
-				moneydao.pointUpdate(dto.getHost(), "판매",deal_date, -pricePerPerson, "수익금");
+				moneydao.pointUpdate(writer_nickname, "공모전판매", deal_date, pricePerPerson,"수익금");
+				moneydao.pointUpdate(dto.getHost(), "공모전구매",deal_date, -pricePerPerson, "수익금");
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
+	public int totalContents(int contest_seq) {
+		return dao.totalContents(contest_seq);
+	}
 
 
-
-
+	public List<ContestDTO> selectByPage(int start, int end) {
+		System.out.println("start: " + start);
+		System.out.println("end:" + end);
+		Map<String,Integer> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		return dao.selectByPage(map);
+	}
 
 
 

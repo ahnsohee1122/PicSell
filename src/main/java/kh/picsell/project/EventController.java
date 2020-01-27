@@ -39,7 +39,7 @@ public class EventController {
 		@RequestMapping(value = "/attendance_check.do")
 		public String home() {
 			String nickname = (String)session.getAttribute("loginInfo");	
-			
+			if(nickname!=null) {
 			// 1. 그날 출석체크 했는지 안했는지 체크 > 버튼 기능 조절 
 			String today = LocalDate.now().toString();
 			System.out.println(nickname);
@@ -52,7 +52,7 @@ public class EventController {
 				System.out.println("출석체크한 이력이 없음");
 				request.setAttribute("event", "0");
 			}
-
+			}
 			return "/event/attendanceCheck";
 		}
 		

@@ -1,30 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
-
+<title>WriterPage | PicSell</title>
 <link rel="stylesheet" href="/css/justifiedGallery.css" />
 <style>
 	.writer {width: 100%; min-height: 250px; background-image: url('${pageContext.request.contextPath}/img/write_banner.png'); background-repeat: no-repeat;}
 	.explanation {margin-top: 5px; padding: 0px; background: none; border: 0; color: white; border-bottom: 1px solid white;}
-	#gallery { max-width: 1500px; width : 1480px; border: 1px solid gray; margin: 15px auto; padding: 10px; height: 800px; border-radius:5px;}
-	
 </style>
 </head>
-
 <body>
-<jsp:include page="../key/top.jsp" flush="false"/>
-<jsp:include page="../key/profile.jsp" flush="false"/>
-<script src="/js/jquery.justifiedGallery.js"></script>
-<div class="row">
+	<jsp:include page="../key/top.jsp" flush="false"/>
 
-    	<div class="col-12 col-md-12 col-xl-12 text-center px-0 py-3" id="gallery"></div>
-</div>
+	<jsp:include page="../key/profile.jsp" flush="false"/>
+
+	<script src="/js/jquery.justifiedGallery.js"></script>
+	
+	<div class="container-fluid p-0 my-5" style="font-family: 'Cafe24Oneprettynight';">
+		<div class="container" style="max-width: 1500px;">
+			<h2>My Image</h2>
+		</div>
+		<div class="container" style="max-width: 1500px; border: 1px solid darkgray; border-radius: 10px;">
+			<div class="col-12 col-md-12 col-xl-12 text-center px-0 py-3" id="gallery"></div>
+		</div>
+	</div>
+	
 	<script>
 
 	let isEnd = false;
@@ -59,7 +61,7 @@
 		success:function(resp){
 				let length = resp.length;
 				if(length==0 && currentPage==1){
-					var html = "<div>등록된 이미지가 없습니다. 이미지를 등록 후 작가로 활동해보세요!</div>"
+					var html = "<div class='row align-items-center w-100 m-auto text-center' style='min-height: 400px;'><h5 class='m-auto'>등록된 이미지가 없습니다. 이미지를 등록 후 작가로 활동해보세요!</h5></div>"
 					$("#gallery").append(html);
 					isEnd = true;
 				}else if(length < 5){
@@ -86,7 +88,8 @@
 		}); 
 	}; 
 
-</script>
-<jsp:include page="../key/bottom.jsp" flush="false"/>
+	</script>
+	
+	<jsp:include page="../key/bottom.jsp" flush="false"/>
 </body>
 </html>

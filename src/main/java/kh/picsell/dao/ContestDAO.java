@@ -28,12 +28,20 @@ public int fileinsert(ContestDTO dto) {
 public int getcurrval() {
    return jdbc.selectOne("Contest.getcurrval");
 }
-
+public int selecting(int contest_seq) throws Exception{
+	return jdbc.update("Contest.selecting",contest_seq);
+}
 public List<ContestDTO> notyetList() throws Exception{ //승인안된공모전조회
    return jdbc.selectList("Contest.getNoList");
 }
+public List<ContestDTO> ing() throws Exception{
+	return jdbc.selectList("Contest.ing");
+}
 public ContestDTO detailcheck(int contest_seq) throws Exception{//승인안된공모전내용보기
    return jdbc.selectOne("Contest.detailcheck",contest_seq);
+}
+public List<ContestDTO> selectlist(int contest_seq) throws Exception{
+	return jdbc.selectList("Contest.selectlist",contest_seq);
 }
 public int accept(String accept_date, int contest_seq) throws Exception{//승인
    ContestDTO dto = new ContestDTO();
@@ -91,5 +99,11 @@ public List<ContestDTO> selected(int contest_seq){
 }
 public ContestDTO enrollimagedetail(int contest_img_seq) {
 	return jdbc.selectOne("Contest.enrollimagedetail",contest_img_seq);
+}
+public int totalContents(int contest_seq) {
+	return jdbc.selectOne("Contest.totalContents",contest_seq);
+}
+public List<ContestDTO> selectByPage(Map<String, Integer> map){
+	return jdbc.selectList("Contest.selectByPage",map);
 }
 }

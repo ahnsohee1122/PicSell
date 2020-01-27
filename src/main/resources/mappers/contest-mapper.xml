@@ -28,7 +28,13 @@
 		= #{contest_seq}
 	</update>
 	<select id="acceptlist" resultType="kh.picsell.dto.ContestDTO">
-		select * from contest where accept='Y' order by 6 desc
+		select * from contest where selectimage='N' and accept='Y' order by 6 desc
+	</select>
+	<select id="ing" resultType="kh.picsell.dto.ContestDTO">
+	select * from contest where accept='Y'
+	</select>
+	<select id="selectlist" resultType="kh.picsell.dto.ContestDTO">
+	select * from contestimage where contest_seq = #{contest_seq}
 	</select>
 	<select id="getcurrval" resultType="Integer">
 		select contest_seq.currval from dual
@@ -51,7 +57,8 @@
 		select count(*) from contest where checking='N' and host=#{host}
 	</select>
 	<select id="lastcontest" resultType="kh.picsell.dto.ContestDTO">
-		select * from (select contest.*, row_number() over(order by accept_date desc) as rown from contest) where rown between 1 and 5 and accept='Y' and
+		select * from (select contest.*, row_number() over(order by accept_date desc) as rown from contest)
+		 where rown between 1 and 5 and accept='Y' and selectimage='N' and
 		(TO_DATE(enddate,'YY/MM/DD') > TO_DATE(sysdate,'YY/MM/DD') or
 		TO_DATE(enddate,'YY/MM/DD') = TO_DATE(sysdate,'YY/MM/DD'))
 	</select>
@@ -75,5 +82,11 @@
 	</select>
 	<select id="enrollimagedetail" parameterType="Integer" resultType="kh.picsell.dto.ContestDTO">
 		select * from contestimage where contest_img_seq = #{contest_img_seq}
+	</select>
+	<select id="totalContents" parameterType="Integer" resultType="Integer" >
+		select count(*) from contestimage where contest_seq = #{contest_seq}
+	</select>
+	<select id="selectByPage" parameterType="java.util.Map" resultType="kh.picsell.dto.ContestDTO">
+		select * from (select contestimage.*, row_number() over(order by contest_img_seq desc) as rown from contestimage) where rown between #{start} and #{end} 
 	</select>
 </mapper>

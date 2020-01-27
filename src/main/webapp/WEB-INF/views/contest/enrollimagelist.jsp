@@ -9,6 +9,8 @@
 <style>
 	.one {max-height: 450px;}
 	.image > a > img {margin: auto; width: 100%; height: 100%;}
+	#page > a > span{text-align:center; width:30px}
+	#page > a{width:30px}
 </style>
 </head>
 <body>
@@ -51,6 +53,7 @@
 		</c:choose>
 			<form action="/contest/select" id="selectform" method="post" >
 			<input type="hidden" value="${dto.contest_seq}" name="contest_seq">
+			<input type="hidden" value="${currentPage }" name="currentPage">
 		<div class="container mx-auto my-5 p-3 text-center" style="border: 1px solid darkgray; border-radius: 10px;">
 			<div class="row w-100 m-auto">
 				<c:forEach items="${list }" var="list" varStatus="status">
@@ -58,7 +61,6 @@
 						<div class="card w-100 h-100 p-2">
 							<div class="row image w-100 mx-auto text-center" style="height: 250px;">
 								<a  onclick=window.open("/contest/enrolldetail?contest_img_seq=${list.contest_img_seq }&title=${dto.title}",'',"width=1024,height=800") return false; style="height: 250px;" ><img src="/contestenroll/marked_${list.enroll_sysname }"></a>
-
 							</div>
 						  	<div class="row align-items-center image w-100 mx-auto text-center py-3" style="height: 50px;">
 						    	<p class="nickname mx-auto"><a href='${pageContext.request.contextPath}/writer/writerpage?nickname=${list.enroll_nickname }' style="text-decoration: none;"><span class="mx-1">@</span>${list.enroll_nickname }</a></p>
@@ -71,8 +73,10 @@
 						</div>
 					</div>
 				</c:forEach>
+				
 			</div>
 			<div class="row w-100 mx-auto my-3 text-center">
+				<div id="page" class="row w-100 mx-auto my-3 text-center" style="disply:block; text-align:center">${pagenum }</div>
 				<input type="button" id="back" value="이전으로" class="m-auto" style="width: 100px; height: 30px; background-color: #f4f2f5; border: 1px solid darkgray; border-radius: 10px;">
 				<c:choose>
 				<c:when test="${loginInfo == dto.host }">
@@ -120,7 +124,7 @@
 			console.log("에러입니다")
 		})
 		
-	})
+	});
 	
 		$("#back").on("click",function(){
 			history.back();	

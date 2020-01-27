@@ -33,7 +33,7 @@
 	
 	<!-- 다운로드 수 추가하기  -->
 	<update id="downCountUp" parameterType="Integer">
-		update writer_img_up set downCount=downCount+1 where img_seq=#{deal_img_seq}  
+		update writer_image_up set downcount=downcount+1 where img_seq=#{deal_img_seq}  
 	</update>
 	
 	<!-- 충전하기 -->
