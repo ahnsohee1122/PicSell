@@ -188,13 +188,9 @@ public class MemberController {
 
 	@RequestMapping("/Logout.do")
 	public String logout() { //로그아웃
-		String adminInfo = (String)session.getAttribute("adminInfo");
-		String loginInfo = (String)session.getAttribute("loginInfo");
-		if(adminInfo!=null) {			
-			session.removeAttribute("adminInfo");
-		}else if(loginInfo!=null) {			
-			session.removeAttribute("loginInfo");
-		}
+//		String adminInfo = (String)session.getAttribute("adminInfo");
+//		String loginInfo = (String)session.getAttribute("loginInfo");
+		session.invalidate();
 		return "redirect:../home";
 	}
 	
