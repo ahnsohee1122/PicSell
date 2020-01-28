@@ -322,7 +322,7 @@ function openPopup(url) {
 	  					<img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
 					  	<div class="card-body p-0">
 							<p class="card-text text-left mx-auto my-2 " style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.nickname}<span class="ml-1">작가님</span></p>
-							<p class="card-text text-left mx-auto my-2" style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.honorpoint}<span class="ml-1">등록</span></p>
+							<p class="card-text text-left mx-auto my-2" style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;"><span class="mr-1">득표수 : </span>${latelyhonor.honorpoint}<span class="ml-1">표</span></p>
 							<a href="#" class="btn btn-outline-secondary py-1 my-2">작가 피드 보러가기</a>
 							
 							<script>
@@ -375,7 +375,7 @@ function openPopup(url) {
 	  					<img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
 					  	<div class="card-body p-0">
 							<p class="card-text text-left mx-auto my-2 " style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.nickname}<span class="ml-1">작가님</span></p>
-							<p class="card-text text-left mx-auto my-2" style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.honorpoint}<span class="ml-1">등록</span></p>
+							<p class="card-text text-left mx-auto my-2" style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;"><span class="mr-1">득표수 : </span>${latelyhonor.honorpoint}<span class="ml-1">표</span></p>
 							<a href="#" class="btn btn-outline-secondary py-1 my-2">작가 피드 보러가기</a>
 							
 							<script>
