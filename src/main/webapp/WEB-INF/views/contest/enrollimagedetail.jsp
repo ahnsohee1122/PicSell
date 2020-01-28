@@ -7,16 +7,16 @@
 <title>Insert title here</title>
 </head>
 <style>
-#detailimage{
+#detailimg{
 	width:1024px;
 }
-#detailimage>img{
+#detailimg>img{
 	width:100%
 }
 </style>
 <body>
 <div id="detailimg">
-<img src="/contestenroll/marked_${dto.enroll_sysname }">
+<img src="/contestenroll/orimarked_${dto.enroll_sysname }">
 </div>
 
 </body>

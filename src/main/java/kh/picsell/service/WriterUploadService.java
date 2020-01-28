@@ -135,11 +135,6 @@ public class WriterUploadService {
 	            Graphics g = newImage.getGraphics(); 
 	            g.drawImage(resizeImage, 0, 0, null); 
 	            g.dispose();
-
-	        
-	            System.out.println("reimageWidth : " + resizeImage.getWidth(null));
-	            System.out.println("reimageHeight : " + resizeImage.getHeight(null));
-
 	         
 	            
 				////////////////////////////
