@@ -350,7 +350,6 @@ $(function(){
 				</a>
 			</ul>
 		</div>
-		## : ${loginInfo == null and adminInfo == null }
 		<c:choose>
 			<c:when test="${loginInfo == null and adminInfo == null }">
 				<div class="col-7 col-md-8 col-lg-9 p-0 h-100 float-right text-right">
