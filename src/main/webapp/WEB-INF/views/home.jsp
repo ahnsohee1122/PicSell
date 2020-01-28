@@ -443,11 +443,11 @@ function openPopup(url) {
 					<div class="card-img-overlay py-5 w-100" style="height: 170px;">
 					    <p class="m-auto pt-1 text-center align-self-center" style="font-size: 46px; font-weight: 300;">${list.grouping }</p>
 					</div>
-				  	<div class="card-body text-center px-2">
-				    	<p class="p-0" style="font-size: 20px; min-height: 70px;">${list.title }</p>
-				    	<p class="text-danger" style="font-size: 18px; font-weight: 500;">진행중</p>
-				    	<p style="font-size: 18px;">${list.enddate }</p>
-				    	<p><a href="${pageContext.request.contextPath}/contest/detail?title=${list.title}&contest_seq=${list.contest_seq}" class="btn btn-outline-dark btn-sm" style="font-size: 18px;">참여하기</a></p>
+				  	<div class="card-body text-center px-2 py-0">
+				    	<p class="px-2 pt-2 text-left" style="font-size: 20px; min-height: 70px;">${list.title }</p>
+				    	<p class="px-2 text-danger" style="font-size: 18px; font-weight: 500;">진행중</p>
+				    	<p class="px-2" style="font-size: 18px;">${list.enddate }</p>
+				    	<p class="px-2"><a href="${pageContext.request.contextPath}/contest/detail?title=${list.title}&contest_seq=${list.contest_seq}" class="btn btn-outline-dark btn-sm" style="font-size: 18px;">참여하기</a></p>
 				  	</div>
 				</div>
             	</div>

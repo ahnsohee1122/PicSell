@@ -83,7 +83,7 @@
 							    <p class="m-auto pt-1 text-center align-self-center" style="font-size: 46px; font-weight: 500;">${dto.grouping }</p>
 							</div>
     					</div>
-    					<p class="px-2 pt-2" style="font-size: 20px; min-height: 70px;"><a href="${pageContext.request.contextPath}/contest/detail?title=${dto.title }&contest_seq=${dto.contest_seq}" style="color: black;">${dto.title }</a></p>
+    					<p class="px-2 pt-2 text-left" style="font-size: 20px; min-height: 70px;"><a href="${pageContext.request.contextPath}/contest/detail?title=${dto.title }&contest_seq=${dto.contest_seq}" style="color: black;">${dto.title }</a></p>
     					<p class="px-2 py-0" style="font-size: 17px;" id="price${dto.contest_seq}"></p>
     					<p class="px-2 py-0" style="font-size: 17px;" id="date${dto.enddate }">기간 : <span class="mr-1">~</span>${dto.enddate}</p>
     					<p class="px-2 py-0" style="font-size: 17px; color:red; display:none;" id="time${dto.contest_seq }">기간  지남</p>
