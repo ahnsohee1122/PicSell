@@ -208,8 +208,7 @@ public class MoneyController {
 	@ResponseBody
 	public String changeProc_aop(int money) {
 		String nickname = (String)session.getAttribute("loginInfo");
-		int profit = money_sv.getProfit(nickname);
-		request.setAttribute("profit", profit);
+
 
 			Date today = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
