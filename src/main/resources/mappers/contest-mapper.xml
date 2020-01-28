@@ -28,7 +28,7 @@
 		= #{contest_seq}
 	</update>
 	<select id="acceptlist" resultType="kh.picsell.dto.ContestDTO">
-		select * from contest where selectimage='N' and accept='Y' order by enddate desc
+		select * from contest where selectimage='N' and accept='Y' order by enddate
 	</select>
 	<select id="ing" resultType="kh.picsell.dto.ContestDTO">
 	select * from contest where accept='Y'
@@ -58,7 +58,7 @@
 	</select>
 	<select id="lastcontest" resultType="kh.picsell.dto.ContestDTO">
 		select * from (select contest.*, row_number() over(order by accept_date desc) as rown from contest)
-		 where rown between 1 and 5 and accept='Y' and selectimage='N' and
+		 where rown between 1 and 3 and accept='Y' and selectimage='N' and
 		(TO_DATE(enddate,'YY/MM/DD') > TO_DATE(sysdate,'YY/MM/DD') or
 		TO_DATE(enddate,'YY/MM/DD') = TO_DATE(sysdate,'YY/MM/DD'))
 	</select>

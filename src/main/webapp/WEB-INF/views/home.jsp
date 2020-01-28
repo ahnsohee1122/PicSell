@@ -65,15 +65,6 @@
     .contest02::after {display: inline-block; margin: 0 0 3px 15px; height: 1px; content: ""; text-shadow: none; background-color: #999; width: 30%;}
     .contest02::before {display: inline-block; margin: 0 15px 3px 0; height: 1px; content: ""; text-shadow: none; background-color: #999; width: 30%;}
     
-    .MultiCarousel {float: left; overflow: hidden; margin: auto; padding: 0; width: 100%; position: relative;}
-    .MultiCarousel .MultiCarousel-inner {transition: 1s ease all; float: left;}
-    .MultiCarousel .MultiCarousel-inner .item {float: left;}
-    .MultiCarousel .MultiCarousel-inner .item > div {text-align: center; margin: auto; background: white; color: black; width: 250px; height: 380px;}
-    .MultiCarousel .leftLst, .MultiCarousel .rightLst {position: absolute; border-radius: 30%; top: calc(50% - 20px);}
-    .MultiCarousel .leftLst {left: 20px;}
-    .MultiCarousel .rightLst {right: 20px;}
-    .MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over {pointer-events: none;}
-    
     .lead {font-weight: 500; font-family: 'Cafe24Oneprettynight'; font-size: 26px;}
 </style>
 
@@ -222,12 +213,15 @@ function openPopup(url) {
                     <div class="container h-100">
                       <div class="d-flex justify-content-center h-100">
                         <div class="searchbar">
-                             <input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / @작가명  / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
-                           <button id="searchBtn" class="search_icon" style="border: 0px; background-color: white !important;"><i class="fas fa-search"></i></button>
-                           <div class="hashTag m-3">
-                              <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=분위기" style="color: white;">#분위기</a></span>
-                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=웨딩" style="color: white;">#웨딩</a></span>
-                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=인테리어" style="color: white;">#인테리어</a></span>
+
+                            <input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / @작가명  / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535; font-family: 'Cafe24Oneprettynight'; font-size: 16px;">
+                           	<button id="searchBtn" class="search_icon" style="border: 0px; background-color: white !important;"><i class="fas fa-search"></i></button>
+                           	<div class="hashTag my-3 mx-2">
+                           		<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=분위기" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#분위기</a></span>
+                           		<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=여행" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#여행</a></span>
+                               	<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=인테리어" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#인테리어</a></span>
+                               	<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=카메라" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#카메라</a></span>
+                               	<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=과일" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#과일</a></span>
                             </div>
                         </div>
                       </div>
@@ -322,7 +316,7 @@ function openPopup(url) {
 	  					<img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
 					  	<div class="card-body p-0">
 							<p class="card-text text-left mx-auto my-2 " style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.nickname}<span class="ml-1">작가님</span></p>
-							<p class="card-text text-left mx-auto my-2" style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.honorpoint}<span class="ml-1">등록</span></p>
+							<p class="card-text text-left mx-auto my-2" style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;"><span class="mr-1">득표수 : </span>${latelyhonor.honorpoint}<span class="ml-1">표</span></p>
 							<a href="#" class="btn btn-outline-secondary py-1 my-2">작가 피드 보러가기</a>
 							
 							<script>
@@ -375,7 +369,7 @@ function openPopup(url) {
 	  					<img src="/profileimage/${latelyimg.profileimg}" class="card-img-top m-auto" style="width: 200px; height: 200px;">
 					  	<div class="card-body p-0">
 							<p class="card-text text-left mx-auto my-2 " style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.nickname}<span class="ml-1">작가님</span></p>
-							<p class="card-text text-left mx-auto my-2" style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${latelyhonor.honorpoint}<span class="ml-1">등록</span></p>
+							<p class="card-text text-left mx-auto my-2" style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;"><span class="mr-1">득표수 : </span>${latelyhonor.honorpoint}<span class="ml-1">표</span></p>
 							<a href="#" class="btn btn-outline-secondary py-1 my-2">작가 피드 보러가기</a>
 							
 							<script>
@@ -430,30 +424,25 @@ function openPopup(url) {
     <div class="container-fluid" style="background-color: #f4f2f5; display: none;" id="contestDiv">
         <div class="container px-0 py-5">
             <div class="row">
-                <p class="contest02">이달의 공모전</p>
+                <p class="contest02">진행중인 공모전</p>
             </div>
             <div class="row">
-                <div class="MultiCarousel" data-items="1,2,3,3" data-slide="1" id="MultiCarousel"  data-interval="1000">
-                    <div class="MultiCarousel-inner">
-                        <div class="item">
-                        <c:forEach items="${list }" var="list">
-                            <div class="convention pad15" style="margin: auto; width: 280px; background-color: white;">
-	                            <div class="text-center">
-		    						<img src="${pageContext.request.contextPath}/img/contest_image.PNG" style="width: 280px; height: 170px;">
-		    						<p class="m-auto py-5 text-center" style="width: 280px; position: absolute; bottom: 210px; height: 170px; font-size: 48px; font-weight: 500; font-family: 'Cafe24Oneprettynight';">${list.grouping }</p>
-		    					</div>
-                                <p class="lead px-2 text-left" style="font-size: 20px;">${list.title }</p>
-                                <p class="text-danger" style="font-size: 17px;">진행중</p>
-                                <p style="font-size: 17px;">${list.enddate }</p>
-                                <p><a href="${pageContext.request.contextPath}/contest/detail?title=${list.title}&contest_seq=${list.contest_seq}" class="btn btn-outline-dark btn-sm">참여하기</a></p>
-                            </div>
-                        </c:forEach>
-                        </div>
-                        
-                    </div>
-                    <button class="btn border-0 leftLst"><img src="${pageContext.request.contextPath}/img/previous01.png" style="width: 17px; height: 17px;"></button>
-                    <button class="btn border-0 rightLst"><img src="${pageContext.request.contextPath}/img/next01.png" style="width: 17px; height: 17px;"></button>
-                </div>
+            	<c:forEach items="${list }" var="list">
+            	<div class="col-12 col-lg-4 mx-auto my-2 text-center">
+	            	<div class="card m-auto" style="width: 17.5rem; font-family: 'Cafe24Oneprettynight';">
+						<img src="${pageContext.request.contextPath}/img/contest_image.PNG" class="card-img-top" style="width: 278px; height: 170px;">
+						<div class="card-img-overlay py-5 w-100" style="height: 170px;">
+						    <p class="m-auto pt-1 text-center align-self-center" style="font-size: 46px; font-weight: 300;">${list.grouping }</p>
+						</div>
+					  	<div class="card-body text-center px-2 py-0">
+					    	<p class="px-2 pt-2 text-left" style="font-size: 20px; min-height: 70px;">${list.title }</p>
+					    	<p class="px-2 py-0 text-left" style="font-size: 17px;">상태 : <span class="text-danger mr-1">현재 진행중</span></p>
+	    					<p class="px-2 py-0 text-left" style="font-size: 17px;" id="date${list.enddate }">기간 : <span class="mr-1">~</span>${list.enddate}</p>
+					    	<p class="px-2 pt-2"><a href="${pageContext.request.contextPath}/contest/detail?title=${list.title}&contest_seq=${list.contest_seq}" class="btn btn-outline-dark btn-sm" style="font-size: 18px;">참여하기</a></p>
+					  	</div>
+					</div>
+            	</div>
+            	</c:forEach>
             </div>
         </div>
     </div>

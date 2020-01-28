@@ -57,7 +57,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td id="contentsP" style="height: 200px;" colspan="6" class="data text-left m-0 px-2">
+						<td id="contentsP" style="height: 200px;" colspan="6" class="data text-left m-0 px-2 py-3">
 							${map.pieceNotice.pieceNotice_contents }
 						</td>
 					</tr>
@@ -138,11 +138,11 @@
 	<!--zzz  -->
 	<script>
 		$("#delete").on("click", function(){
-			location.href="${pageContext.request.contextPath}/pieceNotice/delete.do?seq=${map.pieceNotice.pieceNotice_seq}";
+			location.href="${pageContext.request.contextPath}/pieceNotice/delete.do?seq=${map.pieceNotice.pieceNotice_seq}&writer=${map.pieceNotice.pieceNotice_writer}";
 		})
 		
 		$("#modify").on("click", function(){
-			location.href="${pageContext.request.contextPath}/pieceNotice/modify.do?seq=${map.pieceNotice.pieceNotice_seq}";
+			location.href="${pageContext.request.contextPath}/pieceNotice/modify.do?seq=${map.pieceNotice.pieceNotice_seq}&writer=${map.pieceNotice.pieceNotice_writer}";
 		})
 		
 		$("#listGo").on("click", function(){
@@ -181,7 +181,7 @@
 						+'<td id="e' + res.comment_seq+'" class="p-2 text-left" style="width: 50%">'
 						+	'<div class="row w-100 m-auto"><p class="w-100" style="word-break: break-all;">'+res.notice_comment+'</p></div>'
 						+	'<div class="row w-100 m-auto"><textarea id="c' + res.comment_seq + '" class="col-12 col-lg-9 align-self-center px-2" style="height: 40px; display: none; resize: none;"></textarea>'
-						+	'<input id="d' + res.comment_seq+'" type="button" value="수정완료" onclick="commentModifyComplete('+res.comment_seq+')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
+						+	'<input id="d' + res.comment_seq+'" type="button" value="수정완료" onclick="commentModifyComplete('+res.comment_seq+')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;"></div>'
 						+'</td>'
 						+'<td class="p-2" style="width: 20%">' + res.write_date+'</td>'
 						+'<td class="p-2" style="width: 20%">' + res.writer+'</td>'
@@ -198,11 +198,19 @@
 		}) 
 		
 		function commentDelete(seq){
+			var writer = null;
+ 			if(${loginInfo != null}){
+ 				writer = "${loginInfo}";
+ 			}else{
+ 				writer = "${adminInfo}";
+ 			}
+ 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/pieceComment/commentDelete.do",
 				type:"post",
 				data:{
-					comment_seq:seq
+					comment_seq:seq,
+					writer:writer
 				}
 			}).done(function(res){
 				console.log(res);
@@ -230,10 +238,11 @@
 				}).done(function(res){
 					console.log(res);
 					 var comment = 
-		            	   $("#c" + seq).val()
-		            	   + '<textarea id="c' + seq +'" style="display: none; resize: none;" rows="2" cols="80"></textarea>'
-		            	   + '<input id="d' + seq +'" type="button" value="수정완료" onclick="commentModifyComplete(' + seq + ')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">';
-		               $("#e" + seq).html(comment)
+		            	   '<p class="w-100" style="word-break: break-all;">' + $("#c" + seq).val() + '</p>'
+		            	   + '<div class="row w-100 m-auto"><textarea id="c' + seq +'" class="col-12 col-lg-9 align-self-center px-2" style="height: 40px; display: none; resize: none;"></textarea>'
+		            	   + '<input id="d' + seq +'" type="button" value="수정완료" onclick="commentModifyComplete(' + seq + ')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;"></div>';
+		             
+		           	$("#e" + seq).html(comment)
 				})
 			}
 		}		

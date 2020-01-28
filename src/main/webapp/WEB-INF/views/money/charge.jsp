@@ -29,8 +29,8 @@
 						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 22px; text-decoration: none;">Writer Page</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/profit_list.do" style="color: black; font-size: 16px; text-decoration: none;">수익 & 판매 내역 확인</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/moneyBack.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 환급</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/change.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 전환</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/moneyBack.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 환급</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/change.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 전환</a></div>
 					</div>
 				</div>
 				<div class="col-12 col-md-9 col-xl-10 px-0 px-md-3 text-center">
@@ -43,29 +43,29 @@
 								<div class="col-3 p-0" style="height: 200px;">
 									<img src="${pageContext.request.contextPath}/img/5000.png" style="width: 100px; height: 100px;">
 									<div class="custom-control custom-radio my-3 text-center">
-									  	<input type="radio" id="customRadio1" name="money" value="200" class="custom-control-input money">
-									  	<label class="custom-control-label" for="customRadio1">5000원</label>
+									  	<input type="radio" id="customRadio1" name="money" value="1000" class="custom-control-input money">
+									  	<label class="custom-control-label" for="customRadio1">1000원</label>
 									</div>
 								</div>
 								<div class="col-3 p-0">
 									<img src="${pageContext.request.contextPath}/img/10000.png" style="width: 100px; height: 100px;">
 									<div class="custom-control custom-radio my-3">
-									  	<input type="radio" id="customRadio2" name="money" value="3000" class="custom-control-input money">
-									  	<label class="custom-control-label" for="customRadio2">10000원</label>
+									  	<input type="radio" id="customRadio2" name="money" value="5000" class="custom-control-input money">
+									  	<label class="custom-control-label" for="customRadio2">5000원</label>
 									</div>
 								</div>
 								<div class="col-3 p-0">
 									<img src="${pageContext.request.contextPath}/img/15000.png" style="width: 100px; height: 100px;">
 									<div class="custom-control custom-radio my-3">
-									  	<input type="radio" id="customRadio3" name="money" value="15000" class="custom-control-input money">
-									  	<label class="custom-control-label" for="customRadio3">15000원</label>
+									  	<input type="radio" id="customRadio3" name="money" value="10000" class="custom-control-input money">
+									  	<label class="custom-control-label" for="customRadio3">10000원</label>
 									</div>
 								</div>
 								<div class="col-3 p-0">
 									<img src="${pageContext.request.contextPath}/img/20000.png" style="width: 100px; height: 100px;">
 									<div class="custom-control custom-radio my-3">
-									  	<input type="radio" id="customRadio4" name="money" value="20000" class="custom-control-input money">
-									  	<label class="custom-control-label" for="customRadio4">20000원</label>
+									  	<input type="radio" id="customRadio4" name="money" value="50000" class="custom-control-input money">
+									  	<label class="custom-control-label" for="customRadio4">50000원</label>
 									</div>
 								</div>
 							</div>
@@ -103,7 +103,7 @@
 				price: radioVal, //실제 결제되는 가격
 				application_id: "5e05bf2a0627a80026682ac0",
 				name: radioVal, //결제창에서 보여질 이름
-				pg: '',
+				pg: 'nicepay',
 				method: '', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
 				show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
 				items: [
@@ -125,7 +125,7 @@
 				},
 				order_id: '고유order_id_1234', //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
 				params: {callback1: '그대로 콜백받을 변수 1', callback2: '그대로 콜백받을 변수 2', customvar1234: '변수명도 마음대로'},
-				account_expire_at: '2020-05-25', // 가상계좌 입금기간 제한 ( yyyy-mm-dd 포멧으로 입력해주세요. 가상계좌만 적용됩니다. )
+				account_expire_at: '2020-01-29', // 가상계좌 입금기간 제한 ( yyyy-mm-dd 포멧으로 입력해주세요. 가상계좌만 적용됩니다. )
 				extra: {
 				    start_at: '2020-01-27', // 정기 결제 시작일 - 시작일을 지정하지 않으면 그 날 당일로부터 결제가 가능한 Billing key 지급
 					end_at: '2022-05-10', // 정기결제 만료일 -  기간 없음 - 무제한

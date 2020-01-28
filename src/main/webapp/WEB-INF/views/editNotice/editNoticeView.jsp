@@ -56,7 +56,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td id="contentsP" style="height: 200px;" colspan="6" class="data text-left m-0 px-2">
+						<td id="contentsP" style="height: 200px;" colspan="6" class="data text-left m-0 px-2 py-3">
 							${map.editNotice.editNotice_contents }
 						</td>
 					</tr>
@@ -137,11 +137,11 @@
 	<!--zzz  -->
 	<script>
 		$("#delete").on("click", function(){
-			location.href="${pageContext.request.contextPath}/editNotice/delete.do?seq=${map.editNotice.editNotice_seq}";
+			location.href="${pageContext.request.contextPath}/editNotice/delete.do?seq=${map.editNotice.editNotice_seq}&writer=${map.editNotice.editNotice_writer}";
 		})
 		
 		$("#modify").on("click", function(){
-			location.href="${pageContext.request.contextPath}/editNotice/modify.do?seq=${map.editNotice.editNotice_seq}";
+			location.href="${pageContext.request.contextPath}/editNotice/modify.do?seq=${map.editNotice.editNotice_seq}&writer=${map.editNotice.editNotice_writer}";
 		})
 		
 		$("#listGo").on("click", function(){
@@ -197,11 +197,19 @@
 		}) 
 		
 		function commentDelete(seq){
+			var writer = null;
+ 			if(${loginInfo != null}){
+ 				writer = "${loginInfo}";
+ 			}else{
+ 				writer = "${adminInfo}";
+ 			}
+ 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/editComment/commentDelete.do",
 				type:"post",
 				data:{
-					comment_seq:seq
+					comment_seq:seq,
+					writer:writer
 				}
 			}).done(function(res){
 				console.log(res);
@@ -229,9 +237,9 @@
 				}).done(function(res){
 					console.log(res);
 					 var comment = 
-		            	   $("#c" + seq).val()
-		            	   + '<textarea id="c' + seq +'" style="display: none; resize: none;" rows="2" cols="80"></textarea>'
-		            	   + '<input id="d' + seq +'" type="button" value="수정완료" onclick="commentModifyComplete(' + seq + ')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">';
+		            	   '<p class="w-100" style="word-break: break-all;">' + $("#c" + seq).val() + '</p>'
+		            	   + '<div class="row w-100 m-auto"><textarea id="c' + seq +'"  class="col-12 col-lg-9 align-self-center px-2" style="height: 40px; display: none; resize: none;"></textarea>'
+		            	   + '<input id="d' + seq +'" type="button" value="수정완료" onclick="commentModifyComplete(' + seq + ')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;"></div>';
 		               $("#e" + seq).html(comment)
 				})
 			}

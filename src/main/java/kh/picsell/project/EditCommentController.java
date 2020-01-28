@@ -1,5 +1,7 @@
 package kh.picsell.project;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,11 +24,20 @@ public class EditCommentController {
 	
 	private EditNoticeCommentDTO commentDto;
 	
+	@Autowired
+	private HttpSession session;
+	
 	@RequestMapping(value="/commentDelete.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
-	public String commentDelete(int comment_seq) {
+	public String commentDelete(int comment_seq, String writer) {
+		String user = (String)session.getAttribute("loginInfo");
+		String admin = (String)session.getAttribute("adminInfo");
+		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
 		editCommentService.commentDelete(comment_seq);
 		return "삭제 성공";
+		}else {
+			return "redirect:/error";
+		}
 	}
 	
 	@RequestMapping(value="/commentWrite.do", produces="text/html; charset=UTF-8")

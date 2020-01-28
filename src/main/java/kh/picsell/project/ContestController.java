@@ -82,6 +82,7 @@ public class ContestController {
 		try {
 			dto = service.detailcheck(contest_seq);
 			List<ContestDTO> imglist = service.exampleimg(contest_seq);
+			System.out.println("aa" + imglist.size());
 			request.setAttribute("imglist", imglist);
 			request.setAttribute("dto", dto);
 			return "contest/detailcheck";

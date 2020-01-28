@@ -110,38 +110,56 @@ public class PieceNoticeController {
 	}
 	
 	@RequestMapping("/delete.do")
-	public String delete(int seq) {
-		String pieceFile_path = session.getServletContext().getRealPath("/pieceNotice_files");
-		String pieceSummernote_filePath = session.getServletContext().getRealPath("/pieceNotice_summernote_files");
-		
-		pieceNoticeService.delete(seq, pieceFile_path, pieceSummernote_filePath);
-		return "redirect:/pieceNotice/notice.do";
+	public String delete(int seq, String writer) {
+		String user = (String)session.getAttribute("loginInfo");
+		String admin = (String)session.getAttribute("adminInfo");
+		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
+			String pieceFile_path = session.getServletContext().getRealPath("/pieceNotice_files");
+			String pieceSummernote_filePath = session.getServletContext().getRealPath("/pieceNotice_summernote_files");
+			
+			pieceNoticeService.delete(seq, pieceFile_path, pieceSummernote_filePath);
+			return "redirect:/pieceNotice/notice.do";
+		}else {
+			return "error";
+		}
 	}
 	
 	@RequestMapping("/modify.do")
-	public String modify(int seq) {
-		try {
-			Map map = pieceNoticeService.detail(seq);
-			session.setAttribute("map", map);
-			return "pieceNotice/pieceNoticeModify";
-		}catch(Exception e) {
-			e.printStackTrace();
+	public String modify(int seq, String writer) {
+		String user = (String)session.getAttribute("loginInfo");
+		String admin = (String)session.getAttribute("adminInfo");
+		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
+			try {
+				Map map = pieceNoticeService.detail(seq);
+				session.setAttribute("map", map);
+				return "pieceNotice/pieceNoticeModify";
+			}catch(Exception e) {
+				e.printStackTrace();
+				return "error";
+			}
+		}else {
 			return "error";
 		}
 	}
 	
 	@RequestMapping("/modifyProc.do")
-	public String modifyProc(String[] removeFileSeq, PieceNoticeDTO pieceNoticeDto, PieceNoticeFileDTO pieceNoticeFileDto) {
-		if(removeFileSeq != null){
-			for(String fileSeq : removeFileSeq) {
-				int seq = Integer.parseInt(fileSeq);
-				pieceNoticeService.deleteFile(seq);
+	public String modifyProc(String[] removeFileSeq, PieceNoticeDTO pieceNoticeDto, PieceNoticeFileDTO pieceNoticeFileDto, String writer) {
+		String user = (String)session.getAttribute("loginInfo");
+		String admin = (String)session.getAttribute("adminInfo");
+		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
+			if(removeFileSeq != null){
+				for(String fileSeq : removeFileSeq) {
+					int seq = Integer.parseInt(fileSeq);
+					pieceNoticeService.deleteFile(seq);
+				}
 			}
-		}
 
-		String file_path = session.getServletContext().getRealPath("/pieceNotice_files");
-		String summernote_filePath = session.getServletContext().getRealPath("pieceNotice_summernote_files") ;
-		pieceNoticeService.modify(pieceNoticeDto, pieceNoticeFileDto, file_path, summernote_filePath);
-		return "redirect:notice.do";
+			String file_path = session.getServletContext().getRealPath("/pieceNotice_files");
+			String summernote_filePath = session.getServletContext().getRealPath("pieceNotice_summernote_files") ;
+			pieceNoticeService.modify(pieceNoticeDto, pieceNoticeFileDto, file_path, summernote_filePath);
+			return "redirect:notice.do";	
+		}else {
+			return "error";
+		}
 	}
 }
