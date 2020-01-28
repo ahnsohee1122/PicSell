@@ -65,7 +65,7 @@
 						  	<div class="row align-items-center image w-100 mx-auto text-center py-3" style="height: 50px;">
 						    	<p class="nickname mx-auto"><a href='${pageContext.request.contextPath}/writer/writerpage?nickname=${list.enroll_nickname }' style="text-decoration: none;"><span class="mx-1">@</span>${list.enroll_nickname }</a></p>
 						  		<c:choose>
-						  		<c:when test="${loginInfo == dto.host }">
+						  		<c:when test="${loginInfo == dto.host || adminInfo == dto.host}">
 						  			<input type="checkbox" name="select" value="${list.contest_img_seq }" id="select${list.contest_img_seq }" class=select><label for="select${list.contest_img_seq }">선택</label>
 						  		</c:when>
 						  		</c:choose>
@@ -143,6 +143,11 @@
 				if(confirm("선택완료 후에는 재선택 하실 수 없습니다. 선택을 완료하시겠습니까?")){
 					if($("input[type=checkbox]:checked").length==0){
 						alert("하나 이상의 항목을 채택해주세요")
+						return;
+					}
+
+					if(${getpoint} < ${dto.price}){
+						alert("상금으로 지급된 포인트가 부족하여 채택할 수 없습니다.관리자와 연락바랍니다.")
 						return;
 					}
 					$("#select").attr('type','hidden')
