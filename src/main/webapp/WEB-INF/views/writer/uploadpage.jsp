@@ -269,7 +269,7 @@ input[type=text] {
 		}
 
 		
-		
+	/* 	
 		
 		
 		//작은워터마크
@@ -303,8 +303,9 @@ input[type=text] {
 			document.getElementsByClassName("xswatermark" + cnt)[0].value = xstempCanvas
 					.toDataURL()
 			return (xstempCanvas.toDataURL());
-		}
+		} */
 
+		
 		function leftTemplate(cnt) {
 			var left = document.createElement('div')
 			var input = document.createElement('input')
