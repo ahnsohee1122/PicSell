@@ -187,11 +187,12 @@ public class MemberController {
 	}
 
 	@RequestMapping("/Logout.do")
-	public String logout() { //로그아웃
+	public String logout(HttpServletRequest request) { //로그아웃
 //		String adminInfo = (String)session.getAttribute("adminInfo");
 //		String loginInfo = (String)session.getAttribute("loginInfo");
-		session.invalidate();
-		return "redirect:../home";
+		request.getSession().invalidate();
+		//session.invalidate();
+		return "redirect:/home";
 	}
 	
 	@RequestMapping(value="/pwchange.do", produces="text/html; charset=UTF-8")
@@ -244,7 +245,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/manage.do")
-	public String manage(MemberDTO dto, HttpServletRequest request) { //회원관리(목록조회)
+	public String manage_adminAop(MemberDTO dto, HttpServletRequest request) { //회원관리(목록조회)
 		List<MemberDTO> list;
 		try {
 		list = service.getList();

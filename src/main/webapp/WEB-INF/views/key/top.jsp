@@ -75,7 +75,7 @@ $(function(){
     		location.href="/member/Logout.do";
     		
     	}else{
-    		alert("로그아웃이 취소되었습니다");
+    		
     	}
     });
 
@@ -86,7 +86,7 @@ $(function(){
 		    		location.href="/member/Logout.do";
 		    		
 		    	}else{
-		    		alert("로그아웃이 취소되었습니다");
+		    		
 		    	}
 			});
 		    function cookieAsJSON(){
@@ -149,7 +149,7 @@ $(function(){
 
 					if(res == "로그인성공"){
 							
-						alert("로그인에 성공했습니다!");
+						
 							$("#Login").modal("hide");
 							if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
 								location.href="/home"; // 홈으로
@@ -158,7 +158,7 @@ $(function(){
 							}	
 						}else if(res=="관리자로그인성공"){
 							
-							alert("관리자로 로그인했습니다");
+							
 							$("#Login").modal("hide");
 							if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
 								location.href="/home"; // 홈으로
@@ -215,9 +215,9 @@ $(function(){
 						}
 					}).done(function(res){
 						if(res == "로그인성공"){
-							console.log(res);
+							
 						
-								alert("로그인에 성공했습니다!");
+								
 								$("#Login").modal("hide");
 								if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
 									location.href="/home"; // 홈으로
@@ -226,7 +226,7 @@ $(function(){
 								}
 							}else if(res=="관리자로그인성공"){
 								
-								alert("관리자로 로그인했습니다");
+								
 								$("#Login").modal("hide");
 								if(fromURL == "http://localhost/member/signup.do"){ // 회원가입 페이지에서 왔으면
 									location.href="/home"; // 홈으로

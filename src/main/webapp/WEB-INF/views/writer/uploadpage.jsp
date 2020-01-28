@@ -219,8 +219,10 @@ input[type=text] {
 				img.src = data
 				thumb.innerHTML = ''
 				img.onload = function() {
-					var xsdataURL = xswatermarkedDataURL(img, "PICSELL", cnt,
-							thumb)
+					var dataURL = watermarkedDataURL(img, "PICSELL",
+							cnt, thumb);
+					//var xsdataURL = xswatermarkedDataURL(img, "PICSELL", cnt,
+					//		thumb)
 					$('#Progress_Loading').hide();
 					thumb.appendChild(img)
 
@@ -231,7 +233,45 @@ input[type=text] {
 				reader.readAsDataURL(files[0])
 			getExif(files[0]);
 		};
+		//워터마크 새로 canvas에 그리기.
+		function watermarkedDataURL(img, text, cnt, thumb) {
+			var tempCanvas = document.createElement('canvas');
+			tempCanvas.classList.add("watermark")
+			var tempCtx = tempCanvas.getContext('2d');
+			var hidden = document.createElement('input')
+			hidden.setAttribute('type', 'hidden')
+			hidden.classList.add("watermark" + cnt)
+			hidden.setAttribute('name', "watermark" + cnt)
+			var cw, ch;
+			cw = tempCanvas.width = img.naturalWidth;
+			ch = tempCanvas.height = img.naturalHeight;
+			tempCtx.drawImage(img, 10, 10);
+			var ratio = 80 / 1000;
+			if (img.naturalWidth > img.naturalHeight) {
+				var fontSize = img.naturalWidth * ratio;
+			} else if (img.naturalWidth < img.naturalHeight) {
+				var fontSize = img.naturalHeight * ratio;
+			}
+			tempCtx.font = (fontSize | 0) + 'px Arial'
+			var textWidth = tempCtx.measureText(text).width;
+			tempCtx.globalAlpha = .50;
+			tempCtx.fillStyle = 'white'
+			tempCtx.textAlign = 'center'
+			tempCtx.textBaseline = 'middle';
+			var x = cw / 2;
+			var y = ch / 2
+			tempCtx.fillText(text, x, y);
+			thumb.appendChild(tempCanvas);
+			thumb.appendChild(hidden)
+			document.getElementsByClassName("watermark" + cnt)[0].value = tempCanvas
+					.toDataURL()
+			return (tempCanvas.toDataURL());
+		}
 
+		
+		
+		
+		
 		//작은워터마크
 		function xswatermarkedDataURL(img, text, cnt, thumb) {
 			var xstempCanvas = document.createElement('canvas');
@@ -244,7 +284,7 @@ input[type=text] {
 			xstempCanvas.width = img.naturalWidth;
 			xstempCanvas.height = img.naturalHeight;
 			xstempCtx.drawImage(img, 0, 0);
-			var ratio = 40 / 1000;
+			var ratio = 80 / 1000;
 			if (img.naturalWidth > img.naturalHeight) {
 				var fontSize = img.naturalWidth * ratio;
 			} else if (img.naturalWidth < img.naturalHeight) {
@@ -319,8 +359,7 @@ input[type=text] {
 							return;
 						}
 
-						if (xPixel == null || yPixel == null || xPixel < 720
-								|| yPixel < 720) {
+						if (xPixel == null || yPixel == null || (xPixel<720 && yPixel<720)) {
 							alert("최소 해상도는 720픽셀 이상이어야 합니다.")
 							document.getElementsByName('file')[cnt].value = "";
 							document.getElementsByClassName('canvas')[cnt].innerHTML = "";

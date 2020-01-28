@@ -23,7 +23,7 @@ private Img_upService service;
 @Autowired
 private HttpServletRequest request;
 @RequestMapping("/NoList")
-public String Nolist(WriterImageUpDTO dto) { //사진목록(승인안된것만)
+public String Nolist_adminAop(WriterImageUpDTO dto) { //사진목록(승인안된것만)
 	List<WriterImageUpDTO> list;
 	try {
 		list = service.getNoList();

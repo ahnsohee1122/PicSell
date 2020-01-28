@@ -44,7 +44,7 @@ public class ContestController {
 
 
 	@RequestMapping("/ing.do")
-	public String ing(HttpServletRequest request) {
+	public String ing_adminAop(HttpServletRequest request) {
 		List<ContestDTO> list;
 		try {
 			list = service.ing();
@@ -62,7 +62,7 @@ public class ContestController {
 	}
 
 	@RequestMapping("/check.do")
-	public String check(ContestDTO dto, HttpServletRequest request) {
+	public String check_adminAop(ContestDTO dto, HttpServletRequest request) {
 		List<ContestDTO> list;
 		try {
 			list = service.notyetList();
@@ -149,7 +149,8 @@ public class ContestController {
 	public String newContestform(MultipartFile[] files, ContestDTO dto) {
 		String path = session.getServletContext().getRealPath("contestfiles");
 		String nickname = (String)session.getAttribute("loginInfo");
-		service.newcontest(files, dto, path, nickname);
+		String adminInfo = (String)session.getAttribute("adminInfo");
+		service.newcontest(files, dto, path, nickname,adminInfo);
 		return "redirect:contest.do";
 
 	}
