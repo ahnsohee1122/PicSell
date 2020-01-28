@@ -222,12 +222,14 @@ function openPopup(url) {
                     <div class="container h-100">
                       <div class="d-flex justify-content-center h-100">
                         <div class="searchbar">
-                             <input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / @작가명  / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
-                           <button id="searchBtn" class="search_icon" style="border: 0px; background-color: white !important;"><i class="fas fa-search"></i></button>
-                           <div class="hashTag m-3">
-                              <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=분위기" style="color: white;">#분위기</a></span>
-                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=웨딩" style="color: white;">#웨딩</a></span>
-                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=인테리어" style="color: white;">#인테리어</a></span>
+                            <input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / @작가명  / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535; font-family: 'Cafe24Oneprettynight'; font-size: 16px;">
+                           	<button id="searchBtn" class="search_icon" style="border: 0px; background-color: white !important;"><i class="fas fa-search"></i></button>
+                           	<div class="hashTag my-3 mx-2">
+                           		<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=분위기" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#분위기</a></span>
+                           		<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=여행" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#여행</a></span>
+                               	<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=인테리어" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#인테리어</a></span>
+                               	<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=카메라" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#카메라</a></span>
+                               	<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=과일" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#과일</a></span>
                             </div>
                         </div>
                       </div>
