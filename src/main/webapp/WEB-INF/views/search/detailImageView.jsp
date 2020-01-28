@@ -96,27 +96,36 @@
 		        	<hr>
 		            <div class="text-left px-3 mt-3">
 		                <span class="mx-1">크리에이터</span>
-		            	<a class="mx-1" href='/writer/writerpage?nickname=${dto.nickname }' style='text-decoration:none' onclick='window.open("about:blank").location.href=this.href; return false;'>@${dto.nickname }</a>
-		                <span class="mx-1">                            
-	                    <!-- ***************************************************** -->
-		                	<c:choose>
-		                    	<c:when test="${writerlikestatus == 1 }">
-			                    	<svg class="ico2 liked" width="24" height="24" viewBox="0 0 24 24">
-				                    	<path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
-				                    </svg>
-		                        </c:when>
-		                        <c:otherwise>
-			                       	<svg class="ico2" width="24" height="24" viewBox="0 0 24 24">
-				                	    <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
-				                    </svg>
-		                        </c:otherwise>
-		                    </c:choose>
-		                <!-- ***************************************************** -->         
-		                </span>
-		                <span class="mx-1">'</span>
-		                <span id="total_writer_like">${likepoint }</span>
-		                <span class="mx-1">'</span>
-		                <span class="mx-1">명이 좋아하는 작가로 등록을 하였습니다.</span>
+		                
+		                <c:choose>
+		                	<c:when test="${memexist == 1}">
+				                <a class="mx-1" href='/writer/writerpage?nickname=${dto.nickname }' style='text-decoration:none' onclick='window.open("about:blank").location.href=this.href; return false;'>@${dto.nickname }</a>
+				                <span class="mx-1">                            
+			                    <!-- ***************************************************** -->
+				                	<c:choose>
+				                    	<c:when test="${writerlikestatus == 1 }">
+					                    	<svg class="ico2 liked" width="24" height="24" viewBox="0 0 24 24">
+						                    	<path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+						                    </svg>
+				                        </c:when>
+				                        <c:otherwise>
+					                       	<svg class="ico2" width="24" height="24" viewBox="0 0 24 24">
+						                	    <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+						                    </svg>
+				                        </c:otherwise>
+				                    </c:choose>
+				                <!-- ***************************************************** -->         
+				                </span>
+				                <span class="mx-1">'</span>
+				                <span id="total_writer_like">${likepoint }</span>
+				                <span class="mx-1">'</span>
+				                <span class="mx-1">명이 좋아하는 작가로 등록을 하였습니다.</span>
+		                	</c:when>
+		                	<c:otherwise>
+		                		@${dto.nickname }
+		                	</c:otherwise>
+		                </c:choose>
+
 		        	</div>
                     <div id=tagbox class="py-3 px-3 text-left">
                     	<span class="mx-1">해시태그</span>

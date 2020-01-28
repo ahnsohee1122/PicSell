@@ -1,5 +1,6 @@
 package kh.picsell.project;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -23,6 +24,9 @@ public class EditCommentController {
 	private EditCommentService editCommentService;
 	
 	private EditNoticeCommentDTO commentDto;
+	
+	@Autowired
+	private  HttpServletRequest request;
 	
 	@Autowired
 	private HttpSession session;

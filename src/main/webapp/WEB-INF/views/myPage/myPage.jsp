@@ -64,7 +64,7 @@
 							<div class="form-group row mx-auto my-3">
 								<label for="selectEmail" class="col-3 col-form-label">이메일</label>
 							    <div class="col-9">
-							      <input type="text" class="form-control text-right" id="selectEmail" style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.email }" readonly>
+							      <input type="text" class="form-control text-right"  style="border: 0; background-color: #f4f2f5; border-bottom: 1px solid darkgray; border-radius: 0;" value="${memberDto.email }" readonly>
 							    </div>
 							</div>
 							<div class="form-group row mx-auto my-3">

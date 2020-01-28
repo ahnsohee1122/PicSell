@@ -98,7 +98,7 @@
 								<tbody>
 									<c:forEach items="${list}" var="list">
 										
-										<tr onclick="window.open('${pageContext.request.contextPath}/DetailImage.do?img_seq=${list.dealImgSeq}&nickname=${loginInfo}', '','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" style="cursor:pointer; background-color: #f4f2f5;" class="list jg-entry entry-visible" >
+										<tr onclick="window.open('${pageContext.request.contextPath}/DetailImage.do?img_seq=${list.dealImgSeq}&nickname=${list.writerNickname}', '','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" style="cursor:pointer; background-color: #f4f2f5;" class="list jg-entry entry-visible" >
 											<td>${list.dealDate}</td>
 											<td>${list.dealPrice}<span class="mx-1">원</span></td>
 											<td>${list.dealImgSeq}</td>
