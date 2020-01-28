@@ -28,7 +28,7 @@
 			<form id="contestuploadform" method="post" class="p-3" enctype="multipart/form-data" style="background-color: white;">
 				<h4 class="mb-5" style="font-weight: 700;">${contestDto.title }</h4>
 				<h5 class="mt-4" style="font-size: 18px;">[ 상세설명 ]</h5>
-				<h6 class="my-3">${contestDto.detail }</h6>
+				<div class="my-3">${contestDto.detail }</div>
 				<h5 class="mt-4" style="font-size: 18px;">[ 조건사항 ]</h5>
 				<h6 class="my-3">${contestDto.terms }</h6>
 				<div class="row w-100 mx-auto mt-4 py-4" style="border-top: 1px solid gray; border-bottom: 1px solid gray;">
