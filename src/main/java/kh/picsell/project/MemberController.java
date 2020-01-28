@@ -12,9 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.JsonObject;
-
 import kh.picsell.dto.MemberDTO;
+import kh.picsell.service.DeleteService;
 import kh.picsell.service.MemberService;
 
 @Controller
@@ -22,7 +21,8 @@ import kh.picsell.service.MemberService;
 public class MemberController {
 	@Autowired
 	private HttpSession session;
-
+	@Autowired
+	private DeleteService delete;
 	@Autowired
 	private MemberService service;
 
@@ -107,7 +107,11 @@ public class MemberController {
 		System.out.println(nickname);
 		try {
 			int result = service.nickCheck(nickname);
-			if(result>0) {
+			int result1 = service.nickCheck2(nickname);
+			System.out.println("멤버에 : "+result+"사진에 : "+result1);
+			int val = result + result1;
+			System.out.println(val);
+			if(val>0) {
 				return"중복된 별명입니다.";
 			}else {return"사용가능한 별명입니다.";}
 		}catch(Exception e) {
@@ -231,7 +235,23 @@ public class MemberController {
 
 		String nickname = (String)session.getAttribute("loginInfo"); //닉네임으로 회원탈퇴
 		try {
-			int result = service.memout(nickname);
+			int result = delete.delete1(nickname);
+			delete.delete2(nickname);
+			delete.delete3(nickname);
+			delete.delete4(nickname);
+			delete.delete5(nickname);
+			delete.delete6(nickname);
+			delete.delete7(nickname);
+			delete.delete8(nickname);
+			delete.delete9(nickname);
+			delete.delete10(nickname);
+			delete.delete11(nickname);
+			delete.delete12(nickname);
+			delete.delete13(nickname);
+			delete.delete14(nickname);
+			delete.delete15(nickname);
+		int imgresult =	service.changemem(nickname);
+		System.out.println(imgresult);
 			session.invalidate();
 			if(result>0) {
 				System.out.println("성공");
