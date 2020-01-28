@@ -149,7 +149,8 @@ public class ContestController {
 	public String newContestform(MultipartFile[] files, ContestDTO dto) {
 		String path = session.getServletContext().getRealPath("contestfiles");
 		String nickname = (String)session.getAttribute("loginInfo");
-		service.newcontest(files, dto, path, nickname);
+		String adminInfo = (String)session.getAttribute("adminInfo");
+		service.newcontest(files, dto, path, nickname,adminInfo);
 		return "redirect:contest.do";
 
 	}

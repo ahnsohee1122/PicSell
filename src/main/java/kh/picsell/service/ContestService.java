@@ -62,8 +62,12 @@ public class ContestService {
 	}
 
 	@Transactional("txManager")
-	public void newcontest(MultipartFile[] file, ContestDTO dto, String path, String nickname) {
-		dto.setHost(nickname);
+	public void newcontest(MultipartFile[] file, ContestDTO dto, String path, String nickname, String adminInfo) {
+		if(adminInfo != null) {
+			dto.setHost(adminInfo);
+		}else {
+			dto.setHost(nickname);			
+		}
 		dao.insert(dto);
 
 		File filepath = new File(path);   
