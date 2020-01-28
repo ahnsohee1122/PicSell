@@ -59,6 +59,10 @@ public class MemberService {
 		String modifyPw = myDao.getSHA512(pw);
 		return dao.login(id, modifyPw);
 	}
+	public int leavecheck(String nickname, String pw)throws Exception{
+		String modifyPw = myDao.getSHA512(pw);
+		return dao.leavecheck(nickname, modifyPw);
+	}
 	public int managercheck(String id, String pw) throws Exception{ //관리자인지체크
 		String modifyPw = myDao.getSHA512(pw);
 		return dao.managercheck(id, modifyPw);
