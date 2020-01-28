@@ -28,8 +28,8 @@
 						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 22px; text-decoration: none;">Writer Page</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/profit_list.do" style="color: black; font-size: 16px; text-decoration: none;">수익 & 판매 내역 확인</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/moneyBack.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 환급</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/change.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 전환</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/moneyBack.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 환급</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/change.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 전환</a></div>
 					</div>
 				</div>
 				<div class="col-12 col-md-9 col-xl-10 px-0 px-md-3 text-center">
@@ -50,23 +50,23 @@
 							var back_point = $("#back_point").val();
 							if("${profit}"<back_point){
 								alert("출금하시려는 포인트가 가지고 계신 포인트보다 많습니다.");
-							}else if(back_point<10){
-								alert("10원 미만은 출금할 수 없습니다.");
+							}else if(back_point<5000){
+								alert("5000원 미만은 출금할 수 없습니다.");
 							}else{
-								$("#frm").submit();		
+								var back_point = $("#back_point").val();
+								$.ajax({
+									 url : "${pageContext.request.contextPath}/money/moneyBackProc.do",
+							    	 type : "post",
+							    	 data : {back_point : back_point}
+								}).done(function(data){
+									alert("환급이 완료되었습니다. 환급은 결제방식에 따라 최대 1~2일정도 소요됩니다.");
+									location.replace("${pageContext.request.contextPath}/money/profit_list.do");
+								})	
 							}
+						
 						})
 						</script>
-						<c:choose>
-							<c:when test="${msg==null}">
-							</c:when>
-							<c:otherwise>
-								<script>
-								var msg = "${msg}";
-								alert(msg);
-								</script>
-							</c:otherwise>
-						</c:choose>
+
 					</div>
 				</div>
 			</div>
