@@ -103,7 +103,8 @@ public class ContestService {
 				dto.setSysname(sysname);
 				dto.setContest_seq(currval);
 				f.transferTo(new File(path+"/"+sysname));
-				dao.fileinsert(dto);
+				int a = dao.fileinsert(dto);
+				System.out.println(a);
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -236,8 +237,6 @@ public class ContestService {
 				ContestDTO dto = dao.detailcheck(contest_seq);
 				int headcount = Math.round(select.length);
 				int pricePerPerson = dto.getPrice()/headcount;
-				System.out.println("인당가격" + pricePerPerson);
-				System.out.println(dto.getHost());
 
 				moneydao.insertBuyList(deal_date, pricePerPerson, 0, dto.getHost(), writer_nickname);
 				moneydao.pointUpdate(writer_nickname, "공모전판매", deal_date, pricePerPerson,"수익금");
@@ -254,8 +253,6 @@ public class ContestService {
 
 
 	public List<ContestDTO> selectByPage(int start, int end) {
-		System.out.println("start: " + start);
-		System.out.println("end:" + end);
 		Map<String,Integer> map = new HashMap<>();
 		map.put("start", start);
 		map.put("end", end);

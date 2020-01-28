@@ -145,6 +145,11 @@
 						alert("하나 이상의 항목을 채택해주세요")
 						return;
 					}
+
+					if(${getpoint} < ${dto.price}){
+						alert("상금으로 지급된 포인트가 부족하여 채택할 수 없습니다.관리자와 연락바랍니다.")
+						return;
+					}
 					$("#select").attr('type','hidden')
 					$("#selectform").submit();
 					
