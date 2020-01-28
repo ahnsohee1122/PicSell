@@ -56,7 +56,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td id="contentsP" style="height: 200px;" colspan="6" class="data text-left m-0 px-2">
+						<td id="contentsP" style="height: 200px;" colspan="6" class="data text-left m-0 px-2 py-3">
 							${map.editNotice.editNotice_contents }
 						</td>
 					</tr>
