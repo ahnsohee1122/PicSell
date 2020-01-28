@@ -227,7 +227,7 @@ public class MoneyController {
 	    request.setAttribute("memberDto", writerinfo);
 	      
 		// 전환하려는 포인트가 1000원보다 적은 경우
-		if(money<100) {
+		if(money<1000) {
 			String msg = "전환하려는 포인트가 1000원보다 작습니다.";
 			request.setAttribute("msg", msg);
 			return "money/change";

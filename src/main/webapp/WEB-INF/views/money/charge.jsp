@@ -43,29 +43,29 @@
 								<div class="col-3 p-0" style="height: 200px;">
 									<img src="${pageContext.request.contextPath}/img/5000.png" style="width: 100px; height: 100px;">
 									<div class="custom-control custom-radio my-3 text-center">
-									  	<input type="radio" id="customRadio1" name="money" value="200" class="custom-control-input money">
-									  	<label class="custom-control-label" for="customRadio1">5000원</label>
+									  	<input type="radio" id="customRadio1" name="money" value="1000" class="custom-control-input money">
+									  	<label class="custom-control-label" for="customRadio1">1000원</label>
 									</div>
 								</div>
 								<div class="col-3 p-0">
 									<img src="${pageContext.request.contextPath}/img/10000.png" style="width: 100px; height: 100px;">
 									<div class="custom-control custom-radio my-3">
-									  	<input type="radio" id="customRadio2" name="money" value="3000" class="custom-control-input money">
-									  	<label class="custom-control-label" for="customRadio2">10000원</label>
+									  	<input type="radio" id="customRadio2" name="money" value="5000" class="custom-control-input money">
+									  	<label class="custom-control-label" for="customRadio2">5000원</label>
 									</div>
 								</div>
 								<div class="col-3 p-0">
 									<img src="${pageContext.request.contextPath}/img/15000.png" style="width: 100px; height: 100px;">
 									<div class="custom-control custom-radio my-3">
-									  	<input type="radio" id="customRadio3" name="money" value="15000" class="custom-control-input money">
-									  	<label class="custom-control-label" for="customRadio3">15000원</label>
+									  	<input type="radio" id="customRadio3" name="money" value="10000" class="custom-control-input money">
+									  	<label class="custom-control-label" for="customRadio3">10000원</label>
 									</div>
 								</div>
 								<div class="col-3 p-0">
 									<img src="${pageContext.request.contextPath}/img/20000.png" style="width: 100px; height: 100px;">
 									<div class="custom-control custom-radio my-3">
-									  	<input type="radio" id="customRadio4" name="money" value="20000" class="custom-control-input money">
-									  	<label class="custom-control-label" for="customRadio4">20000원</label>
+									  	<input type="radio" id="customRadio4" name="money" value="50000" class="custom-control-input money">
+									  	<label class="custom-control-label" for="customRadio4">50000원</label>
 									</div>
 								</div>
 							</div>
