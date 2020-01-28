@@ -3,7 +3,6 @@ package kh.picsell.project;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -19,10 +18,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kh.picsell.dto.ContestDTO;
 import kh.picsell.service.ContestService;
+import kh.picsell.service.MoneyService;
 
 @Controller
 @RequestMapping("/contest")
 public class ContestController {
+	
+	@Autowired
+	private MoneyService moneyservice;
+	
 	@Autowired
 	private HttpSession session;
 
@@ -89,8 +93,9 @@ public class ContestController {
 	@RequestMapping(value="/accept.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String accept(String accept_date, int contest_seq, HttpServletRequest request) {
-		System.out.println("공모전 :" + contest_seq);
+		
 		try{
+			
 			int result = service.accept(accept_date, contest_seq);
 			if(result>0) {
 				return "승인";
@@ -201,9 +206,13 @@ public class ContestController {
 		try {
 			List<ContestDTO> list = service.enrollList(contest_seq);
 			ContestDTO dto = service.detailcheck(contest_seq);
-			System.out.println(dto.getHost());
+			System.out.println(dto.getPrice());
+			int getpoint = moneyservice.getPoint(dto.getHost());
+			System.out.println(getpoint);
+			request.setAttribute("getpoint", getpoint);
 			request.setAttribute("dto", dto);
 			request.setAttribute("list", list);
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 
