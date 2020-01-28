@@ -4,6 +4,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
@@ -83,8 +84,8 @@ public class WriterUploadService {
 			output.mkdir();
 		}
 		String mainPosition = "W";
-		int newWidth = 300;                                  // 변경 할 넓이
-        int newHeight = 200;
+		int newWidth = 600;                                  // 변경 할 넓이
+        int newHeight = 400;
         int w ;
         int h;
 		//업로드한 이미지 가져와서 리스트에 차곡차곡 저장.
@@ -104,7 +105,8 @@ public class WriterUploadService {
 				/////////////////
 				int imageWidth = original.getWidth(null);
 	            int imageHeight = original.getHeight(null);
-				
+				System.out.println("imgewidth:" + imageWidth);
+				System.out.println("imageHeight:" + imageHeight);
 	            if(mainPosition.equals("W")){    // 넓이기준
 	            	 
 	               double ratio = (double)newWidth/(double)imageWidth;
@@ -130,24 +132,33 @@ public class WriterUploadService {
 	            // Image.SCALE_AREA_AVERAGING  : 평균 알고리즘 사용
 	            Image resizeImage = original.getScaledInstance(w, h, Image.SCALE_SMOOTH);
 	            BufferedImage newImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+	            Graphics g = newImage.getGraphics(); 
+	            g.drawImage(resizeImage, 0, 0, null); 
+	            g.dispose();
+
+	        
+	            System.out.println("reimageWidth : " + resizeImage.getWidth(null));
+	            System.out.println("reimageHeight : " + resizeImage.getHeight(null));
+
+	         
 	            
 				////////////////////////////
-				Graphics2D g2d = original.createGraphics();
+				Graphics2D g2d = newImage.createGraphics();
 
 				// initializes necessary graphic properties
 				AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f);
 
 				g2d.setComposite(alphaChannel);
 				g2d.setColor(Color.white);
-				double ratio = (double)40/1000;
-				double fontsize = original.getWidth() * ratio;
+				double ratio = (double)30/1000;
+				double fontsize = newImage.getWidth() * ratio;
 				g2d.setFont(new Font("Arial", Font.BOLD, (int)fontsize));
 				FontMetrics fontMetrics = g2d.getFontMetrics();
 				Rectangle2D rect = fontMetrics.getStringBounds("PicSell", g2d);
 
 				// calculates the coordinate where the String is painted
-				int centerX = (original.getWidth() - (int) rect.getWidth()) / 2;
-				int centerY = original.getHeight() / 2;
+				int centerX = (newImage.getWidth() - (int) rect.getWidth()) / 2;
+				int centerY = (newImage.getHeight()/10)* 9;
 
 				// paints the textual watermark
 				g2d.drawString("PicSell", centerX, centerY);
@@ -158,7 +169,7 @@ public class WriterUploadService {
 				File markedfile;
 				markedfile = new File(output + "/" + sysName_watermark);
 
-				ImageIO.write(original, "png", markedfile);
+				ImageIO.write(newImage, "png", markedfile);
 
 			}
 		}catch(Exception e) {

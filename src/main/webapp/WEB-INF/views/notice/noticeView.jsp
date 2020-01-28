@@ -58,7 +58,7 @@
 				</thead>
 				<tfoot  style="border: 1px solid gray;">
 					<tr>
-						<td colspan="6" class="text-left m-0 px-2">${map.notice.notice_contents }</td>
+						<td colspan="6" class="text-left m-0 px-2 py-3">${map.notice.notice_contents }</td>
 					</tr>
 				</tfoot>
 			</table>

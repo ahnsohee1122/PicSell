@@ -80,6 +80,7 @@
 	
 	<script>
 		var loginInfo = "${sessionScope.loginInfo}";
+		var adminInfo = "${sessionScope.adminInfo}";
 		
 		$("#upload").on("click",function(){
 			var today = new Date();
@@ -101,7 +102,7 @@
 				alert("완료된 공모전입니다. 다른공모전에 참여해주세요!")
 				return;
 			}else{
-				if(loginInfo ==""){
+				if(loginInfo =="" && adminInfo==""){
 					alert("로그인 후 이용해주세요")
 					$("#gotologin").click(); 
 				}else{

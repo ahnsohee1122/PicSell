@@ -43,6 +43,19 @@ public class ContestService {
 	}
 
 	public int accept(String accept_date, int contest_seq) throws Exception{
+		
+		System.out.println("공모전 :" + contest_seq);
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String deal_date = sdf.format(today);
+		
+		//공모전정보가져오기
+		ContestDTO dto = dao.detailcheck(contest_seq);
+		System.out.println(dto.getPrice());
+		String nickname = dto.getHost();
+		System.out.println(nickname);
+		moneydao.pointUpdate(nickname, "공모전상금", deal_date, dto.getPrice(), "포인트");
+		
 		return dao.accept(accept_date, contest_seq);
 	}
 
@@ -62,8 +75,14 @@ public class ContestService {
 	}
 
 	@Transactional("txManager")
-	public void newcontest(MultipartFile[] file, ContestDTO dto, String path, String nickname) {
-		dto.setHost(nickname);
+	public void newcontest(MultipartFile[] file, ContestDTO dto, String path, String nickname, String adminInfo) {
+		if(adminInfo != null) {
+			dto.setHost(adminInfo);
+		}else {
+			dto.setHost(nickname);			
+		}
+		dto.setTerms(dto.getTerms().replaceAll("\r\n", "<br>"));
+		dto.setDetail(dto.getDetail().replaceAll("\r\n", "<br>"));
 		dao.insert(dto);
 
 		File filepath = new File(path);   
@@ -222,7 +241,7 @@ public class ContestService {
 
 				moneydao.insertBuyList(deal_date, pricePerPerson, 0, dto.getHost(), writer_nickname);
 				moneydao.pointUpdate(writer_nickname, "공모전판매", deal_date, pricePerPerson,"수익금");
-				moneydao.pointUpdate(dto.getHost(), "공모전구매",deal_date, -pricePerPerson, "수익금");
+				moneydao.pointUpdate(dto.getHost(), "공모전구매",deal_date, -pricePerPerson, "포인트");
 			}catch(Exception e) {
 				e.printStackTrace();
 			}

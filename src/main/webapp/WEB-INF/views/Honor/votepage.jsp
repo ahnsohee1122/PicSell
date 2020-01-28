@@ -26,10 +26,10 @@
 						<input type="button" value="사진보기" class="btn btn-outline-secondary py-1" id="showpic${hfir.honor_seq}">
 												
 						<script>
-							var nick1 = "${hfir.nickname}";
+					
 							
 							$("body").on("click","#showpic${hfir.honor_seq}",function(){
-		                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nick1 ,"Best3사진", "width=900,height=400,resizable=no");
+		                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${hfir.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
 		                    })
 	                    </script>
 					</div>
@@ -44,10 +44,10 @@
 						<input type="button" value="사진보기" class="btn btn-outline-secondary py-1" id="showpic${sfir.honor_seq}">
 												
 						<script>
-							var nick2 = "${sfir.nickname}";
+						
 							
 							$("body").on("click","#showpic${sfir.honor_seq}",function(){
-		                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nicks ,"Best3사진", "width=900,height=400,resizable=no");
+		                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${sfir.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
 		                    })
 	                    </script>
 					</div>
@@ -62,10 +62,10 @@
 						<input type="button" value="사진보기" class="btn btn-outline-secondary py-1" id="showpic${tfir.honor_seq}">
 												
 						<script>
-							var nic3 = "${tfir.nickname}";
 							
-							$("body").on("click","#showpic${sfir.honor_seq}",function(){
-		                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+nick3 ,"Best3사진", "width=900,height=400,resizable=no");
+							
+							$("body").on("click","#showpic${tfir.honor_seq}",function(){
+		                        window.open("${pageContext.request.contextPath}/honor/mandetail.do?nickname="+"${tfir.nickname}" ,"Best3사진", "width=900,height=400,resizable=no");
 		                    })
 	                    </script>
 					</div>
