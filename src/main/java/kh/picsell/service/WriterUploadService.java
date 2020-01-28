@@ -84,8 +84,8 @@ public class WriterUploadService {
 			output.mkdir();
 		}
 		String mainPosition = "W";
-		int newWidth = 300;                                  // 변경 할 넓이
-        int newHeight = 200;
+		int newWidth = 600;                                  // 변경 할 넓이
+        int newHeight = 400;
         int w ;
         int h;
 		//업로드한 이미지 가져와서 리스트에 차곡차곡 저장.
@@ -150,15 +150,15 @@ public class WriterUploadService {
 
 				g2d.setComposite(alphaChannel);
 				g2d.setColor(Color.white);
-				double ratio = (double)40/1000;
+				double ratio = (double)30/1000;
 				double fontsize = newImage.getWidth() * ratio;
 				g2d.setFont(new Font("Arial", Font.BOLD, (int)fontsize));
 				FontMetrics fontMetrics = g2d.getFontMetrics();
 				Rectangle2D rect = fontMetrics.getStringBounds("PicSell", g2d);
 
 				// calculates the coordinate where the String is painted
-				int centerX = (newImage.getWidth() - 10);
-				int centerY = newImage.getHeight() -80;
+				int centerX = (newImage.getWidth() - (int) rect.getWidth()) / 2;
+				int centerY = (newImage.getHeight()/10)* 9;
 
 				// paints the textual watermark
 				g2d.drawString("PicSell", centerX, centerY);
