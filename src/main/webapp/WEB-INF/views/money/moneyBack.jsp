@@ -53,8 +53,17 @@
 							}else if(back_point<5000){
 								alert("5000원 미만은 출금할 수 없습니다.");
 							}else{
-								$("#frm").submit();		
+								var back_point = $("#back_point").val();
+								$.ajax({
+									 url : "${pageContext.request.contextPath}/money/moneyBackProc.do",
+							    	 type : "post",
+							    	 data : {back_point : back_point}
+								}).done(function(data){
+									alert("환급이 완료되었습니다. 환급은 결제방식에 따라 최대 1~2일정도 소요됩니다.");
+									location.replace("${pageContext.request.contextPath}/money/profit_list.do");
+								})	
 							}
+						
 						})
 						</script>
 

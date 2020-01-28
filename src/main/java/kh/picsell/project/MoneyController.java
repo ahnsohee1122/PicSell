@@ -174,6 +174,7 @@ public class MoneyController {
 	
 	// 환급하기 
 	@RequestMapping(value="/moneyBackProc.do", produces="text/html; charset=UTF-8")
+	@ResponseBody
 	public String money_back(int back_point) {
 		String nickname = (String)session.getAttribute("loginInfo");
 			Date today = new Date();
@@ -183,20 +184,7 @@ public class MoneyController {
 			String money_sort = "수익금";
 			back_point = -back_point;
 			money_sv.money_back(nickname, deal_sort, formatted_requested_at, back_point, money_sort);
-			String msg = "환급이 완료되었습니다. 환급은 결제방식에 따라 최대 1~2일정도 소요됩니다.";
-			request.setAttribute("msg", msg);
-			List<PointDTO> list = new ArrayList<>();
-			list = money_sv.getPointList(nickname);
-			request.setAttribute("list", list);
-			int point = money_sv.getPoint(nickname);
-			request.setAttribute("point", point);
-			int profit = money_sv.getProfit(nickname);
-			request.setAttribute("profit", profit);
-			MemberDTO writerinfo = writerservice.writerInfo(nickname);
-		    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
-		    request.setAttribute("imginfo", imginfo);
-		    request.setAttribute("memberDto", writerinfo);
-			return "money/myPoint";
+			return "";
 	}
 
 	///////////////////////////////////////////////////////////////////
@@ -217,28 +205,12 @@ public class MoneyController {
 	
 	// 수익금을 포인트로 전환하기 
 	@RequestMapping("/changeProc.do")
+	@ResponseBody
 	public String changeProc(int money) {
 		String nickname = (String)session.getAttribute("loginInfo");
 		int profit = money_sv.getProfit(nickname);
 		request.setAttribute("profit", profit);
-		MemberDTO writerinfo = writerservice.writerInfo(nickname);
-	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
-	    request.setAttribute("imginfo", imginfo);
-	    request.setAttribute("memberDto", writerinfo);
-	      
-		// 전환하려는 포인트가 1000원보다 적은 경우
-		if(money<1000) {
-			String msg = "전환하려는 포인트가 1000원보다 작습니다.";
-			request.setAttribute("msg", msg);
-			return "money/change";
-			//return 
-		// 전환하려는 포인트가 수익금보다 작은 경우 
-		}else if(profit<money) {
-			String msg = "전환하려는 포인트가 잔여 수익금보다 많습니다.";
-			request.setAttribute("msg", msg);
-			return "money/change";
-		// 정상 전환 
-		}else {
+
 			Date today = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String formatted_requested_at = sdf.format(today);
@@ -248,15 +220,9 @@ public class MoneyController {
 			int change_profit = -money;
 			money_sv.money_change(nickname, deal_sort, formatted_requested_at, 
 					money, change_profit, point_money_sort, profit_money_sort);
-			String msg = "수익금이 정상적으로 전환되었습니다. 내 포인트 확인하기 페이지에서 잔여 포인트를 확인해주세요.";
-			request.setAttribute("msg", msg);
-			List<PointDTO> list = new ArrayList<>();
-			list = money_sv.getPointList(nickname);
-			request.setAttribute("list", list);
-			int point = money_sv.getPoint(nickname);
-			request.setAttribute("point", point);
-			return "money/myPoint";
-		}
+			
+			return "";
+		
 	}
 	///////////////////////////////////////////////////////////////////
 

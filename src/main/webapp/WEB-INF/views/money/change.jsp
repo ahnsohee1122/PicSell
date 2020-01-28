@@ -51,21 +51,33 @@
 						<form class="mx-auto mt-4 px-2 px-ml-0" action="${pageContext.request.contextPath}/money/moneyBackProc.do" method="post" style="max-width: 660px;">
 							<h4 class="text-left text-warning">전환 가능한 수익금 : ${profit}<span class="mx-1">원</span></h4>
 							<h4 class="text-left text-warning">전환 할 금액 : <input type="text" id="money" name="money" class="border-bottom border-warning text-warning text-right" style="width: 130px; border: 0; background-color: #f4f2f5;"><span class="mx-1">원</span></h4>
-							<button id=change class="mt-5 btn" style="width: 100px; border: 1px solid darkgray; border-radius: 10px; background-color: #f4f2f5;">전환하기</button>
+							<input type=button id=change class="mt-5 btn" style="width: 100px; border: 1px solid darkgray; border-radius: 10px; background-color: #f4f2f5;">전환하기</button>
 						</form>
-						<c:choose>
-							<%-- 페이지에 처음 들어왔을 때 --%>
-							<c:when test="${msg==null}">
-							
-							</c:when>
-							<%-- 메시지가 있을 때 --%>
-							<c:otherwise>
-								<script>
-									var msg = "${msg}";
-									alert(msg);
-								</script>
-							</c:otherwise>
-						</c:choose>
+
+						<script>
+						$("#change").on("click", function(){
+							var money = $("#money").val();
+							// 전환하려는 포인트가 수익금보다 작은 경우 
+							if("${profit}"<money){
+								alert("전환하려는 포인트가 잔여 수익금보다 많습니다.");
+							// 전환하려는 포인트가 1000원보다 적은 경우
+							}else if(money<1000){
+								alert("전환하려는 포인트가 1000원보다 작습니다.");
+							}else{
+								var money = $("#money").val();
+								$.ajax({
+									 url : "${pageContext.request.contextPath}/money/changeProc.do",
+							    	 type : "post",
+							    	 data : {money : money}
+								}).done(function(data){
+									alert("수익금 전환이 완료되었습니다. \n수익금 전환 내역은 수익금 내역에서 확인 가능합니다. ");
+									location.replace("${pageContext.request.contextPath}/money/profit_list.do");
+								})	
+							}
+						
+						})
+						</script>
+						
 					</div>
 				</div>
 			</div>

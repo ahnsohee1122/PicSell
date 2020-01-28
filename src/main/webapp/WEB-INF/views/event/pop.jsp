@@ -1,7 +1,5 @@
-<%@page import="org.springframework.web.util.CookieGenerator"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +27,7 @@ body {
 
     function closePopup() {
         if (document.getElementById("check").value) {
-            setCookie("popupYN", "N", 1);
+            opener.setCookie("popupYN", "N", 1);
             self.close();
         }
     }
@@ -39,17 +37,18 @@ body {
 </head>
 <body>
 	<button id="goEvent">출석하러 가기</button>
-    <input type="checkbox" id="check" onclick="closePopup();">
-    <br />
+  <input type="checkbox" id="check" onclick="closePopup();">
+    <br>
     <fontsize=3> <b>하루에 한번만 보기</b> </font>
 	
-<script>
+	<script>
    $("#goEvent").on("click", function(){
+
          window.opener.location = '${pageContext.request.contextPath}/event/attendance_check.do';
          window.close();
-   })
-</script>
-   
-</body>
 
+   })
+
+</script>
+</body>
 </html>

@@ -83,9 +83,9 @@
 
 // 출석체크 이벤트 팝업창 
 	function getCookie(name) {
-	var cookie = document.cookie;
+	var get_cookie = document.cookie;
 	if (document.cookie != "") {
-		var cookie_array = cookie.split("; ");
+		var cookie_array = get_cookie.split("; ");
 		for ( var index in cookie_array) {
 			var cookie_name = cookie_array[index].split("=");
 			if (cookie_name[0] == "popupYN") {
@@ -97,6 +97,7 @@
 }
 function openPopup(url) {
 	var cookieCheck = getCookie("popupYN");
+	console.log(cookieCheck);
 	if (cookieCheck != "N")
 		window.open(url, '', 'width=450,height=750,left=0,top=0')
 }

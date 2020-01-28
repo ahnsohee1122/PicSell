@@ -20,12 +20,6 @@
 <script src='/javascript-winwheel-2.8.0/Winwheel.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.0.5/gsap.min.js'></script>
 
-<script>
-history.pushState(null, null, location.href);
-window.onpopstate = function () {
-    history.go(1);
-};
-</script>
 
 <style>
 /*    출석체크 글씨체 */
@@ -170,6 +164,7 @@ window.onpopstate = function () {
                          				"color" : "#FCF8E3",
                          				"textColor" : "white"
                      				})
+                     				
                  				});
              				}
 		            		////////////////////////////////////////////////////
@@ -204,10 +199,13 @@ window.onpopstate = function () {
             	calendar.addEvent(data[i]);
                 console.log(data[i].imageurl);
             }
-    	    calendar.render();      
+    	    calendar.render();
+    	    //location.replace("${pageContext.request.contextPath}/event/attendance_check.do");
     	 	}, error : function(data){
             	alert('error');
            	}
+    	 	
+    	 	
 		})
 	});
  
@@ -281,6 +279,7 @@ window.onpopstate = function () {
     	 }else{
          alert("축하합니다! " + point + "를 획득하셨습니다!");
          $("#closeBtn").trigger("click");
+       location.replace("${pageContext.request.contextPath}/event/attendance_check.do");
          console.log(winningSegment.text);
     	 }
      }).fail(function(data){
