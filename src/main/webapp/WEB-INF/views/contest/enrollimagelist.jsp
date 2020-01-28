@@ -65,7 +65,7 @@
 						  	<div class="row align-items-center image w-100 mx-auto text-center py-3" style="height: 50px;">
 						    	<p class="nickname mx-auto"><a href='${pageContext.request.contextPath}/writer/writerpage?nickname=${list.enroll_nickname }' style="text-decoration: none;"><span class="mx-1">@</span>${list.enroll_nickname }</a></p>
 						  		<c:choose>
-						  		<c:when test="${loginInfo == dto.host }">
+						  		<c:when test="${loginInfo == dto.host || adminInfo == dto.host}">
 						  			<input type="checkbox" name="select" value="${list.contest_img_seq }" id="select${list.contest_img_seq }" class=select><label for="select${list.contest_img_seq }">선택</label>
 						  		</c:when>
 						  		</c:choose>
