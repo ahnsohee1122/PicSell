@@ -433,7 +433,7 @@ function openPopup(url) {
     <div class="container-fluid" style="background-color: #f4f2f5; display: none;" id="contestDiv">
         <div class="container px-0 py-5">
             <div class="row">
-                <p class="contest02">이달의 공모전</p>
+                <p class="contest02">진행중인 공모전</p>
             </div>
             <div class="row">
             	<c:forEach items="${list }" var="list">
@@ -445,9 +445,9 @@ function openPopup(url) {
 					</div>
 				  	<div class="card-body text-center px-2 py-0">
 				    	<p class="px-2 pt-2 text-left" style="font-size: 20px; min-height: 70px;">${list.title }</p>
-				    	<p class="px-2 py-0 text-left" style="font-size: 18px; font-weight: 500;">상태 : <span class="text-danger mr-1">현재 진행중</span></p>
+				    	<p class="px-2 py-0 text-left" style="font-size: 17px;">상태 : <span class="text-danger mr-1">현재 진행중</span></p>
     					<p class="px-2 py-0 text-left" style="font-size: 17px;" id="date${list.enddate }">기간 : <span class="mr-1">~</span>${list.enddate}</p>
-				    	<p class="px-2"><a href="${pageContext.request.contextPath}/contest/detail?title=${list.title}&contest_seq=${list.contest_seq}" class="btn btn-outline-dark btn-sm" style="font-size: 18px;">참여하기</a></p>
+				    	<p class="px-2 pt-2"><a href="${pageContext.request.contextPath}/contest/detail?title=${list.title}&contest_seq=${list.contest_seq}" class="btn btn-outline-dark btn-sm" style="font-size: 18px;">참여하기</a></p>
 				  	</div>
 				</div>
             	</div>
