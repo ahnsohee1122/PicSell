@@ -31,6 +31,9 @@ public class MemberDAO {
 	public int nicknameCheck(String nickname) throws Exception{ //닉네임중복체크
 		return jdbc.selectOne("Member.nickCheck", nickname);
 	}
+	public int nicknameCheck2(String nickname) throws Exception{ //닉네임중복체크
+		return jdbc.selectOne("Member.nickcheck2", nickname);
+	}
 	public int login(String id, String pw) throws Exception{  //로그인
 		MemberDTO dto = new MemberDTO();
 		dto.setId(id);
@@ -60,6 +63,9 @@ public class MemberDAO {
 	}
 	public int leave(String nickname) throws Exception{ //회원탈퇴
 		return jdbc.delete("Member.leave",nickname);
+	}
+	public int changemem(String nickname) throws Exception{
+		return jdbc.update("Member.changeimgmem",nickname);
 	}
 	public int pwmodify(String pw, String id, String email) throws Exception{ //패스워드 메일인증후 인증코드로 비번변경
 		//System.out.println(dto.getPw());

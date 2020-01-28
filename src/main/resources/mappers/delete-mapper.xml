@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="Delete">
+  <delete id="memout">
+  delete from member where nickname = #{nickname}
+  </delete>
+  <delete id="conout">
+  delete from contest where host = #{host}
+  </delete>
+  <delete id="contestfilesdelete">
+  delete from contestfiles where host = #{host}
+  </delete>
+  <delete id="piecedelete">
+  delete from pieceNotice where pieceNotice_writer = #{pieceNotice_writer}
+  </delete>
+  <delete id="piececomment">
+  delete from pieceNoticeComment where writer = #{writer}
+  </delete>
+  <delete id="editNotice">
+  delete from editNotice where editNotice_writer = #{editNotice_writer} 
+  </delete>
+  <delete id="editcomment">
+  delete from editNoticeComment where writer = #{writer}
+  </delete>
+  <delete id="likelist">
+  delete from like_list where nickname = #{nickname} 
+  </delete>
+  <delete id="writerlikelist">
+  delete from writer_like_list where writer = #{writer}
+  </delete>
+  <delete id="writerlikelist2">
+  delete from writer_like_list where nickname = #{nickname}
+  </delete>
+  <delete id="event">
+  delete from event where nickname = #{nickname}
+  </delete>
+  <delete id="point">
+  delete from point where nickname = #{nickname}
+  </delete>
+  <delete id="deallist">  
+  delete from deal_list where writer_nickname = #{writer_nickname}
+  </delete>
+  <delete id="deallist2">
+  delete from deal_list where buyer_nickname = #{buyer_nickname}
+  </delete>
+  <delete id="honor">
+  delete from honor where nickname = #{nickname}
+  </delete>
+  <delete id="honorlist">
+  delete from honorlist where nickname = #{nickname}
+  </delete>
+  <delete id="honorvote">
+  delete from honorvote where nick = #{nick}
+  </delete>
+  </mapper>

@@ -98,8 +98,13 @@
 									        <h6 class="py-2" style="font-size: 17px;">비밀번호를 입력해주세요.</h6>
 									        <input type="password" class="form-control px-1" id="withPw" placeholder="예) picsell1234@" style="font-size: 14px; font-family: 'Dovemayo-Medium'; border: 0; background-color: white; border-bottom: 1px solid darkgray; border-radius: 0;">
 									    </div>
-									    <div class="modal-footer"><button type="button" class="btn btn-secondary m-auto" style="width: 150px; font-family: 'Cafe24Oneprettynight';" data-dismiss="modal">탈퇴하기</button></div>
+									    <div class="modal-footer"><button type="button" class="btn btn-secondary m-auto" id="leavesite" style="width: 150px; font-family: 'Cafe24Oneprettynight';" data-dismiss="modal">탈퇴하기</button></div>
 								    </div>
+								    <script>
+								    $("#leavesite").on("click",function(){
+								    	location.href="${pageContext.request.contextPath}/member/memout.do?nickname=${memberDto.nickname }";
+								    })
+								    </script>
 								  </div>
 								</div>
 							</div>

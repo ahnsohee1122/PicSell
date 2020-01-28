@@ -21,6 +21,9 @@
 	<select id="nickCheck" resultType="integer">
 		select count(*) from member where nickname = #{nickname}
 	</select>
+	<select id="nickcheck2" resultType="integer">
+		select count(*) from writer_image_up where nickname = #{nickname}
+	</select>
 	<select id="mailCheck" resultType="integer">
 		select count(*) from member where email = #{email}
 	</select>
@@ -47,6 +50,9 @@
 	</update>
 	<update id="blackdown" parameterType="kh.picsell.dto.MemberDTO">
 	update member set black=black-1 where id= #{id}
+	</update>
+	<update id="changeimgmem" parameterType="kh.picsell.dto.WriterImageUpDTO">
+	update writer_image_up set memberout='Y' where nickname= #{nickname}
 	</update>
 
 	</mapper>

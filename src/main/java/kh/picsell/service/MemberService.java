@@ -49,6 +49,12 @@ public class MemberService {
 	public int nickCheck(String nickname) throws Exception{ //닉체크
 		return dao.nicknameCheck(nickname);
 	}
+	public int nickCheck2(String nickname) throws Exception{
+		return dao.nicknameCheck2(nickname);
+	}
+	public int changemem(String nickname) throws Exception{
+		return dao.changemem(nickname);
+	}
 	public int login(String id, String pw) throws Exception{ //로그인
 		String modifyPw = myDao.getSHA512(pw);
 		return dao.login(id, modifyPw);
