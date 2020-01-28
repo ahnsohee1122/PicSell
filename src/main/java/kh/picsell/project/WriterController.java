@@ -1,8 +1,10 @@
 package kh.picsell.project;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kh.picsell.dto.MemberDTO;
 import kh.picsell.dto.WriterImageUpDTO;
@@ -59,10 +62,12 @@ public class WriterController {
 		service.upload(file,request,dto,path,watermarkpath,nickname);
 		return "writer/writer";
 	}
+	
+
 
 	//작가페이지로 이동
 	@RequestMapping("writerpage")
-	public String view_aop(HttpServletRequest request, String nickname) {
+	public String view(HttpServletRequest request, String nickname) {
 		//		String nickname = (String)session.getAttribute("loginInfo");
 		MemberDTO writerinfo = writerservice.writerInfo(nickname);
 		Map<String,Integer> imginfo = writerservice.imginfo(nickname);
