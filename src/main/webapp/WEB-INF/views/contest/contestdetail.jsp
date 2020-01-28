@@ -67,7 +67,9 @@
 					</div>
 					<div class="row w-100 mx-auto" id="example">
 						<c:forEach items="${imglist }" var ="imglist">
-							<img src="/contestfiles/${imglist.sysname }">
+							<div class="col-12 col-lg-4 mx-auto text-center" style="max-height: 450px;">
+								<img src="/contestfiles/${imglist.sysname }" class="w-100" style="max-height: 100%;">
+							</div>
 						</c:forEach>
 					</div>
 				</div>
