@@ -39,7 +39,15 @@
 	.list:hover {background-color: white !important;}
 </style>
 <script> 
-	jQuery(function($){             
+
+$(function() {
+	//location.replace("${pageContext.request.contextPath}/money/profit_list.do");
+	
+});
+
+	
+	jQuery(function($){ 
+		//location.replace("${pageContext.request.contextPath}/money/profit_list.do");
 		$("#DataTable").DataTable({
 			info:false,
 			order:[[2,"desc"]],
@@ -77,8 +85,8 @@
 						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 22px; text-decoration: none;">Writer Page</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/profit_list.do" style="color: black; font-size: 16px; text-decoration: none;">수익 & 판매 내역 확인</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/moneyBack.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 환급</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/change.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 전환</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/moneyBack.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 환급</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/change.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 전환</a></div>
 					</div>
 				</div>
 				<div class="col-12 col-md-9 col-xl-10 px-0 px-md-3 text-center">
@@ -90,17 +98,24 @@
 							<table id="DataTable" class="row-border">
 								<thead> 
 									<tr>
-										<th style="width: 20%;">포인트 번호</th>
+										<th style="width: 20%;">수익금 번호</th>
 										<th style="width: 15%;">구분</th>
 										<th style="width: 15%;">날짜</th>
-										<th style="width: 20%;">포인트</th>
+										<th style="width: 20%;">수익금</th>
 										<th style="width: 30%;">이미지</th>
 									</tr> 
 								</thead>
 								
 								<tbody>
 									<c:forEach items="${list}" var="list">
+									<c:choose>
+										<c:when test="${list.dealSort=='판매'}">
 										<tr onclick="window.open('${pageContext.request.contextPath}/DetailImage.do?img_seq=${list.dealImgSeq}&nickname=${loginInfo}', '','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;" style="cursor:pointer; background-color: #f4f2f5;" class="list jg-entry entry-visible" >
+										</c:when>
+										<c:otherwise>
+										<tr  style="background-color: #f4f2f5;">
+										</c:otherwise>
+									</c:choose>		
 											<td>${list.pointSeq}</td>
 											<td>${list.dealSort}</td>
 											<td>${list.pointDate}</td>
@@ -113,17 +128,17 @@
 											<c:when test="${list.dealSort=='판매'}">
 											<td><img src="/writeruploadfiles/${list.sysName}"></td>
 											</c:when>
-											<c:when test="${list.dealSort=='포인트 전환'}">
-											<td>포인트가 전환이 완료되었습니다!</td>
+											<c:when test="${list.dealSort=='포인트전환'}">
+											<td>포인트가 전환이 완료되었습니다.</td>
 											</c:when>
 											<c:when test="${list.dealSort=='환급'}">
 											<td>포인트 환급이 완료되었습니다.</td>
 											</c:when>
 											<c:when test="${list.dealSort=='공모전판매' }">
-											<td>공모전 채택</td>
+											<td>공모전 사진이 채택되었습니다.</td>
 											</c:when>
 											<c:when test="${list.dealSort=='공모전구매' }">
-											<td>공모전 심사/승인내역을 확인해주세요!</td>
+											<td>공모전 심사/승인내역을 확인해주세요.</td>
 											</c:when>
 											</c:choose>
 											

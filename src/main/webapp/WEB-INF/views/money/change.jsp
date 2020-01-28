@@ -28,8 +28,8 @@
 						<div class="px-3 py-2 w-100"><a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 22px; text-decoration: none;">Writer Page</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/writer/writerpage?nickname=${sessionScope.loginInfo}" style="color: black; font-size: 16px; text-decoration: none;">작가 정보 조회</a></div>
 						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/profit_list.do" style="color: black; font-size: 16px; text-decoration: none;">수익 & 판매 내역 확인</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/moneyBack.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 환급</a></div>
-						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/change.do" style="color: black; font-size: 16px; text-decoration: none;">포인트 전환</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/moneyBack.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 환급</a></div>
+						<div class="px-3 py-1 w-100 quickMenu"><a href="${pageContext.request.contextPath}/money/change.do" style="color: black; font-size: 16px; text-decoration: none;">수익금 전환</a></div>
 					</div>
 				</div>
 				<div class="col-12 col-md-9 col-xl-10 px-0 px-md-3 text-center">
@@ -48,24 +48,36 @@
 							<h6 class="text-left">- 작가 수익금을 현금으로 환전/출금하기 원하시는 작가님께서는 [환급하기] 메뉴를 이용해 주시기 바랍니다.</h6>
 							<h6 class="text-left">- 내 포인트를 작가 수익금으로 전환할 수는 없으니 이 점 주의 바랍니다.</h6>
 						</form>
-						<form class="mx-auto mt-4 px-2 px-ml-0" action="${pageContext.request.contextPath}/money/moneyBackProc.do" method="post" style="max-width: 660px;">
+						<form class="mx-auto mt-4 px-2 px-ml-0"  method="post" style="max-width: 660px;">
 							<h4 class="text-left text-warning">전환 가능한 수익금 : ${profit}<span class="mx-1">원</span></h4>
 							<h4 class="text-left text-warning">전환 할 금액 : <input type="text" id="money" name="money" class="border-bottom border-warning text-warning text-right" style="width: 130px; border: 0; background-color: #f4f2f5;"><span class="mx-1">원</span></h4>
-							<button id=change class="mt-5 btn" style="width: 100px; border: 1px solid darkgray; border-radius: 10px; background-color: #f4f2f5;">전환하기</button>
+							<input type=button id=change class="mt-5 btn" style="width: 100px; border: 1px solid darkgray; border-radius: 10px; background-color: #f4f2f5;">전환하기</button>
 						</form>
-						<c:choose>
-							<%-- 페이지에 처음 들어왔을 때 --%>
-							<c:when test="${msg==null}">
-							
-							</c:when>
-							<%-- 메시지가 있을 때 --%>
-							<c:otherwise>
-								<script>
-									var msg = "${msg}";
-									alert(msg);
-								</script>
-							</c:otherwise>
-						</c:choose>
+
+						<script>
+						$("#change").on("click", function(){
+							var money = $("#money").val();
+							// 전환하려는 포인트가 수익금보다 작은 경우 
+							if("${profit}"<money){
+								alert("전환하려는 포인트가 잔여 수익금보다 많습니다.");
+							// 전환하려는 포인트가 1000원보다 적은 경우
+							}else if(money<1000){
+								alert("전환하려는 포인트가 1000원보다 작습니다.");
+							}else{
+								var money = $("#money").val();
+								$.ajax({
+									 url : "${pageContext.request.contextPath}/money/changeProc.do",
+							    	 type : "post",
+							    	 data : {money : money}
+								}).done(function(data){
+									alert("수익금 전환이 완료되었습니다. \n수익금 전환 내역은 수익금 내역에서 확인 가능합니다. ");
+									location.replace("${pageContext.request.contextPath}/money/profit_list.do");
+								})	
+							}
+						
+						})
+						</script>
+						
 					</div>
 				</div>
 			</div>

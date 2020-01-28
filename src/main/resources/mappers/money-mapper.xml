@@ -80,12 +80,13 @@
 		<result column="point_date" property="pointDate"></result>
 		<result column="point" property="point"></result>
 		<result column="sysname" property="sysName"></result>
+		<result column="deal_img_seq" property="dealImgSeq"></result>
 	</resultMap>
 	
 	<!-- 수익금 및 판매 내역 확인하기  -->
 	<select id="profit_list" parameterType="String" resultMap="profit_map">
-		select point_seq, deal_sort, point_date, point, nvl(o.sysname,'none') sysname 
-		from (Select d.deal_date , w.sysname sysname from deal_list d, writer_image_up w where d.deal_img_seq = w.img_seq order by d.deal_date desc) o, point p 
+		select point_seq, deal_sort, point_date, point, nvl(o.sysname,'none') sysname, deal_img_seq 
+		from (Select d.deal_date , w.sysname sysname, d.deal_img_seq from deal_list d, writer_image_up w where d.deal_img_seq = w.img_seq order by d.deal_date desc) o, point p 
 		where p.point_date=o.deal_date(+) and nickname=#{nickname} and money_sort='수익금' order by point_date desc
 	</select>
 	
