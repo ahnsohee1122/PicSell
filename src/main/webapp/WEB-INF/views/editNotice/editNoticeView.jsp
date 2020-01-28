@@ -137,11 +137,11 @@
 	<!--zzz  -->
 	<script>
 		$("#delete").on("click", function(){
-			location.href="${pageContext.request.contextPath}/editNotice/delete.do?seq=${map.editNotice.editNotice_seq}, writer=${map.editNotice.editNotice_writer}";
+			location.href="${pageContext.request.contextPath}/editNotice/delete.do?seq=${map.editNotice.editNotice_seq}&writer=${map.editNotice.editNotice_writer}";
 		})
 		
 		$("#modify").on("click", function(){
-			location.href="${pageContext.request.contextPath}/editNotice/modify.do?seq=${map.editNotice.editNotice_seq}, writer=${map.editNotice.editNotice_writer}";
+			location.href="${pageContext.request.contextPath}/editNotice/modify.do?seq=${map.editNotice.editNotice_seq}&writer=${map.editNotice.editNotice_writer}";
 		})
 		
 		$("#listGo").on("click", function(){

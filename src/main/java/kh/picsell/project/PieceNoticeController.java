@@ -111,7 +111,10 @@ public class PieceNoticeController {
 	
 	@RequestMapping("/delete.do")
 	public String delete(int seq, String writer) {
+		System.out.println("여기욤");
 		String user = (String)session.getAttribute("loginInfo");
+		System.out.println(user);
+		System.out.println(writer);
 		if(user.contentEquals(writer)) {
 			String pieceFile_path = session.getServletContext().getRealPath("/pieceNotice_files");
 			String pieceSummernote_filePath = session.getServletContext().getRealPath("/pieceNotice_summernote_files");
