@@ -222,7 +222,7 @@ function openPopup(url) {
                     <div class="container h-100">
                       <div class="d-flex justify-content-center h-100">
                         <div class="searchbar">
-                             <input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
+                             <input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / @작가명  / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
                            <button id="searchBtn" class="search_icon" style="border: 0px; background-color: white !important;"><i class="fas fa-search"></i></button>
                            <div class="hashTag m-3">
                               <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=분위기" style="color: white;">#분위기</a></span>

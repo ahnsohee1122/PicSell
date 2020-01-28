@@ -28,7 +28,7 @@ private HttpSession session;
 
 
 @RequestMapping("/inserthonor.do")
-public String insertgo(MemberDTO dto, HttpServletRequest request) {
+public String insertgo_adminAop(MemberDTO dto, HttpServletRequest request) {
 	
 	List<MemberDTO> memlist;
 
