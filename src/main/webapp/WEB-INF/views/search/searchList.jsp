@@ -25,7 +25,7 @@
 		<div class="container m-auto text-center">
 			<h2 class="mx-auto my-0 text-center">검색 결과</h2>
 			
-	            <input type="text" id="search" name="tag" value="${searchKeyword }" class="px-2" style="width: 350px; height: 40px; border: 1px solid darkgray;">
+	            <input type="text" id="search" name="tag" value="${searchKeyword }" placeholder="이미지 검색 / @작가명  / 두 단어 이상 검색시 띄어쓰기로 구분" class="px-2" style="width: 350px; height: 40px; border: 1px solid darkgray;">
 	            <button type="button" id="searchBtn" style="width: 50px; height: 41px; border: 1px solid darkgray; background-color: white;">검색</button>
 	        
 		</div>
