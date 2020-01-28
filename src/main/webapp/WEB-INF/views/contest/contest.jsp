@@ -163,9 +163,10 @@
     
     <script>
     var loginInfo = "${sessionScope.loginInfo}";
+    var adminInfo = "${sessionScope.adminInfo}";
     
     	$("#contestopen").on("click",function(){
-    		if(loginInfo==""){
+    		if(loginInfo=="" && adminInfo==""){
     			alert("로그인 후 이용해주세요");
     			$("#gotologin").click();    			
     		}else{
