@@ -26,7 +26,7 @@
 					<div class="col-12 col-md-6 col-lg-5 col-xl-3 my-3">
 						<h5 id="htop${list[i].honorlist_seq}"></h5>
 						<div class="card py-3 mx-auto my-3 text-center" style="width: 17.5rem;">
-			  				<img src="/profileimage//profileimage/${mList[i].profileimg }" class="card-img-top m-auto" style="width: 200px; height: 200px;">
+			  				<img src="/profileimage/profileimage/${mList[i].profileimg }" class="card-img-top m-auto" style="width: 200px; height: 200px;">
 							<div class="card-body px-0">
 								<p class="card-text mx-auto " style="font-size: 18px; font-family: 'Cafe24Oneprettynight'; width: 200px;"><img src="${pageContext.request.contextPath}/img/best_likes.png" style="width: 30px; height: 30px;">${list[i].nickname}<span class="ml-1">작가님</span></p>
 								<input type="button" value="사진보기" class="btn btn-outline-secondary py-1" id="sshowpic${list[i].honorlist_seq}">
