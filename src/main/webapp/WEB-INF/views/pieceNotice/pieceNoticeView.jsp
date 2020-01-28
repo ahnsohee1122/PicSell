@@ -198,11 +198,19 @@
 		}) 
 		
 		function commentDelete(seq){
+			var writer = null;
+ 			if(${loginInfo != null}){
+ 				writer = "${loginInfo}";
+ 			}else{
+ 				writer = "${adminInfo}";
+ 			}
+ 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/pieceComment/commentDelete.do",
 				type:"post",
 				data:{
-					comment_seq:seq
+					comment_seq:seq,
+					writer:writer
 				}
 			}).done(function(res){
 				console.log(res);

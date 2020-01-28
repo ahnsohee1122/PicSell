@@ -111,11 +111,9 @@ public class PieceNoticeController {
 	
 	@RequestMapping("/delete.do")
 	public String delete(int seq, String writer) {
-		System.out.println("여기욤");
 		String user = (String)session.getAttribute("loginInfo");
-		System.out.println(user);
-		System.out.println(writer);
-		if(user.contentEquals(writer)) {
+		String admin = (String)session.getAttribute("adminInfo");
+		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
 			String pieceFile_path = session.getServletContext().getRealPath("/pieceNotice_files");
 			String pieceSummernote_filePath = session.getServletContext().getRealPath("/pieceNotice_summernote_files");
 			
@@ -129,7 +127,8 @@ public class PieceNoticeController {
 	@RequestMapping("/modify.do")
 	public String modify(int seq, String writer) {
 		String user = (String)session.getAttribute("loginInfo");
-		if(user.contentEquals(writer)){
+		String admin = (String)session.getAttribute("adminInfo");
+		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
 			try {
 				Map map = pieceNoticeService.detail(seq);
 				session.setAttribute("map", map);
@@ -146,7 +145,8 @@ public class PieceNoticeController {
 	@RequestMapping("/modifyProc.do")
 	public String modifyProc(String[] removeFileSeq, PieceNoticeDTO pieceNoticeDto, PieceNoticeFileDTO pieceNoticeFileDto, String writer) {
 		String user = (String)session.getAttribute("loginInfo");
-		if(user.contentEquals(writer)) {
+		String admin = (String)session.getAttribute("adminInfo");
+		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
 			if(removeFileSeq != null){
 				for(String fileSeq : removeFileSeq) {
 					int seq = Integer.parseInt(fileSeq);

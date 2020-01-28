@@ -110,7 +110,8 @@ public class EditNoticeController {
 	@RequestMapping("/delete.do")
 	public String delete(int seq, String writer) {
 		String user = (String)session.getAttribute("loginInfo");
-		if(user.contentEquals(writer)) {
+		String admin = (String)session.getAttribute("adminInfo");
+		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
 			String editFile_path = session.getServletContext().getRealPath("/editNotice_files");
 			String editSummernote_filePath = session.getServletContext().getRealPath("/editNotice_summernote_files");
 			
@@ -124,7 +125,8 @@ public class EditNoticeController {
 	@RequestMapping("/modify.do")
 	public String modify(int seq, String writer) {
 		String user = (String)session.getAttribute("loginInfo");
-		if(user.contentEquals(writer)) {
+		String admin = (String)session.getAttribute("adminInfo");
+		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
 			try {
 				Map map = editNoticeService.detail(seq);
 				session.setAttribute("map", map);
@@ -141,7 +143,8 @@ public class EditNoticeController {
 	@RequestMapping("/modifyProc.do")
 	public String modifyProc(String[] removeFileSeq, EditNoticeDTO editNoticeDto, EditNoticeFileDTO editNoticeFileDto, String writer) {
 		String user = (String)session.getAttribute("loginInfo");
-		if(user.contentEquals(writer)) {
+		String admin = (String)session.getAttribute("adminInfo");
+		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
 			if(removeFileSeq != null){
 				for(String fileSeq : removeFileSeq) {
 					int seq = Integer.parseInt(fileSeq);
