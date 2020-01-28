@@ -195,6 +195,7 @@ public class MemberController {
 //		String adminInfo = (String)session.getAttribute("adminInfo");
 //		String loginInfo = (String)session.getAttribute("loginInfo");
 		request.getSession().invalidate();
+		//request.get
 		//session.invalidate();
 		return "redirect:/home";
 	}
@@ -231,7 +232,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("/memout.do")
-	public String memout() {
+	public String memout(HttpServletRequest request) {
 
 		String nickname = (String)session.getAttribute("loginInfo"); //닉네임으로 회원탈퇴
 		try {
@@ -252,7 +253,7 @@ public class MemberController {
 			delete.delete15(nickname);
 		int imgresult =	service.changemem(nickname);
 		System.out.println(imgresult);
-			session.invalidate();
+			request.getSession().invalidate();
 			if(result>0) {
 				System.out.println("성공");
 			}else {
