@@ -295,7 +295,7 @@ public class MoneyController {
 	
 	// 관리자 > 포인트 내역 확인하기
 	@RequestMapping("/admin_point.do")
-	public String admin_point() {
+	public String admin_point_adminAop() {
 		List<PointDTO> list = money_sv.admin_point();
 		request.setAttribute("list", list);
 		return "money/admin_point";
@@ -303,7 +303,7 @@ public class MoneyController {
 	
 	// 관리자 > 거래 내역 확인하기
 	@RequestMapping("/admin_deal.do")
-	public String admin_deal() {
+	public String admin_deal_adminAop() {
 		List<Map<String, Object>> list = money_sv.admin_deal();
 		request.setAttribute("list", list);
 		return "money/admin_deal";

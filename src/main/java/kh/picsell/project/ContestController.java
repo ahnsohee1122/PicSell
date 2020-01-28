@@ -44,7 +44,7 @@ public class ContestController {
 
 
 	@RequestMapping("/ing.do")
-	public String ing(HttpServletRequest request) {
+	public String ing_adminAop(HttpServletRequest request) {
 		List<ContestDTO> list;
 		try {
 			list = service.ing();
@@ -62,7 +62,7 @@ public class ContestController {
 	}
 
 	@RequestMapping("/check.do")
-	public String check(ContestDTO dto, HttpServletRequest request) {
+	public String check_adminAop(ContestDTO dto, HttpServletRequest request) {
 		List<ContestDTO> list;
 		try {
 			list = service.notyetList();

@@ -245,7 +245,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/manage.do")
-	public String manage(MemberDTO dto, HttpServletRequest request) { //회원관리(목록조회)
+	public String manage_adminAop(MemberDTO dto, HttpServletRequest request) { //회원관리(목록조회)
 		List<MemberDTO> list;
 		try {
 		list = service.getList();
