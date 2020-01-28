@@ -92,7 +92,11 @@
 				<c:forEach items="${list}" var="dto">
 					<tr style="height:100px;">
 						<td>${dto.img_seq}</td>
-						<td class="imgtd"><img src='/watermarkfiles/xsmarked_${dto.sysname}'></td>
+						<td class="imgtd">
+						<a href='${pageContext.request.contextPath}/DetailImage.do?img_seq=${dto.img_seq }&nickname=${dto.nickname }'
+						 onclick="window.open(this.href,'','scrollbars=yes,resizable=yes,top=0, width=1300, height=950'); return false;"
+						 class='jg-entry entry-visible' style='width: 336px; height: 224.07px; top: 2146.92px; left: 347px;'>
+						 <img src='/watermarkfiles/xsmarked_${dto.sysname}'></a></td>
 						<td id="checking${dto.img_seq}"></td>
 						<td id="accept${dto.img_seq}"></td>
 						<td id="time${dto.img_seq}"></td>
@@ -100,6 +104,7 @@
 					</tr>
 				
 					<script>
+					
 						var why = "${dto.rejection}";
 						var checking = "${dto.checking}";
 						var accept = "${dto.accept}";
