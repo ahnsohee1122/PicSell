@@ -256,7 +256,7 @@
 					    </div>
 				  	</div>
 				  	<div class="row mt-5 mb-3">
-				  		<button class="m-auto btn border border-danger rounded-lg text-black" type="button" id="newcontest" style="width: 150px;">신청하기</button>
+				  		<button class="m-auto btn border border-danger rounded-lg text-black" type="submit" id="newcontest" style="width: 150px;">신청하기</button>
 				  	</div>
 				</fieldset>
 			</form>
@@ -264,33 +264,7 @@
 	</div>
 	
 	<script>
-	var moneyok = 0;
-	var my_point = 0;
-	$.ajax({
-		url : "${pageContext.request.contextPath}/money/top_money.do",
-		type : "post",
-		dataType : "json",
-	}).done(function(data){
-		var money = data.my_point;
-	$("#validation02").on("blur",function(){
-			var inputmoney = $("#validation02").val();
-			var resultmoney = (inputmoney-money);
-		if(resultmoney>=0){
-			moneyok = 0;
-			var charge = confirm("포인트가 "+resultmoney+"원 부족합니다.\n충전하시겠습니까?");
-			if(charge){
-				location.href="${pageContext.request.contextPath}/money/charge.do";
-			}else{
-				alert("취소되었습니다.");
-				return false;
-			}
-		}else{
-			moneyok = 1;
-			return false;
-		}
-	});
-	}).fail(function(data){
-	});
+	
 	console.log(my_point);
 		var loginInfo = "${sessionScope.loginInfo}";
 		// 주최이유 기타 내용 적는 부분 클릭하면 라디오버튼이 기타에 찍힘
@@ -301,25 +275,7 @@
 		$("#others").on("change", function() {
 			$("#gridRadios5").val($("#others").val());
 		})
-		$("#newcontest").on("click",function(){
-			if(moneyok==0){
-				var charge = confirm("포인트가 부족합니다.\n충전하시겠습니까?");
-				if(charge){
-					location.href="${pageContext.request.contextPath}/money/charge.do";
-				}else{
-					alert("충전이 취소되었습니다");
-					return false;
-				}
-			}else{
-				var resu = confirm("공모전을 신청하시겠습니까?");
-				if(resu){
-				$("#newcontestform").submit();
-				}else{
-					alert("공모전신청이 취소되었습니다");
-					return false;
-				}
-			}
-		})
+	
 		
 	</script>
 	
