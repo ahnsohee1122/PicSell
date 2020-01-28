@@ -231,7 +231,6 @@ function openPopup(url) {
                                	<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=인테리어" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#인테리어</a></span>
                                	<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=카메라" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#카메라</a></span>
                                	<span class="pr-2" style="font-size: 13px;"><a href="/Search.do?tag=과일" style="color: white; font-family: 'Cafe24Oneprettynight'; font-size: 15px;">#과일</a></span>
-
                             </div>
                         </div>
                       </div>
@@ -437,6 +436,23 @@ function openPopup(url) {
                 <p class="contest02">이달의 공모전</p>
             </div>
             <div class="row">
+            	<c:forEach items="${list }" var="list">
+            	<div class="col-12 col-lg-4 mx-auto my-2 text-center">
+            	<div class="card m-auto" style="width: 17.5rem; font-family: 'Cafe24Oneprettynight';">
+					<img src="${pageContext.request.contextPath}/img/contest_image.PNG" class="card-img-top" style="width: 278px; height: 170px;">
+					<div class="card-img-overlay py-5 w-100" style="height: 170px;">
+					    <p class="m-auto pt-1 text-center align-self-center" style="font-size: 46px; font-weight: 300;">${list.grouping }</p>
+					</div>
+				  	<div class="card-body text-center px-2">
+				    	<p class="p-0" style="font-size: 20px; min-height: 70px;">${list.title }</p>
+				    	<p class="text-danger" style="font-size: 18px; font-weight: 500;">진행중</p>
+				    	<p style="font-size: 18px;">${list.enddate }</p>
+				    	<p><a href="${pageContext.request.contextPath}/contest/detail?title=${list.title}&contest_seq=${list.contest_seq}" class="btn btn-outline-dark btn-sm" style="font-size: 18px;">참여하기</a></p>
+				  	</div>
+				</div>
+            	</div>
+            	</c:forEach>
+            	<!-- 
                 <div class="MultiCarousel" data-items="1,2,3,3" data-slide="1" id="MultiCarousel"  data-interval="1000">
                     <div class="MultiCarousel-inner">
                         <div class="item">
@@ -457,7 +473,7 @@ function openPopup(url) {
                     </div>
                     <button class="btn border-0 leftLst"><img src="${pageContext.request.contextPath}/img/previous01.png" style="width: 17px; height: 17px;"></button>
                     <button class="btn border-0 rightLst"><img src="${pageContext.request.contextPath}/img/next01.png" style="width: 17px; height: 17px;"></button>
-                </div>
+                </div>  -->
             </div>
         </div>
     </div>
