@@ -23,7 +23,7 @@
 			and REGEXP_LIKE (tag, #{keyword2})
 		</if>
 		<if test="file_extension != null">
-			and file_extension = #{file_extension}
+			and REGEXP_LIKE (file_extension, #{file_extension})
 		</if>
 		<if test="usage != null">
 			and usage = #{usage}

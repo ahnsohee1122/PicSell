@@ -37,7 +37,7 @@ public class EventController {
 	}
 	// 출석체크 화면 진입  
 		@RequestMapping(value = "/attendance_check.do")
-		public String home() {
+		public String home_aop() {
 			String nickname = (String)session.getAttribute("loginInfo");	
 			if(nickname!=null) {
 			// 1. 그날 출석체크 했는지 안했는지 체크 > 버튼 기능 조절 
@@ -60,7 +60,7 @@ public class EventController {
 		// 2. 과거의 출석체크 정보 가져오기 
 		@RequestMapping(value = "/getEvent", produces="text/html; charset=UTF-8")
 		@ResponseBody
-		public String getEvent() {
+		public String getEvent_aop() {
 			String nickname = (String)session.getAttribute("loginInfo");
 			System.out.println("통신성공");
 			List<EventDTO> list = event_sv.getEvent(nickname);
@@ -81,7 +81,7 @@ public class EventController {
 		// 4. 출석체크한 사용자에게 10포인트 추가
 		@RequestMapping(value = "/changeButton")
 		@ResponseBody
-		public String select(String event_date) {
+		public String select_aop(String event_date) {
 			String nickname = (String)session.getAttribute("loginInfo");
 			//event_sv.insertCalendar(nickname, event_date);
 			return "1";
@@ -91,14 +91,14 @@ public class EventController {
 		
 		// 1. 룰렛페이지로 넘어가기 
 		@RequestMapping("/rulet.do")
-		public String rulet() {
+		public String rulet_aop() {
 			return "/event/rulet";
 		}
 		
 		// 2. 룰렛 돌려서 나온 포인트값 저장하기 
 		@RequestMapping("/rouletProc.do")
 		@ResponseBody
-		public String rulet(int score) {
+		public String rulet_aop(int score) {
 			System.out.println(score);
 			String nickname = (String)session.getAttribute("loginInfo");
 			String today = LocalDate.now().toString();
