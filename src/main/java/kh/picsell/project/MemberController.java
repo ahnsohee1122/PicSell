@@ -187,10 +187,11 @@ public class MemberController {
 	}
 
 	@RequestMapping("/Logout.do")
-	public String logout() { //로그아웃
+	public String logout(HttpServletRequest request) { //로그아웃
 //		String adminInfo = (String)session.getAttribute("adminInfo");
 //		String loginInfo = (String)session.getAttribute("loginInfo");
-		session.invalidate();
+		request.getSession().invalidate();
+		
 		return "redirect:../home";
 	}
 	
