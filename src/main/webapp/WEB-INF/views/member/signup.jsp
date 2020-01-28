@@ -35,7 +35,7 @@
 					<div class="row my-4">
 	     				<label class="col-form-label col-4 col-lg-3 pt-0" style="font-family: 'Cafe24Oneprettynight';">비밀번호<strong> * </strong></label>
 		      			<div class="col-8 col-lg-9">
-		      				<input type="password" class="form-control" id="pw" name="pw" placeholder="8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)" style="font-size: 15px; color:black;">
+		      				<input type="password" class="form-control" id="pw" name="pw" placeholder="8 ~ 20자 이내 영문, 숫자, 특수문자(!,@,#,$,%,^,&,*)필수" style="font-size: 15px; color:black;">
 		      				<div id="alert_pw_form" class="px-1 alert2 invalid-feedback">잘못된 비밀번호 형식입니다.</div>
 						</div>
 					</div>
@@ -358,7 +358,7 @@
    		
    		// 이름 정규식 검사
    		$("#name").on("blur",function(){
-   			var regex = /^[가-힣]{2,4}$/;
+   			var regex =  /^(?=.*[a-zA-Z가-힣0-9()]).{2,10}$/;
    			var data = $("#name").val();
    			var result = regex.exec(data);
    			
