@@ -25,7 +25,7 @@
 		<div class="container m-auto text-center">
 			<h2 class="mx-auto my-0 text-center">검색 결과</h2>
 			
-	            <input type="text" id="search" name="tag" value="${searchKeyword }" placeholder="이미지 검색 / @작가명  / 두 단어 이상 검색시 띄어쓰기로 구분" class="px-2" style="width: 350px; height: 40px; border: 1px solid darkgray;">
+	            <input type="text" id="search" name="tag" value="${searchKeyword }" placeholder="@작가명  / 두 단어 이상 검색시 띄어쓰기로 구분" class="px-2" style="width: 350px; height: 40px; border: 1px solid darkgray;">
 	            <button type="button" id="searchBtn" style="width: 50px; height: 41px; border: 1px solid darkgray; background-color: white;">검색</button>
 	        
 		</div>
@@ -42,8 +42,9 @@
 	        <div class="dropdown ml-2 mb-2 mb-lg-0">
 	            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid darkgray; border-radius: 5px;">파일형식</button>
 	            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-	                <a class="dropdown-item" data-category="file_extension" data-value="jpg" href="#">JPG</a>
-	                <a class="dropdown-item" data-category="file_extension" data-value="png" href="#">PNG</a>
+	                <a class="dropdown-item" data-category="file_extension" data-value="jpg|JPG|jpeg|JPEG" href="#">JPG</a>
+	                <a class="dropdown-item" data-category="file_extension" data-value="png|PNG" href="#">PNG</a>
+	                <a class="dropdown-item" data-category="file_extension" data-value="bmp|BMP" href="#">기타</a>
 	            </div>
 	        </div>
 	        <div class="dropdown ml-2 mb-2 mb-lg-0">
