@@ -83,9 +83,9 @@
 
 // 출석체크 이벤트 팝업창 
 	function getCookie(name) {
-	var get_cookie = document.cookie;
+	var cookie = document.cookie;
 	if (document.cookie != "") {
-		var cookie_array = get_cookie.split("; ");
+		var cookie_array = cookie.split("; ");
 		for ( var index in cookie_array) {
 			var cookie_name = cookie_array[index].split("=");
 			if (cookie_name[0] == "popupYN") {
@@ -97,7 +97,6 @@
 }
 function openPopup(url) {
 	var cookieCheck = getCookie("popupYN");
-	console.log(cookieCheck);
 	if (cookieCheck != "N")
 		window.open(url, '', 'width=450,height=750,left=0,top=0')
 }
@@ -226,7 +225,7 @@ function openPopup(url) {
                              <input id="search" class="search_input" type="text" name="" placeholder="이미지 검색 / 두 단어 이상 검색시 띄어쓰기로 구분" style="color: #353535;">
                            <button id="searchBtn" class="search_icon" style="border: 0px; background-color: white !important;"><i class="fas fa-search"></i></button>
                            <div class="hashTag m-3">
-                              <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=분위기" style="color: white;">#분위기</a></span>
+                              <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=겨울" style="color: white;">#겨울</a></span>
                                <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=웨딩" style="color: white;">#웨딩</a></span>
                                <span class="pr-1" style="font-size: 13px;"><a href="/Search.do?tag=인테리어" style="color: white;">#인테리어</a></span>
                             </div>
