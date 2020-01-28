@@ -102,7 +102,23 @@
 								    </div>
 								    <script>
 								    $("#leavesite").on("click",function(){
+								    	$.ajax({
+								    		url:"${pageContext.request.contextPath}/member/leavecheck.do",
+								    		type:"post",
+								    		data:{pw:$("#withPw").val()}
+								    	}).done(function(res){
+								    		if(res=="확인"){								    			
 								    	location.href="${pageContext.request.contextPath}/member/memout.do?nickname=${memberDto.nickname }";
+								    		}else if(res=="ss"){
+								    			alert("비밀번호를 확인해주세요");
+								    			$("#withPw").val("");
+								    			return false;
+								    		}
+								    	}).fail(function(res){
+								    		if(res=="ser"){
+								    			alert("서버에러입니다 관리자에게 문의주세요");
+								    		}
+								    	})
 								    })
 								    </script>
 								  </div>

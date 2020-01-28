@@ -40,6 +40,12 @@ public class MemberDAO {
 		dto.setPw(pw);
 		return jdbc.selectOne("Member.login",dto);
 	}
+	public int leavecheck(String nickname, String pw) throws Exception{
+		MemberDTO dto = new MemberDTO();
+		dto.setNickname(nickname);
+		dto.setPw(pw);
+		return jdbc.selectOne("leavecheck",dto);
+	}
 	public int managercheck(String id, String pw) throws Exception{ //관리자인지 체크
 		MemberDTO dto = new MemberDTO();
 		dto.setId(id);

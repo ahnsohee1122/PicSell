@@ -6,6 +6,9 @@
 	<select id="login" resultType="integer">
 		select count(*) from member where id = #{id} and pw = #{pw}
 	</select>
+	<select id="leavecheck" resultType="integer">
+		select count(*) from member where nickname = #{nickname} and pw = #{pw}
+	</select>
 	<select id="managercheck" resultType="integer">
 		select count(*) from member where id = #{id} and pw = #{pw} and admin='Y'
 	</select>

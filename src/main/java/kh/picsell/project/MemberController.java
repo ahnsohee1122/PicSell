@@ -275,7 +275,21 @@ public class MemberController {
 		}
 		return "member/manage";
 	}
-	
+	@RequestMapping(value="/leavecheck.do", produces="text/html; charset=UTF-8")
+	@ResponseBody
+	public String leavecheck(String nickname, String pw) {
+		try {
+			int result = service.leavecheck((String)session.getAttribute("loginInfo"), pw);
+			if(result>0) {
+				return "확인";
+			}else {
+				return "ss";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "ser";
+		}
+	}
 	@RequestMapping(value="/blackup.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String blackup(String id, HttpServletRequest request) { //블랙1업
