@@ -48,7 +48,7 @@
 						<script>
 						$("#btn").on("click", function(){
 							var back_point = $("#back_point").val();
-							if("${profit}"<back_point){
+							if(${profit}<back_point){
 								alert("출금하시려는 포인트가 가지고 계신 포인트보다 많습니다.");
 							}else if(back_point<5000){
 								alert("5000원 미만은 출금할 수 없습니다.");

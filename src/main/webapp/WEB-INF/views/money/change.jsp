@@ -51,14 +51,14 @@
 						<form class="mx-auto mt-4 px-2 px-ml-0"  method="post" style="max-width: 660px;">
 							<h4 class="text-left text-warning">전환 가능한 수익금 : ${profit}<span class="mx-1">원</span></h4>
 							<h4 class="text-left text-warning">전환 할 금액 : <input type="text" id="money" name="money" class="border-bottom border-warning text-warning text-right" style="width: 130px; border: 0; background-color: #f4f2f5;"><span class="mx-1">원</span></h4>
-							<input type=button id=change class="mt-5 btn" style="width: 100px; border: 1px solid darkgray; border-radius: 10px; background-color: #f4f2f5;">전환하기</button>
+							<input type=button id=change class="mt-5 btn" style="width: 100px; border: 1px solid darkgray; border-radius: 10px; background-color: #f4f2f5;" value="전환하기">
 						</form>
 
 						<script>
 						$("#change").on("click", function(){
 							var money = $("#money").val();
 							// 전환하려는 포인트가 수익금보다 작은 경우 
-							if("${profit}"<money){
+							if(${profit}<money){
 								alert("전환하려는 포인트가 잔여 수익금보다 많습니다.");
 							// 전환하려는 포인트가 1000원보다 적은 경우
 							}else if(money<1000){
