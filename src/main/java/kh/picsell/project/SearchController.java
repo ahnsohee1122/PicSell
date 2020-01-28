@@ -106,6 +106,7 @@ public class SearchController {
 		
 		Object loginInfo = session.getAttribute("loginInfo");
 		Object adminInfo = session.getAttribute("adminInfo");
+		int memexist = service.writerexist(nickname);
 		
 		// 조회수 증가 대상
 		// 1. 비회원
@@ -131,8 +132,14 @@ public class SearchController {
 
 		// ****************************이 밑줄부터
 		// like_list 테이블에 이미지 좋아요 기록 있는지 여부
-		WriterImageUpDTO dto = service.getDetailImage(img_seq); 
-		int likepoint = service.getLikepoint(nickname); 
+		WriterImageUpDTO dto = service.getDetailImage(img_seq);
+		
+		int likepoint;
+		if(memexist == 0) {
+			likepoint = 0;
+		}else {
+			likepoint = service.getLikepoint(nickname); 			
+		}
 		
 		String viewer = null; 
 		if(loginInfo != null) { 
@@ -147,12 +154,16 @@ public class SearchController {
 
 		System.out.println(dto);
 		System.out.println(likepoint);
-
+		System.out.println("a");
 		request.setAttribute("dto", dto);
 		request.setAttribute("likepoint", likepoint);
+		
 		request.setAttribute("likestatus", likestatus); // 이 줄*********************
 		request.setAttribute("writerlikestatus", writerlikestatus); // 이 줄*********************
-		
+		request.setAttribute("memexist", memexist);
+		System.out.println(dto.toString());
+		System.out.println(likepoint);
+		System.out.println(memexist);
 		// 다운로드 버튼 제어 
 		
 		// 로그인 안한 경우 

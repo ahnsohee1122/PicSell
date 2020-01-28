@@ -5,7 +5,7 @@
 <mapper namespace="Search">
 	
 	<select id="search" resultType="kh.picsell.dto.WriterImageUpDTO">
-		select * from writer_image_up where REGEXP_LIKE (tag, #{tag}) and accept='Y'
+		select * from writer_image_up where REGEXP_LIKE (tag, #{tag}) and accept='Y' and memberOut='N'
 	</select>
 
 	<select id="align" resultType="kh.picsell.dto.WriterImageUpDTO" parameterType="java.util.Map">		
@@ -18,7 +18,7 @@
 					order by ${orderBy} desc, img_seq desc
 				</otherwise>
 			</choose>		
-		) as rown from writer_image_up where REGEXP_LIKE (tag, #{tag}) and accept='Y'
+		) as rown from writer_image_up where REGEXP_LIKE (tag, #{tag}) and accept='Y' and memberOut='N'
 		<if test="keyword2 != null">
 			and REGEXP_LIKE (tag, #{keyword2})
 		</if>

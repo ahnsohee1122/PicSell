@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +25,8 @@ import kh.picsell.service.PieceNoticeService;
 @RequestMapping("/pieceNotice")
 public class PieceNoticeController {
 
+	@Autowired
+	private  HttpServletRequest request;
 	@Autowired
 	private PieceNoticeService pieceNoticeService;
 
@@ -75,7 +78,7 @@ public class PieceNoticeController {
 	public String detail(int pieceNotice_seq) {
 		try {
 			Map map = pieceNoticeService.detail(pieceNotice_seq);
-			session.setAttribute("map", map);
+			request.setAttribute("map", map);
 			return"pieceNotice/pieceNoticeView";
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -131,7 +134,7 @@ public class PieceNoticeController {
 		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
 			try {
 				Map map = pieceNoticeService.detail(seq);
-				session.setAttribute("map", map);
+				request.setAttribute("map", map);
 				return "pieceNotice/pieceNoticeModify";
 			}catch(Exception e) {
 				e.printStackTrace();

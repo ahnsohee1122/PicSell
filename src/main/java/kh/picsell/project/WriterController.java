@@ -80,7 +80,6 @@ public class WriterController {
 	@RequestMapping("list")
 	@ResponseBody
 	public List<WriterImageUpDTO> list(int currentPage, String nickname) {
-		System.out.println("hi");
 		//		String nickname = (String)session.getAttribute("loginInfo");
 		int start = 0;
 		int end = 0 ;

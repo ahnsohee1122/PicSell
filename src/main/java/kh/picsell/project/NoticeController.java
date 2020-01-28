@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -28,14 +29,15 @@ public class NoticeController {
 
 	@Autowired
 	private HttpSession session;
-
+	@Autowired
+	private  HttpServletRequest request;
 	ModelAndView mav = new ModelAndView();
 
 	@RequestMapping("/notice.do")
 	public String notice() {
 		try {
 			List<NoticeDTO> noticeList = noticeService.noticeList();
-			session.setAttribute("noticeList", noticeList);
+			request.setAttribute("noticeList", noticeList);
 			return "notice/notice";
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -48,7 +50,7 @@ public class NoticeController {
 
 		try {
 			Map map = noticeService.detail(notice_seq);
-			session.setAttribute("map", map);
+			request.setAttribute("map", map);
 			return "notice/noticeView";
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -120,7 +122,7 @@ public class NoticeController {
 		try {
 			Map map = noticeService.detail(seq);
 			System.out.println(map.get("fileDto").toString());
-			session.setAttribute("map", map);
+			request.setAttribute("map", map);
 			return "notice/modify";
 		}catch(Exception e) {
 			e.printStackTrace();

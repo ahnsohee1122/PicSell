@@ -47,9 +47,9 @@ public String acceptpage(String nickname, HttpServletRequest request) {
 		ok = service.showok(nickname);
 		no = service.showno(nickname);
 		notyet = service.notyet(nickname);
-		session.setAttribute("ok", ok);
-		session.setAttribute("no", no);
-		session.setAttribute("notyet", notyet);
+		request.setAttribute("ok", ok);
+		request.setAttribute("no", no);
+		request.setAttribute("notyet", notyet);
 		
 		
 		request.setAttribute("list", list);

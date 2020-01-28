@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -27,13 +28,17 @@ public class EditNoticeController {
 	@Autowired
 	private EditNoticeService editNoticeService;
 	
-	@Autowired HttpSession session;
+	@Autowired 
+	private HttpSession session;
+	
+	@Autowired
+	private  HttpServletRequest request;
 	
 	@RequestMapping("/notice.do")
 	public String notice() {
 		try {
 			List<EditNoticeDTO> editNoticeList = editNoticeService.noticeList();
-			session.setAttribute("editNoticeList", editNoticeList);
+			request.setAttribute("editNoticeList", editNoticeList);
 			return "editNotice/editNotice";
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -73,7 +78,7 @@ public class EditNoticeController {
 	public String detail(int editNotice_seq) {
 		try {
 			Map map = editNoticeService.detail(editNotice_seq);
-			session.setAttribute("map", map);
+			request.setAttribute("map", map);
 			return"editNotice/editNoticeView";
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -129,7 +134,7 @@ public class EditNoticeController {
 		if(((user != null)&&(writer.contentEquals(user))) || (admin != null)) {
 			try {
 				Map map = editNoticeService.detail(seq);
-				session.setAttribute("map", map);
+				request.setAttribute("map", map);
 				return "editNotice/editNoticeModify";
 			}catch(Exception e) {
 				e.printStackTrace();

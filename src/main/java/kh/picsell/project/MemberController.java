@@ -141,12 +141,11 @@ public class MemberController {
 					int result1 = service.managercheck(id, pw); //매니저로그인
 					if(result1 > 0) {
 						
-						session = request.getSession();
 						session.setAttribute("adminInfo", nickname);
 						return  "관리자로그인성공";
 					}else {
 						//mav.addObject("로그인성공", ok);
-						session = request.getSession(); //일반회원로그인
+						 //일반회원로그인
 						session.setAttribute("loginInfo", nickname);
 						return  "로그인성공";
 					}
@@ -154,7 +153,7 @@ public class MemberController {
 				}else if(black==1) { //블랙1단계로그인
 					
 						//mav.addObject("로그인성공", ok);
-						session = request.getSession();
+					  //session = request.getSession();
 						session.setAttribute("loginInfo", nickname);
 						return  "블랙1";
 					
@@ -253,7 +252,8 @@ public class MemberController {
 			delete.delete15(nickname);
 		int imgresult =	service.changemem(nickname);
 		System.out.println(imgresult);
-			request.getSession().invalidate();
+		System.out.println(request);
+			session.invalidate();
 			if(result>0) {
 				System.out.println("성공");
 			}else {
