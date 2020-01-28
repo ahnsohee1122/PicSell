@@ -48,7 +48,7 @@
 							<h6 class="text-left">- 작가 수익금을 현금으로 환전/출금하기 원하시는 작가님께서는 [환급하기] 메뉴를 이용해 주시기 바랍니다.</h6>
 							<h6 class="text-left">- 내 포인트를 작가 수익금으로 전환할 수는 없으니 이 점 주의 바랍니다.</h6>
 						</form>
-						<form class="mx-auto mt-4 px-2 px-ml-0" action="${pageContext.request.contextPath}/money/moneyBackProc.do" method="post" style="max-width: 660px;">
+						<form class="mx-auto mt-4 px-2 px-ml-0"  method="post" style="max-width: 660px;">
 							<h4 class="text-left text-warning">전환 가능한 수익금 : ${profit}<span class="mx-1">원</span></h4>
 							<h4 class="text-left text-warning">전환 할 금액 : <input type="text" id="money" name="money" class="border-bottom border-warning text-warning text-right" style="width: 130px; border: 0; background-color: #f4f2f5;"><span class="mx-1">원</span></h4>
 							<input type=button id=change class="mt-5 btn" style="width: 100px; border: 1px solid darkgray; border-radius: 10px; background-color: #f4f2f5;">전환하기</button>

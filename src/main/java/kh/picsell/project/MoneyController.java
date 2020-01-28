@@ -60,7 +60,7 @@ public class MoneyController {
 	// 오른쪽 바로 포인트랑 수익금 보내기 
 	@RequestMapping(value = "/top_money.do")
 	@ResponseBody
-	public Map<String, Integer> top_money() {
+	public Map<String, Integer> top_money_aop() {
 		String nickname = (String)session.getAttribute("loginInfo");
 		Map<String, Integer> map = new HashMap<>(); 
 		int my_point = money_sv.getPoint(nickname);
@@ -72,7 +72,7 @@ public class MoneyController {
 	
 	// 충전 금액 선택 화면으로 가게하기 
 	@RequestMapping(value = "/charge.do")
-	public String plus() {
+	public String plus_aop() {
 		String nickname = (String)session.getAttribute("loginInfo");
 		MemberDTO writerinfo = writerservice.writerInfo(nickname);
 	    Map<String,Integer> imginfo = writerservice.imginfo(nickname);
@@ -83,7 +83,7 @@ public class MoneyController {
 
 	// 충전 로직 완료 + form으로 데이터 받아서 충전 내역 화면에 뿌리기 
 	@RequestMapping(value = "/chargeComplete.do")
-	public String chargeComplete(String receipt_id, int price, 
+	public String chargeComplete_aop(String receipt_id, int price, 
 			String payment_name, String requested_at) {
 		// 1. 세션에서 아이디값을 가져온다 
 		String nickname = (String) session.getAttribute("loginInfo");
@@ -106,7 +106,7 @@ public class MoneyController {
 	// 사진 구매하기 
 	@RequestMapping("/buy.do")
 	@ResponseBody
-	public String buy(String writer_nickname, int deal_img_seq) {
+	public String buy_aop(String writer_nickname, int deal_img_seq) {
 		String buyer_nickname = (String)session.getAttribute("loginInfo");
 		// 날짜
 		Date today = new Date();
@@ -128,7 +128,7 @@ public class MoneyController {
 
 	// 내 포인트 확인하기 화면으로 가기 
 	@RequestMapping("/myPoint.do")
-	public String myPoint(String msg) {
+	public String myPoint_aop(String msg) {
 		String nickname = (String)session.getAttribute("loginInfo");
 		// 1. 내 포인트 확인하기 
 		int point = money_sv.getPoint(nickname);
@@ -152,7 +152,7 @@ public class MoneyController {
 
 	// 환급 페이지로 이동 
 	@RequestMapping(value = "/moneyBack.do", produces="text/html; charset=UTF-8")
-	public String moneyBack(String msg) {
+	public String moneyBack_aop(String msg) {
 		String nickname = (String)session.getAttribute("loginInfo");
 		int profit = money_sv.getProfit(nickname);
 		System.out.println(profit);
@@ -168,14 +168,14 @@ public class MoneyController {
 	// 환급 금액 체크하기 
 	@RequestMapping(value="/moneyBack_preCheck.do")
 	@ResponseBody
-	public String moneyBack_preCheck(int back_point) {
+	public String moneyBack_preCheck_aop(int back_point) {
 		return "moneyBack";
 	}
 	
 	// 환급하기 
 	@RequestMapping(value="/moneyBackProc.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
-	public String money_back(int back_point) {
+	public String money_back_aop(int back_point) {
 		String nickname = (String)session.getAttribute("loginInfo");
 			Date today = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -191,7 +191,7 @@ public class MoneyController {
 	
 	// 포인트 전환 페이지로 이동 
 	@RequestMapping("/change.do")
-	public String change() {
+	public String change_aop() {
 		String nickname = (String)session.getAttribute("loginInfo");
 		// 전환 가능 수익금을 가지고 감 
 		int profit = money_sv.getProfit(nickname);
@@ -206,7 +206,7 @@ public class MoneyController {
 	// 수익금을 포인트로 전환하기 
 	@RequestMapping("/changeProc.do")
 	@ResponseBody
-	public String changeProc(int money) {
+	public String changeProc_aop(int money) {
 		String nickname = (String)session.getAttribute("loginInfo");
 		int profit = money_sv.getProfit(nickname);
 		request.setAttribute("profit", profit);
@@ -229,7 +229,7 @@ public class MoneyController {
 	
 	// 구매 내역 확인하기
 	@RequestMapping("/buy_list.do")
-	public String buy_list() {
+	public String buy_list_aop() {
 		String nickname = (String)session.getAttribute("loginInfo");
 		List<Map<String, Object>> list = money_sv.buy_list(nickname);
 		request.setAttribute("list", list);
@@ -242,7 +242,7 @@ public class MoneyController {
 	
 	// 수익금 내역 확인하기 
 	@RequestMapping("/profit_list.do")
-	public String profit_list() {
+	public String profit_list_aop() {
 		System.out.println("도착");
 		String nickname = (String)session.getAttribute("loginInfo");
 		List<Map<String, Object>> list = money_sv.profit_list(nickname);
