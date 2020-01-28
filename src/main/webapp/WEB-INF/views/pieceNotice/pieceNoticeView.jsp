@@ -138,11 +138,11 @@
 	<!--zzz  -->
 	<script>
 		$("#delete").on("click", function(){
-			location.href="${pageContext.request.contextPath}/pieceNotice/delete.do?seq=${map.pieceNotice.pieceNotice_seq}";
+			location.href="${pageContext.request.contextPath}/pieceNotice/delete.do?seq=${map.pieceNotice.pieceNotice_seq}, writer=${map.pieceNotice.pieceNotice_writer}";
 		})
 		
 		$("#modify").on("click", function(){
-			location.href="${pageContext.request.contextPath}/pieceNotice/modify.do?seq=${map.pieceNotice.pieceNotice_seq}";
+			location.href="${pageContext.request.contextPath}/pieceNotice/modify.do?seq=${map.pieceNotice.pieceNotice_seq}, writer=${map.pieceNotice.pieceNotice_writer}";
 		})
 		
 		$("#listGo").on("click", function(){

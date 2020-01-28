@@ -19,7 +19,7 @@
 			<h2 class="mx-auto my-0 text-center">게시글 수정</h2>
 		</div>
 		<div class="container mx-auto my-5">
-			<form action="${pageContext.request.contextPath}/pieceNotice/modifyProc.do" enctype="multipart/form-data" method="post" id="frm">
+			<form action="${pageContext.request.contextPath}/pieceNotice/modifyProc.do?writer=${map.pieceNotice.pieceNotice_writer}" enctype="multipart/form-data" method="post" id="frm">
 				<table style="width: 100%;">
 					<tr>
 						<td>글번호</td>
