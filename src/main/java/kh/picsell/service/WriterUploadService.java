@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.DataOutputStream;
@@ -50,7 +51,15 @@ public class WriterUploadService {
 
 
 	@Transactional("txManager")
-	public void upload(MultipartFile[] file, HttpServletRequest request, WriterImageUpDTO dto, String path, String watermarkpath,String nickname) {
+	public void upload(MultipartFile[] file,HttpServletRequest request, WriterImageUpDTO dto, String path, String watermarkpath,String nickname) {
+		//String origin = multirequest.getParameter("origin");
+		//Map<String, MultipartFile> files = multirequest.getFileMap();
+		//System.out.println(files.containsKey("origin")); 
+		//System.out.println(files.containsKey("resize"));
+		
+
+	
+		
 		dto.setNickname(nickname);
 
 		String oriName = "";
@@ -73,7 +82,11 @@ public class WriterUploadService {
 		if(!output.exists()) {
 			output.mkdir();
 		}
-
+		String mainPosition = "W";
+		int newWidth = 300;                                  // 변경 할 넓이
+        int newHeight = 200;
+        int w ;
+        int h;
 		//업로드한 이미지 가져와서 리스트에 차곡차곡 저장.
 		try {
 			//원본파일 파일경로
@@ -88,6 +101,37 @@ public class WriterUploadService {
 				f.transferTo(originaloutput);
 
 				BufferedImage original = ImageIO.read(originaloutput);
+				/////////////////
+				int imageWidth = original.getWidth(null);
+	            int imageHeight = original.getHeight(null);
+				
+	            if(mainPosition.equals("W")){    // 넓이기준
+	            	 
+	               double ratio = (double)newWidth/(double)imageWidth;
+	                w = (int)(imageWidth * ratio);
+	               h = (int)(imageHeight * ratio);
+	 
+	            }else if(mainPosition.equals("H")){ // 높이기준
+	 
+	                double ratio = (double)newHeight/(double)imageHeight;
+	               w = (int)(imageWidth * ratio);
+	               h = (int)(imageHeight * ratio);
+	 
+	            }else{ //설정값 (비율무시)
+	 
+	                w = newWidth;
+	                h = newHeight;
+	            }
+	            // 이미지 리사이즈
+	            // Image.SCALE_DEFAULT : 기본 이미지 스케일링 알고리즘 사용
+	            // Image.SCALE_FAST    : 이미지 부드러움보다 속도 우선
+	            // Image.SCALE_REPLICATE : ReplicateScaleFilter 클래스로 구체화 된 이미지 크기 조절 알고리즘
+	            // Image.SCALE_SMOOTH  : 속도보다 이미지 부드러움을 우선
+	            // Image.SCALE_AREA_AVERAGING  : 평균 알고리즘 사용
+	            Image resizeImage = original.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+	            BufferedImage newImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+	            
+				////////////////////////////
 				Graphics2D g2d = original.createGraphics();
 
 				// initializes necessary graphic properties
@@ -95,7 +139,7 @@ public class WriterUploadService {
 
 				g2d.setComposite(alphaChannel);
 				g2d.setColor(Color.white);
-				double ratio = (double)80/1000;
+				double ratio = (double)40/1000;
 				double fontsize = original.getWidth() * ratio;
 				g2d.setFont(new Font("Arial", Font.BOLD, (int)fontsize));
 				FontMetrics fontMetrics = g2d.getFontMetrics();
@@ -109,7 +153,7 @@ public class WriterUploadService {
 				g2d.drawString("PicSell", centerX, centerY);
 
 
-				sysName_watermark = "marked_" + sysName;
+				sysName_watermark = "xsmarked_" + sysName;
 
 				File markedfile;
 				markedfile = new File(output + "/" + sysName_watermark);
@@ -130,16 +174,16 @@ public class WriterUploadService {
 		//파일개수만큼 반복문 돌려서 각 이미지마다 딸려있는 데이터를 db에 저장.
 		try {
 			for(int i = 0; i<file.length; i++) {
-
+					
 				//워터마크 처리한 이미지 저장.
 				//디코딩한 파일 byte배열로 가져와서 이름앞에 marked_ 붙혀서 watermarkfilepath에 저장. 
-				byte[] xsimgBytes = decodeBase64ToBytes(request.getParameter("xswatermark"+i));
-				String xsSysName_watermark = "xsmarked_" + sysNamelist.get(i);
-				FileOutputStream xsfis = new FileOutputStream(output + "/" + xsSysName_watermark);
-				DataOutputStream xsdos = new DataOutputStream(xsfis);
-				xsdos.write(xsimgBytes);
-				xsdos.flush();
-				xsdos.close();
+				byte[] imgBytes = decodeBase64ToBytes(request.getParameter("watermark"+i));
+				String SysName_watermark = "marked_" + sysNamelist.get(i);
+				FileOutputStream fis = new FileOutputStream(output + "/" + SysName_watermark);
+				DataOutputStream dos = new DataOutputStream(fis);
+				dos.write(imgBytes);
+				dos.flush();
+				dos.close();
 
 				//파일이름저장
 				dto.setOriname(oriNamelist.get(i));
