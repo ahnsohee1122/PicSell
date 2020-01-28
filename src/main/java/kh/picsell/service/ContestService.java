@@ -68,6 +68,8 @@ public class ContestService {
 		}else {
 			dto.setHost(nickname);			
 		}
+		dto.setTerms(dto.getTerms().replaceAll("\r\n", "<br>"));
+		dto.setDetail(dto.getDetail().replaceAll("\r\n", "<br>"));
 		dao.insert(dto);
 
 		File filepath = new File(path);   
