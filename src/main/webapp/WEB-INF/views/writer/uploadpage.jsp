@@ -246,7 +246,13 @@ input[type=text] {
 			cw = tempCanvas.width = img.naturalWidth;
 			ch = tempCanvas.height = img.naturalHeight;
 			tempCtx.drawImage(img, 10, 10);
-			tempCtx.font = "200px verdana";
+			var ratio = 80 / 1000;
+			if (img.naturalWidth > img.naturalHeight) {
+				var fontSize = img.naturalWidth * ratio;
+			} else if (img.naturalWidth < img.naturalHeight) {
+				var fontSize = img.naturalHeight * ratio;
+			}
+			tempCtx.font = (fontSize | 0) + 'px Arial'
 			var textWidth = tempCtx.measureText(text).width;
 			tempCtx.globalAlpha = .50;
 			tempCtx.fillStyle = 'white'
