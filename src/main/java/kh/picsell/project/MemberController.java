@@ -191,8 +191,8 @@ public class MemberController {
 //		String adminInfo = (String)session.getAttribute("adminInfo");
 //		String loginInfo = (String)session.getAttribute("loginInfo");
 		request.getSession().invalidate();
-		
-		return "redirect:../home";
+		//session.invalidate();
+		return "redirect:/home";
 	}
 	
 	@RequestMapping(value="/pwchange.do", produces="text/html; charset=UTF-8")
