@@ -32,7 +32,7 @@
 	
 	<script>
 		$("#picHome").on("click", function() {
-			location.href="";
+			location.href="${pageContext.request.contextPath}/home";
 		})
 	</script>
 </body>
