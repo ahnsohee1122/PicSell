@@ -19,6 +19,14 @@
 <script src='/fullcalendar-4.3.1/packages/timegrid/main.js'></script>
 <script src='/javascript-winwheel-2.8.0/Winwheel.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.0.5/gsap.min.js'></script>
+
+<script>
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+    history.go(1);
+};
+</script>
+
 <style>
 /*    출석체크 글씨체 */
 	@font-face {font-family: 'Cafe24Ssukssuk'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Ssukssuk.woff') format('woff'); font-weight: normal; font-style: normal; }
@@ -39,8 +47,11 @@
 	#prizePointer {position: absolute; left: 175px; top: 40px; z-index: 300; width: 50px; height: 50px;}
 </style>
 
+
 </head>
-<body>
+
+
+<body >
 	<jsp:include page="../key/top.jsp" flush="false"/>
 </div>
 
