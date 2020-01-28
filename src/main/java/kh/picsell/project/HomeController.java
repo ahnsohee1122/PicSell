@@ -35,10 +35,9 @@ public class HomeController {
    @Autowired
    private WriterpageService imageservice;
 
-   @RequestMapping("/index")
+   @RequestMapping("/error")
    public String index() {
-      System.out.println("Index Page");
-      return "index";
+      return "error";
    }
 
    @RequestMapping("/home")

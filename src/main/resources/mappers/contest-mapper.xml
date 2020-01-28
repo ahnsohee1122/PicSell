@@ -57,10 +57,10 @@
 		select count(*) from contest where checking='N' and host=#{host}
 	</select>
 	<select id="lastcontest" resultType="kh.picsell.dto.ContestDTO">
-		select * from (select contest.*, row_number() over(order by accept_date desc) as rown from contest)
-		 where rown between 1 and 3 and accept='Y' and selectimage='N' and
-		(TO_DATE(enddate,'YY/MM/DD') > TO_DATE(sysdate,'YY/MM/DD') or
-		TO_DATE(enddate,'YY/MM/DD') = TO_DATE(sysdate,'YY/MM/DD'))
+		select * from (select contest.*, row_number() over(order by enddate) as rown from contest where accept='Y' and selectimage='N' and
+      (TO_DATE(enddate,'YY/MM/DD') > TO_DATE(sysdate,'YY/MM/DD') or
+      TO_DATE(enddate,'YY/MM/DD') = TO_DATE(sysdate,'YY/MM/DD')))
+       where rown between 1 and 3
 	</select>
 	<insert id="enrollimg" parameterType="java.util.Map">
 		insert into contestimage values(contest_img_seq.nextval, #{dto.contest_seq},
