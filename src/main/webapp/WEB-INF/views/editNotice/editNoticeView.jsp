@@ -184,7 +184,7 @@
 						+	'<input id="d' + res.comment_seq+'" type="button" value="수정완료" onclick="commentModifyComplete('+res.comment_seq+')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;"></div>'
 						+'</td>'
 						+'<td class="p-2" style="width: 20%">' + res.write_date+'</td>'
-						+'<td class="p-2" style="width: 20%">' + res.writer+'</td>'
+						+'<td class="p-2" style="width: 20%"><a href= "${pageContext.request.contextPath}/writer/writerpage?nickname=' + res.writer +'">' + res.writer+'</td>'
 						+'<td class="p-2" style="width: 10%">'
 							+'<input type="button" class=repDelete value="삭제" id="a' + res.comment_seq + '"onclick="commentDelete('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
 							+'<input type="button" class=repModify value="수정" id="b' + res.comment_seq + '"onclick="commentModify('+res.comment_seq + ')" style="border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;">'
@@ -192,6 +192,7 @@
 						+'</tr>'; 
 						
 						$("#commentTable").append(insertComment);
+						window.reload();
 				})	
 	 		}
 		}) 
@@ -223,6 +224,7 @@
 		};
 		
 		function commentModifyComplete(seq){
+			var comment = $("#c" + seq).val().replace(/(?:\r\n|\r|\n)/g, '<br/>');
 			console.log("zz");
 			if($("#c" + seq).val() == ""){
 				alert("변경할 내용을 작성해주세요.");
@@ -232,17 +234,18 @@
 					type:"post",
 					data:{
 						comment_seq:seq,
-						comment:$("#c" + seq).val()
+						comment:comment
 					}
 				}).done(function(res){
 					console.log(res);
-					 var comment = 
+					 var comment2 = 
 		            	   '<p class="w-100" style="word-break: break-all;">' + $("#c" + seq).val() + '</p>'
 		            	   + '<div class="row w-100 m-auto"><textarea id="c' + seq +'"  class="col-12 col-lg-9 align-self-center px-2" style="height: 40px; display: none; resize: none;"></textarea>'
 		            	   + '<input id="d' + seq +'" type="button" value="수정완료" onclick="commentModifyComplete(' + seq + ')" style="display:none; border: 1px solid darkgray; background-color: #f4f2f5; border-radius: 5px;"></div>';
-		               $("#e" + seq).html(comment)
+		               $("#e" + seq).html(comment2)
 				})
 			}
+			window.reload();
 		}		
 	</script>
 	

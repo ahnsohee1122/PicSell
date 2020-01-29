@@ -218,22 +218,25 @@ public class ContestService {
 
             AlphaComposite alphaChannel2 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f);
 
-            g2d.setComposite(alphaChannel2);
-            g2d.setColor(Color.white);
-            double ratio2 = (double)30/1000;
-            double fontsize2 = newImage.getWidth() * ratio2;
-            g2d.setFont(new Font("Arial", Font.BOLD, (int)fontsize2));
+            g2d2.setComposite(alphaChannel2);
+            g2d2.setColor(Color.white);
+            double ratio2 = (double)50/1000;
+            double fontsize2 = original.getWidth() * ratio2;
+            g2d2.setFont(new Font("Arial", Font.BOLD, (int)fontsize2));
             FontMetrics fontMetrics2 = g2d2.getFontMetrics();
-            Rectangle2D rect2 = fontMetrics.getStringBounds("PicSell", g2d2);
+            Rectangle2D rect2 = fontMetrics2.getStringBounds("PicSell", g2d2);
             
             // calculates the coordinate where the String is painted
-            int centerX = (original.getWidth() - (int) rect2.getWidth()) / 2;
-            int centerY = original.getHeight() / 2;
+            int centerX2 = (original.getWidth() - (int) rect2.getWidth()) / 2;
+            int centerY2 = original.getHeight() / 2;
 
+         // calculates the coordinate where the String is painted
+            int centerX = (newImage.getWidth() - (int) rect.getWidth()) / 2;
+            int centerY = newImage.getHeight() / 2;
 
             // paints the textual watermark
             g2d.drawString("PicSell", centerX, centerY);
-            g2d2.drawString("PicSell", centerX, centerY);
+            g2d2.drawString("PicSell", centerX2, centerY2);
             
             String sysName_watermark;
             sysName_watermark = "marked_" + sysName;

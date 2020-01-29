@@ -61,6 +61,7 @@ public class PieceCommentController {
 	@RequestMapping(value="/commentModify.do", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String commentModify(int comment_seq, String comment) {
+		comment.replaceAll("\r\n", "<br>");
 		pieceCommentService.commentModify(comment_seq, comment);
 		return "완료";
 	}
