@@ -67,30 +67,7 @@
     
     .lead {font-weight: 500; font-family: 'Cafe24Oneprettynight'; font-size: 26px;}
 </style>
-
-
 <script type="text/javascript"> 
-
-
-// 출석체크 이벤트 팝업창 
-	function getCookie(name) {
-	var cookie = document.cookie;
-	if (document.cookie != "") {
-		var cookie_array = cookie.split("; ");
-		for ( var index in cookie_array) {
-			var cookie_name = cookie_array[index].split("=");
-			if (cookie_name[0] == "popupYN") {
-				return cookie_name[1];
-			}
-		}
-	}
-	return;
-}
-function openPopup(url) {
-	var cookieCheck = getCookie("popupYN");
-	if (cookieCheck != "N")
-		window.open(url, '', 'width=450,height=750,left=0,top=0')
-}
 
    // === 베스트 공모전 캐러셀 ===
    $(document).ready(function () {
@@ -199,7 +176,7 @@ function openPopup(url) {
 	
 </script>
 </head>
-<body  onload="javascript:openPopup('${pageContext.request.contextPath}/event/pop.do')">
+<body>
    <jsp:include page="key/top.jsp" flush="false"/>
    <script src="/js/jquery.justifiedGallery.js"></script>
    
