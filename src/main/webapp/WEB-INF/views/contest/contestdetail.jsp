@@ -84,6 +84,20 @@
 		var loginInfo = "${sessionScope.loginInfo}";
 		var adminInfo = "${sessionScope.adminInfo}";
 		
+		$("#enrollimage").on("click",function(){
+			if(loginInfo =="" && adminInfo==""){
+				alert("로그인 후 이용해주세요");
+				$("#gotologin").click(); 
+			}else{
+				location.href="${pageContext.request.contextPath}/contest/enrollList?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}&currentPage=1" 
+			}
+		})
+		
+		
+		
+		
+		
+		
 		$("#upload").on("click",function(){
 			var today = new Date();
 			var dd = today.getDate();
@@ -113,10 +127,7 @@
 			}
 						
 		})
-		
-		$("#enrollimage").on("click",function(){
-			location.href="${pageContext.request.contextPath}/contest/enrollList?title=${contestDto.title}&contest_seq=${contestDto.contest_seq}&currentPage=1" 
-		});
+	
 		
 		$("#back").on("click",function(){
 			location.href="${pageContext.request.contextPath}/contest/contest.do"
